@@ -384,10 +384,34 @@ def owner_lock(path: Path):
         yield
 
 
+@contextlib.contextmanager
+def adapter_output_files():
+    # A full persistent filesystem must not prevent the resource observation
+    # that explains why work cannot be admitted. Anonymous files remain private.
+    directories = [None]
+    if sys.platform == "linux" and Path("/dev/shm").is_dir():
+        directories.append("/dev/shm")
+    output = errors = None
+    for directory in directories:
+        try:
+            output = tempfile.TemporaryFile(dir=directory)
+            errors = tempfile.TemporaryFile(dir=directory)
+            break
+        except OSError as error:
+            if output is not None:
+                output.close()
+            output = errors = None
+            if directory is not None or len(directories) == 1 or error.errno not in {errno.ENOSPC, errno.EDQUOT, errno.ENOENT}:
+                raise
+    try:
+        yield output, errors
+    finally:
+        errors.close()
+        output.close()
+
+
 def call_adapter(argv: list[str], operation: str, request: dict[str, Any], timeout: int) -> dict[str, Any]:
-    # Temporary files keep a noisy/malformed adapter from growing RAM without
-    # bound; the process contract itself is also subject to native host limits.
-    with tempfile.TemporaryFile() as output, tempfile.TemporaryFile() as errors:
+    with adapter_output_files() as (output, errors):
         result = subprocess.run([*argv, operation], input=json.dumps(request).encode(), stdout=output, stderr=errors, timeout=timeout, check=False)
         if result.returncode != 0:
             raise ContractError(f"native adapter {operation} failed with exit {result.returncode}; inspect native host logs")

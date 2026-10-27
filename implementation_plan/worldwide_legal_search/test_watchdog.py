@@ -19,6 +19,25 @@ HERE = Path(__file__).resolve().parent
 
 
 class WatchdogScenarios(unittest.TestCase):
+    def test_adapter_observes_resource_pressure_when_persistent_temp_is_unusable(self):
+        original = tempfile.TemporaryFile
+        for failure in (errno.ENOSPC, errno.EDQUOT, errno.ENOENT):
+            with self.subTest(errno=failure):
+                def capture(*args, **kwargs):
+                    if kwargs.get("dir") != "/dev/shm":
+                        raise OSError(failure, "persistent temporary storage unavailable")
+                    return original(*args, **kwargs)
+                with patch.object(w.tempfile, "TemporaryFile", side_effect=capture), patch.object(w.sys, "platform", "linux"):
+                    result = w.call_adapter([sys.executable, "-c", "import json,sys; json.load(sys.stdin); print(json.dumps({'blocked_kind':'resource_quota'}))"], "observe", {}, 5)
+                self.assertEqual(result, {"blocked_kind": "resource_quota"})
+
+    def test_adapter_temp_fallback_does_not_hide_unrelated_failures(self):
+        with patch.object(w.tempfile, "TemporaryFile", side_effect=PermissionError(errno.EACCES, "denied")) as create:
+            with self.assertRaises(PermissionError):
+                with w.adapter_output_files():
+                    self.fail("capture must not be admitted")
+        self.assertEqual(create.call_count, 1)
+
     def setUp(self):
         self.policy = json.loads((HERE / "watchdog.policy.json").read_text())
         self.now = 10_000
