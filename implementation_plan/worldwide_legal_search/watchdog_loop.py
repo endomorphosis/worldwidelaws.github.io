@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import contextlib
+import errno
 import fcntl
 import hashlib
 import json
@@ -22,7 +23,7 @@ import time
 from typing import Any
 
 HERE = Path(__file__).resolve().parent
-EXTERNAL = {"credentials", "permission", "source_unavailable", "rights", "budget"}
+EXTERNAL = {"credentials", "permission", "source_unavailable", "rights", "budget", "resource_quota"}
 BINDINGS = {"task_source", "lifecycle_restart", "rescue_planner", "rescue_orchestrator", "route_policy", "independent_validation", "validated_promotion", "incident_deduplication", "meaningful_progress"}
 NATIVE_REPAIR_BINDINGS = (BINDINGS - {"rescue_planner", "rescue_orchestrator"}) | {"repair_dispatch", "scoped_repair_admission", "exclusive_effect_ownership", "repair_canary_verified"}
 MAX_BYTES = 1_048_576
@@ -225,6 +226,8 @@ def decide(snapshot: dict[str, Any], state: dict[str, Any], policy: dict[str, An
 
     if snapshot["hold"]:
         return passive("held", "native_pause_or_hold")
+    if snapshot["blocked_kind"] == "resource_quota":
+        return passive("blocked", "external_resource_quota", resource_pressure=snapshot.get("resource_pressure", {}))
     reconcile_action_observations(snapshot, state, policy, now)
     pending = state.get("outbox")
     inflight = state["inflight"]
@@ -433,7 +436,7 @@ def acknowledge(state: dict[str, Any], result: dict[str, Any], policy: dict[str,
         state["outbox"] = None
 
 
-def main(argv: list[str] | None = None) -> int:
+def _run_main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--policy", type=Path, default=HERE / "watchdog.policy.json")
     parser.add_argument("--plan", type=Path, default=HERE / "plan.json")
@@ -458,7 +461,10 @@ def main(argv: list[str] | None = None) -> int:
         run_id = ""
         if command:
             ready = call_adapter(command, "ready", request, policy["adapter_timeout_seconds"])
-            run_id = ready_check(ready, plan, policy, require_execution=args.execute)
+            run_id = ready_check(ready, plan, policy, require_execution=False)
+            if isinstance(ready.get("resource_pressure"), dict) and ready["resource_pressure"].get("blocked") is True:
+                print(json.dumps({"schema": "wwl.watchdog.report@1", "status": "blocked", "reason": "external_resource_quota", "resource_pressure": ready["resource_pressure"], "completion_authority": False}), flush=True)
+                return 0 if args.once else 75
             request["required_task_ids"] = ready["required_task_ids"]
             request["admitted_plan_revision"] = ready["admitted_plan_revision"]
         # Observation-only operation holds no write lock and writes no state.
@@ -469,7 +475,22 @@ def main(argv: list[str] | None = None) -> int:
                 state_check(state, policy, run_id)
                 if not set(state["required_task_ids"]) <= set(request["required_task_ids"]):
                     raise ContractError("native readiness pruned required tasks recorded before restart")
+            refresh_readiness = False
             while True:
+                if command and refresh_readiness:
+                    refreshed = call_adapter(command, "ready", {**request, "operation": "ready"}, policy["adapter_timeout_seconds"])
+                    if ready_check(refreshed, plan, policy, require_execution=False) != run_id or not set(request["required_task_ids"]) <= set(refreshed["required_task_ids"]):
+                        raise ContractError("native readiness changed run identity or pruned admitted work")
+                    ready = refreshed
+                    if isinstance(ready.get("resource_pressure"), dict) and ready["resource_pressure"].get("blocked") is True:
+                        print(json.dumps({"schema": "wwl.watchdog.report@1", "run_id": run_id, "status": "blocked", "reason": "external_resource_quota", "resource_pressure": ready["resource_pressure"], "completion_authority": False}), flush=True)
+                        return 0 if args.once else 75
+                execution_ready, capability_reason = True, ""
+                if command and args.execute:
+                    try:
+                        ready_check(ready, plan, policy, require_execution=True)
+                    except ContractError as error:
+                        execution_ready, capability_reason = False, str(error)
                 request.update(operation="observe", run_id=run_id)
                 request["action_ids"] = unsettled_action_ids(state) if state else []
                 snapshot = call_adapter(command, "observe", request, policy["adapter_timeout_seconds"]) if command else read_json(args.snapshot)
@@ -480,16 +501,43 @@ def main(argv: list[str] | None = None) -> int:
                     raise ContractError("native observation changed run identity")
                 if command and (snapshot.get("required_task_ids") != request["required_task_ids"] or snapshot.get("admitted_plan_revision") != request["admitted_plan_revision"]):
                     refreshed = call_adapter(command, "ready", request, policy["adapter_timeout_seconds"])
-                    if ready_check(refreshed, plan, policy, require_execution=args.execute) != run_id or not set(request["required_task_ids"]) <= set(refreshed["required_task_ids"]) or snapshot.get("required_task_ids") != refreshed["required_task_ids"] or snapshot.get("admitted_plan_revision") != refreshed["admitted_plan_revision"]:
+                    if ready_check(refreshed, plan, policy, require_execution=False) != run_id or not set(request["required_task_ids"]) <= set(refreshed["required_task_ids"]) or snapshot.get("required_task_ids") != refreshed["required_task_ids"] or snapshot.get("admitted_plan_revision") != refreshed["admitted_plan_revision"]:
                         raise ContractError("native source expansion changed run identity, pruned work or lacks current evidence")
                     request["required_task_ids"] = refreshed["required_task_ids"]
                     request["admitted_plan_revision"] = refreshed["admitted_plan_revision"]
+                    ready = refreshed
+                    if args.execute:
+                        try:
+                            ready_check(ready, plan, policy, require_execution=True)
+                            execution_ready, capability_reason = True, ""
+                        except ContractError as error:
+                            execution_ready, capability_reason = False, str(error)
                 state = state if state is not None else initial_state(policy, snapshot["run_id"], now)
-                before = json.loads(json.dumps(state)) if not args.execute else None
+                before = json.loads(json.dumps(state))
                 report = decide(snapshot, state, policy, now)
-                if args.execute:
+                capability_wait = False
+                if args.execute and command and report.get("action"):
+                    kind = report["action"]["kind"]
+                    bound = execution_ready or (kind != "repair" and ready["bindings"].get({"reconcile": "reconcile", "recover": "lifecycle_restart"}[kind]) is True)
+                    if not bound:
+                        # Observation and already-authorized lifecycle work
+                        # remain possible while an asynchronous repair canary
+                        # refreshes. Do not charge a new unavailable operation.
+                        state, capability_wait = before, True
+                        report = {"schema": "wwl.watchdog.report@1", "run_id": run_id, "status": "waiting", "reason": "native_execution_capabilities_pending", "requested_kind": kind, "capability_reason": capability_reason, "completion_authority": False}
+                elif args.execute and command and not execution_ready and report["status"] not in {"blocked", "held", "complete"}:
+                    report.update(status="waiting", native_observation_reason=report["reason"], reason="native_execution_capabilities_pending", capability_reason=capability_reason)
+                if args.execute and not capability_wait:
                     # Write-ahead persistence includes charged action budgets.
-                    atomic_save(args.state, state)
+                    try:
+                        atomic_save(args.state, state)
+                    except OSError as error:
+                        if error.errno not in {errno.ENOSPC, errno.EDQUOT}:
+                            raise
+                        state = before
+                        report = {"schema": "wwl.watchdog.report@1", "run_id": snapshot["run_id"], "status": "blocked", "reason": "external_resource_quota", "error_errno": error.errno, "state_preserved": True, "completion_authority": False}
+                    else:
+                        persisted = json.loads(json.dumps(state))
                     if report.get("action"):
                         try:
                             result = call_adapter(command, "dispatch", report["action"], policy["adapter_timeout_seconds"])
@@ -498,8 +546,17 @@ def main(argv: list[str] | None = None) -> int:
                         except (OSError, ValueError, subprocess.TimeoutExpired) as exc:
                             report["dispatch_status"] = "unknown"
                             report["dispatch_error_class"] = type(exc).__name__
-                        atomic_save(args.state, state)
-                else:
+                        try:
+                            atomic_save(args.state, state)
+                        except OSError as error:
+                            if error.errno not in {errno.ENOSPC, errno.EDQUOT}:
+                                raise
+                            # The write-ahead outbox is already durable. Keep
+                            # it uncertain until native observation, rather
+                            # than repeating an effect or refunding its budget.
+                            state = persisted
+                            report = {"schema": "wwl.watchdog.report@1", "run_id": snapshot["run_id"], "status": "blocked", "reason": "external_resource_quota", "error_errno": error.errno, "state_preserved": True, "effects_unknown": True, "completion_authority": False}
+                elif not args.execute:
                     report["observation_only"] = True
                     report["fixture"] = bool(args.snapshot)
                     if report.get("action"):
@@ -512,11 +569,25 @@ def main(argv: list[str] | None = None) -> int:
                 if report["status"] == "blocked" and report["reason"].endswith("budget_exhausted"):
                     return 3
                 if args.once:
-                    return 3 if report["status"] == "blocked" else 0
+                    return 3 if report["status"] == "blocked" and report["reason"] != "external_resource_quota" else 0
                 time.sleep(policy["poll_seconds"])
+                refresh_readiness = True
     except (OSError, ValueError, KeyError, subprocess.TimeoutExpired) as exc:
+        if isinstance(exc, OSError) and exc.errno in {errno.ENOSPC, errno.EDQUOT}:
+            print(json.dumps({"schema": "wwl.watchdog.report@1", "status": "blocked", "reason": "external_resource_quota", "error_errno": exc.errno, "state_preserved": True, "completion_authority": False}), flush=True)
+            return 0 if args.once else 75
         print(json.dumps({"schema": "wwl.watchdog.error@1", "error": str(exc), "completion_authority": False}), file=sys.stderr)
         return 2
+
+
+def main(argv: list[str] | None = None) -> int:
+    while True:
+        result = _run_main(argv)
+        if result != 75:
+            return result
+        # Resource pressure may prevent even creating an owner lock. Stay in
+        # this process and retry admission without consuming service restarts.
+        time.sleep(30)
 
 
 if __name__ == "__main__":

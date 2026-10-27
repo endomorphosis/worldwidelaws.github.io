@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import copy
 import contextlib
+import errno
 import io
 import json
 from pathlib import Path
@@ -35,6 +36,10 @@ class WatchdogScenarios(unittest.TestCase):
         self.state = w.initial_state(self.policy, "test-run", self.now - 2000)
         self.state.update(progress_token=self.snapshot["progress_token"], last_progress_at=self.now - 100)
 
+    def native_ready(self):
+        plan = json.loads((HERE / "plan.json").read_text())
+        return {"schema": "wwl.watchdog.ready@1", "policy_id": self.policy["policy_id"], "run_id": "test-run", "native_revision": "accepted-code", "admitted_plan_revision": "plan-1", "readiness_receipt": "native:bootstrap", "repository": plan["product"]["repository"], "required_task_ids": [task["id"] for task in plan["tasks"]], "bindings": {key: True for key in w.BINDINGS}}
+
     def poll(self, offset=0):
         now = self.now + offset
         self.snapshot["observed_at"] = now
@@ -49,6 +54,141 @@ class WatchdogScenarios(unittest.TestCase):
     def test_bounded_active_work_is_healthy(self):
         self.assertEqual(self.poll()["status"], "healthy")
         self.assertEqual(self.state["actions"], 0)
+
+    def test_resource_pressure_blocks_mutation_even_with_independent_ready_work_and_unknown_effects(self):
+        self.snapshot.update(blocked_kind="resource_quota", effects_unknown=True, runnable_count=2,
+            resource_pressure={"blocked": True, "paths": [{"path": "/state", "free_bytes": 0, "minimum_free_bytes": 64 * 1024**2}]})
+        for offset in (0, 30, 60, 1000):
+            result = self.poll(offset)
+            self.assertEqual(result["reason"], "external_resource_quota")
+            self.assertNotIn("action", result)
+        self.assertEqual(self.state["actions"], 0)
+        self.assertEqual(self.state["repairs"], 0)
+
+    def test_enospc_during_atomic_state_write_preserves_prior_state(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "watchdog.json"
+            original = b'{"durable":"original"}\n'
+            path.write_bytes(original)
+            with patch.object(w.os, "fsync", side_effect=OSError(errno.ENOSPC, "storage full")):
+                with self.assertRaises(OSError):
+                    w.atomic_save(path, self.state)
+            self.assertEqual(path.read_bytes(), original)
+            self.assertEqual(list(path.parent.glob(".wwl-watchdog-*")), [])
+
+    def test_resource_ready_block_stays_observational_without_dispatch_or_state_write(self):
+        blocked = {**self.native_ready(), "resource_pressure": {"blocked": True, "paths": [{"path": "/state", "free_bytes": 0}]}}
+        with patch.object(w, "call_adapter", return_value=blocked) as adapter, patch.object(w, "atomic_save") as saved, contextlib.redirect_stdout(io.StringIO()) as output:
+            code = w.main(["--adapter-argv-json", '["native-fixture"]', "--execute", "--once"])
+        self.assertEqual(code, 0)
+        self.assertEqual(adapter.call_count, 1)
+        saved.assert_not_called()
+        self.assertEqual(json.loads(output.getvalue())["reason"], "external_resource_quota")
+
+    def test_resource_admission_retry_does_not_exit_or_use_service_restarts(self):
+        with patch.object(w, "_run_main", side_effect=[75, 75, 0]) as run, patch.object(w.time, "sleep") as sleep:
+            self.assertEqual(w.main(["--once"]), 0)
+        self.assertEqual(run.call_count, 3)
+        self.assertEqual(sleep.call_count, 2)
+
+    def test_enospc_before_write_ahead_prevents_dispatch_and_preserves_old_state(self):
+        ready = self.native_ready()
+        self.snapshot.update(blocked_kind="software_defect", failure_key="defect", reproducer_receipt="native:reproducer")
+        self.confirmed()
+        snapshot = {**self.snapshot, "observed_at": self.now + 361, "heartbeat_at": self.now + 361, "required_task_ids": ready["required_task_ids"]}
+        def adapter(argv, operation, request, timeout):
+            self.assertNotEqual(operation, "dispatch")
+            return ready if operation == "ready" else snapshot
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "watchdog.json"
+            w.atomic_save(path, self.state)
+            before = path.read_bytes()
+            with patch.object(w, "call_adapter", side_effect=adapter), patch.object(w, "atomic_save", side_effect=OSError(errno.ENOSPC, "full")), patch.object(w.time, "time", return_value=self.now + 361), contextlib.redirect_stdout(io.StringIO()) as output:
+                self.assertEqual(w.main(["--adapter-argv-json", '["native-fixture"]', "--state", str(path), "--execute", "--once"]), 0)
+            self.assertEqual(path.read_bytes(), before)
+            self.assertEqual(json.loads(output.getvalue())["reason"], "external_resource_quota")
+
+    def test_enospc_after_dispatch_retains_charged_durable_unknown_outbox(self):
+        ready = self.native_ready()
+        self.snapshot.update(blocked_kind="software_defect", failure_key="defect", reproducer_receipt="native:reproducer")
+        original = self.confirmed()["action"]
+        snapshot = {**self.snapshot, "observed_at": self.now + 361, "heartbeat_at": self.now + 361, "required_task_ids": ready["required_task_ids"]}
+        dispatched, saves = [], [0]
+        save = w.atomic_save
+        def store(path, state):
+            saves[0] += 1
+            if saves[0] > 1: raise OSError(errno.ENOSPC, "full after dispatch")
+            save(path, state)
+        def adapter(argv, operation, request, timeout):
+            if operation == "ready": return ready
+            if operation == "observe": return snapshot
+            dispatched.append(request)
+            return {"schema": "wwl.watchdog.action-result@1", "action_id": request["action_id"], "status": "accepted", "receipt": "native:accepted", "deadline_at": request["issued_at"] + 120}
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "watchdog.json"
+            save(path, self.state)
+            with patch.object(w, "call_adapter", side_effect=adapter), patch.object(w, "atomic_save", side_effect=store), patch.object(w.time, "time", return_value=self.now + 361), contextlib.redirect_stdout(io.StringIO()) as output:
+                self.assertEqual(w.main(["--adapter-argv-json", '["native-fixture"]', "--state", str(path), "--execute", "--once"]), 0)
+            durable = w.read_json(path)
+        self.assertEqual(len(dispatched), 1)
+        self.assertEqual(durable["actions"], 2)
+        self.assertEqual(durable["outbox"]["action_id"], dispatched[0]["action_id"])
+        self.assertIn(original["action_id"], durable["uncertain_actions"])
+        self.assertTrue(json.loads(output.getvalue())["effects_unknown"])
+
+    def test_stale_canary_waits_in_same_process_then_reprobes_without_charging_repairs(self):
+        ready, clock, seen, dispatched = self.native_ready(), [self.now], [0], []
+        stale = copy.deepcopy(ready)
+        stale["bindings"].update(rescue_planner=False, rescue_orchestrator=False)
+        def adapter(argv, operation, request, timeout):
+            if operation == "ready":
+                seen[0] += 1
+                return stale if seen[0] <= 3 else ready
+            if operation == "dispatch":
+                self.assertGreaterEqual(seen[0], 4)
+                dispatched.append(request)
+                return {"schema": "wwl.watchdog.action-result@1", "action_id": request["action_id"], "status": "blocked", "receipt": "native:verified-no-effect-refusal"}
+            snapshot = copy.deepcopy(self.snapshot)
+            snapshot.update(observed_at=clock[0], heartbeat_at=clock[0], required_task_ids=ready["required_task_ids"], blocked_kind="software_defect", failure_key="defect", reproducer_receipt="native:reproducer")
+            if seen[0] >= 5:
+                snapshot.update(completion_verified=True, completion_receipt="native:root-proof", task_id="", runnable_count=0, verified_task_ids=ready["required_task_ids"])
+            self.assertLess(seen[0], 6)
+            return snapshot
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "watchdog.json"
+            with patch.object(w, "call_adapter", side_effect=adapter), patch.object(w.time, "time", side_effect=lambda: clock[0]), patch.object(w.time, "sleep", side_effect=lambda seconds: clock.__setitem__(0, clock[0] + seconds)), contextlib.redirect_stdout(io.StringIO()) as output:
+                self.assertEqual(w.main(["--adapter-argv-json", '["native-fixture"]', "--state", str(path), "--execute"]), 0)
+            state = w.read_json(path)
+            reports = [json.loads(line) for line in output.getvalue().splitlines()]
+        self.assertTrue(all(report["status"] == "waiting" for report in reports[:3]))
+        self.assertEqual(len(dispatched), 1)
+        self.assertEqual((state["actions"], state["repairs"]), (1, 1))
+
+    def test_stale_repair_canary_does_not_block_mandatory_registered_reload(self):
+        ready = self.native_ready()
+        ready["bindings"].update(rescue_planner=False, rescue_orchestrator=False)
+        self.snapshot.update(blocked_kind="software_defect", failure_key="defect", reproducer_receipt="native:reproducer")
+        repair = self.confirmed()["action"]
+        self.acknowledge_action(repair)
+        snapshot = copy.deepcopy(self.snapshot)
+        snapshot.update(observed_at=self.now + 361, heartbeat_at=self.now + 361, required_task_ids=ready["required_task_ids"], action_observations=[{
+            "schema": "wwl.watchdog.action-observation@1", "action_id": repair["action_id"], "status": "running", "effects_verified": True,
+            "receipt": "native:validated-promotion", "deadline_at": repair["issued_at"] + 120, "requires_fenced_reload": True,
+            "candidate_promotion_verified": True, "recovery_verified": False, "expected_framework_revision": "a" * 40, "original_failure_receipt": "native:reproducer"}])
+        dispatched = []
+        def adapter(argv, operation, request, timeout):
+            if operation == "ready": return ready
+            if operation == "observe": return snapshot
+            dispatched.append(request)
+            return {"schema": "wwl.watchdog.action-result@1", "action_id": request["action_id"], "status": "blocked", "receipt": "native:known-no-effect-fixture"}
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "watchdog.json"
+            w.atomic_save(path, self.state)
+            with patch.object(w, "call_adapter", side_effect=adapter), patch.object(w.time, "time", return_value=self.now + 361), contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(w.main(["--adapter-argv-json", '["native-fixture"]', "--state", str(path), "--execute", "--once"]), 0)
+        self.assertEqual(len(dispatched), 1)
+        self.assertEqual(dispatched[0]["kind"], "recover")
+        self.assertEqual(dispatched[0]["reload_after_action_id"], repair["action_id"])
 
     def test_fresh_heartbeat_does_not_mask_frozen_progress(self):
         self.state["last_progress_at"] = self.now - 1300
