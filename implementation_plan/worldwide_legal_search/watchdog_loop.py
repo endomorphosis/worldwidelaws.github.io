@@ -66,6 +66,8 @@ def snapshot_check(value: dict[str, Any], now: float, policy: dict[str, Any]) ->
     for key in ("stage", "task_id", "failure_key", "reproducer_receipt", "completion_receipt"):
         if not isinstance(value.get(key), str) or len(value[key]) > 512:
             raise ContractError("invalid snapshot string: " + key)
+    if not isinstance(value.get("active_attempt_id", ""), str) or len(value.get("active_attempt_id", "")) > 512:
+        raise ContractError("invalid canonical active attempt identity")
     for key in ("hold", "completion_verified", "owner_alive", "owner_identity_verified", "dependency_running", "effects_unknown"):
         if type(value.get(key)) is not bool:
             raise ContractError("invalid snapshot boolean: " + key)
@@ -289,7 +291,12 @@ def decide(snapshot: dict[str, Any], state: dict[str, Any], policy: dict[str, An
         # observe revisions cannot reset the unknown-effect recovery bound.
         incident_id = unsettled["incident_id"]
     else:
-        incident_id = digest([snapshot["run_id"], snapshot["task_id"], snapshot["stage"], snapshot["failure_key"], reason])
+        identity_fields = [snapshot["run_id"], snapshot["task_id"], snapshot["stage"], snapshot["failure_key"], reason]
+        if snapshot.get("active_attempt_id"):
+            # A new canonical attempt owns a new bounded episode. Process
+            # restarts, observed roots and progress strings cannot mint one.
+            identity_fields.append({"active_attempt_id": snapshot["active_attempt_id"]})
+        incident_id = digest(identity_fields)
     incidents = state["incidents"]
     if incident_id not in incidents:
         if len(incidents) >= policy["max_incidents"]:
@@ -335,6 +342,8 @@ def decide(snapshot: dict[str, Any], state: dict[str, Any], policy: dict[str, An
               "previous_unacknowledged_action": pending["action_id"] if pending else ""}
     if reload_parent is not None and reason == "validated_repair_requires_fenced_reload":
         action.update(reload_after_action_id=reload_parent["action_id"], expected_framework_revision=reload_parent["expected_framework_revision"], original_failure_receipt=reload_parent["original_failure_receipt"])
+    if snapshot.get("active_attempt_id"):
+        action["active_attempt_id"] = snapshot["active_attempt_id"]
     if pending:
         # Lost acknowledgements are not negative acknowledgements. Preserve
         # every superseded request until a native terminal observation settles
@@ -563,11 +572,11 @@ def _run_main(argv: list[str] | None = None) -> int:
                         # A preview must not pretend an effect was attempted.
                         state = before
                         report["status"] = "would_request_action"
+                if report["status"] == "blocked" and report["reason"].endswith("budget_exhausted"):
+                    report.update(monitoring_continues=not args.once, unsettled_action_ids=unsettled_action_ids(state))
                 print(json.dumps(report, sort_keys=True), flush=True)
                 if report["status"] == "complete":
                     return 0
-                if report["status"] == "blocked" and report["reason"].endswith("budget_exhausted"):
-                    return 3
                 if args.once:
                     return 3 if report["status"] == "blocked" and report["reason"] != "external_resource_quota" else 0
                 time.sleep(policy["poll_seconds"])

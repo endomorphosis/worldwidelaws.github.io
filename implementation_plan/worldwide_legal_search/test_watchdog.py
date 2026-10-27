@@ -334,6 +334,34 @@ class WatchdogScenarios(unittest.TestCase):
         self.assertEqual(third["incident_id"], first["incident_id"])
         self.assertEqual(self.state["actions"], 3)
 
+    def test_new_native_attempt_gets_episode_allowance_without_resetting_prior_or_campaign_budgets(self):
+        self.state["last_progress_at"] = self.now - 1300
+        self.snapshot["active_attempt_id"] = "attempt:one"
+        first = self.confirmed()["action"]
+        self.acknowledge_action(first, "blocked")
+        second = self.poll(361)["action"]
+        self.acknowledge_action(second, "blocked")
+        self.assertEqual(self.poll(1000)["reason"], "reconcile_incident_budget_exhausted")
+        self.snapshot.update(authority_revision="later-projection", owner_pid=99999)
+        self.assertEqual(self.poll(1030)["reason"], "reconcile_incident_budget_exhausted")
+        self.snapshot["active_attempt_id"] = "attempt:two"
+        self.assertEqual(self.poll(1060)["status"], "suspect")
+        self.assertEqual(self.poll(1090)["status"], "suspect")
+        action = self.poll(1120)["action"]
+        self.assertNotEqual(action["incident_id"], first["incident_id"])
+        self.assertEqual(action["active_attempt_id"], "attempt:two")
+        self.assertEqual(self.state["incidents"][first["incident_id"]]["reconcile"], 2)
+        self.assertEqual(self.state["incidents"][action["incident_id"]]["reconcile"], 1)
+        self.assertEqual(self.state["actions"], 3)
+
+    def test_absent_or_empty_native_attempt_retains_legacy_incident_digest(self):
+        self.state["last_progress_at"] = self.now - 1300
+        self.snapshot["active_attempt_id"] = ""
+        action = self.confirmed()["action"]
+        expected = w.digest(["test-run", "WWL-000", "implementation", "", "meaningful_progress_stalled"])
+        self.assertEqual(action["incident_id"], expected)
+        self.assertNotIn("active_attempt_id", action)
+
     def test_unregistered_or_other_unit_cannot_authorize_fence_escalation(self):
         self.register_host_fence("another-campaign.service")
         self.state["last_progress_at"] = self.now - 1300
@@ -357,6 +385,48 @@ class WatchdogScenarios(unittest.TestCase):
         self.assertEqual(result["reason"], "recover_incident_budget_exhausted")
         self.assertEqual(len(w.unsettled_action_ids(self.state)), 3)
         self.assertEqual(self.state["incidents"][first["incident_id"]]["recover"], 2)
+
+    def test_exhausted_incident_keeps_monitoring_and_accepts_later_native_settlement(self):
+        self.register_host_fence()
+        self.state["last_progress_at"] = self.now - 1300
+        first = self.confirmed()["action"]
+        self.poll(361)
+        self.poll(1000)
+        self.assertEqual(self.poll(2500)["reason"], "recover_incident_budget_exhausted")
+        unknown = w.unsettled_action_ids(self.state)
+        original_actions = self.state["actions"]
+        ready, clock, observations, dispatched = self.native_ready(), [self.now + 2500], [0], []
+        def adapter(argv, operation, request, timeout):
+            if operation == "ready": return ready
+            if operation == "dispatch":
+                dispatched.append(request)
+                self.assertNotEqual(request["incident_id"], first["incident_id"])
+                self.assertEqual(request["kind"], "repair")
+                return {"schema": "wwl.watchdog.action-result@1", "action_id": request["action_id"], "status": "blocked", "receipt": "native:known-no-effect-fixture"}
+            observations[0] += 1
+            snapshot = copy.deepcopy(self.snapshot)
+            snapshot.update(required_task_ids=ready["required_task_ids"], observed_at=clock[0], heartbeat_at=clock[0])
+            if observations[0] >= 2:
+                snapshot.update(task_id="WWL-002", stage="implementation", stage_deadline_at=clock[0] + 2000, progress_token="actual-new-native-task",
+                    blocked_kind="software_defect", failure_key="different-admitted-defect", reproducer_receipt="native:new-reproducer",
+                    action_observations=[{"schema": "wwl.watchdog.action-observation@1", "action_id": action_id, "status": "failed", "effects_verified": True, "receipt": "native:verified-later-fence:" + action_id} for action_id in unknown])
+            if observations[0] >= 5:
+                snapshot.update(completion_verified=True, completion_receipt="native:root-proof", task_id="", runnable_count=0, verified_task_ids=ready["required_task_ids"])
+            self.assertLess(observations[0], 6, "exhausted monitor did not continue to a verified later observation")
+            return snapshot
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "watchdog.json"
+            w.atomic_save(path, self.state)
+            with patch.object(w, "call_adapter", side_effect=adapter), patch.object(w.time, "time", side_effect=lambda: clock[0]), patch.object(w.time, "sleep", side_effect=lambda seconds: clock.__setitem__(0, clock[0] + seconds)), contextlib.redirect_stdout(io.StringIO()) as output:
+                self.assertEqual(w.main(["--adapter-argv-json", '["native-fixture"]', "--state", str(path), "--execute"]), 0)
+            state = w.read_json(path)
+        report = json.loads(output.getvalue().splitlines()[0])
+        self.assertEqual(report["reason"], "recover_incident_budget_exhausted")
+        self.assertTrue(report["monitoring_continues"])
+        self.assertEqual(state["incidents"][first["incident_id"]]["recover"], 2)
+        self.assertEqual(state["actions"], original_actions + 1)
+        self.assertEqual(len(dispatched), 1)
+        self.assertEqual(w.unsettled_action_ids(state), [])
 
     def test_all_lost_ack_ancestors_survive_reconciliation_and_loop_restart(self):
         self.snapshot.update(blocked_kind="software_defect", failure_key="defect", reproducer_receipt="native:reproducer")
