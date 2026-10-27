@@ -24,6 +24,7 @@ from typing import Any
 HERE = Path(__file__).resolve().parent
 EXTERNAL = {"credentials", "permission", "source_unavailable", "rights", "budget"}
 BINDINGS = {"task_source", "lifecycle_restart", "rescue_planner", "rescue_orchestrator", "route_policy", "independent_validation", "validated_promotion", "incident_deduplication", "meaningful_progress"}
+NATIVE_REPAIR_BINDINGS = (BINDINGS - {"rescue_planner", "rescue_orchestrator"}) | {"repair_dispatch", "scoped_repair_admission", "exclusive_effect_ownership", "repair_canary_verified"}
 MAX_BYTES = 1_048_576
 
 
@@ -102,6 +103,9 @@ def snapshot_check(value: dict[str, Any], now: float, policy: dict[str, Any]) ->
             raise ContractError("native terminal action outcome has unresolved effects")
         if item["status"] == "running" and (type(item.get("deadline_at")) not in (int, float) or not math.isfinite(item["deadline_at"]) or item["deadline_at"] < 0):
             raise ContractError("running native action lacks a bounded deadline")
+        if item.get("requires_fenced_reload"):
+            if item["status"] != "running" or item.get("candidate_promotion_verified") is not True or item.get("recovery_verified") is not False or not all(isinstance(item.get(key), str) and item[key] for key in ("expected_framework_revision", "original_failure_receipt")):
+                raise ContractError("repair reload handoff lacks native promotion evidence")
 
 
 def initial_state(policy: dict[str, Any], run_id: str, now: float) -> dict[str, Any]:
@@ -175,9 +179,14 @@ def reconcile_action_observations(snapshot: dict[str, Any], state: dict[str, Any
             state["inflight"].pop(action_id, None)
             if pending and pending["action_id"] == action_id:
                 state["outbox"] = None
+            parent = action.get("reload_after_action_id")
+            if item["status"] == "succeeded" and parent in state["inflight"]:
+                state["inflight"][parent]["reload_complete"] = True
         elif item["status"] == "running":
             deadline = action_deadline(action, item["deadline_at"], policy, now)
             state["inflight"][action_id] = {**action, "admission_receipt": item["receipt"], "deadline_at": min(deadline, action.get("deadline_at", deadline)), "outcome_unknown": False}
+            if item.get("requires_fenced_reload"):
+                state["inflight"][action_id].update({key: item[key] for key in ("requires_fenced_reload", "candidate_promotion_verified", "recovery_verified", "expected_framework_revision", "original_failure_receipt")})
             if pending and pending["action_id"] == action_id:
                 state["outbox"] = None
         elif action_id in state["inflight"]:
@@ -207,6 +216,7 @@ def decide(snapshot: dict[str, Any], state: dict[str, Any], policy: dict[str, An
     reconcile_action_observations(snapshot, state, policy, now)
     pending = state.get("outbox")
     inflight = state["inflight"]
+    reload_parent = next((action for action in inflight.values() if action["kind"] == "repair" and action.get("requires_fenced_reload") and not action.get("reload_complete") and not any(child.get("reload_after_action_id") == action["action_id"] for child in inflight.values())), None)
     if snapshot["completion_verified"] and not pending and not inflight:
         return passive("complete", "native_current_tree_completion_verified", receipt=snapshot["completion_receipt"])
     if snapshot["progress_token"] != state["progress_token"]:
@@ -219,6 +229,8 @@ def decide(snapshot: dict[str, Any], state: dict[str, Any], policy: dict[str, An
     reason, kind = "", ""
     if pending or snapshot["effects_unknown"]:
         reason, kind = "unknown_effects", "reconcile"
+    elif reload_parent is not None:
+        reason, kind = "validated_repair_requires_fenced_reload", "recover"
     elif any(not action.get("outcome_unknown") and now < action["deadline_at"] for action in inflight.values()):
         return passive("waiting", "native_action_in_progress", action_ids=list(inflight))
     elif inflight:
@@ -253,7 +265,7 @@ def decide(snapshot: dict[str, Any], state: dict[str, Any], policy: dict[str, An
     else:
         return passive("healthy", "bounded_work_in_progress")
 
-    unsettled = pending or next(iter(inflight.values()), None)
+    unsettled = pending or reload_parent or next(iter(inflight.values()), None)
     if unsettled:
         # A lost ACK keeps the ORIGINAL incident, so restart or changing
         # observe revisions cannot reset the unknown-effect recovery bound.
@@ -291,6 +303,8 @@ def decide(snapshot: dict[str, Any], state: dict[str, Any], policy: dict[str, An
               "accepted_tree": snapshot["accepted_tree"], "reproducer_receipt": snapshot["reproducer_receipt"],
               "issued_at": now, "unsettled_action_ids": list(dict.fromkeys([*inflight, *([pending["action_id"]] if pending else [])])),
               "previous_unacknowledged_action": pending["action_id"] if pending else ""}
+    if reload_parent is not None and reason == "validated_repair_requires_fenced_reload":
+        action.update(reload_after_action_id=reload_parent["action_id"], expected_framework_revision=reload_parent["expected_framework_revision"], original_failure_receipt=reload_parent["original_failure_receipt"])
     state["outbox"] = action
     return report("action_requested", reason, action=action)
 
@@ -360,9 +374,14 @@ def ready_check(ready: dict[str, Any], plan: dict[str, Any], policy: dict[str, A
     if not isinstance(ready.get("admitted_plan_revision"), str) or not ready["admitted_plan_revision"]:
         raise ContractError("native admitted plan revision is missing")
     bindings = ready.get("bindings")
-    required_bindings = BINDINGS if require_execution else {"task_source", "meaningful_progress", "independent_validation"}
+    use_native_repair = require_execution and isinstance(bindings, dict) and not all(bindings.get(k) is True for k in BINDINGS)
+    required_bindings = (NATIVE_REPAIR_BINDINGS if use_native_repair else BINDINGS) if require_execution else {"task_source", "meaningful_progress", "independent_validation"}
     if not isinstance(bindings, dict) or any(bindings.get(k) is not True for k in required_bindings):
         raise ContractError("native lifecycle, progress or validated repair binding is missing; complete WWL-004/005/102")
+    if use_native_repair:
+        pipeline = ready.get("repair_pipeline")
+        if not isinstance(pipeline, dict) or pipeline.get("schema") != "worldwide-legal-search.repair-pipeline@1" or pipeline.get("policy_id") != policy["policy_id"] or not pipeline.get("native_canary_receipt") or not pipeline.get("receipt_id"):
+            raise ContractError("native repair dispatcher pipeline lacks its verified canary receipt")
     return ready["run_id"]
 
 

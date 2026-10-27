@@ -252,6 +252,36 @@ class WatchdogScenarios(unittest.TestCase):
         with self.assertRaises(w.ContractError):
             w.ready_check(ready, plan, self.policy)
 
+    def test_native_dispatcher_pipeline_requires_verified_canary(self):
+        plan = json.loads((HERE / "plan.json").read_text())
+        ready = {"schema": "wwl.watchdog.ready@1", "policy_id": self.policy["policy_id"], "run_id": "test-run", "native_revision": "accepted-code", "admitted_plan_revision": "plan-1", "readiness_receipt": "native:bootstrap", "repository": plan["product"]["repository"], "required_task_ids": [t["id"] for t in plan["tasks"]], "bindings": {key: True for key in w.NATIVE_REPAIR_BINDINGS}}
+        ready["bindings"].update(rescue_planner=False, rescue_orchestrator=False)
+        with self.assertRaises(w.ContractError):
+            w.ready_check(ready, plan, self.policy)
+        ready["repair_pipeline"] = {"schema": "worldwide-legal-search.repair-pipeline@1", "policy_id": self.policy["policy_id"], "native_canary_receipt": "native:real-canary-completion", "receipt_id": "native:bound-pipeline"}
+        self.assertEqual(w.ready_check(ready, plan, self.policy), "test-run")
+
+    def test_promoted_repair_needs_separate_fenced_reload_and_native_settlement(self):
+        self.snapshot.update(blocked_kind="software_defect", failure_key="defect", reproducer_receipt="native:reproducer")
+        repair = self.confirmed()["action"]
+        w.acknowledge(self.state, {"schema": "wwl.watchdog.action-result@1", "action_id": repair["action_id"], "status": "accepted", "receipt": "native:repair-admitted", "deadline_at": self.now + 3000}, self.policy, self.now + 60)
+        promotion = {"schema": "wwl.watchdog.action-observation@1", "action_id": repair["action_id"], "status": "running", "effects_verified": False, "receipt": "native:validated-promotion", "deadline_at": self.now + 3000, "candidate_promotion_verified": True, "recovery_verified": False, "requires_fenced_reload": True, "expected_framework_revision": "accepted-fixed-revision", "original_failure_receipt": "native:reproducer"}
+        self.snapshot["action_observations"] = [promotion]
+        recovery = self.poll(361)["action"]
+        self.assertEqual(recovery["kind"], "recover")
+        self.assertEqual(recovery["reload_after_action_id"], repair["action_id"])
+        self.assertEqual(recovery["expected_framework_revision"], "accepted-fixed-revision")
+        w.acknowledge(self.state, {"schema": "wwl.watchdog.action-result@1", "action_id": recovery["action_id"], "status": "accepted", "receipt": "native:reload-admitted", "deadline_at": self.now + 480}, self.policy, self.now + 361)
+        self.assertEqual(self.poll(391)["reason"], "native_action_in_progress")
+        self.snapshot["action_observations"] = [promotion, {"schema": "wwl.watchdog.action-observation@1", "action_id": recovery["action_id"], "status": "succeeded", "effects_verified": True, "receipt": "native:owner-fenced-and-reloaded"}]
+        self.assertEqual(self.poll(421)["reason"], "native_action_in_progress")
+        self.assertTrue(self.state["inflight"][repair["action_id"]]["reload_complete"])
+        self.assertEqual(self.state["actions"], 2)
+        self.snapshot["action_observations"] = [{"schema": "wwl.watchdog.action-observation@1", "action_id": repair["action_id"], "status": "succeeded", "effects_verified": True, "receipt": "native:original-task-advanced-after-reload"}]
+        self.snapshot.update(blocked_kind="none", failure_key="", reproducer_receipt="")
+        self.poll(451)
+        self.assertEqual(self.state["inflight"], {})
+
     def test_owned_loop_lock_prevents_duplicate_driver(self):
         with tempfile.TemporaryDirectory() as directory:
             lock = Path(directory) / "watchdog.lock"
