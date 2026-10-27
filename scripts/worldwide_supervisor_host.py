@@ -71,6 +71,7 @@ def render(config):
                  "WorkingDirectory=" + str(ROOT).replace("%", "%%"), "UMask=0077",
                  "Environment=" + arg("PYTHONPATH=" + config["framework_root"]),
                  "Environment=PYTHONDONTWRITEBYTECODE=1", "Environment=PYTHONUNBUFFERED=1",
+                 "Environment=" + arg("IPFS_ACCELERATE_AGENT_ORCHESTRATION_DIR=" + str(Path.home() / ".ipfs_accelerate/agent_supervisor/orchestration")),
                  "Environment=" + arg("PATH=" + str(Path(config["python_executable"]).parent) + ":" + str(Path.home() / ".local/bin") + ":/usr/local/bin:/usr/bin:/bin"),
                  "ExecCondition=/usr/bin/test ! -e " + arg(state / "HOLD"),
                  "ExecStart=" + " ".join(arg(v) for v in commands[role]),

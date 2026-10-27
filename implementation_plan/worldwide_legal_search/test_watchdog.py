@@ -141,6 +141,104 @@ class WatchdogScenarios(unittest.TestCase):
         self.assertEqual(result["action"]["incident_id"], action["incident_id"])
         self.assertEqual(result["action"]["previous_unacknowledged_action"], action["action_id"])
 
+    def register_host_fence(self, unit="worldwide-legal-search-supervisor.service"):
+        self.snapshot["registered_host_lifecycle"] = {"unit": unit, "registered": True, "owner_identity_verified": True}
+
+    def acknowledge_action(self, action, status="accepted", now=None):
+        now = action["issued_at"] if now is None else now
+        receipt = {"schema": "wwl.watchdog.action-result@1", "action_id": action["action_id"], "status": status, "receipt": "native:bounded-admission"}
+        if status == "accepted":
+            receipt["deadline_at"] = action["issued_at"] + 120
+        w.acknowledge(self.state, receipt, self.policy, now)
+
+    def test_expired_worker_reconciliation_escalates_to_registered_host_fence(self):
+        self.register_host_fence()
+        self.state["last_progress_at"] = self.now - 1300
+        initial = self.confirmed()["action"]
+        self.acknowledge_action(initial)
+        self.assertEqual(self.poll(90)["status"], "waiting")
+        self.snapshot["authority_revision"] = "later-observation-same-frozen-worker"
+        self.assertEqual(self.poll(361)["status"], "suspect")
+        self.assertEqual(self.poll(391)["status"], "suspect")
+        action = self.poll(421)["action"]
+        self.assertEqual(action["kind"], "recover")
+        self.assertEqual(action["reason"], "reconciliation_requires_registered_host_fence")
+        self.assertEqual(action["incident_id"], initial["incident_id"])
+        self.assertIn(initial["action_id"], action["unsettled_action_ids"])
+        incident = self.state["incidents"][initial["incident_id"]]
+        self.assertEqual((incident["reconcile"], incident["recover"], incident["repair"]), (1, 1, 0))
+
+    def test_lost_reconciliation_ack_escalates_without_forgetting_unknown_effects(self):
+        self.register_host_fence()
+        self.state["last_progress_at"] = self.now - 1300
+        original = self.confirmed()["action"]
+        recover = self.poll(361)["action"]
+        self.assertEqual(recover["kind"], "recover")
+        self.assertIn(original["action_id"], self.state["uncertain_actions"])
+        self.acknowledge_action(recover)
+        self.snapshot["effects_unknown"] = True
+        result = self.poll(391)
+        self.assertEqual(result["status"], "waiting")
+        self.assertEqual(self.state["actions"], 2)
+        self.assertIn(original["action_id"], w.unsettled_action_ids(self.state))
+
+    def test_reconcile_budget_exhaustion_uses_separate_recovery_budget(self):
+        self.register_host_fence()
+        self.state["last_progress_at"] = self.now - 1300
+        first = self.confirmed()["action"]
+        self.acknowledge_action(first, "blocked")
+        second = self.poll(361)["action"]
+        self.acknowledge_action(second, "blocked")
+        third = self.poll(1000)["action"]
+        self.assertEqual(third["kind"], "recover")
+        self.assertEqual(third["incident_id"], first["incident_id"])
+        self.assertEqual(self.state["actions"], 3)
+
+    def test_unregistered_or_other_unit_cannot_authorize_fence_escalation(self):
+        self.register_host_fence("another-campaign.service")
+        self.state["last_progress_at"] = self.now - 1300
+        first = self.confirmed()["action"]
+        self.acknowledge_action(first, "blocked")
+        second = self.poll(361)["action"]
+        self.acknowledge_action(second, "blocked")
+        result = self.poll(1000)
+        self.assertEqual(result["reason"], "reconcile_incident_budget_exhausted")
+        self.assertNotIn("action", result)
+
+    def test_failed_acknowledgements_cannot_create_unlimited_host_restarts(self):
+        self.register_host_fence()
+        self.state["last_progress_at"] = self.now - 1300
+        first = self.confirmed()["action"]
+        recovery_one = self.poll(361)["action"]
+        recovery_two = self.poll(1000)["action"]
+        self.assertEqual(recovery_one["kind"], "recover")
+        self.assertEqual(recovery_two["kind"], "recover")
+        result = self.poll(2500)
+        self.assertEqual(result["reason"], "recover_incident_budget_exhausted")
+        self.assertEqual(len(w.unsettled_action_ids(self.state)), 3)
+        self.assertEqual(self.state["incidents"][first["incident_id"]]["recover"], 2)
+
+    def test_all_lost_ack_ancestors_survive_reconciliation_and_loop_restart(self):
+        self.snapshot.update(blocked_kind="software_defect", failure_key="defect", reproducer_receipt="native:reproducer")
+        original = self.confirmed()["action"]
+        reconciliation_one = self.poll(361)["action"]
+        reconciliation_two = self.poll(1000)["action"]
+        expected = {original["action_id"], reconciliation_one["action_id"], reconciliation_two["action_id"]}
+        self.assertEqual(set(w.unsettled_action_ids(self.state)), expected)
+        self.assertEqual(set(reconciliation_two["unsettled_action_ids"]), expected - {reconciliation_two["action_id"]})
+        self.assertFalse(any("admission_receipt" in value for value in self.state["uncertain_actions"].values()))
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "watchdog.json"
+            w.atomic_save(path, self.state)
+            self.state = w.read_json(path)
+        w.state_check(self.state, self.policy, "test-run")
+        self.assertEqual(set(w.unsettled_action_ids(self.state)), expected)
+        self.snapshot.update(completion_verified=True, completion_receipt="native:root-proof", task_id="", runnable_count=0, verified_task_ids=["WWL-000", "WWL-001"])
+        self.assertNotEqual(self.poll(1030)["status"], "complete")
+        self.snapshot["action_observations"] = [{"schema": "wwl.watchdog.action-observation@1", "action_id": action_id, "status": "succeeded", "effects_verified": True, "receipt": "native:verified-settlement:" + action_id} for action_id in expected]
+        self.assertEqual(self.poll(1060)["status"], "complete")
+        self.assertEqual(w.unsettled_action_ids(self.state), [])
+
     def test_retry_budget_persists_across_loop_restart(self):
         self.snapshot.update(blocked_kind="software_defect", failure_key="defect", reproducer_receipt="native:reproducer")
         result = self.confirmed()

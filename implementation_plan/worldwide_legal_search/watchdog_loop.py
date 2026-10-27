@@ -112,7 +112,7 @@ def initial_state(policy: dict[str, Any], run_id: str, now: float) -> dict[str, 
     return {"schema": "wwl.watchdog.state@1", "run_id": run_id, "policy_digest": digest(policy), "started_at": now,
             "last_progress_at": now, "progress_token": "", "required_task_ids": [], "admitted_plan_revision": "",
             "incidents": {}, "confirmation_incident_id": "", "actions": 0, "repairs": 0, "outbox": None,
-            "inflight": {}, "settled_actions": {}}
+            "inflight": {}, "uncertain_actions": {}, "settled_actions": {}}
 
 
 def state_check(state: dict[str, Any], policy: dict[str, Any], run_id: str) -> None:
@@ -133,12 +133,17 @@ def state_check(state: dict[str, Any], policy: dict[str, Any], run_id: str) -> N
         raise ContractError("invalid durable admitted task set")
     if not isinstance(state.get("confirmation_incident_id"), str):
         raise ContractError("invalid confirmation streak identity")
-    for field in ("inflight", "settled_actions"):
+    # Existing observation-only states have no uncertain operation records.
+    state.setdefault("uncertain_actions", {})
+    for field in ("inflight", "uncertain_actions", "settled_actions"):
         if not isinstance(state.get(field), dict) or len(state[field]) > policy["max_campaign_actions"]:
             raise ContractError("invalid durable action lifecycle state")
     for action_id, action in state["inflight"].items():
         if not isinstance(action, dict) or action.get("action_id") != action_id or action.get("run_id") != run_id or action.get("kind") not in {"reconcile", "recover", "repair"} or not action.get("admission_receipt") or type(action.get("deadline_at")) not in (int, float) or not math.isfinite(action["deadline_at"]) or action["deadline_at"] < 0:
             raise ContractError("invalid durable admitted action")
+    for action_id, action in state["uncertain_actions"].items():
+        if not isinstance(action, dict) or action.get("schema") != "wwl.watchdog.action@1" or action.get("action_id") != action_id or action.get("run_id") != run_id or action.get("kind") not in {"reconcile", "recover", "repair"} or type(action.get("issued_at")) not in (int, float) or not math.isfinite(action["issued_at"]):
+            raise ContractError("invalid durable uncertain action")
     for incident in state["incidents"].values():
         if not isinstance(incident, dict):
             raise ContractError("invalid durable incident")
@@ -167,16 +172,22 @@ def action_deadline(action: dict[str, Any], deadline: Any, policy: dict[str, Any
     return float(deadline)
 
 
+def unsettled_action_ids(state: dict[str, Any]) -> list[str]:
+    pending = state.get("outbox")
+    return list(dict.fromkeys([*state.get("uncertain_actions", {}), *state["inflight"], *([pending["action_id"]] if pending else [])]))
+
+
 def reconcile_action_observations(snapshot: dict[str, Any], state: dict[str, Any], policy: dict[str, Any], now: float) -> None:
     for item in snapshot.get("action_observations", []):
         action_id = item["action_id"]
         pending = state.get("outbox")
-        action = state["inflight"].get(action_id) or (pending if pending and pending["action_id"] == action_id else None)
+        action = state["inflight"].get(action_id) or state["uncertain_actions"].get(action_id) or (pending if pending and pending["action_id"] == action_id else None)
         if not action:
             continue
         if item["status"] in {"succeeded", "failed", "blocked"}:
             state["settled_actions"][action_id] = {"status": item["status"], "receipt": item["receipt"]}
             state["inflight"].pop(action_id, None)
+            state["uncertain_actions"].pop(action_id, None)
             if pending and pending["action_id"] == action_id:
                 state["outbox"] = None
             parent = action.get("reload_after_action_id")
@@ -185,6 +196,7 @@ def reconcile_action_observations(snapshot: dict[str, Any], state: dict[str, Any
         elif item["status"] == "running":
             deadline = action_deadline(action, item["deadline_at"], policy, now)
             state["inflight"][action_id] = {**action, "admission_receipt": item["receipt"], "deadline_at": min(deadline, action.get("deadline_at", deadline)), "outcome_unknown": False}
+            state["uncertain_actions"].pop(action_id, None)
             if item.get("requires_fenced_reload"):
                 state["inflight"][action_id].update({key: item[key] for key in ("requires_fenced_reload", "candidate_promotion_verified", "recovery_verified", "expected_framework_revision", "original_failure_receipt")})
             if pending and pending["action_id"] == action_id:
@@ -216,8 +228,9 @@ def decide(snapshot: dict[str, Any], state: dict[str, Any], policy: dict[str, An
     reconcile_action_observations(snapshot, state, policy, now)
     pending = state.get("outbox")
     inflight = state["inflight"]
+    uncertain = state["uncertain_actions"]
     reload_parent = next((action for action in inflight.values() if action["kind"] == "repair" and action.get("requires_fenced_reload") and not action.get("reload_complete") and not any(child.get("reload_after_action_id") == action["action_id"] for child in inflight.values())), None)
-    if snapshot["completion_verified"] and not pending and not inflight:
+    if snapshot["completion_verified"] and not pending and not inflight and not uncertain:
         return passive("complete", "native_current_tree_completion_verified", receipt=snapshot["completion_receipt"])
     if snapshot["progress_token"] != state["progress_token"]:
         state["progress_token"] = snapshot["progress_token"]
@@ -227,7 +240,9 @@ def decide(snapshot: dict[str, Any], state: dict[str, Any], policy: dict[str, An
         reset_confirmations(state)
 
     reason, kind = "", ""
-    if pending or snapshot["effects_unknown"]:
+    if (pending or uncertain or snapshot["effects_unknown"]) and any(action["kind"] in {"reconcile", "recover"} and not action.get("outcome_unknown") and now < action["deadline_at"] for action in inflight.values()):
+        return passive("waiting", "native_reconciliation_or_recovery_in_progress", action_ids=unsettled_action_ids(state))
+    if pending or uncertain or snapshot["effects_unknown"]:
         reason, kind = "unknown_effects", "reconcile"
     elif reload_parent is not None:
         reason, kind = "validated_repair_requires_fenced_reload", "recover"
@@ -265,7 +280,7 @@ def decide(snapshot: dict[str, Any], state: dict[str, Any], policy: dict[str, An
     else:
         return passive("healthy", "bounded_work_in_progress")
 
-    unsettled = pending or reload_parent or next(iter(inflight.values()), None)
+    unsettled = pending or reload_parent or next(iter(uncertain.values()), None) or next(iter(inflight.values()), None)
     if unsettled:
         # A lost ACK keeps the ORIGINAL incident, so restart or changing
         # observe revisions cannot reset the unknown-effect recovery bound.
@@ -288,6 +303,18 @@ def decide(snapshot: dict[str, Any], state: dict[str, Any], policy: dict[str, An
         return report("suspect", reason, incident_id=incident_id, confirmations=incident["confirmations"])
     if now < incident["next_action_at"]:
         return report("cooldown", reason, incident_id=incident_id, until=incident["next_action_at"])
+    host = snapshot.get("registered_host_lifecycle", {})
+    registered_fence = (isinstance(host, dict) and host.get("registered") is True
+        and host.get("unit") == "worldwide-legal-search-supervisor.service" and host.get("owner_identity_verified") is True)
+    recovery_seconds = policy["native_autonomous_unstall_policy"]["deadline_ms"] / 1000
+    prior_actions = [*inflight.values(), *uncertain.values(), *([pending] if pending else [])]
+    expired_reconciliation = any(action["kind"] == "reconcile" and (action.get("outcome_unknown") or now >= action.get("deadline_at", action["issued_at"] + recovery_seconds)) for action in prior_actions)
+    can_escalate = reason in {"unknown_effects", "native_action_unsettled_or_expired", "stage_deadline_expired", "heartbeat_stale", "meaningful_progress_stalled", "owner_identity_unverified"}
+    if kind == "reconcile" and registered_fence and can_escalate and (expired_reconciliation or incident["reconcile"] >= policy["max_reconcile_attempts_per_incident"]):
+        # A hung execution thread cannot consume its own reconcile queue.
+        # Keep the incident and uncertainty, but use the separately bounded
+        # registered host fence so a new owner can perform native recovery.
+        kind, reason = "recover", "reconciliation_requires_registered_host_fence"
     limit_key = {"reconcile": "max_reconcile_attempts_per_incident", "recover": "max_recovery_attempts_per_incident", "repair": "max_repairs_per_incident"}[kind]
     if incident[kind] >= policy[limit_key]:
         return report("blocked", kind + "_incident_budget_exhausted", incident_id=incident_id)
@@ -301,10 +328,15 @@ def decide(snapshot: dict[str, Any], state: dict[str, Any], policy: dict[str, An
               "action_id": digest([snapshot["run_id"], incident_id, state["actions"]]), "kind": kind, "reason": reason,
               "task_id": snapshot["task_id"], "stage": snapshot["stage"], "authority_revision": snapshot["authority_revision"],
               "accepted_tree": snapshot["accepted_tree"], "reproducer_receipt": snapshot["reproducer_receipt"],
-              "issued_at": now, "unsettled_action_ids": list(dict.fromkeys([*inflight, *([pending["action_id"]] if pending else [])])),
+              "issued_at": now, "unsettled_action_ids": unsettled_action_ids(state),
               "previous_unacknowledged_action": pending["action_id"] if pending else ""}
     if reload_parent is not None and reason == "validated_repair_requires_fenced_reload":
         action.update(reload_after_action_id=reload_parent["action_id"], expected_framework_revision=reload_parent["expected_framework_revision"], original_failure_receipt=reload_parent["original_failure_receipt"])
+    if pending:
+        # Lost acknowledgements are not negative acknowledgements. Preserve
+        # every superseded request until a native terminal observation settles
+        # it; a second reconciliation cannot erase the original operation.
+        uncertain[pending["action_id"]] = pending
     state["outbox"] = action
     return report("action_requested", reason, action=action)
 
@@ -439,7 +471,7 @@ def main(argv: list[str] | None = None) -> int:
                     raise ContractError("native readiness pruned required tasks recorded before restart")
             while True:
                 request.update(operation="observe", run_id=run_id)
-                request["action_ids"] = list(dict.fromkeys([*(state["inflight"] if state else []), *([state["outbox"]["action_id"]] if state and state["outbox"] else [])]))
+                request["action_ids"] = unsettled_action_ids(state) if state else []
                 snapshot = call_adapter(command, "observe", request, policy["adapter_timeout_seconds"]) if command else read_json(args.snapshot)
                 # Fixture-only observations use their recorded clock. They
                 # cannot authorize dispatch, and are deliberately single-pass.

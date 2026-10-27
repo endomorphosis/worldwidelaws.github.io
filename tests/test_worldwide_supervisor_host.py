@@ -35,6 +35,7 @@ class HostOwnershipTests(unittest.TestCase):
                 self.assertIn("StartLimitBurst=5", text)
                 self.assertIn("RestartPreventExitStatus=3 78", text)
                 self.assertIn("KillMode=control-group", text)
+                self.assertIn("IPFS_ACCELERATE_AGENT_ORCHESTRATION_DIR=", text)
                 self.assertNotIn("Restart=always", text)
             self.assertNotIn('"--execute"', units[host.UNITS["watchdog"]])
 
