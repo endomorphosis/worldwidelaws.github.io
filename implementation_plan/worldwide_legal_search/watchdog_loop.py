@@ -342,7 +342,7 @@ def call_adapter(argv: list[str], operation: str, request: dict[str, Any], timeo
     return value
 
 
-def ready_check(ready: dict[str, Any], plan: dict[str, Any], policy: dict[str, Any]) -> str:
+def ready_check(ready: dict[str, Any], plan: dict[str, Any], policy: dict[str, Any], *, require_execution: bool = True) -> str:
     if ready.get("schema") != "wwl.watchdog.ready@1" or ready.get("policy_id") != policy["policy_id"]:
         raise ContractError("native adapter policy handshake failed")
     for key in ("run_id", "native_revision", "readiness_receipt"):
@@ -360,7 +360,8 @@ def ready_check(ready: dict[str, Any], plan: dict[str, Any], policy: dict[str, A
     if not isinstance(ready.get("admitted_plan_revision"), str) or not ready["admitted_plan_revision"]:
         raise ContractError("native admitted plan revision is missing")
     bindings = ready.get("bindings")
-    if not isinstance(bindings, dict) or any(bindings.get(k) is not True for k in BINDINGS):
+    required_bindings = BINDINGS if require_execution else {"task_source", "meaningful_progress", "independent_validation"}
+    if not isinstance(bindings, dict) or any(bindings.get(k) is not True for k in required_bindings):
         raise ContractError("native lifecycle, progress or validated repair binding is missing; complete WWL-004/005/102")
     return ready["run_id"]
 
@@ -402,11 +403,11 @@ def main(argv: list[str] | None = None) -> int:
         command = json.loads(args.adapter_argv_json) if args.adapter_argv_json else []
         if args.adapter_argv_json and (not isinstance(command, list) or not command or not all(isinstance(v, str) and v and "\0" not in v for v in command)):
             raise ContractError("adapter argv must be a nonempty JSON string array")
-        request = {"schema": "wwl.watchdog.request@1", "operation": "ready", "policy_id": policy["policy_id"], "required_task_ids": [t["id"] for t in plan["tasks"]]}
+        request = {"schema": "wwl.watchdog.request@1", "operation": "ready", "policy_id": policy["policy_id"], "required_task_ids": [t["id"] for t in plan["tasks"]], "execution_requested": args.execute}
         run_id = ""
         if command:
             ready = call_adapter(command, "ready", request, policy["adapter_timeout_seconds"])
-            run_id = ready_check(ready, plan, policy)
+            run_id = ready_check(ready, plan, policy, require_execution=args.execute)
             request["required_task_ids"] = ready["required_task_ids"]
             request["admitted_plan_revision"] = ready["admitted_plan_revision"]
         # Observation-only operation holds no write lock and writes no state.
@@ -428,7 +429,7 @@ def main(argv: list[str] | None = None) -> int:
                     raise ContractError("native observation changed run identity")
                 if command and (snapshot.get("required_task_ids") != request["required_task_ids"] or snapshot.get("admitted_plan_revision") != request["admitted_plan_revision"]):
                     refreshed = call_adapter(command, "ready", request, policy["adapter_timeout_seconds"])
-                    if ready_check(refreshed, plan, policy) != run_id or not set(request["required_task_ids"]) <= set(refreshed["required_task_ids"]) or snapshot.get("required_task_ids") != refreshed["required_task_ids"] or snapshot.get("admitted_plan_revision") != refreshed["admitted_plan_revision"]:
+                    if ready_check(refreshed, plan, policy, require_execution=args.execute) != run_id or not set(request["required_task_ids"]) <= set(refreshed["required_task_ids"]) or snapshot.get("required_task_ids") != refreshed["required_task_ids"] or snapshot.get("admitted_plan_revision") != refreshed["admitted_plan_revision"]:
                         raise ContractError("native source expansion changed run identity, pruned work or lacks current evidence")
                     request["required_task_ids"] = refreshed["required_task_ids"]
                     request["admitted_plan_revision"] = refreshed["admitted_plan_revision"]

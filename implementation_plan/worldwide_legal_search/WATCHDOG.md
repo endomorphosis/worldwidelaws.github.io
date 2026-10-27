@@ -26,6 +26,8 @@ python3 implementation_plan/worldwide_legal_search/watchdog_loop.py \
 
 Omit `--execute` for observation-only operation with the same adapter. `--once` performs a single poll; ordinary operation polls every 30 seconds. A native adapter handshake is required before live execution and must advertise tested lifecycle/repair bindings and the exact task set. Missing adapters, stale observations or mismatched state fail with an actionable error. An invocation without either a snapshot or adapter does not start background work. A user-systemd service may manage the loop after bootstrap; its start condition must respect the native HOLD/STOP markers and it must not start another writer directly.
 
+During bootstrap, observation-only readiness requires canonical task-source access, meaningful-progress observation and independent validation visibility. Mutation capabilities may honestly remain false in this mode. `--execute` retains the complete recovery/promotion capability gate. This permits monitoring the native bootstrap without claiming automatic code repair is already installed.
+
 ## Wire protocol
 
 Invoke the supplied argv with one appended operation: `ready`, `observe`, or `dispatch`. Pass one UTF-8 JSON request on stdin; consume exactly one JSON object on stdout. Do not use a shell or put credentials in argv. Native logging belongs on stderr. Return at most 1 MiB. The adapter must bound its own execution; the loop also has a 60-second subprocess timeout. An adapter timeout during dispatch is an unknown effect, not a retryable negative acknowledgment.

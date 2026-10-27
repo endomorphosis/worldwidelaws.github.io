@@ -239,6 +239,7 @@ class WatchdogScenarios(unittest.TestCase):
         ready["bindings"]["rescue_orchestrator"] = False
         with self.assertRaises(w.ContractError):
             w.ready_check(ready, plan, self.policy)
+        self.assertEqual(w.ready_check(ready, plan, self.policy, require_execution=False), "test-run")
 
     def test_source_expansion_needs_a_bound_native_receipt(self):
         plan = json.loads((HERE / "plan.json").read_text())

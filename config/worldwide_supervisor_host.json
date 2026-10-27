@@ -1,0 +1,34 @@
+{
+  "schema": "worldwide-legal-search.host@1",
+  "site_root": "/home/barberb/worldwidelaws.github.io",
+  "framework_root": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework",
+  "state_root": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign",
+  "plan_path": "/home/barberb/worldwidelaws.github.io/implementation_plan/worldwide_legal_search/plan.json",
+  "python_executable": "/home/barberb/lift_coding/external/ipfs_datasets/.venv/bin/python",
+  "watchdog_execute": false,
+  "runtime_argv": [
+    "/home/barberb/lift_coding/external/ipfs_datasets/.venv/bin/python",
+    "-B", "-m", "ipfs_accelerate_py.agent_supervisor.project_adapters.worldwide_legal_search_runtime",
+    "run", "--config", "/home/barberb/worldwidelaws.github.io/config/worldwide_supervisor_host.json", "--once"
+  ],
+  "adapter_argv": [
+    "/home/barberb/lift_coding/external/ipfs_datasets/.venv/bin/python",
+    "-B", "-m", "ipfs_accelerate_py.agent_supervisor.project_adapters.worldwide_legal_search_watchdog",
+    "--repository", "/home/barberb/worldwidelaws.github.io",
+    "--state-root", "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign",
+    "--run-id", "worldwide-legal-search-v1"
+  ],
+  "allowed_workspace_roots": [
+    "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees"
+  ],
+  "provider": {
+    "grok_model": "grok-4.7",
+    "grok_bin": "/home/barberb/.local/bin/grok",
+    "codex_bin": "/usr/bin/codex",
+    "codex_model": "gpt-6.1-sol",
+    "codex_reasoning_effort": "high",
+    "fallback_policy": "grok_quota_auth_or_unavailable",
+    "codex_sandbox": "workspace-write",
+    "max_turns": 400
+  }
+}
