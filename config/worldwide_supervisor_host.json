@@ -5,18 +5,27 @@
   "state_root": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign",
   "plan_path": "/home/barberb/worldwidelaws.github.io/implementation_plan/worldwide_legal_search/plan.json",
   "python_executable": "/home/barberb/lift_coding/external/ipfs_datasets/.venv/bin/python",
-  "watchdog_execute": false,
+  "watchdog_execute": true,
   "runtime_argv": [
     "/home/barberb/lift_coding/external/ipfs_datasets/.venv/bin/python",
-    "-B", "-m", "ipfs_accelerate_py.agent_supervisor.project_adapters.worldwide_legal_search_runtime",
-    "run", "--config", "/home/barberb/worldwidelaws.github.io/config/worldwide_supervisor_host.json", "--once"
+    "-B",
+    "-m",
+    "ipfs_accelerate_py.agent_supervisor.project_adapters.worldwide_legal_search_runtime",
+    "run",
+    "--config",
+    "/home/barberb/worldwidelaws.github.io/config/worldwide_supervisor_host.json"
   ],
   "adapter_argv": [
     "/home/barberb/lift_coding/external/ipfs_datasets/.venv/bin/python",
-    "-B", "-m", "ipfs_accelerate_py.agent_supervisor.project_adapters.worldwide_legal_search_watchdog",
-    "--repository", "/home/barberb/worldwidelaws.github.io",
-    "--state-root", "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign",
-    "--run-id", "worldwide-legal-search-v1"
+    "-B",
+    "-m",
+    "ipfs_accelerate_py.agent_supervisor.project_adapters.worldwide_legal_search_watchdog",
+    "--repository",
+    "/home/barberb/worldwidelaws.github.io",
+    "--state-root",
+    "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign",
+    "--run-id",
+    "worldwide-legal-search-v1"
   ],
   "allowed_workspace_roots": [
     "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees"
@@ -30,5 +39,17 @@
     "fallback_policy": "grok_quota_auth_or_unavailable",
     "codex_sandbox": "workspace-write",
     "max_turns": 400
-  }
+  },
+  "repair_canary_receipt": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/repair-canary.json",
+  "repair_command": [
+    "/home/barberb/lift_coding/external/ipfs_datasets/.venv/bin/python",
+    "-B",
+    "-m",
+    "ipfs_accelerate_py.agent_supervisor.project_adapters.worldwide_legal_search_runtime",
+    "repair-once",
+    "--config",
+    "/home/barberb/worldwidelaws.github.io/config/worldwide_supervisor_host.json",
+    "--request",
+    "{request_path}"
+  ]
 }
