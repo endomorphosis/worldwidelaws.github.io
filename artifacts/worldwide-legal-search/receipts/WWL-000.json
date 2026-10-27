@@ -1,0 +1,110 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-000",
+  "title": "Record source revisions and preserve the existing website baseline",
+  "recorded_at": "2026-10-27T01:25:52Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "site_revision": "ba6390a65a210e493e122c1c7bae9bd2ba920c0d",
+  "site_tree": "d3e9b09e10407e93d141a0e779d755b96f109b00",
+  "site_branch": "implementation/wwl-000-46f8ba332279-attempt-1-1793063774",
+  "known_limitations": [
+    "node_modules is absent. tsc and jest are not on the sealed PATH, so the package build and Netherlands logic test cannot run. Dependencies were not installed.",
+    "No browser, Playwright, or embedding-worker run was performed.",
+    "Live Hugging Face was not contacted. The executed Netherlands search is the production fallback after remote fetch failed closed.",
+    "Keyword and hybrid rankings in this probe use no query embedding, so vector score is zero.",
+    "Logic proof fields are copied from the bundled JSON. netherlandsLogic.ts was not executed.",
+    "artifacts/ is gitignored, so the task receipt is present on disk and is not part of the site commit.",
+    "research.json still names older product and supervisor heads. Those pins were not rewritten.",
+    "This record does not claim native merge admission or campaign completion."
+  ],
+  "source_revisions": [
+    {
+      "role": "product_primary_checkout",
+      "path": "/home/barberb/worldwidelaws.github.io",
+      "head": "ba6390a65a210e493e122c1c7bae9bd2ba920c0d",
+      "tree": "d3e9b09e10407e93d141a0e779d755b96f109b00",
+      "branch": "agent/worldwide-legal-search-v1",
+      "committed_at": "2026-10-27T02:07:20+01:00",
+      "subject": "Wait through resource pressure and gate watchdog actions by capability",
+      "planning_inspection_head": "0793a9efefbee25e3ccaa08f5723556b33389350",
+      "planning_inspection_matches": false
+    },
+    {
+      "role": "native_supervisor_reference",
+      "path": "/home/barberb/ipfs_accelerate_py",
+      "head": "4852f419e93f620963708a0b327951d64f5de66f",
+      "tree": "02393f9f1fce82829744e5e5bd9a010c0d671103",
+      "branch": "main",
+      "committed_at": "2026-10-26T15:49:57-07:00",
+      "subject": "Merge pull request #298 from endomorphosis/codex/legal-ir-supervisor-watchdog-publication-20261026",
+      "planning_inspection_head": "e6c05aeccf73f1d9bf6f7d0a1a44931ad5fa0bd5",
+      "planning_inspection_matches": false
+    },
+    {
+      "role": "primary_datasets_reference",
+      "path": "/home/barberb/lift_coding/external/ipfs_datasets",
+      "head": "7ba681c2eea75ced6592254bf1125d10464b2c2b",
+      "tree": "64d62e15ac5ed087279d493f1f2c68a75faa7dce",
+      "branch": "main",
+      "committed_at": "2026-10-23T09:27:25+02:00",
+      "subject": "Pin published integrated accelerator and kit main snapshots",
+      "planning_inspection_head": "7ba681c2eea75ced6592254bf1125d10464b2c2b",
+      "planning_inspection_matches": true
+    },
+    {
+      "role": "secondary_datasets_reference",
+      "path": "/home/barberb/ipfs_datasets_py",
+      "head": "a2cf0577d8712424b1213b72f32cc3a93055b1ec",
+      "tree": "9fe04b9be23048e3d0f42a93cba96e6600d6fee2",
+      "branch": "unified-legal-scrapers-migration-2025-12-20",
+      "committed_at": "2025-12-22T19:26:10+01:00",
+      "subject": "feat: Enhance UnifiedWebScraper with improved candidate scoring and error handling for scraping methods",
+      "planning_inspection_head": "a2cf0577d8712424b1213b72f32cc3a93055b1ec",
+      "planning_inspection_matches": true
+    },
+    {
+      "role": "operational_framework_worktree",
+      "path": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework",
+      "head": "2e060d3c1b96d87c42783c1e9589f80654e4ba5c",
+      "tree": "b36513d9e210bbeb6098412a034a144397822938",
+      "branch": "agent/worldwide-legal-search-supervisor",
+      "committed_at": "2026-10-27T02:10:03+01:00",
+      "subject": "Harden campaign repair, state custody, native migration and resource recovery",
+      "planning_inspection_head": null,
+      "planning_inspection_matches": null
+    }
+  ],
+  "outputs": [
+    {
+      "path": "docs/worldwide/baseline.json",
+      "sha256": "a0672e7e8ae7019cb3a585d8dc95666410dbccd863ba809b2910b67ef65cb7a7",
+      "bytes": 79448
+    },
+    {
+      "path": "docs/worldwide/migration.md",
+      "sha256": "513bbceab280d04a6ce808dae8ed2af5fea3c41c846c7394168dcf22ac52182c",
+      "bytes": 12245
+    }
+  ],
+  "validation": {
+    "argv": [
+      "/usr/bin/python3.12",
+      "implementation_plan/worldwide_legal_search/validate_plan.py",
+      "--baseline-evidence",
+      "docs/worldwide/baseline.json"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_05b367a3f17f_569f67264290",
+    "exit_code": 0,
+    "evidence_sha256": "95ac9cf21c3c173455e4425ff13c5e28161a2a25057a09583da39d80f7a64190",
+    "output": "{\n  \"baseline_contract_valid\": true,\n  \"baseline_checks\": 10,\n  \"note\": \"Preexisting failures may be recorded; later release gates must pass.\"\n}\n"
+  },
+  "preservation": {
+    "unrelated_work_overwritten": false,
+    "protected_paths_modified_by_this_task": false,
+    "node_modules_installed": false,
+    "corpus_sample_rewritten": false
+  },
+  "note": "Independent native validation and merge admission are outside this writer. The daemon remains the completion authority."
+}

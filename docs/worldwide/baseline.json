@@ -1,0 +1,1793 @@
+{
+  "schema": "worldwide-legal-search.baseline@1",
+  "task_id": "WWL-000",
+  "recorded_at": "2026-10-27T01:25:52Z",
+  "site_revision": "ba6390a65a210e493e122c1c7bae9bd2ba920c0d",
+  "site_tree": "d3e9b09e10407e93d141a0e779d755b96f109b00",
+  "site_branch": "implementation/wwl-000-46f8ba332279-attempt-1-1793063774",
+  "site_worktree": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_05b367a3f17f_569f67264290",
+  "site_subject": "Wait through resource pressure and gate watchdog actions by capability",
+  "site_committed_at": "2026-10-27T02:07:20+01:00",
+  "site_dirty_before_outputs": [
+    "?? docs/worldwide/baseline.json",
+    "?? docs/worldwide/migration.md"
+  ],
+  "reference_revisions": [
+    {
+      "role": "product_primary_checkout",
+      "path": "/home/barberb/worldwidelaws.github.io",
+      "head": "ba6390a65a210e493e122c1c7bae9bd2ba920c0d",
+      "tree": "d3e9b09e10407e93d141a0e779d755b96f109b00",
+      "branch": "agent/worldwide-legal-search-v1",
+      "committed_at": "2026-10-27T02:07:20+01:00",
+      "subject": "Wait through resource pressure and gate watchdog actions by capability",
+      "planning_inspection_head": "0793a9efefbee25e3ccaa08f5723556b33389350",
+      "planning_inspection_matches": false
+    },
+    {
+      "role": "native_supervisor_reference",
+      "path": "/home/barberb/ipfs_accelerate_py",
+      "head": "4852f419e93f620963708a0b327951d64f5de66f",
+      "tree": "02393f9f1fce82829744e5e5bd9a010c0d671103",
+      "branch": "main",
+      "committed_at": "2026-10-26T15:49:57-07:00",
+      "subject": "Merge pull request #298 from endomorphosis/codex/legal-ir-supervisor-watchdog-publication-20261026",
+      "planning_inspection_head": "e6c05aeccf73f1d9bf6f7d0a1a44931ad5fa0bd5",
+      "planning_inspection_matches": false
+    },
+    {
+      "role": "primary_datasets_reference",
+      "path": "/home/barberb/lift_coding/external/ipfs_datasets",
+      "head": "7ba681c2eea75ced6592254bf1125d10464b2c2b",
+      "tree": "64d62e15ac5ed087279d493f1f2c68a75faa7dce",
+      "branch": "main",
+      "committed_at": "2026-10-23T09:27:25+02:00",
+      "subject": "Pin published integrated accelerator and kit main snapshots",
+      "planning_inspection_head": "7ba681c2eea75ced6592254bf1125d10464b2c2b",
+      "planning_inspection_matches": true
+    },
+    {
+      "role": "secondary_datasets_reference",
+      "path": "/home/barberb/ipfs_datasets_py",
+      "head": "a2cf0577d8712424b1213b72f32cc3a93055b1ec",
+      "tree": "9fe04b9be23048e3d0f42a93cba96e6600d6fee2",
+      "branch": "unified-legal-scrapers-migration-2025-12-20",
+      "committed_at": "2025-12-22T19:26:10+01:00",
+      "subject": "feat: Enhance UnifiedWebScraper with improved candidate scoring and error handling for scraping methods",
+      "planning_inspection_head": "a2cf0577d8712424b1213b72f32cc3a93055b1ec",
+      "planning_inspection_matches": true
+    },
+    {
+      "role": "operational_framework_worktree",
+      "path": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework",
+      "head": "2e060d3c1b96d87c42783c1e9589f80654e4ba5c",
+      "tree": "b36513d9e210bbeb6098412a034a144397822938",
+      "branch": "agent/worldwide-legal-search-supervisor",
+      "committed_at": "2026-10-27T02:10:03+01:00",
+      "subject": "Harden campaign repair, state custody, native migration and resource recovery",
+      "planning_inspection_head": null,
+      "planning_inspection_matches": null
+    }
+  ],
+  "dirty_paths": [
+    {
+      "repository_role": "native_supervisor_reference",
+      "repository_path": "/home/barberb/ipfs_accelerate_py",
+      "status": " M",
+      "path": "docs/fastmcp",
+      "relation": "unrelated",
+      "preserved": true,
+      "modified_by_wwl_000": false,
+      "protected_campaign_file": false,
+      "note": "Observed outside the WWL-000 writer. This task did not edit or revert it.",
+      "index_mode": "160000",
+      "index_object": "37301f9dee0f3642a7786cebfe685ed963299f69",
+      "kind": "gitlink",
+      "worktree_head": "5dd8cde2f9e5d9423fbaf2e6eb2e500693399cc4",
+      "head_gitlink": "37301f9dee0f3642a7786cebfe685ed963299f69"
+    },
+    {
+      "repository_role": "native_supervisor_reference",
+      "repository_path": "/home/barberb/ipfs_accelerate_py",
+      "status": " M",
+      "path": "ipfs_kit_py",
+      "relation": "unrelated",
+      "preserved": true,
+      "modified_by_wwl_000": false,
+      "protected_campaign_file": false,
+      "note": "Observed outside the WWL-000 writer. This task did not edit or revert it.",
+      "index_mode": "160000",
+      "index_object": "f84ea1d01dc9d5eea7ab3c564a3158b5b8984950",
+      "kind": "gitlink",
+      "worktree_head": "a1f4b23332a4e22d97d6c4e441fb5795e3eba2c8",
+      "head_gitlink": "f84ea1d01dc9d5eea7ab3c564a3158b5b8984950"
+    },
+    {
+      "repository_role": "native_supervisor_reference",
+      "repository_path": "/home/barberb/ipfs_accelerate_py",
+      "status": " M",
+      "path": "ipfs_model_manager_py",
+      "relation": "unrelated",
+      "preserved": true,
+      "modified_by_wwl_000": false,
+      "protected_campaign_file": false,
+      "note": "Observed outside the WWL-000 writer. This task did not edit or revert it.",
+      "index_mode": "160000",
+      "index_object": "f6151d2113f42e75ea7d83a1b2362fc97e55e44d",
+      "kind": "gitlink",
+      "worktree_head": "4f99e470d12f45f3918128dec2610e1685564ffb",
+      "head_gitlink": "f6151d2113f42e75ea7d83a1b2362fc97e55e44d"
+    },
+    {
+      "repository_role": "native_supervisor_reference",
+      "repository_path": "/home/barberb/ipfs_accelerate_py",
+      "status": " M",
+      "path": "test/doc-builder",
+      "relation": "unrelated",
+      "preserved": true,
+      "modified_by_wwl_000": false,
+      "protected_campaign_file": false,
+      "note": "Observed outside the WWL-000 writer. This task did not edit or revert it.",
+      "index_mode": "160000",
+      "index_object": "e008c246aaa2eaa86b7b95a19a1944d59917990a",
+      "kind": "gitlink",
+      "worktree_head": "057fde0083b864ba617eed617e45c1e4d599e5e7",
+      "head_gitlink": "e008c246aaa2eaa86b7b95a19a1944d59917990a"
+    },
+    {
+      "repository_role": "native_supervisor_reference",
+      "repository_path": "/home/barberb/ipfs_accelerate_py",
+      "status": " M",
+      "path": "test/huggingface_doc_builder",
+      "relation": "unrelated",
+      "preserved": true,
+      "modified_by_wwl_000": false,
+      "protected_campaign_file": false,
+      "note": "Observed outside the WWL-000 writer. This task did not edit or revert it.",
+      "index_mode": "160000",
+      "index_object": "e008c246aaa2eaa86b7b95a19a1944d59917990a",
+      "kind": "gitlink",
+      "worktree_head": "057fde0083b864ba617eed617e45c1e4d599e5e7",
+      "head_gitlink": "e008c246aaa2eaa86b7b95a19a1944d59917990a"
+    },
+    {
+      "repository_role": "native_supervisor_reference",
+      "repository_path": "/home/barberb/ipfs_accelerate_py",
+      "status": " M",
+      "path": "test/huggingface_transformers",
+      "relation": "unrelated",
+      "preserved": true,
+      "modified_by_wwl_000": false,
+      "protected_campaign_file": false,
+      "note": "Observed outside the WWL-000 writer. This task did not edit or revert it.",
+      "index_mode": "160000",
+      "index_object": "3043da63578bcef1392499579ae7527f044c93bb",
+      "kind": "gitlink",
+      "worktree_head": "6c4710bdef6b0db127d40704d8ee2f82c551b27f",
+      "head_gitlink": "3043da63578bcef1392499579ae7527f044c93bb"
+    },
+    {
+      "repository_role": "primary_datasets_reference",
+      "repository_path": "/home/barberb/lift_coding/external/ipfs_datasets",
+      "status": " M",
+      "path": "ipfs_accelerate_py",
+      "relation": "unrelated",
+      "preserved": true,
+      "modified_by_wwl_000": false,
+      "protected_campaign_file": false,
+      "note": "Observed outside the WWL-000 writer. This task did not edit or revert it.",
+      "index_mode": "160000",
+      "index_object": "1c4541343b00e079c8f3dc96bb7f8ee32c227989",
+      "kind": "gitlink",
+      "worktree_head": "1c4541343b00e079c8f3dc96bb7f8ee32c227989",
+      "head_gitlink": "1c4541343b00e079c8f3dc96bb7f8ee32c227989"
+    },
+    {
+      "repository_role": "primary_datasets_reference",
+      "repository_path": "/home/barberb/lift_coding/external/ipfs_datasets",
+      "status": " M",
+      "path": "ipfs_datasets_py/vector_stores/duckdb_store.py",
+      "relation": "unrelated",
+      "preserved": true,
+      "modified_by_wwl_000": false,
+      "protected_campaign_file": false,
+      "note": "Observed outside the WWL-000 writer. This task did not edit or revert it.",
+      "index_mode": "100644",
+      "index_object": "79b2fd5ec07eadd548ca046b2bbe97ff40c2692f",
+      "kind": "file",
+      "bytes": 93661,
+      "worktree_sha256": "5f2c9195f333170fa7dea9e8b5a88de1aaaff26681c5f0fc12a860a92686d4ea"
+    },
+    {
+      "repository_role": "primary_datasets_reference",
+      "repository_path": "/home/barberb/lift_coding/external/ipfs_datasets",
+      "status": " M",
+      "path": "ipfs_datasets_py/vector_stores/management_engine.py",
+      "relation": "unrelated",
+      "preserved": true,
+      "modified_by_wwl_000": false,
+      "protected_campaign_file": false,
+      "note": "Observed outside the WWL-000 writer. This task did not edit or revert it.",
+      "index_mode": "100644",
+      "index_object": "206bc0f858cb9adfcacf789a47de314ab76a1c14",
+      "kind": "file",
+      "bytes": 181748,
+      "worktree_sha256": "4dd682a96eb911cc593f992ba26de07554d6585d4caa590f1294776cc1e208d0"
+    },
+    {
+      "repository_role": "primary_datasets_reference",
+      "repository_path": "/home/barberb/lift_coding/external/ipfs_datasets",
+      "status": "??",
+      "path": "tests/unit/vector_stores/test_matched_document_payloads.py",
+      "relation": "unrelated",
+      "preserved": true,
+      "modified_by_wwl_000": false,
+      "protected_campaign_file": false,
+      "note": "Observed outside the WWL-000 writer. This task did not edit or revert it.",
+      "kind": "file",
+      "bytes": 4503,
+      "worktree_sha256": "ace790a044ecc472b3bf3277c23688bce979f6dad1cf1b3112ef21285216ded7"
+    },
+    {
+      "repository_role": "secondary_datasets_reference",
+      "repository_path": "/home/barberb/ipfs_datasets_py",
+      "status": " M",
+      "path": "ipfs_datasets_py/mcp_server/tools/web_archive_tools/archive_check_submit.py",
+      "relation": "unrelated",
+      "preserved": true,
+      "modified_by_wwl_000": false,
+      "protected_campaign_file": false,
+      "note": "Observed outside the WWL-000 writer. This task did not edit or revert it.",
+      "index_mode": "100644",
+      "index_object": "c44cc2375c36d62706c1375ba9867a625207856e",
+      "kind": "file",
+      "bytes": 24881,
+      "worktree_sha256": "d07cc335bb3b6bf71e2a66ee865822a996f2866c01ef2ef536d3275672f027b5"
+    },
+    {
+      "repository_role": "secondary_datasets_reference",
+      "repository_path": "/home/barberb/ipfs_datasets_py",
+      "status": " M",
+      "path": "ipfs_datasets_py/mcp_server/tools/web_archive_tools/archive_is_integration.py",
+      "relation": "unrelated",
+      "preserved": true,
+      "modified_by_wwl_000": false,
+      "protected_campaign_file": false,
+      "note": "Observed outside the WWL-000 writer. This task did not edit or revert it.",
+      "index_mode": "100644",
+      "index_object": "faf9983e35fe69eece6f01ec522874dc28a5ba7e",
+      "kind": "file",
+      "bytes": 17282,
+      "worktree_sha256": "8bf6ae14eb6647669182aa16f10701a472fa77d47d86faf16066992f9e87fd33"
+    },
+    {
+      "repository_role": "secondary_datasets_reference",
+      "repository_path": "/home/barberb/ipfs_datasets_py",
+      "status": " M",
+      "path": "ipfs_datasets_py/mcp_server/tools/web_archive_tools/wayback_machine_search.py",
+      "relation": "unrelated",
+      "preserved": true,
+      "modified_by_wwl_000": false,
+      "protected_campaign_file": false,
+      "note": "Observed outside the WWL-000 writer. This task did not edit or revert it.",
+      "index_mode": "100644",
+      "index_object": "3be37a31cd8c7730aafb2d91180354e435b240ea",
+      "kind": "file",
+      "bytes": 13236,
+      "worktree_sha256": "7b3b3e0ed9064349788dec9e5abe5a7d2304a132396acc9048e76f81f0a48bc4"
+    },
+    {
+      "repository_role": "prior_wwl_000_attempt",
+      "repository_path": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_1a34c379370f_35e852335967",
+      "status": "??",
+      "path": "docs/worldwide/baseline.json",
+      "relation": "unrelated",
+      "preserved": true,
+      "modified_by_wwl_000": false,
+      "protected_campaign_file": false,
+      "note": "Observed outside the WWL-000 writer. This task did not edit or revert it.",
+      "kind": "file",
+      "bytes": 62834,
+      "worktree_sha256": "def13249eba0ca6729c3a4a8c93f1bcbfc851e250d9d0a7f6abeebc09325fe8b"
+    }
+  ],
+  "protected_paths_match_head": true,
+  "protected_paths_checked": [
+    {
+      "path": "implementation_plan/worldwide_legal_search/plan.json",
+      "worktree_sha256": "d90e98b116638967c6b8d91164df091de64325350d753f3ed478d3bca0923b35",
+      "matches_head_blob": true
+    },
+    {
+      "path": "implementation_plan/worldwide_legal_search/PLAN.md",
+      "worktree_sha256": "380a08ac5ae61b1e3517803c32413d54642a5e94932d512702de1f2cc0557d4a",
+      "matches_head_blob": true
+    },
+    {
+      "path": "implementation_plan/worldwide_legal_search/build_plan.py",
+      "worktree_sha256": "7fbe2814a88f05d394b649ab3da58d0af0d9c57aabccfec692b28a1dc1f98d64",
+      "matches_head_blob": true
+    },
+    {
+      "path": "implementation_plan/worldwide_legal_search/validate_plan.py",
+      "worktree_sha256": "b62aafa9382da0354e754c278bf0e11e31af98d95c622864c1dfd563d6f724f3",
+      "matches_head_blob": true
+    },
+    {
+      "path": "implementation_plan/worldwide_legal_search/tasks.todo.md",
+      "worktree_sha256": "3faeabec5d72d728d918ccd37701672b69346741b8f15ef32889ca0de97ac1b4",
+      "matches_head_blob": true
+    },
+    {
+      "path": "implementation_plan/worldwide_legal_search/goals.objectives.md",
+      "worktree_sha256": "9bab000ed8d86f051036d4db860047aea0c2ef9c37736c72ecfca7ec7c0036b4",
+      "matches_head_blob": true
+    },
+    {
+      "path": "implementation_plan/worldwide_legal_search/supervisor.json",
+      "worktree_sha256": "2d8ad7d9b1d17f35b52be8754dbe935e896d8e1222fd20ff156ee81a136d12be",
+      "matches_head_blob": true
+    },
+    {
+      "path": "implementation_plan/worldwide_legal_search/watchdog.policy.json",
+      "worktree_sha256": "956080192b5ad8b6aab9170701a91c0e7449308a2ebea63b93de0fa89a8b1556",
+      "matches_head_blob": true
+    },
+    {
+      "path": "implementation_plan/worldwide_legal_search/test_watchdog.py",
+      "worktree_sha256": "d24dcaaa9ff21a8702e32518be4acc031f85627c8f90604ec000b469f6b8f610",
+      "matches_head_blob": true
+    },
+    {
+      "path": "config/worldwide_supervisor_host.json",
+      "worktree_sha256": "4b7a568782a4fb0f30db6725cb17bfa8595969041804dccb699261b11c5b6c98",
+      "matches_head_blob": true
+    },
+    {
+      "path": "scripts/worldwide_supervisor_host.py",
+      "worktree_sha256": "4dbf56d31841d94f58b468c6cc52e2c443390a1e09bfa2fa1ecf296784f9320b",
+      "matches_head_blob": true
+    },
+    {
+      "path": "implementation_plan/worldwide_legal_search/watchdog_loop.py",
+      "worktree_sha256": "34e2996fdf3cba8881805d278857504fc43f3d7c743079b3cd8392810445d3de",
+      "matches_head_blob": true
+    }
+  ],
+  "active_lanes": [
+    {
+      "id": "site-implementation",
+      "repository": "site",
+      "path": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_05b367a3f17f_569f67264290",
+      "branch": "implementation/wwl-000-46f8ba332279-attempt-1-1793063774",
+      "head": "ba6390a65a210e493e122c1c7bae9bd2ba920c0d",
+      "task_id": "WWL-000",
+      "stage": "provider",
+      "scheduler_max_lanes": 1,
+      "role": "The single site writer for this attempt."
+    },
+    {
+      "id": "site-primary-checkout",
+      "repository": "site",
+      "path": "/home/barberb/worldwidelaws.github.io",
+      "branch": "agent/worldwide-legal-search-v1",
+      "head": "ba6390a65a210e493e122c1c7bae9bd2ba920c0d",
+      "role": "Canonical checkout named by config/worldwide_supervisor_host.json site_root. Not the writer for these outputs."
+    },
+    {
+      "id": "prior-attempt-worktree",
+      "repository": "site",
+      "path": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_1a34c379370f_35e852335967",
+      "branch": "implementation/wwl-000-46f8ba332279-attempt-1-1793060665",
+      "head": "3e9c3be95b09039cb7f0c1894dfc24e85e77cd30",
+      "role": "Earlier WWL-000 attempt. Its untracked baseline stays in that worktree."
+    },
+    {
+      "id": "campaign-observation",
+      "run_id": "worldwide-legal-search-v1",
+      "task_id": "WWL-000",
+      "stage": "provider",
+      "owner_pid": 1231868,
+      "owner_alive": true,
+      "runnable_count": 0,
+      "hold": false,
+      "completion_verified": false,
+      "required_tasks": 64,
+      "scheduler_max_lanes": 1,
+      "role": "Native campaign snapshot observed while this record was written. It is not a second writer."
+    },
+    {
+      "id": "worldwide-legal-search-supervisor.service",
+      "unit": "worldwide-legal-search-supervisor.service",
+      "active_state": "active",
+      "sub_state": "running",
+      "main_pid": 1231868,
+      "result": "success",
+      "n_restarts": 0,
+      "role": "Observed user service. This task did not start, stop, or restart it."
+    },
+    {
+      "id": "worldwide-legal-search-watchdog.service",
+      "unit": "worldwide-legal-search-watchdog.service",
+      "active_state": "active",
+      "sub_state": "running",
+      "main_pid": 1250045,
+      "result": "success",
+      "n_restarts": 0,
+      "role": "Observed user service. This task did not start, stop, or restart it."
+    },
+    {
+      "id": "operational-framework",
+      "repository": "accelerate",
+      "path": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework",
+      "branch": "agent/worldwide-legal-search-supervisor",
+      "head": "2e060d3c1b96d87c42783c1e9589f80654e4ba5c",
+      "role": "Separate operational worktree. It is not a website writer for WWL-000.",
+      "native_revision_reported_by_readiness": "2e060d3c1b96d87c42783c1e9589f80654e4ba5c"
+    }
+  ],
+  "application_imports": {
+    "method": "Static import, export-from, and require walk from index.html and src/main.tsx after removing comments without entering strings. Dynamic import() and new URL(..., import.meta.url) are recorded as separate edges. Their target closures are walked separately and are not folded into the static file count.",
+    "document_entry": "index.html",
+    "module_entry": "src/main.tsx",
+    "shell": [
+      "src/AppStatic.tsx",
+      "src/components/StaticDataProvider.tsx",
+      "src/components/WetWijzerLegalResearchApp.tsx"
+    ],
+    "static_reachable_local_count": 259,
+    "static_reachable_local_files": [
+      "src/main.tsx",
+      "src/AppStatic.tsx",
+      "src/components/StaticDataProvider.tsx",
+      "src/lib/warningSuppressionUtils.ts",
+      "src/index.css",
+      "src/components/WetWijzerLegalResearchApp.tsx",
+      "src/lib/staticDb.ts",
+      "src/lib/netherlandsCorpus.ts",
+      "src/lib/clientEmbeddingWorkerService.ts",
+      "src/lib/clientLLMWorkerService.ts",
+      "src/lib/netherlandsGraphRag.ts",
+      "src/lib/chatPromptStarters.ts",
+      "src/lib/netherlandsLogic.ts",
+      "src/lib/logic/tdfol/index.ts",
+      "src/lib/logic/cec/index.ts",
+      "src/lib/llmConfig.ts",
+      "src/lib/openRouterLLM.ts",
+      "src/lib/logic/index.ts",
+      "src/lib/logic/tdfol/ast.ts",
+      "src/lib/logic/tdfol/browserNativeLlm.ts",
+      "src/lib/logic/tdfol/converter.ts",
+      "src/lib/logic/tdfol/countermodels.ts",
+      "src/lib/logic/tdfol/dependencyGraph.ts",
+      "src/lib/logic/tdfol/exceptions.ts",
+      "src/lib/logic/tdfol/expansionRules.ts",
+      "src/lib/logic/tdfol/formatter.ts",
+      "src/lib/logic/tdfol/inferenceRules.ts",
+      "src/lib/logic/tdfol/ipfsCacheDemo.ts",
+      "src/lib/logic/tdfol/ipfsProofStorage.ts",
+      "src/lib/logic/tdfol/tdfolInferenceRules.ts",
+      "src/lib/logic/tdfol/lexer.ts",
+      "src/lib/logic/tdfol/modalTableaux.ts",
+      "src/lib/logic/tdfol/nlApi.ts",
+      "src/lib/logic/tdfol/nlContext.ts",
+      "src/lib/logic/tdfol/nlUtils.ts",
+      "src/lib/logic/tdfol/tdfolNlPreprocessor.ts",
+      "src/lib/logic/tdfol/tdfolNlPatterns.ts",
+      "src/lib/logic/tdfol/tdfolNlGenerator.ts",
+      "src/lib/logic/tdfol/optimization.ts",
+      "src/lib/logic/tdfol/parser.ts",
+      "src/lib/logic/tdfol/performanceDashboard.ts",
+      "src/lib/logic/tdfol/performanceEngine.ts",
+      "src/lib/logic/tdfol/performanceMetrics.ts",
+      "src/lib/logic/tdfol/performanceProfiler.ts",
+      "src/lib/logic/tdfol/proofCache.ts",
+      "src/lib/logic/tdfol/proofExplainer.ts",
+      "src/lib/logic/tdfol/proofTree.ts",
+      "src/lib/logic/tdfol/prover.ts",
+      "src/lib/logic/tdfol/quickstartVisualizer.ts",
+      "src/lib/logic/tdfol/securityValidator.ts",
+      "src/lib/logic/tdfol/strategies.ts",
+      "src/lib/logic/tdfol/zkpIntegration.ts",
+      "src/lib/logic/cec/ambiguityResolver.ts",
+      "src/lib/logic/cec/advancedInference.ts",
+      "src/lib/logic/cec/analyzer.ts",
+      "src/lib/logic/cec/ast.ts",
+      "src/lib/logic/cec/cecErrors.ts",
+      "src/lib/logic/cec/cecZkpIntegration.ts",
+      "src/lib/logic/cec/contextManager.ts",
+      "src/lib/logic/cec/countermodels.ts",
+      "src/lib/logic/cec/dcecCleaning.ts",
+      "src/lib/logic/cec/dcecCore.ts",
+      "src/lib/logic/cec/dcecEnglishGrammar.ts",
+      "src/lib/logic/cec/dcecEnglishWrapper.ts",
+      "src/lib/logic/cec/dcecIntegration.ts",
+      "src/lib/logic/cec/dcecNamespace.ts",
+      "src/lib/logic/cec/dcecParsing.ts",
+      "src/lib/logic/cec/dcecPrototypes.ts",
+      "src/lib/logic/cec/dcecTemporal.ts",
+      "src/lib/logic/cec/dcecToUcanBridge.ts",
+      "src/lib/logic/cec/dcecTypes.ts",
+      "src/lib/logic/cec/dependencyGraph.ts",
+      "src/lib/logic/cec/domainVocabulary.ts",
+      "src/lib/logic/cec/eventCalculus.ts",
+      "src/lib/logic/cec/enhancedGrammarParser.ts",
+      "src/lib/logic/cec/fluents.ts",
+      "src/lib/logic/cec/formatter.ts",
+      "src/lib/logic/cec/formulaCache.ts",
+      "src/lib/logic/cec/grammarEngine.ts",
+      "src/lib/logic/cec/grammarLoader.ts",
+      "src/lib/logic/cec/inferenceRules.ts",
+      "src/lib/logic/cec/languageDetector.ts",
+      "src/lib/logic/cec/lemmaGeneration.ts",
+      "src/lib/logic/cec/modalTableaux.ts",
+      "src/lib/logic/cec/nativeTypes.ts",
+      "src/lib/logic/cec/nlConverter.ts",
+      "src/lib/logic/cec/nlPolicyConflictDetector.ts",
+      "src/lib/logic/cec/parser.ts",
+      "src/lib/logic/cec/performanceDashboard.ts",
+      "src/lib/logic/cec/performanceEngine.ts",
+      "src/lib/logic/cec/performanceMetrics.ts",
+      "src/lib/logic/cec/performanceProfiler.ts",
+      "src/lib/logic/cec/profilingUtils.ts",
+      "src/lib/logic/cec/problemParser.ts",
+      "src/lib/logic/cec/portugueseParser.ts",
+      "src/lib/logic/cec/spanishParser.ts",
+      "src/lib/logic/cec/proverCoreExtendedRules.ts",
+      "src/lib/logic/cec/proofCache.ts",
+      "src/lib/logic/cec/proofExplainer.ts",
+      "src/lib/logic/cec/proofOptimization.ts",
+      "src/lib/logic/cec/proofTree.ts",
+      "src/lib/logic/cec/prover.ts",
+      "src/lib/logic/cec/proverManager.ts",
+      "src/lib/logic/cec/securityValidator.ts",
+      "src/lib/logic/cec/shadowProver.ts",
+      "src/lib/logic/cec/strategies.ts",
+      "src/lib/logic/cec/syntaxTree.ts",
+      "src/lib/logic/cec/talosWrapper.ts",
+      "src/lib/logic/cec/tptpUtils.ts",
+      "src/lib/logic/cec/vampireAdapter.ts",
+      "src/lib/logic/cec/z3Adapter.ts",
+      "src/lib/logic/api.ts",
+      "src/lib/logic/cache.ts",
+      "src/lib/logic/batchProcessing.ts",
+      "src/lib/logic/benchmarks.ts",
+      "src/lib/logic/browserNativeValidation.ts",
+      "src/lib/logic/cli.ts",
+      "src/lib/logic/config.ts",
+      "src/lib/logic/converters.ts",
+      "src/lib/logic/deontic/index.ts",
+      "src/lib/logic/developerPanelSnapshots.ts",
+      "src/lib/logic/errors.ts",
+      "src/lib/logic/featureDetection.ts",
+      "src/lib/logic/flogic/index.ts",
+      "src/lib/logic/fol/index.ts",
+      "src/lib/logic/integration/index.ts",
+      "src/lib/logic/mlConfidence.ts",
+      "src/lib/logic/monitoring.ts",
+      "src/lib/logic/normalization.ts",
+      "src/lib/logic/observability/index.ts",
+      "src/lib/logic/proofCache.ts",
+      "src/lib/logic/pythonLogicInventory.ts",
+      "src/lib/logic/pythonSurfaceReplacements.ts",
+      "src/lib/logic/reasoning/index.ts",
+      "src/lib/logic/runtimeCapabilities.ts",
+      "src/lib/logic/security/index.ts",
+      "src/lib/logic/types.ts",
+      "src/lib/logic/utilityMonitor.ts",
+      "src/lib/logic/validation.ts",
+      "src/lib/logic/zkp/index.ts",
+      "src/lib/logic/zkp/facade.ts",
+      "src/lib/logic/zkp/simulatedBackend.ts",
+      "src/lib/logic/zkp/canonicalization.ts",
+      "src/lib/logic/zkp/statement.ts",
+      "src/lib/logic/deontic/analyzer.ts",
+      "src/lib/logic/cec/profilerTimeline.ts",
+      "src/lib/logic/cec/nativeRuleGroups.ts",
+      "src/lib/logic/deontic/converter.ts",
+      "src/lib/logic/fol/converter.ts",
+      "src/lib/logic/integration/bridge.ts",
+      "src/lib/logic/deontic/decoder.ts",
+      "src/lib/logic/deontic/exports.ts",
+      "src/lib/logic/deontic/formulaBuilder.ts",
+      "src/lib/logic/deontic/graph.ts",
+      "src/lib/logic/deontic/ir.ts",
+      "src/lib/logic/deontic/knowledgeBase.ts",
+      "src/lib/logic/deontic/metrics.ts",
+      "src/lib/logic/deontic/parser.ts",
+      "src/lib/logic/deontic/proverSyntax.ts",
+      "src/lib/logic/deontic/supportMap.ts",
+      "src/lib/logic/browserTelemetry.ts",
+      "src/lib/logic/flogic/ergoaiWrapper.ts",
+      "src/lib/logic/flogic/formatter.ts",
+      "src/lib/logic/flogic/parser.ts",
+      "src/lib/logic/flogic/proofCache.ts",
+      "src/lib/logic/flogic/semanticNormalizer.ts",
+      "src/lib/logic/flogic/types.ts",
+      "src/lib/logic/flogic/zkpIntegration.ts",
+      "src/lib/logic/fol/browserNativeNlp.ts",
+      "src/lib/logic/fol/deonticParser.ts",
+      "src/lib/logic/fol/formatter.ts",
+      "src/lib/logic/fol/parser.ts",
+      "src/lib/logic/fol/predicateExtractor.ts",
+      "src/lib/logic/fol/textToFol.ts",
+      "src/lib/logic/integration/baseProverBridge.ts",
+      "src/lib/logic/integration/cecBridge.ts",
+      "src/lib/logic/integration/converters/deonticLogicConverter.ts",
+      "src/lib/logic/integration/coqProverBridge.ts",
+      "src/lib/logic/integration/deonticLogicCore.ts",
+      "src/lib/logic/integration/deonticLogicConverter.ts",
+      "src/lib/logic/integration/converters/logicTranslationCore.ts",
+      "src/lib/logic/integration/converters/modalLogicExtension.ts",
+      "src/lib/logic/integration/converters/symbolicFolBridge.ts",
+      "src/lib/logic/integration/domain/caselawBulkProcessor.ts",
+      "src/lib/logic/integration/domain/deonticQueryEngine.ts",
+      "src/lib/logic/integration/domain/documentConsistencyChecker.ts",
+      "src/lib/logic/integration/domain/legalDomainKnowledge.ts",
+      "src/lib/logic/integration/domain/legalSymbolicAnalyzer.ts",
+      "src/lib/logic/integration/domain/medicalTheoremFramework.ts",
+      "src/lib/logic/integration/domain/symbolicContracts.ts",
+      "src/lib/logic/integration/domain/temporalDeonticApi.ts",
+      "src/lib/logic/integration/domain/temporalDeonticRagStore.ts",
+      "src/lib/logic/integration/cvc5ProverBridge.ts",
+      "src/lib/logic/integration/demoTemporalDeonticRag.ts",
+      "src/lib/logic/integration/externalProversBridge.ts",
+      "src/lib/logic/integration/interactiveFolConstructor.ts",
+      "src/lib/logic/integration/ipldLogicStorage.ts",
+      "src/lib/logic/integration/interactive/index.ts",
+      "src/lib/logic/integration/logicTranslationCore.ts",
+      "src/lib/logic/integration/logicVerification.ts",
+      "src/lib/logic/integration/logicVerificationTypes.ts",
+      "src/lib/logic/integration/logicVerificationUtils.ts",
+      "src/lib/logic/integration/proofExecutionEngine.ts",
+      "src/lib/logic/integration/reasoningLogicVerificationUtils.ts",
+      "src/lib/logic/integration/leanProverBridge.ts",
+      "src/lib/logic/integration/modalLogicExtension.ts",
+      "src/lib/logic/integration/neurosymbolic.ts",
+      "src/lib/logic/integration/nlUcanPolicyCompiler.ts",
+      "src/lib/logic/integration/phase7CompleteIntegration.ts",
+      "src/lib/logic/integration/proverAdapters.ts",
+      "src/lib/logic/integration/proverInstaller.ts",
+      "src/lib/logic/integration/symbolicContracts.ts",
+      "src/lib/logic/integration/symbolicAiProverBridge.ts",
+      "src/lib/logic/integration/symbolic/symbolicLogicPrimitives.ts",
+      "src/lib/logic/integration/symbolicFolBridge.ts",
+      "src/lib/logic/integration/tdfolCecBridge.ts",
+      "src/lib/logic/integration/tdfolGrammarBridge.ts",
+      "src/lib/logic/integration/tdfolShadowProverBridge.ts",
+      "src/lib/logic/integration/ucanPolicyBridge.ts",
+      "src/lib/logic/integration/unixfsIntegration.ts",
+      "src/lib/logic/integration/z3ProverBridge.ts",
+      "src/lib/logic/observability/otelTracer.ts",
+      "src/lib/logic/observability/prometheusMetrics.ts",
+      "src/lib/logic/observability/structuredLogging.ts",
+      "src/lib/logic/reasoning/forwardChaining.ts",
+      "src/lib/logic/reasoning/knowledgeBase.ts",
+      "src/lib/logic/reasoning/deontologicalReasoningTypes.ts",
+      "src/lib/logic/reasoning/deontologicalReasoningUtils.ts",
+      "src/lib/logic/reasoning/normConflicts.ts",
+      "src/lib/logic/reasoning/temporal.ts",
+      "src/lib/logic/reasoning/types.ts",
+      "src/lib/logic/security/auditLog.ts",
+      "src/lib/logic/security/circuitBreaker.ts",
+      "src/lib/logic/security/inputValidation.ts",
+      "src/lib/logic/security/rateLimiting.ts",
+      "src/lib/logic/zkp/backendProtocol.ts",
+      "src/lib/logic/zkp/advancedDemo.ts",
+      "src/lib/logic/zkp/basicDemo.ts",
+      "src/lib/logic/zkp/browserCrypto.ts",
+      "src/lib/logic/zkp/circuits.ts",
+      "src/lib/logic/zkp/ethContractArtifacts.ts",
+      "src/lib/logic/zkp/ethIntegration.ts",
+      "src/lib/logic/zkp/ethVkRegistryPayloads.ts",
+      "src/lib/logic/zkp/evmHarness.ts",
+      "src/lib/logic/zkp/evmPublicInputs.ts",
+      "src/lib/logic/zkp/ipfsIntegration.ts",
+      "src/lib/logic/groth16.ts",
+      "src/lib/logic/zkp/legalTheoremSemantics.ts",
+      "src/lib/logic/zkp/onchainPipeline.ts",
+      "src/lib/logic/zkp/simulatedVerifier.ts",
+      "src/lib/logic/zkp/setupArtifacts.ts",
+      "src/lib/logic/zkp/ucanZkpBridge.ts",
+      "src/lib/logic/zkp/vkRegistry.ts",
+      "src/lib/logic/zkp/witnessManager.ts",
+      "src/lib/logic/modalTableaux.ts",
+      "src/lib/logic/integration/interactive/folConstructorIo.ts",
+      "src/lib/logic/integration/interactive/interactiveFolUtils.ts",
+      "src/lib/logic/integration/interactive/interactiveFolTypes.ts",
+      "src/lib/logic/integration/coreBridge.ts"
+    ],
+    "static_external_packages": [
+      "@duckdb/duckdb-wasm",
+      "https://plausible.io/js/script.js",
+      "react",
+      "react-dom",
+      "react-toastify",
+      "uplot"
+    ],
+    "static_unresolved": [],
+    "reachable_counts_by_root": {
+      "src/components": 2,
+      "src/lib/logic": 244,
+      "src/lib": 254,
+      "src/workers": 0,
+      "src/hooks": 0,
+      "src/editor": 0,
+      "disabled_components": 0,
+      "disabled_hooks": 0,
+      "disabled_services": 0,
+      "disabled_tests": 0,
+      "api": 0,
+      "convex": 0
+    },
+    "named_files_reachable": {
+      "src/App.tsx": false,
+      "src/AppStatic.tsx": true,
+      "src/components/WetWijzerLegalResearchApp.tsx": true,
+      "src/lib/netherlandsCorpus.ts": true,
+      "src/lib/netherlandsLogic.ts": true,
+      "src/lib/netherlandsGraphRag.ts": true,
+      "src/lib/staticDb.ts": true,
+      "api/openrouter/chat/completions.js": false,
+      "convex/wetwijzer/agent.ts": false
+    },
+    "worker_url_imports": [
+      {
+        "from": "src/lib/clientEmbeddingWorkerService.ts",
+        "target": "src/workers/embeddingWorker.ts",
+        "locality": "local"
+      },
+      {
+        "from": "src/lib/clientLLMWorkerService.ts",
+        "target": "src/workers/clientLLMWorker.ts",
+        "locality": "local"
+      }
+    ],
+    "worker_reachable_local_files": [
+      "src/workers/embeddingWorker.ts",
+      "src/workers/clientLLMWorker.ts",
+      "src/lib/warningSuppressionUtils.ts",
+      "src/lib/llmConfig.ts"
+    ],
+    "dynamic_import_edges": [
+      {
+        "from": "src/lib/netherlandsGraphRag.ts",
+        "target": "src/lib/clientLLMWorkerService.ts",
+        "locality": "local"
+      },
+      {
+        "from": "src/lib/logic/zkp/statement.ts",
+        "target": "src/lib/logic/zkp/canonicalization.ts",
+        "locality": "local"
+      }
+    ],
+    "dynamic_reachable_additional_local_files": [],
+    "dynamic_external_packages": [
+      "@huggingface/transformers"
+    ],
+    "not_on_static_entry_path": [
+      "src/App.tsx",
+      "src/editor/",
+      "src/hooks/",
+      "src/workers/backendDetectionWorker.ts",
+      "src/lib/backendDetectionWorkerService.ts",
+      "api/",
+      "convex/",
+      "disabled_components/",
+      "disabled_hooks/",
+      "disabled_services/",
+      "disabled_tests/"
+    ],
+    "source_file_sha256": {
+      "index.html": "103e707efbbf2c3f48174551ec15000feffa724f1bfa7621079dcd2919e3527f",
+      "package.json": "faabc4445b278983af6837f9c8ef552e2cf725a2f941fabc9f3fbce93e2bf50a",
+      "src/main.tsx": "a85ea5cd51fe085490a29f1496c18d4fca260772a0243b27e4d0e0d5df4688bd",
+      "src/AppStatic.tsx": "3b337c68628efba368a9cd4149c515ff79dfedce71a5fdafa7241b049544d789",
+      "src/components/WetWijzerLegalResearchApp.tsx": "73bf4d464e2e26f3bc8aaca0572bdc8b013a6d3387324cf2abbca4c6ab70ba64",
+      "src/lib/netherlandsCorpus.ts": "f188e73ce2a2e02f0921d34bfa00e175fb7bef8b3f0205d7488421a3732451c8",
+      "src/lib/netherlandsLogic.ts": "b448952e64e316dd5496041a017fe27fd4f2d65fccd5f58c9442286f90d5c7c9",
+      "src/lib/netherlandsGraphRag.ts": "87206c93081c26054b1d42a475097418825f0059e708797efd19a082ef05cdbf",
+      "public/corpus/netherlands/current/artifacts.manifest.json": "3c7643fe74b325be548aa42ddfc7a11b8b6430c1471d7ad79c4fe59a46bea497",
+      "public/corpus/netherlands/current/generated/sections.json": "2a1a09dc5806bcd99ca280819f0954fb4d54061ee13bfef879e0e4884bc51e1a",
+      "public/corpus/netherlands/current/generated/logic-proof-summaries.json": "25f39664204ad97b7dc5be7c85b1fc3bae154b825859928e3bef84f735ffbdfa"
+    }
+  },
+  "checks": [
+    {
+      "name": "/usr/bin/python3.12 --version",
+      "argv": [
+        "/usr/bin/python3.12",
+        "--version"
+      ],
+      "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_05b367a3f17f_569f67264290",
+      "exit_code": 0,
+      "evidence_sha256": "5b3e43dc38ca01e3f5a7854ba50d4330864b0c1e0f646650b2c78cf072acc366",
+      "output_bytes": 14,
+      "environment": {
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin",
+        "HOME_prefix": "ipfs-accelerate-validation-home-lay6deoy"
+      },
+      "summary": "Python 3.12 on the sealed PATH.",
+      "output": "Python 3.12.3\n"
+    },
+    {
+      "name": "/usr/bin/node --version",
+      "argv": [
+        "/usr/bin/node",
+        "--version"
+      ],
+      "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_05b367a3f17f_569f67264290",
+      "exit_code": 0,
+      "evidence_sha256": "de9740f54a0a5f57119f0e1aadf93712af9c6f5fdea2b8048d9775f8ee38c681",
+      "output_bytes": 9,
+      "environment": {
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin",
+        "HOME_prefix": "ipfs-accelerate-validation-home-lay6deoy"
+      },
+      "summary": "Node on the sealed PATH.",
+      "output": "v23.11.1\n"
+    },
+    {
+      "name": "/usr/bin/npm --version",
+      "argv": [
+        "/usr/bin/npm",
+        "--version"
+      ],
+      "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_05b367a3f17f_569f67264290",
+      "exit_code": 0,
+      "evidence_sha256": "b90f6efb804599bb0ba84fec754b8c7807381dabfcdc1ffe3437ff37f18fb0f5",
+      "output_bytes": 7,
+      "environment": {
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin",
+        "HOME_prefix": "ipfs-accelerate-validation-home-lay6deoy"
+      },
+      "summary": "npm on the sealed PATH.",
+      "output": "10.9.2\n"
+    },
+    {
+      "name": "/usr/bin/npm --offline run build",
+      "argv": [
+        "/usr/bin/npm",
+        "--offline",
+        "run",
+        "build"
+      ],
+      "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_05b367a3f17f_569f67264290",
+      "exit_code": 127,
+      "evidence_sha256": "03bab61eb9dbc0217c8454f77b9fecaed1a263f928c74e867fca384b0e8d2b4c",
+      "output_bytes": 68,
+      "environment": {
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin",
+        "HOME_prefix": "ipfs-accelerate-validation-home-lay6deoy"
+      },
+      "summary": "Package build. node_modules is absent, so tsc is not installed.",
+      "output": "\n> wetwijzer@0.0.0 build\n> tsc && vite build\n\nsh: 1: tsc: not found\n"
+    },
+    {
+      "name": "/usr/bin/npm --offline test -- --runTestsByPath src/lib/netherlandsLogic.test.ts --watchAll=false",
+      "argv": [
+        "/usr/bin/npm",
+        "--offline",
+        "test",
+        "--",
+        "--runTestsByPath",
+        "src/lib/netherlandsLogic.test.ts",
+        "--watchAll=false"
+      ],
+      "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_05b367a3f17f_569f67264290",
+      "exit_code": 127,
+      "evidence_sha256": "ecea585cae3d03bbdca02e2b638f611d491baaca27106dcd951dbf5ef18d81f2",
+      "output_bytes": 171,
+      "environment": {
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin",
+        "HOME_prefix": "ipfs-accelerate-validation-home-lay6deoy"
+      },
+      "summary": "Netherlands logic Jest file. jest is absent because node_modules is not installed.",
+      "output": "\n> wetwijzer@0.0.0 test\n> NODE_OPTIONS=--experimental-vm-modules jest --verbose --runTestsByPath src/lib/netherlandsLogic.test.ts --watchAll=false\n\nsh: 1: jest: not found\n"
+    },
+    {
+      "name": "/usr/bin/node scripts/prepare-netherlands-corpus.mjs --validate-only --no-extract",
+      "argv": [
+        "/usr/bin/node",
+        "scripts/prepare-netherlands-corpus.mjs",
+        "--validate-only",
+        "--no-extract"
+      ],
+      "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_05b367a3f17f_569f67264290",
+      "exit_code": 0,
+      "evidence_sha256": "0451f782d177c7c67e4ee4937734d4c8c09eb57b25abd6f404e2e09affceb949",
+      "output_bytes": 75,
+      "environment": {
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin",
+        "HOME_prefix": "ipfs-accelerate-validation-home-lay6deoy"
+      },
+      "summary": "Read-only validation of the bundled WetWijzer sample.",
+      "output": "Validated 3 WetWijzer sample articles in public/corpus/netherlands/current\n"
+    },
+    {
+      "name": "/usr/bin/python3.12 -B scripts/worldwide_supervisor_host.py status",
+      "argv": [
+        "/usr/bin/python3.12",
+        "-B",
+        "scripts/worldwide_supervisor_host.py",
+        "status"
+      ],
+      "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_05b367a3f17f_569f67264290",
+      "exit_code": 1,
+      "evidence_sha256": "bf6601cd6fa98475c49a96c53600eae188dbd34ea044dbe1ad34c3f7d5126de1",
+      "output_bytes": 72,
+      "environment": {
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin",
+        "HOME_prefix": "ipfs-accelerate-validation-home-lay6deoy"
+      },
+      "summary": "Host status from the implementation worktree.",
+      "output": "{\"valid\": false, \"error\": \"Host configuration belongs to another site\"}\n"
+    },
+    {
+      "name": "/usr/bin/python3.12 -B scripts/worldwide_supervisor_host.py status",
+      "argv": [
+        "/usr/bin/python3.12",
+        "-B",
+        "scripts/worldwide_supervisor_host.py",
+        "status"
+      ],
+      "cwd": "/home/barberb/worldwidelaws.github.io",
+      "exit_code": 0,
+      "evidence_sha256": "6fa19f2ca17eca7b50e713576604b7f464b2b755a604db0d2a8413531b6a6856",
+      "output_bytes": 1563,
+      "environment": {
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin",
+        "HOME_prefix": "ipfs-accelerate-validation-home-lay6deoy"
+      },
+      "summary": "Host status from the canonical site checkout.",
+      "output": "{\n  \"schema\": \"worldwide-legal-search.host-status@1\",\n  \"recorded_at\": \"2026-10-27T01:25:56.254309+00:00\",\n  \"watchdog_execution_requested\": true,\n  \"services\": {\n    \"supervisor\": {\n      \"MainPID\": \"1231868\",\n      \"Result\": \"success\",\n      \"NRestarts\": \"0\",\n      \"ExecMainStatus\": \"0\",\n      \"ActiveState\": \"active\",\n      \"SubState\": \"running\"\n    },\n    \"watchdog\": {\n      \"MainPID\": \"1250045\",\n      \"Result\": \"success\",\n      \"NRestarts\": \"0\",\n      \"ExecMainStatus\": \"0\",\n      \"ActiveState\": \"active\",\n      \"SubState\": \"running\"\n    }\n  },\n  \"campaign\": {\n    \"run_id\": \"worldwide-legal-search-v1\",\n    \"task_id\": \"WWL-000\",\n    \"stage\": \"provider\",\n    \"heartbeat_at\": 1793064356.1052434,\n    \"meaningful_progress_at_ms\": 1793063773297,\n    \"ready_task_ids\": [],\n    \"native_error\": {},\n    \"completion_verified\": false,\n    \"required_tasks\": 64,\n    \"verified_tasks\": 0\n  },\n  \"readiness\": {\n    \"native_revision\": \"2e060d3c1b96d87c42783c1e9589f80654e4ba5c\",\n    \"bindings\": {\n      \"exclusive_effect_ownership\": true,\n      \"incident_deduplication\": true,\n      \"independent_validation\": true,\n      \"lifecycle_restart\": false,\n      \"meaningful_progress\": true,\n      \"reconcile\": true,\n      \"repair_canary_verified\": true,\n      \"repair_dispatch\": true,\n      \"rescue_orchestrator\": false,\n      \"rescue_planner\": false,\n      \"route_policy\": true,\n      \"scoped_repair_admission\": true,\n      \"task_source\": true,\n      \"validated_promotion\": true\n    },\n    \"control_canary_verified\": false,\n    \"bootstrap_only\": true\n  },\n  \"hold\": false\n}\n"
+    },
+    {
+      "name": "systemctl --user show worldwide services",
+      "argv": [
+        "/usr/bin/systemctl",
+        "--user",
+        "show",
+        "worldwide-legal-search-supervisor.service",
+        "worldwide-legal-search-watchdog.service",
+        "--property=Id,ActiveState,SubState,MainPID,Result,NRestarts"
+      ],
+      "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_05b367a3f17f_569f67264290",
+      "exit_code": 0,
+      "evidence_sha256": "896f1999b14ebcf9b1c6774130c698518f2fa6bf0399b09c68ce0cc73fe9762c",
+      "output_bytes": 247,
+      "environment": {
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin",
+        "HOME_prefix": "ipfs-accelerate-validation-home-lay6deoy"
+      },
+      "summary": "User service state for the campaign supervisor and watchdog.",
+      "output": "MainPID=1231868\nResult=success\nNRestarts=0\nId=worldwide-legal-search-supervisor.service\nActiveState=active\nSubState=running\n\nMainPID=1250045\nResult=success\nNRestarts=0\nId=worldwide-legal-search-watchdog.service\nActiveState=active\nSubState=running\n"
+    },
+    {
+      "name": "netherlands static-sample fallback",
+      "argv": [
+        "/usr/bin/node",
+        "--experimental-transform-types",
+        "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/native/wwl_database_portal_attempts/f73607787f39860dd8a47ab0/implementation_checkpoints/wwl-000-46f8ba332279/netherlands-behavior-probe.mjs"
+      ],
+      "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_05b367a3f17f_569f67264290",
+      "exit_code": 0,
+      "evidence_sha256": "4e9143c7b1a01fcf378a0827599ae615af8616d2457f30c52b68974eecf7ca25",
+      "output_bytes": 34253,
+      "environment": {
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin",
+        "HOME_prefix": "ipfs-accelerate-validation-home-lay6deoy"
+      },
+      "summary": "Executed src/lib/netherlandsCorpus.ts. Remote fetch was refused 103 times before any network call. Load returned 3 sections with provider static-sample.",
+      "output_excerpt": "{\"module\":\"src/lib/netherlandsCorpus.ts\",\"remote_fetch\":\"refused before any network call\",\"remote_refusal_count\":103,\"remote_refusal_hosts\":[\"datasets-server.huggingface.co\",\"huggingface.co\"],\"loaded\":{\"section_count\":3,\"section_ids\":[{\"ipfs_cid\":\"bafywetwijzer000000000000000000000000000000000000000000000001\",\"law_id\":\"BWBR0001854\",\"identifier\":\"BWBR0001854 Artikel 1\",\"provider\":\"static-sample\",\"law_status\":\"current\",\"source_url\":\"https://wetten.overheid.nl/BWBR0001854\"},{\"ipfs_cid\":\"bafywetwijzer000000000000000000000000000000000000000000000002\",\"law_id\":\"BWBR0002656\",\"identifier\":\"BWBR0002656 Artikel 1\",\"provider\":\"static-sample\",\"law_status\":\"current\",\"source_url\":\"https://wetten.overheid.nl/BWBR0002656\"},{\"ipfs_cid\":\"bafywetwijzer000000000000000000000000000000000000000000000003\",\"law_id\":\"BWBR0001827\",\"identifier\":\"BWBR0001827 Artikel 1\",\"provider\":\"static-sample\",\"law_status\":\"current\",\"source_url\":\"https://wetten.overheid.nl/BWBR0001827\"}],\"manifest_provider\":\"static-sample\",\"manifest_dataset_id\":\"justicedao/wetwijzer_netherlands_legal_corpus\",\"manifest_counts\":{\"laws\":3,\"articles\":3,\"cidRows\":3},\"active_manifest_dataset_id\":\"justicedao/wetwijzer_netherlands_legal_corpus\",\"act"
+    }
+  ],
+  "netherlands_cases": [
+    {
+      "kind": "bundled_sample_article",
+      "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000001",
+      "law_id": "BWBR0001854",
+      "identifier": "BWBR0001854 Artikel 1",
+      "title": "Wetboek van Strafrecht - Artikel 1",
+      "official_cite": "Wetboek van Strafrecht, Artikel 1",
+      "bluebook_citation": "BWBR0001854 art. 1",
+      "source_url": "https://wetten.overheid.nl/BWBR0001854",
+      "law_status": "current",
+      "is_current": true,
+      "status_source": "wetten.overheid.nl /informatie and official BWB metadata",
+      "status_confidence": "high",
+      "norm_operator": "O",
+      "norm_type": "obligation",
+      "formalization_scope": "article",
+      "fol_status": "success",
+      "deontic_status": "success",
+      "zkp_backend": "simulated",
+      "zkp_verified": false,
+      "zkp_security_note": "Local simulated proof helper only; not cryptographic verification and not legal advice.",
+      "text_sha256": "4c852778b1ba0c26e2283a4fa82230e15f48705f3a644926f2c1d8811d205be0",
+      "dataset_id": "justicedao/wetwijzer_netherlands_legal_corpus",
+      "published_corpus_counts": {
+        "laws": 4999,
+        "articles": 89737,
+        "cidRows": 94736,
+        "relationshipRows": 261720,
+        "coverage": "quality-audited partial corpus, not full Dutch corpus coverage"
+      },
+      "sample_role": "labelled browser sample; not the published partial corpus",
+      "logic_source": "public/corpus/netherlands/current/generated/logic-proof-summaries.json",
+      "logic_normalizer_executed": false
+    },
+    {
+      "kind": "bundled_sample_article",
+      "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000002",
+      "law_id": "BWBR0002656",
+      "identifier": "BWBR0002656 Artikel 1",
+      "title": "Burgerlijk Wetboek Boek 1 - Artikel 1",
+      "official_cite": "Burgerlijk Wetboek Boek 1, Artikel 1",
+      "bluebook_citation": "BWBR0002656 art. 1",
+      "source_url": "https://wetten.overheid.nl/BWBR0002656",
+      "law_status": "current",
+      "is_current": true,
+      "status_source": "wetten.overheid.nl /informatie and official BWB metadata",
+      "status_confidence": "high",
+      "norm_operator": "P",
+      "norm_type": "permission",
+      "formalization_scope": "article",
+      "fol_status": "success",
+      "deontic_status": "success",
+      "zkp_backend": "simulated",
+      "zkp_verified": false,
+      "zkp_security_note": "Local simulated proof helper only; not cryptographic verification and not legal advice.",
+      "text_sha256": "b6a6cbd6effa02dfef173af7f642984a6a376c990e523e3ce684d66454ce4e80",
+      "dataset_id": "justicedao/wetwijzer_netherlands_legal_corpus",
+      "published_corpus_counts": {
+        "laws": 4999,
+        "articles": 89737,
+        "cidRows": 94736,
+        "relationshipRows": 261720,
+        "coverage": "quality-audited partial corpus, not full Dutch corpus coverage"
+      },
+      "sample_role": "labelled browser sample; not the published partial corpus",
+      "logic_source": "public/corpus/netherlands/current/generated/logic-proof-summaries.json",
+      "logic_normalizer_executed": false
+    },
+    {
+      "kind": "bundled_sample_article",
+      "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000003",
+      "law_id": "BWBR0001827",
+      "identifier": "BWBR0001827 Artikel 1",
+      "title": "Wetboek van Burgerlijke Rechtsvordering - Artikel 1",
+      "official_cite": "Wetboek van Burgerlijke Rechtsvordering, Artikel 1",
+      "bluebook_citation": "BWBR0001827 art. 1",
+      "source_url": "https://wetten.overheid.nl/BWBR0001827",
+      "law_status": "current",
+      "is_current": true,
+      "status_source": "wetten.overheid.nl /informatie and official BWB metadata",
+      "status_confidence": "high",
+      "norm_operator": "F",
+      "norm_type": "prohibition",
+      "formalization_scope": "article",
+      "fol_status": "success",
+      "deontic_status": "success",
+      "zkp_backend": "simulated",
+      "zkp_verified": false,
+      "zkp_security_note": "Local simulated proof helper only; not cryptographic verification and not legal advice.",
+      "text_sha256": "e22e32f4755f25e2a21c1336acaefc4aec0e512c3c8f97510dc1dcf2039daf23",
+      "dataset_id": "justicedao/wetwijzer_netherlands_legal_corpus",
+      "published_corpus_counts": {
+        "laws": 4999,
+        "articles": 89737,
+        "cidRows": 94736,
+        "relationshipRows": 261720,
+        "coverage": "quality-audited partial corpus, not full Dutch corpus coverage"
+      },
+      "sample_role": "labelled browser sample; not the published partial corpus",
+      "logic_source": "public/corpus/netherlands/current/generated/logic-proof-summaries.json",
+      "logic_normalizer_executed": false
+    },
+    {
+      "kind": "loaded_sample",
+      "module": "src/lib/netherlandsCorpus.ts",
+      "remote_fetch": "refused before any network call",
+      "remote_refusal_count": 103,
+      "manifest_provider": "static-sample",
+      "manifest_dataset_id": "justicedao/wetwijzer_netherlands_legal_corpus",
+      "manifest_counts": {
+        "laws": 3,
+        "articles": 3,
+        "cidRows": 3
+      },
+      "active_manifest_provider": "static-sample",
+      "section_count": 3,
+      "section_ids": [
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000001",
+          "law_id": "BWBR0001854",
+          "identifier": "BWBR0001854 Artikel 1",
+          "provider": "static-sample",
+          "law_status": "current",
+          "source_url": "https://wetten.overheid.nl/BWBR0001854"
+        },
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000002",
+          "law_id": "BWBR0002656",
+          "identifier": "BWBR0002656 Artikel 1",
+          "provider": "static-sample",
+          "law_status": "current",
+          "source_url": "https://wetten.overheid.nl/BWBR0002656"
+        },
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000003",
+          "law_id": "BWBR0001827",
+          "identifier": "BWBR0001827 Artikel 1",
+          "provider": "static-sample",
+          "law_status": "current",
+          "source_url": "https://wetten.overheid.nl/BWBR0001827"
+        }
+      ],
+      "published_corpus_counts": {
+        "laws": 4999,
+        "articles": 89737,
+        "cidRows": 94736,
+        "relationshipRows": 261720,
+        "coverage": "quality-audited partial corpus, not full Dutch corpus coverage"
+      }
+    },
+    {
+      "kind": "fallback_search",
+      "query": "Wetboek van Strafrecht artikel 1",
+      "mode": "keyword",
+      "count": 3,
+      "results": [
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000001",
+          "title": "Wetboek van Strafrecht - Artikel 1",
+          "law_id": "BWBR0001854",
+          "identifier": "BWBR0001854 Artikel 1",
+          "citation": "BWBR0001854 art. 1",
+          "provider": "static-sample",
+          "score": 1.46651306219146,
+          "scoreParts": {
+            "keyword": 1.46651306219146,
+            "vector": 0,
+            "title": 0,
+            "citation": 0,
+            "bm25": 1.46651306219146,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. Geen feit is strafbaar dan uit kracht van een daaraan voorafgegane wettelijke strafbepaling. Bij verandering in de wetgeving na het tijdstip waarop het feit is begaan, worden de voor de verdachte gunstigste bepalingen toegepast."
+        },
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000003",
+          "title": "Wetboek van Burgerlijke Rechtsvordering - Artikel 1",
+          "law_id": "BWBR0001827",
+          "identifier": "BWBR0001827 Artikel 1",
+          "citation": "BWBR0001827 art. 1",
+          "provider": "static-sample",
+          "score": 0.5569356301483368,
+          "scoreParts": {
+            "keyword": 0.5569356301483368,
+            "vector": 0,
+            "title": 0,
+            "citation": 0,
+            "bm25": 0.5569356301483368,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. De rechtsmacht van de Nederlandse rechter en de wijze van procederen volgen uit de wet. Gebruik deze tekst als zoekingang en controleer de geldende versie op wetten.overheid.nl."
+        },
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000002",
+          "title": "Burgerlijk Wetboek Boek 1 - Artikel 1",
+          "law_id": "BWBR0002656",
+          "identifier": "BWBR0002656 Artikel 1",
+          "citation": "BWBR0002656 art. 1",
+          "provider": "static-sample",
+          "score": 0.4849521052776313,
+          "scoreParts": {
+            "keyword": 0.4849521052776313,
+            "vector": 0,
+            "title": 0,
+            "citation": 0,
+            "bm25": 0.4849521052776313,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. Allen die zich in Nederland bevinden, zijn vrij en bevoegd tot het genot van burgerlijke rechten. Persoonlijke status en familierechtelijke bepalingen moeten altijd tegen de officiele tekst worden gecontroleerd."
+        }
+      ],
+      "provider_expected": "static-sample"
+    },
+    {
+      "kind": "fallback_search",
+      "query": "Wetboek van Strafrecht artikel 1",
+      "mode": "hybrid",
+      "count": 3,
+      "results": [
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000001",
+          "title": "Wetboek van Strafrecht - Artikel 1",
+          "law_id": "BWBR0001854",
+          "identifier": "BWBR0001854 Artikel 1",
+          "citation": "BWBR0001854 art. 1",
+          "provider": "static-sample",
+          "score": 1.46651306219146,
+          "scoreParts": {
+            "keyword": 1.46651306219146,
+            "vector": 0,
+            "title": 0,
+            "citation": 0,
+            "bm25": 1.46651306219146,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. Geen feit is strafbaar dan uit kracht van een daaraan voorafgegane wettelijke strafbepaling. Bij verandering in de wetgeving na het tijdstip waarop het feit is begaan, worden de voor de verdachte gunstigste bepalingen toegepast."
+        },
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000003",
+          "title": "Wetboek van Burgerlijke Rechtsvordering - Artikel 1",
+          "law_id": "BWBR0001827",
+          "identifier": "BWBR0001827 Artikel 1",
+          "citation": "BWBR0001827 art. 1",
+          "provider": "static-sample",
+          "score": 0.5569356301483368,
+          "scoreParts": {
+            "keyword": 0.5569356301483368,
+            "vector": 0,
+            "title": 0,
+            "citation": 0,
+            "bm25": 0.5569356301483368,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. De rechtsmacht van de Nederlandse rechter en de wijze van procederen volgen uit de wet. Gebruik deze tekst als zoekingang en controleer de geldende versie op wetten.overheid.nl."
+        },
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000002",
+          "title": "Burgerlijk Wetboek Boek 1 - Artikel 1",
+          "law_id": "BWBR0002656",
+          "identifier": "BWBR0002656 Artikel 1",
+          "citation": "BWBR0002656 art. 1",
+          "provider": "static-sample",
+          "score": 0.4849521052776313,
+          "scoreParts": {
+            "keyword": 0.4849521052776313,
+            "vector": 0,
+            "title": 0,
+            "citation": 0,
+            "bm25": 0.4849521052776313,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. Allen die zich in Nederland bevinden, zijn vrij en bevoegd tot het genot van burgerlijke rechten. Persoonlijke status en familierechtelijke bepalingen moeten altijd tegen de officiele tekst worden gecontroleerd."
+        }
+      ],
+      "provider_expected": "static-sample"
+    },
+    {
+      "kind": "fallback_search",
+      "query": "Burgerlijk Wetboek",
+      "mode": "keyword",
+      "count": 3,
+      "results": [
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000002",
+          "title": "Burgerlijk Wetboek Boek 1 - Artikel 1",
+          "law_id": "BWBR0002656",
+          "identifier": "BWBR0002656 Artikel 1",
+          "citation": "BWBR0002656 art. 1",
+          "provider": "static-sample",
+          "score": 4.138239802328455,
+          "scoreParts": {
+            "keyword": 1.1382398023284546,
+            "vector": 0,
+            "title": 1,
+            "citation": 1,
+            "bm25": 1.1382398023284546,
+            "graph": 0
+          },
+          "snippet": "...1. Allen die zich in Nederland bevinden, zijn vrij en bevoegd tot het genot van burgerlijke rechten. Persoonlijke status en familierechtelijke bepalingen moeten altijd tegen de officiele tekst worden gecontroleerd."
+        },
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000003",
+          "title": "Wetboek van Burgerlijke Rechtsvordering - Artikel 1",
+          "law_id": "BWBR0001827",
+          "identifier": "BWBR0001827 Artikel 1",
+          "citation": "BWBR0001827 art. 1",
+          "provider": "static-sample",
+          "score": 0.13494691975481787,
+          "scoreParts": {
+            "keyword": 0.13494691975481787,
+            "vector": 0,
+            "title": 0,
+            "citation": 0,
+            "bm25": 0.13494691975481787,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. De rechtsmacht van de Nederlandse rechter en de wijze van procederen volgen uit de wet. Gebruik deze tekst als zoekingang en controleer de geldende versie op wetten.overheid.nl."
+        },
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000001",
+          "title": "Wetboek van Strafrecht - Artikel 1",
+          "law_id": "BWBR0001854",
+          "identifier": "BWBR0001854 Artikel 1",
+          "citation": "BWBR0001854 art. 1",
+          "provider": "static-sample",
+          "score": 0.12945755352750327,
+          "scoreParts": {
+            "keyword": 0.12945755352750327,
+            "vector": 0,
+            "title": 0,
+            "citation": 0,
+            "bm25": 0.12945755352750327,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. Geen feit is strafbaar dan uit kracht van een daaraan voorafgegane wettelijke strafbepaling. Bij verandering in de wetgeving na het tijdstip waarop het feit is begaan, worden de voor de verdachte gunstigste bepalingen toegepast."
+        }
+      ],
+      "provider_expected": "static-sample"
+    },
+    {
+      "kind": "fallback_search",
+      "query": "Burgerlijk Wetboek",
+      "mode": "hybrid",
+      "count": 3,
+      "results": [
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000002",
+          "title": "Burgerlijk Wetboek Boek 1 - Artikel 1",
+          "law_id": "BWBR0002656",
+          "identifier": "BWBR0002656 Artikel 1",
+          "citation": "BWBR0002656 art. 1",
+          "provider": "static-sample",
+          "score": 4.138239802328455,
+          "scoreParts": {
+            "keyword": 1.1382398023284546,
+            "vector": 0,
+            "title": 1,
+            "citation": 1,
+            "bm25": 1.1382398023284546,
+            "graph": 0
+          },
+          "snippet": "...1. Allen die zich in Nederland bevinden, zijn vrij en bevoegd tot het genot van burgerlijke rechten. Persoonlijke status en familierechtelijke bepalingen moeten altijd tegen de officiele tekst worden gecontroleerd."
+        },
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000003",
+          "title": "Wetboek van Burgerlijke Rechtsvordering - Artikel 1",
+          "law_id": "BWBR0001827",
+          "identifier": "BWBR0001827 Artikel 1",
+          "citation": "BWBR0001827 art. 1",
+          "provider": "static-sample",
+          "score": 0.13494691975481787,
+          "scoreParts": {
+            "keyword": 0.13494691975481787,
+            "vector": 0,
+            "title": 0,
+            "citation": 0,
+            "bm25": 0.13494691975481787,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. De rechtsmacht van de Nederlandse rechter en de wijze van procederen volgen uit de wet. Gebruik deze tekst als zoekingang en controleer de geldende versie op wetten.overheid.nl."
+        },
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000001",
+          "title": "Wetboek van Strafrecht - Artikel 1",
+          "law_id": "BWBR0001854",
+          "identifier": "BWBR0001854 Artikel 1",
+          "citation": "BWBR0001854 art. 1",
+          "provider": "static-sample",
+          "score": 0.12945755352750327,
+          "scoreParts": {
+            "keyword": 0.12945755352750327,
+            "vector": 0,
+            "title": 0,
+            "citation": 0,
+            "bm25": 0.12945755352750327,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. Geen feit is strafbaar dan uit kracht van een daaraan voorafgegane wettelijke strafbepaling. Bij verandering in de wetgeving na het tijdstip waarop het feit is begaan, worden de voor de verdachte gunstigste bepalingen toegepast."
+        }
+      ],
+      "provider_expected": "static-sample"
+    },
+    {
+      "kind": "fallback_search",
+      "query": "legaliteitsbeginsel",
+      "mode": "keyword",
+      "count": 0,
+      "results": [],
+      "provider_expected": "static-sample"
+    },
+    {
+      "kind": "fallback_search",
+      "query": "legaliteitsbeginsel",
+      "mode": "hybrid",
+      "count": 0,
+      "results": [],
+      "provider_expected": "static-sample"
+    },
+    {
+      "kind": "fallback_search",
+      "query": "rechtsvordering",
+      "mode": "keyword",
+      "count": 1,
+      "results": [
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000003",
+          "title": "Wetboek van Burgerlijke Rechtsvordering - Artikel 1",
+          "law_id": "BWBR0001827",
+          "identifier": "BWBR0001827 Artikel 1",
+          "citation": "BWBR0001827 art. 1",
+          "provider": "static-sample",
+          "score": 3.9912267362592004,
+          "scoreParts": {
+            "keyword": 0.9912267362592007,
+            "vector": 0,
+            "title": 1,
+            "citation": 1,
+            "bm25": 0.9912267362592007,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. De rechtsmacht van de Nederlandse rechter en de wijze van procederen volgen uit de wet. Gebruik deze tekst als zoekingang en controleer de geldende versie op wetten.overheid.nl."
+        }
+      ],
+      "provider_expected": "static-sample"
+    },
+    {
+      "kind": "fallback_search",
+      "query": "rechtsvordering",
+      "mode": "hybrid",
+      "count": 1,
+      "results": [
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000003",
+          "title": "Wetboek van Burgerlijke Rechtsvordering - Artikel 1",
+          "law_id": "BWBR0001827",
+          "identifier": "BWBR0001827 Artikel 1",
+          "citation": "BWBR0001827 art. 1",
+          "provider": "static-sample",
+          "score": 3.9912267362592004,
+          "scoreParts": {
+            "keyword": 0.9912267362592007,
+            "vector": 0,
+            "title": 1,
+            "citation": 1,
+            "bm25": 0.9912267362592007,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. De rechtsmacht van de Nederlandse rechter en de wijze van procederen volgen uit de wet. Gebruik deze tekst als zoekingang en controleer de geldende versie op wetten.overheid.nl."
+        }
+      ],
+      "provider_expected": "static-sample"
+    },
+    {
+      "kind": "fallback_search",
+      "query": "BWBR0001854",
+      "mode": "keyword",
+      "count": 1,
+      "results": [
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000001",
+          "title": "Wetboek van Strafrecht - Artikel 1",
+          "law_id": "BWBR0001854",
+          "identifier": "BWBR0001854 Artikel 1",
+          "citation": "BWBR0001854 art. 1",
+          "provider": "static-sample",
+          "score": 2.9509056486825553,
+          "scoreParts": {
+            "keyword": 0.9509056486825552,
+            "vector": 0,
+            "title": 0,
+            "citation": 1,
+            "bm25": 0.9509056486825552,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. Geen feit is strafbaar dan uit kracht van een daaraan voorafgegane wettelijke strafbepaling. Bij verandering in de wetgeving na het tijdstip waarop het feit is begaan, worden de voor de verdachte gunstigste bepalingen toegepast."
+        }
+      ],
+      "provider_expected": "static-sample"
+    },
+    {
+      "kind": "fallback_search",
+      "query": "BWBR0001854",
+      "mode": "hybrid",
+      "count": 1,
+      "results": [
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000001",
+          "title": "Wetboek van Strafrecht - Artikel 1",
+          "law_id": "BWBR0001854",
+          "identifier": "BWBR0001854 Artikel 1",
+          "citation": "BWBR0001854 art. 1",
+          "provider": "static-sample",
+          "score": 2.9509056486825553,
+          "scoreParts": {
+            "keyword": 0.9509056486825552,
+            "vector": 0,
+            "title": 0,
+            "citation": 1,
+            "bm25": 0.9509056486825552,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. Geen feit is strafbaar dan uit kracht van een daaraan voorafgegane wettelijke strafbepaling. Bij verandering in de wetgeving na het tijdstip waarop het feit is begaan, worden de voor de verdachte gunstigste bepalingen toegepast."
+        }
+      ],
+      "provider_expected": "static-sample"
+    },
+    {
+      "kind": "fallback_search",
+      "query": "strafbaar",
+      "mode": "keyword",
+      "count": 1,
+      "results": [
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000001",
+          "title": "Wetboek van Strafrecht - Artikel 1",
+          "law_id": "BWBR0001854",
+          "identifier": "BWBR0001854 Artikel 1",
+          "citation": "BWBR0001854 art. 1",
+          "provider": "static-sample",
+          "score": 0.9509056486825552,
+          "scoreParts": {
+            "keyword": 0.9509056486825552,
+            "vector": 0,
+            "title": 0,
+            "citation": 0,
+            "bm25": 0.9509056486825552,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. Geen feit is strafbaar dan uit kracht van een daaraan voorafgegane wettelijke strafbepaling. Bij verandering in de wetgeving na het tijdstip waarop het feit is begaan, worden de voor de verdachte gunstigste bepalingen toegepast."
+        }
+      ],
+      "provider_expected": "static-sample"
+    },
+    {
+      "kind": "fallback_search",
+      "query": "strafbaar",
+      "mode": "hybrid",
+      "count": 1,
+      "results": [
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000001",
+          "title": "Wetboek van Strafrecht - Artikel 1",
+          "law_id": "BWBR0001854",
+          "identifier": "BWBR0001854 Artikel 1",
+          "citation": "BWBR0001854 art. 1",
+          "provider": "static-sample",
+          "score": 0.9509056486825552,
+          "scoreParts": {
+            "keyword": 0.9509056486825552,
+            "vector": 0,
+            "title": 0,
+            "citation": 0,
+            "bm25": 0.9509056486825552,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. Geen feit is strafbaar dan uit kracht van een daaraan voorafgegane wettelijke strafbepaling. Bij verandering in de wetgeving na het tijdstip waarop het feit is begaan, worden de voor de verdachte gunstigste bepalingen toegepast."
+        }
+      ],
+      "provider_expected": "static-sample"
+    },
+    {
+      "kind": "fallback_search",
+      "query": "Artikel 1",
+      "mode": "keyword",
+      "count": 3,
+      "results": [
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000002",
+          "title": "Burgerlijk Wetboek Boek 1 - Artikel 1",
+          "law_id": "BWBR0002656",
+          "identifier": "BWBR0002656 Artikel 1",
+          "citation": "BWBR0002656 art. 1",
+          "provider": "static-sample",
+          "score": 3.2121665460589637,
+          "scoreParts": {
+            "keyword": 0.21216654605896368,
+            "vector": 0,
+            "title": 1,
+            "citation": 1,
+            "bm25": 0.21216654605896368,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. Allen die zich in Nederland bevinden, zijn vrij en bevoegd tot het genot van burgerlijke rechten. Persoonlijke status en familierechtelijke bepalingen moeten altijd tegen de officiele tekst worden gecontroleerd."
+        },
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000003",
+          "title": "Wetboek van Burgerlijke Rechtsvordering - Artikel 1",
+          "law_id": "BWBR0001827",
+          "identifier": "BWBR0001827 Artikel 1",
+          "citation": "BWBR0001827 art. 1",
+          "provider": "static-sample",
+          "score": 3.2109943551967595,
+          "scoreParts": {
+            "keyword": 0.21099435519675946,
+            "vector": 0,
+            "title": 1,
+            "citation": 1,
+            "bm25": 0.21099435519675946,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. De rechtsmacht van de Nederlandse rechter en de wijze van procederen volgen uit de wet. Gebruik deze tekst als zoekingang en controleer de geldende versie op wetten.overheid.nl."
+        },
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000001",
+          "title": "Wetboek van Strafrecht - Artikel 1",
+          "law_id": "BWBR0001854",
+          "identifier": "BWBR0001854 Artikel 1",
+          "citation": "BWBR0001854 art. 1",
+          "provider": "static-sample",
+          "score": 3.206432315084397,
+          "scoreParts": {
+            "keyword": 0.20643231508439708,
+            "vector": 0,
+            "title": 1,
+            "citation": 1,
+            "bm25": 0.20643231508439708,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. Geen feit is strafbaar dan uit kracht van een daaraan voorafgegane wettelijke strafbepaling. Bij verandering in de wetgeving na het tijdstip waarop het feit is begaan, worden de voor de verdachte gunstigste bepalingen toegepast."
+        }
+      ],
+      "provider_expected": "static-sample"
+    },
+    {
+      "kind": "fallback_search",
+      "query": "Artikel 1",
+      "mode": "hybrid",
+      "count": 3,
+      "results": [
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000002",
+          "title": "Burgerlijk Wetboek Boek 1 - Artikel 1",
+          "law_id": "BWBR0002656",
+          "identifier": "BWBR0002656 Artikel 1",
+          "citation": "BWBR0002656 art. 1",
+          "provider": "static-sample",
+          "score": 3.2121665460589637,
+          "scoreParts": {
+            "keyword": 0.21216654605896368,
+            "vector": 0,
+            "title": 1,
+            "citation": 1,
+            "bm25": 0.21216654605896368,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. Allen die zich in Nederland bevinden, zijn vrij en bevoegd tot het genot van burgerlijke rechten. Persoonlijke status en familierechtelijke bepalingen moeten altijd tegen de officiele tekst worden gecontroleerd."
+        },
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000003",
+          "title": "Wetboek van Burgerlijke Rechtsvordering - Artikel 1",
+          "law_id": "BWBR0001827",
+          "identifier": "BWBR0001827 Artikel 1",
+          "citation": "BWBR0001827 art. 1",
+          "provider": "static-sample",
+          "score": 3.2109943551967595,
+          "scoreParts": {
+            "keyword": 0.21099435519675946,
+            "vector": 0,
+            "title": 1,
+            "citation": 1,
+            "bm25": 0.21099435519675946,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. De rechtsmacht van de Nederlandse rechter en de wijze van procederen volgen uit de wet. Gebruik deze tekst als zoekingang en controleer de geldende versie op wetten.overheid.nl."
+        },
+        {
+          "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000001",
+          "title": "Wetboek van Strafrecht - Artikel 1",
+          "law_id": "BWBR0001854",
+          "identifier": "BWBR0001854 Artikel 1",
+          "citation": "BWBR0001854 art. 1",
+          "provider": "static-sample",
+          "score": 3.206432315084397,
+          "scoreParts": {
+            "keyword": 0.20643231508439708,
+            "vector": 0,
+            "title": 1,
+            "citation": 1,
+            "bm25": 0.20643231508439708,
+            "graph": 0
+          },
+          "snippet": "Artikel 1. Geen feit is strafbaar dan uit kracht van een daaraan voorafgegane wettelijke strafbepaling. Bij verandering in de wetgeving na het tijdstip waarop het feit is begaan, worden de voor de verdachte gunstigste bepalingen toegepast."
+        }
+      ],
+      "provider_expected": "static-sample"
+    },
+    {
+      "kind": "section_lookup",
+      "direct": {
+        "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000001",
+        "provider": "static-sample",
+        "law_id": "BWBR0001854",
+        "source_url": "https://wetten.overheid.nl/BWBR0001854"
+      },
+      "missing_cid": "missing-cid",
+      "missing_result": null
+    },
+    {
+      "kind": "related_graph",
+      "ipfs_cid": "bafywetwijzer000000000000000000000000000000000000000000000001",
+      "entity_count": 4,
+      "relationship_count": 3,
+      "entity_ids": [
+        "bafywetwijzer000000000000000000000000000000000000000000000001",
+        "netherlands_law:BWBR0001854",
+        "netherlands_status:current",
+        "netherlands_source:wetten_overheid_nl"
+      ],
+      "relationship_ids": [
+        "bafywetwijzer000000000000000000000000000000000000000000000001:part_of:BWBR0001854",
+        "bafywetwijzer000000000000000000000000000000000000000000000001:status:current",
+        "bafywetwijzer000000000000000000000000000000000000000000000001:source:wetten"
+      ]
+    },
+    {
+      "kind": "ui_contract",
+      "document_language": "nl-NL",
+      "document_title": "WetWijzer | Nederlandse wetzoeker",
+      "public_origin_in_metadata": "https://wetwijzer.github.io/",
+      "hash_router_present": false,
+      "initial_query": "Wetboek van Strafrecht artikel 1",
+      "example_queries": [
+        "Wetboek van Strafrecht artikel 1",
+        "Burgerlijk Wetboek",
+        "legaliteitsbeginsel",
+        "rechtsvordering"
+      ],
+      "initial_chat_question": "Wat zegt Artikel 1 van het Wetboek van Strafrecht?",
+      "official_source_link": {
+        "label": "Official source",
+        "target": "_blank",
+        "rel": "noreferrer",
+        "href_field": "section.source_url"
+      },
+      "sample_law_labels": {
+        "BWBR0001854": "Wetboek van Strafrecht",
+        "BWBR0002656": "Burgerlijk Wetboek Boek 1",
+        "BWBR0001827": "Wetboek van Burgerlijke Rechtsvordering"
+      }
+    }
+  ],
+  "keyword_hybrid_same_order_without_embedding": [
+    {
+      "query": "Wetboek van Strafrecht artikel 1",
+      "same_order": true
+    },
+    {
+      "query": "Burgerlijk Wetboek",
+      "same_order": true
+    },
+    {
+      "query": "legaliteitsbeginsel",
+      "same_order": true
+    },
+    {
+      "query": "rechtsvordering",
+      "same_order": true
+    },
+    {
+      "query": "BWBR0001854",
+      "same_order": true
+    },
+    {
+      "query": "strafbaar",
+      "same_order": true
+    },
+    {
+      "query": "Artikel 1",
+      "same_order": true
+    }
+  ],
+  "preservation": {
+    "unrelated_work_overwritten": false,
+    "protected_paths_modified_by_this_task": false,
+    "node_modules_installed": false,
+    "corpus_sample_rewritten": false
+  },
+  "limitations": [
+    "node_modules is absent. tsc and jest are not on the sealed PATH, so the package build and Netherlands logic test cannot run. Dependencies were not installed.",
+    "No browser, Playwright, or embedding-worker run was performed.",
+    "Live Hugging Face was not contacted. The executed Netherlands search is the production fallback after remote fetch failed closed.",
+    "Keyword and hybrid rankings in this probe use no query embedding, so vector score is zero.",
+    "Logic proof fields are copied from the bundled JSON. netherlandsLogic.ts was not executed.",
+    "artifacts/ is gitignored, so the task receipt is present on disk and is not part of the site commit.",
+    "research.json still names older product and supervisor heads. Those pins were not rewritten.",
+    "This record does not claim native merge admission or campaign completion."
+  ]
+}
