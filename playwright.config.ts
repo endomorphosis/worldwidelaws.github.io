@@ -5,6 +5,7 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './tests',
+  testIgnore: ['**/fixtures/**', '**/*.test.ts', '**/*.test.tsx'],
   timeout: 60_000,
   /* Run tests in files in parallel */
   fullyParallel: true,
