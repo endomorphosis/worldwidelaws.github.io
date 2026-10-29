@@ -31,7 +31,12 @@ const jestConfig: JestConfigWithTsJest = {
   ],
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.{ts,tsx}',
-    '<rootDir>/src/**/*.{test,spec}.{ts,tsx}'
+    '<rootDir>/src/**/*.{test,spec}.{ts,tsx}',
+    '<rootDir>/tests/worldwide/**/*.test.ts',
+    '<rootDir>/tests/worldwide/**/*.test.tsx'
+  ],
+  testPathIgnorePatterns: [
+    '<rootDir>/tests/worldwide/fixtures/'
   ],
   transform: {
     '^.+\\.(ts|tsx)$': ['ts-jest', {
