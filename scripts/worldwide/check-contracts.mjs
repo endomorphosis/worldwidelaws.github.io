@@ -2086,7 +2086,7 @@ export function runSelfTest() {
   rejectCases.push(['ci-continue', () => validateAuditDocument('ci-contract', continued), 'continue_on_error']);
   rejectCases.push(['actor-self', () => validateAuditDocument('product-acceptance', productSample('self')), 'actor_not_independent']);
   const secretSource = maintenanceSample();
-  secretSource.source += '\nconst api_key = "supersecretvalue";\n';
+  secretSource.source += '\nconst api_key = "PUBLIC_NON_CREDENTIAL_TEST_CANARY";\n';
   rejectCases.push(['maintenance-secret', () => validateAuditDocument('maintenance', secretSource), 'secret_material']);
   rejectCases.push(['release-continue', () => validateAuditDocument('release-candidate', releaseSample('\ncontinue-on-error: true\n')), 'continue_on_error']);
   rejectCases.push(['deployment-empty', () => validateAuditDocument('deployment', { schema: 'worldwide-legal-search.deployment@1', status: 'done' }), 'invalid_field']);
