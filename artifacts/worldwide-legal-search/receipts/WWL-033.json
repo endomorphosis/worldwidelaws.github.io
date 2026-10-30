@@ -1,0 +1,88 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-033",
+  "title": "Implement optional device location and privacy controls",
+  "recorded_at": "2026-10-30T14:32:18Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-033-4c3348bab9da-attempt-1-1793369380",
+  "site_revision": "eb21bc9327db5a68100f70b7279c985e5434790a",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "device.ts, LocationPrivacy.tsx, and device-location.test.ts are untracked working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status.",
+    "Browser permission is requested only when request() is called with userAction true. The screen passes that only from the Use device location button, including keyboard activation of that button. Rendering the screen does not call getCurrentPosition or watchPosition.",
+    "watchPosition is never called. A reading uses maximumAge 0 so the browser is not asked for a cached position. The page timeout is 8000 ms.",
+    "The reading is matched with the caller-supplied local boundary pack and then dropped. It is not written to localStorage, sessionStorage, place state, sessionCoordinates, route.precise, or the default shared link. A supplied reverse geocoder is never called.",
+    "Permission is not requested when the local pack or the date is missing, when the page is not a secure context, when the Geolocation API is missing, or when the active place is already a URL, manual, or saved choice.",
+    "Denial, the browser timeout, a request that never calls back within 8000 ms, an unusable reading, and a success that arrives after timeout, clear, reset, or a newer manual choice do not select a place and do not keep the reading.",
+    "Nested boundaries select the most specific place. A country-only hit does not invent a municipality. Overlapping places and a boundary marked uncertain stay unselected until the visitor chooses. That later choice is manual and does not ask for permission again.",
+    "An approximate IP suggestion can be replaced by an explicit device request. A place chosen while the prompt is open is kept.",
+    "Clear removes a device suggestion and precise session coordinates. A manual, URL, or saved place is kept. Reset also turns no-third-party mode off and clears the GeoIP opt-out for the client passed into this screen. Neither action requests permission.",
+    "No-third-party mode is a local boolean flag with no coordinates. It blocks Suggest my approximate location. Device matching still stays on this device. An unreadable flag fails closed for third-party requests. Turning the mode off does not send a request by itself.",
+    "The user agent may still use its own location provider after permission is granted. This page does not send the coordinates to a reverse geocoder or to api.country.is.",
+    "Suggest my approximate location is shown only when the caller passes a GeoIP client and no-third-party mode is off. This screen does not construct that client and does not send a request on mount.",
+    "The fixture graph is synthetic. It does not decide that a law applies.",
+    "node_modules was absent and was installed with npm ci --ignore-scripts so Jest could run. package.json and package-lock.json were not edited.",
+    "CI=1 was set so Jest would not enter watch mode. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-wwl033.tYOzKS. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state.",
+    "The Jest reporter and the existing Node NO_COLOR and VM Modules warnings were written to stderr, along with the ts-jest isolatedModules deprecation warning. stderr was not empty. The process exit code was 0.",
+    "The reporter counted 21 passing tests. One is the existing setup test. Twenty exercise device location and the privacy screen."
+  ],
+  "device_location": {
+    "schema": "worldwide-legal-search.device-location@1",
+    "permission_on_user_action_only": true,
+    "uses_watch_position": false,
+    "resolves_locally": true,
+    "calls_third_party_geocoder": false,
+    "retains_coordinate_history": false,
+    "timeout_ms": 8000,
+    "maximum_age_ms": 0,
+    "enable_high_accuracy": true,
+    "no_third_party_mode": true,
+    "clear_and_reset": true,
+    "manual_fallback_always_available": true,
+    "applicability": "not-asserted"
+  },
+  "outputs": [
+    {
+      "path": "src/lib/worldwide/location/device.ts",
+      "bytes": 35808,
+      "sha256": "d6796b5413570c6c06a8a4b57b75bb99ca46a617027c9eab0fc3a7d2f5066952"
+    },
+    {
+      "path": "src/components/worldwide/LocationPrivacy.tsx",
+      "bytes": 7633,
+      "sha256": "2f5f9f816b4dd85f68653f5bd1bcd04732a1a5c4997315ceba8930328fed4cf7"
+    },
+    {
+      "path": "tests/worldwide/device-location.test.ts",
+      "bytes": 39160,
+      "sha256": "8726ba31e7a0b0bc04bda6646a52e43073795d879707805e08be2bd3e7edd166"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/device-location.test.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_838f1cfa9a6f_ce773954d5bd",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-wwl033.tYOzKS. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. CI=1 was set so Jest would not enter watch mode. npm wrote the script banner to stdout. Jest wrote the passing reporter to stderr.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 21,
+      "failed": 0,
+      "behavior_tests": 20,
+      "setup_tests": 1
+    },
+    "stdout_sha256": "990340bd0f312e69bccbe812ce8de43f8bd0de7b62416701ed0ac98eff31aac1",
+    "stderr_sha256": "9cc0d94ccec338169e21f3a0e1ff98bbfffd753da832d420da1668b48fe44d3c"
+  }
+}
