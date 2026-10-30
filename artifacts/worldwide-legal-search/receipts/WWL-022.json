@@ -1,0 +1,104 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-022",
+  "title": "Implement bounded point and place resolution",
+  "recorded_at": "2026-10-30T13:23:41Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-022-9abb13ef079d-attempt-1-1793364585",
+  "site_revision": "13d261363455110c1d8616998c89d194e23a9351",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "resolve.ts and geography.test.ts are uncommitted working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status.",
+    "The resolver consumes a caller-supplied geometry catalog joined by geometryRef. It does not import geography-manifest.json, fetch remote polygons, or store geoBoundaries coordinates.",
+    "Fixtures are synthetic planar rectangles, holes, and an L-shaped notch in degrees. They are not geoBoundaries polygons. Expected candidate sets are literals. An independent rectangle, hole, and antimeridian inequality oracle must agree with those literals before the resolver is compared.",
+    "Membership is an even-odd point-in-polygon test in degrees, not a geodesic test. Border tolerance is degrees, not meters. A query tolerance cannot exceed the tolerance used to pad the index.",
+    "Antimeridian rings are unwrapped per ring. The check assumes the vertices of one ring share a longitude neighborhood. Longitude 180 folds to -180. A coordinate outside [-180, 180] by more than a full turn is rejected.",
+    "A bounding-box or grid hit is not membership. Holes and exclusion roles reject the containing place. A point on an exclusion or hole edge is border-uncertain and is not given a winner. Nested clean interiors stay a candidate set.",
+    "Administrative and proximity edges are not geometry. Parent containment does not add a place. Issuer-only nodes are not places. Unknown or expired validity is not current. Applicability stays not-asserted.",
+    "A missing geometry ref or an unknown boundary statement is reported. It is not treated as containment and does not invent a municipality for a hole.",
+    "Disputed boundaries stay out of the base index until the caller selects their view ids. An unknown view id is rejected.",
+    "A place-id query reports the place-id reason. Name, alias, and code reasons are added only when the caller also supplies matching text. A code alias returns the internal place id.",
+    "Precise checks stop at 512 features and name matches stop at 32. A truncated result is incomplete and does not pick a winner.",
+    "The Jest reporter and the existing Node NO_COLOR and VM Modules warnings were written to stderr. stderr was not empty. The process exit code was 0.",
+    "The reporter counted 44 passing tests. One is the existing setup test. Forty-three exercise this resolver."
+  ],
+  "resolution": {
+    "point": "worldwide-legal-search.point-resolution@1",
+    "place": "worldwide-legal-search.place-resolution@1",
+    "index": "worldwide-legal-search.place-index@1",
+    "applicability": "not-asserted",
+    "point_statuses": [
+      "resolved",
+      "border-uncertain",
+      "unresolved",
+      "invalid-point"
+    ],
+    "place_statuses": [
+      "resolved",
+      "ambiguous",
+      "unresolved",
+      "invalid-query"
+    ],
+    "resolution_reasons": [
+      "antimeridian",
+      "approximate",
+      "border-uncertain",
+      "disputed",
+      "enclave",
+      "hole",
+      "interior",
+      "island",
+      "on-boundary",
+      "unincorporated"
+    ],
+    "rejection_reasons": [
+      "inside-exclusion",
+      "inside-hole",
+      "outside-ring",
+      "validity-outside"
+    ],
+    "limits": {
+      "maxFeatures": 8000,
+      "maxPreciseChecks": 512,
+      "maxNameMatches": 32,
+      "maxBorderToleranceDegrees": 1
+    }
+  },
+  "outputs": [
+    {
+      "path": "src/lib/worldwide/jurisdiction/resolve.ts",
+      "bytes": 40303,
+      "sha256": "2c4d4c11b7251b21d96212cbd892afb5b072368c0ed39eafcebf0a181a6f6386"
+    },
+    {
+      "path": "tests/worldwide/geography.test.ts",
+      "bytes": 38491,
+      "sha256": "c0fe6dd738cfd6667dc426423a308f10fa821c3d263145b1e80845f5b3f71b2c"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/geography.test.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_0b896c72677a_1eef88e55d89",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-wwl022c. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. npm wrote the script banner to stdout. Jest wrote the passing reporter to stderr.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 44,
+      "failed": 0
+    },
+    "stdout_sha256": "4e3a74b0d472956b92efe072ca395c8d63a29ab88472133bacf5b51cbeccc28a",
+    "stderr_sha256": "17d95c5b42397d16ffaf65f8f1f0826ab9cbfc7e00c7ed0a10ea1c9442ef5803"
+  }
+}
