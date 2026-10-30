@@ -1,0 +1,120 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-012",
+  "title": "Audit text and artifact redistribution rights",
+  "recorded_at": "2026-10-30T10:39:38Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-012-b63e346f63e6-attempt-1-1793355541",
+  "site_revision": "36da08fe7c6c1a2c15e8c00cde5cfc6eec764f1e",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "rights.json and attribution.md are uncommitted working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status.",
+    "633 pinned README cards matched the inventory card sha256. Nine datasets have no pinned card and stay unresolved.",
+    "Three current Hub revisions differ from the inventory pin (endomorphosis/world_caselaw, world_municipal_law, world_national_law). Rights are bound to the inventory revision, not the later Hub head.",
+    "Organization membership in justicedao or endomorphosis is not a redistribution license. inferred_from_organization is false on every record.",
+    "A record is resolved only when its own pinned card states one dataset-wide grant and the attribution that grant requires. license: other, unquoted portal terms, hedged wording, per-source splits, and missing cards stay unresolved blockers.",
+    "44 records are resolved and 598 are unresolved. Unresolved rights block every artifact kind on that record.",
+    "Embeddings, indexes, and official translations are bound to the dataset that publishes them. They do not inherit a license from a sibling corpus.",
+    "Administrative boundary polygons and municipality geometry are not in the pinned inventory. That gap is an explicit blocker. OpenStreetMap courthouse locations are bound only on endomorphosis/world_courts (ODbL-1.0) and endomorphosis/ipfs_france_courts (unresolved).",
+    "The rights audit validates data/worldwide/rights.json. It does not execute a separate rights module and it does not load attribution.md."
+  ],
+  "rights": {
+    "schema": "worldwide-legal-search.rights@1",
+    "inventory_revision": "0b6db3b679d8b9042c97ca5a48e3625892804ca14e2edf3badde368941665326",
+    "disposition_revision": "bd713600b9931ddc081059cb53162d5ee4be30f603134ab08697ff6386f1cd9a",
+    "audited_at": "2026-10-30T10:38:55Z",
+    "datasets": 642,
+    "resolved": 44,
+    "unresolved": 598,
+    "by_rights": {
+      "unresolved": 598,
+      "CC0-1.0": 9,
+      "copyright-exempt-official-texts": 15,
+      "CC-BY-4.0": 5,
+      "EU-Decision-2011/833": 2,
+      "etalab-2.0": 5,
+      "public-domain": 1,
+      "OGL-UK-3.0": 3,
+      "AGPL-3.0": 2,
+      "ODbL-1.0": 1,
+      "CC-BY": 1
+    },
+    "by_artifact_kind": {
+      "embedding": {
+        "records": 291,
+        "resolved": 1,
+        "unresolved": 290
+      },
+      "text": {
+        "records": 597,
+        "resolved": 34,
+        "unresolved": 563
+      },
+      "dataset": {
+        "records": 28,
+        "resolved": 5,
+        "unresolved": 23
+      },
+      "translation": {
+        "records": 11,
+        "resolved": 1,
+        "unresolved": 10
+      },
+      "boundary": {
+        "records": 2,
+        "resolved": 1,
+        "unresolved": 1
+      },
+      "code": {
+        "records": 2,
+        "resolved": 2,
+        "unresolved": 0
+      },
+      "index": {
+        "records": 291,
+        "resolved": 3,
+        "unresolved": 288
+      }
+    },
+    "unresolved_by_source": {
+      "no-grant": 552,
+      "portal-terms-unquoted": 19,
+      "pinned-card-split": 14,
+      "card-absent": 9,
+      "structured-tag-without-notice": 3,
+      "hedged-grant": 1
+    },
+    "organization_membership_is_not_a_license": true
+  },
+  "outputs": [
+    {
+      "path": "data/worldwide/rights.json",
+      "bytes": 493219,
+      "sha256": "7c6840d6b36aca5cc30f44b1fbb42c586efb907afe4b30c38aa6b6b80ba34d9c"
+    },
+    {
+      "path": "docs/worldwide/attribution.md",
+      "bytes": 18166,
+      "sha256": "2751ecec56bfce8fcf55a37d3c3b94a30eec41cfc7b27acbc48a8e520e3a85e1"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "node",
+      "scripts/worldwide/audit.mjs",
+      "rights"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_36794f1df96e_42744e52b6ab",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node. HOME was a private directory whose name starts with ipfs-accelerate-validation-home-. stderr was empty. This provider run used the worktree as cwd.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "command": "rights"
+    },
+    "stdout_sha256": "b722567ed9aa4429cd5b35405ca911e5c8a9b344623f3c61eb9b2df109be6fba"
+  }
+}
