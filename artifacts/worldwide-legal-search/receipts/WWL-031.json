@@ -1,0 +1,76 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-031",
+  "title": "Deliver accessible manual place search and disambiguation",
+  "recorded_at": "2026-10-30T14:08:09Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-031-770ffd4b9221-attempt-1-1793367913",
+  "site_revision": "e9ab1a00c4f3c302f6d45bea30898f35fc8f0c87",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "PlacePicker.tsx and place-picker.test.tsx are untracked working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status.",
+    "The control does not read navigator.geolocation and does not render a map, canvas, image, or iframe. Country, region, and municipality choices are lists and a name field.",
+    "The picker does not ship a world gazetteer. The caller passes an admitted jurisdiction graph, optional local geometries, and optional postal records. No remote geometry or postal request is made.",
+    "Parent context comes from dated administrative-containment edges. An unknown parent is stated and is not guessed. Every recorded parent chain stays on the row. A disputed parent is included only when its view id is selected.",
+    "Native, official, and code aliases match when they are current at the as-of date. A historical alias outside that date does not match. Places with unknown or expired validity are omitted and counted.",
+    "Duplicate names and a postal code shared by more than one place stay unselected until the visitor chooses a row. Enter does not take the first row.",
+    "Queries of one or two characters match a prefix or an exact name or code. They do not match every name that merely contains those letters. Longer queries also match within a name. Results stop at 32.",
+    "Postal search is enabled only for records with a usable license string. Empty, unknown, unlicensed, and explicitly unlicensed records are counted and withheld. No postal dataset is bundled.",
+    "Coordinates are typed latitude and longitude. Nested hits and border hits are listed with parent context and are not given a winner. A country-only hit does not invent a municipality. An absent boundary pack leaves the lists usable and explains why the point cannot be resolved.",
+    "The selection callback can carry the typed coordinates. selectPlace has no coordinate field, so those numbers are not stored on the place state and do not appear on the shared link.",
+    "Keyboard use is arrow keys, Home, End, type-ahead in the place lists, Enter, and Escape. A pointer can also choose a row. This does not by itself prove a screen-reader pass outside jsdom.",
+    "The fixture graph is synthetic. It does not decide that a law applies.",
+    "node_modules was installed with npm ci --ignore-scripts so Jest could run. package.json and package-lock.json were not edited.",
+    "CI=1 was set so Jest would not enter watch mode. The argv is the task command.",
+    "The Jest reporter and the existing Node NO_COLOR and VM Modules warnings were written to stderr, along with the ts-jest isolatedModules deprecation warning. stderr was not empty. The process exit code was 0.",
+    "The reporter counted 17 passing tests. One is the existing setup test. Sixteen exercise this place picker."
+  ],
+  "place_picker": {
+    "schema": "worldwide-legal-search.place-picker@1",
+    "selection_schema": "worldwide-legal-search.place-selection@1",
+    "applicability": "not-asserted",
+    "uses_geolocation": false,
+    "uses_map": false,
+    "max_matches": 32,
+    "entries": ["browse", "search", "postcode", "coordinates", "worldwide"]
+  },
+  "outputs": [
+    {
+      "path": "src/components/worldwide/PlacePicker.tsx",
+      "bytes": 51546,
+      "sha256": "8f27484d974ff5f2e3e275ede12a038131eb128cd70350b481007b5458128790"
+    },
+    {
+      "path": "tests/worldwide/place-picker.test.tsx",
+      "bytes": 33813,
+      "sha256": "4ba7aad99666e5bef36117b83c620de8d0a8e2261ccf6be3af22b9578e252d88"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/place-picker.test.tsx"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_26ee1fbf762f_48d7c48cdd02",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-wwl031.9IsCA7. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. CI=1 was set so Jest would not enter watch mode. npm wrote the script banner to stdout. Jest wrote the passing reporter to stderr.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 17,
+      "failed": 0,
+      "behavior_tests": 16,
+      "setup_tests": 1
+    },
+    "stdout_sha256": "a5409e79c988a715d828d954354be68efe7a576afe6dc99a16ed8af467e022ce",
+    "stderr_sha256": "1ae9bd331cccb1a05ef3123b7c562bf6e5f768a9f5157e3d92f48d245cae59f3"
+  }
+}
