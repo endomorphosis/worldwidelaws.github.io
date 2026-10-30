@@ -1,0 +1,547 @@
+{
+  "schema": "worldwide-legal-search.geoip-provider-decision@1",
+  "task_id": "WWL-032",
+  "evaluated_at": "2026-10-30T13:32:00Z",
+  "probe_origin": "https://worldwidelaws.github.io",
+  "pages_origins": [
+    "https://worldwidelaws.github.io",
+    "https://wetwijzer.github.io"
+  ],
+  "architecture": {
+    "pages_can_read_visitor_ip": false,
+    "summary": "GitHub Pages serves static files. Application code on the Pages origin cannot read the visitor IP. A suggestion has to be a browser request to a public HTTPS endpoint. The browser, not Pages, is the client the provider sees. This evaluation sent GET requests with an Origin header from the evaluation host. It did not execute JavaScript on the Pages site and it did not record IP addresses, coordinates, city names, or postal codes."
+  },
+  "selection": {
+    "provider_id": "country.is",
+    "selected": true,
+    "requires_secret": false,
+    "method": "GET",
+    "url": "https://api.country.is/",
+    "credentials": "omit",
+    "mode": "cors",
+    "redirect": "error",
+    "referrer_policy": "no-referrer",
+    "cache": "no-store",
+    "accept": "application/json",
+    "timeout_ms": 2500,
+    "max_response_bytes": 2048,
+    "max_requests_per_session": 1,
+    "retries": 0,
+    "precision": "country",
+    "sends_search_text": false,
+    "sends_address": false,
+    "sends_coordinates": false,
+    "retains_ip": false,
+    "retains_coordinates": false,
+    "query_string": false,
+    "fields_parameter": false
+  },
+  "runtime_policy": {
+    "replaceable": true,
+    "consent_required_default": false,
+    "consent_offer_label": "Suggest my approximate location",
+    "opt_out_label": "Do not suggest a location",
+    "manual_label": "Choose a place",
+    "opt_out_storage_key": "worldwide-legal-search.geoip.opt-out",
+    "opt_out_schema": "worldwide-legal-search.geoip-opt-out@1",
+    "opt_out_stores_location": false,
+    "session_storage_key": "worldwide-legal-search.geoip.session",
+    "session_schema": "worldwide-legal-search.geoip-session@1",
+    "session_stores_location": false,
+    "manual_fallback_always_available": true,
+    "country_code_is_place_id": false,
+    "country_only_selects_city": false,
+    "default_resolver": null,
+    "attribution": "Country data includes GeoLite2 data created by MaxMind, available from https://www.maxmind.com."
+  },
+  "selected_evidence": {
+    "terms_url": "https://country.is/",
+    "terms_checked_at": "2026-10-30T13:32:00Z",
+    "terms_summary": "The public page says api.country.is is free, requires no key, and is free for commercial use. It has run since 2015. It tells critical applications to self-host. Self-hosting asks for a MaxMind account id and license key, which this static site will not use.",
+    "commercial_use": "allowed",
+    "cors": {
+      "method": "GET",
+      "origins_probed": [
+        "https://worldwidelaws.github.io",
+        "https://wetwijzer.github.io"
+      ],
+      "status": 200,
+      "final_scheme": "https",
+      "access_control_allow_origin": "*",
+      "content_type": "application/json; charset=utf-8",
+      "server": "cloudflare",
+      "readable_from_pages": true,
+      "notes": "Both Pages origins received Access-Control-Allow-Origin: * on a queryless HTTPS GET. Accept: application/json is a CORS-safelisted request header, so the browser does not need a preflight. The client sends credentials omit, mode cors, redirect error, cache no-store, and referrerPolicy no-referrer so a search string in the page URL is not attached as a Referer. Hash routes already keep the search fragment off the Referer."
+    },
+    "quota": {
+      "summary": "The public page says there is no quota and the infrastructure rate-limits to 10 requests per second per IP to prevent abuse. The client allows one request per browser session and does not retry.",
+      "per": "visitor-ip",
+      "published_limit": "10 requests per second per IP",
+      "fits_one_session_request": true
+    },
+    "precision": {
+      "level": "country",
+      "summary": "GET / with no query returns an ISO 3166-1 alpha-2 country code and an IP field. The published optional fields parameter can add city, subdivision, postal code, coordinates, and ASN. This client does not send fields. The kept result is the country code only. A VPN, mobile carrier, or anycast address can make the country wrong. The code is not a place id and it does not select a city. Data is MaxMind GeoLite2, updated daily, with Cloudflare geolocation when that source is available."
+    },
+    "retention": {
+      "provider_summary": "The public page answers “Do you log requests?” with “No.” The response body still contains an IP field. The client drops that field and does not write it, or any coordinates, into localStorage or sessionStorage. The opt-out record stores only the schema and optedOut true. The session record stores only the schema and a request count of 1.",
+      "provider_logs_requests": false,
+      "client_keeps_ip": false,
+      "client_keeps_coordinates": false
+    },
+    "probe": {
+      "status": 200,
+      "final_scheme": "https",
+      "body_bytes": 38,
+      "json_keys": ["country", "ip"],
+      "values_recorded": false,
+      "url_had_query": false
+    }
+  },
+  "candidates": [
+    {
+      "id": "country.is",
+      "selected": true,
+      "url": "https://api.country.is/",
+      "requires_secret": false,
+      "terms": {
+        "url": "https://country.is/",
+        "checked_at": "2026-10-30T13:32:00Z",
+        "commercial_use": "allowed",
+        "summary": "Free, no key, commercial use allowed, no request logs stated, MaxMind GeoLite2 plus Cloudflare geolocation when available. No availability SLA. Self-hosting requires a MaxMind secret and is out of scope."
+      },
+      "cors": {
+        "checked_from_origin": "https://worldwidelaws.github.io",
+        "also_checked_from_origin": "https://wetwijzer.github.io",
+        "access_control_allow_origin": "*",
+        "status": 200,
+        "readable_from_pages": true
+      },
+      "quota": {
+        "summary": "No monthly quota. 10 requests per second per IP. One session request fits.",
+        "per": "visitor-ip",
+        "fits_one_session_request": true
+      },
+      "precision": {
+        "level": "country",
+        "summary": "Default GET returns a country code. The client does not request city, postal, or coordinate fields."
+      },
+      "retention": {
+        "provider_summary": "Published answer: requests are not logged. The client discards the IP field.",
+        "client_keeps_ip": false,
+        "client_keeps_coordinates": false
+      },
+      "decision": "Selected. It is the only probed endpoint that is HTTPS, CORS-readable from the Pages origins, free of a secret, explicit about commercial use, explicit about not logging, explicit about a per-visitor rate limit, and limited to country precision on the URL this client calls."
+    },
+    {
+      "id": "geojs",
+      "selected": false,
+      "url": "https://get.geojs.io/v1/ip/geo.json",
+      "requires_secret": false,
+      "terms": {
+        "url": "https://www.geojs.io/tos/",
+        "checked_at": "2026-10-30T13:32:00Z",
+        "commercial_use": "unknown",
+        "summary": "Terms allow the service to throttle or block excessive use at its discretion. The general docs, read at https://www.geojs.io/docs/general/, say there is no numeric rate limit today and that a limit would be announced where possible. The terms do not say commercial use of a public site is allowed."
+      },
+      "cors": {
+        "checked_from_origin": "https://worldwidelaws.github.io",
+        "access_control_allow_origin": "*",
+        "access_control_allow_methods": "GET",
+        "status": 200,
+        "readable_from_pages": true
+      },
+      "quota": {
+        "summary": "No numeric quota is published. Excessive use can be throttled later.",
+        "per": "unknown",
+        "fits_one_session_request": true
+      },
+      "precision": {
+        "level": "city",
+        "summary": "The live JSON keys included accuracy, city, region, country, country_code, latitude, longitude, ip, asn, and organization. The v1 docs index did not define the accuracy unit. Values were not recorded."
+      },
+      "retention": {
+        "provider_summary": "https://www.geojs.io/privacy/ says access logs are not stored and anonymised error logs may include browser type, referring domain, and device. Traffic flows through Cloudflare.",
+        "client_keeps_ip": false,
+        "client_keeps_coordinates": false
+      },
+      "decision": "Not selected. CORS and the lack of a secret are acceptable, but the response is finer than this feature keeps, the accuracy unit was not published on the docs page read, and the quota is an unnumbered promise that the terms can revoke."
+    },
+    {
+      "id": "ipwho.is",
+      "selected": false,
+      "url": "https://ipwho.is/",
+      "requires_secret": false,
+      "terms": {
+        "url": "https://ipwhois.io/documentation",
+        "checked_at": "2026-10-30T13:32:00Z",
+        "commercial_use": "allowed",
+        "summary": "The free endpoint allows commercial use, with standard accuracy, and no SLA. The docs say a free call does not need a key."
+      },
+      "cors": {
+        "checked_from_origin": "https://worldwidelaws.github.io",
+        "access_control_allow_origin": "*",
+        "status": 200,
+        "readable_from_pages": true
+      },
+      "quota": {
+        "summary": "1,000 requests per day. The docs say CORS requests are counted per domain, not per visitor IP, so the Pages origin would share one daily quota.",
+        "per": "pages-domain",
+        "fits_one_session_request": false
+      },
+      "precision": {
+        "level": "coordinates",
+        "summary": "Live keys included city, region, postal, latitude, longitude, and ip. A postal code is finer than an approximate country. Values were not recorded."
+      },
+      "retention": {
+        "provider_summary": "A retention period was not stated on the rate-limit section that was read. The response includes a postal code and coordinates that this client would have to discard.",
+        "client_keeps_ip": false,
+        "client_keeps_coordinates": false
+      },
+      "decision": "Not selected. A shared 1,000-request daily quota for every visitor of the Pages origin will fail closed for the whole site, and the payload is more precise than this feature uses."
+    },
+    {
+      "id": "ipapi.co",
+      "selected": false,
+      "url": "https://ipapi.co/json/",
+      "requires_secret": false,
+      "terms": {
+        "url": "https://ipapi.co/terms/",
+        "checked_at": "2026-10-30T13:32:00Z",
+        "commercial_use": "restricted",
+        "summary": "Terms read on 2026-10-30 say they were last updated on 28 Jan 2026. The API license is described around an API key. Cached location data must not be kept longer than 24 hours. The keyless /json/ URL still answered 200 for this probe, which is not the same as a published no-quota browser contract."
+      },
+      "cors": {
+        "checked_from_origin": "https://worldwidelaws.github.io",
+        "access_control_allow_origin": "https://worldwidelaws.github.io",
+        "vary": "Host, origin",
+        "status": 200,
+        "readable_from_pages": true
+      },
+      "quota": {
+        "summary": "https://ipapi.co/ratelimited/ says a free plan with no key can be limited, including for suspicious IP blocks. The pages read did not publish a numeric per-visitor ceiling.",
+        "per": "unknown",
+        "fits_one_session_request": false
+      },
+      "precision": {
+        "level": "coordinates",
+        "summary": "Live keys included city, region, postal, latitude, and longitude. The developer page says those coordinates are often near a population center and are not an address. Values were not recorded."
+      },
+      "retention": {
+        "provider_summary": "https://ipapi.co/privacy/ says IP queries are stored in log files for a limited time, like ordinary web server logs, and are not sold. The page that was read does not state the number of days.",
+        "client_keeps_ip": false,
+        "client_keeps_coordinates": false
+      },
+      "decision": "Not selected. CORS from the Pages origin works and the call used no key, but retention includes request logs, the free quota is not a number this evaluation could verify, and the payload includes a postal code and coordinates."
+    },
+    {
+      "id": "ipinfo.io",
+      "selected": false,
+      "url": "https://ipinfo.io/json",
+      "requires_secret": true,
+      "terms": {
+        "url": null,
+        "checked_at": "2026-10-30T13:32:00Z",
+        "commercial_use": "unknown",
+        "summary": "The live JSON included a readme field whose value was https://ipinfo.io/missingauth. This evaluation did not send a token. A token in a static page would be a secret. The missing-auth page itself was not fetched."
+      },
+      "cors": {
+        "checked_from_origin": "https://worldwidelaws.github.io",
+        "access_control_allow_origin": "*",
+        "status": 200,
+        "readable_from_pages": true
+      },
+      "quota": {
+        "summary": "The unauthenticated call is explicitly marked missing auth. A token quota was not used, because a token is a secret.",
+        "per": "account",
+        "fits_one_session_request": false
+      },
+      "precision": {
+        "level": "coordinates",
+        "summary": "Live keys included hostname, city, region, loc, postal, and ip. Values were not recorded."
+      },
+      "retention": {
+        "provider_summary": "Retention for the missing-auth response was not verified. The payload includes a hostname and a postal code.",
+        "client_keeps_ip": false,
+        "client_keeps_coordinates": false
+      },
+      "decision": "Not selected. The response says authentication is missing, and fixing that requires a secret. The payload is also finer than a country."
+    },
+    {
+      "id": "ip-api.com",
+      "selected": false,
+      "url": "https://ip-api.com/json/",
+      "requires_secret": false,
+      "terms": {
+        "url": null,
+        "checked_at": "2026-10-30T13:32:00Z",
+        "commercial_use": "unknown",
+        "summary": "The HTTPS URL returned 403 to the Pages origin. The HTTP URL returned 200. An HTTPS Pages document cannot call that HTTP endpoint. Provider terms were not adopted from an unread page."
+      },
+      "cors": {
+        "checked_from_origin": "https://worldwidelaws.github.io",
+        "access_control_allow_origin": "*",
+        "status": 403,
+        "readable_from_pages": false
+      },
+      "quota": {
+        "summary": "Not used. The HTTPS endpoint refused the request.",
+        "per": "not-applicable",
+        "fits_one_session_request": false
+      },
+      "precision": {
+        "level": "coordinates",
+        "summary": "The HTTP response keys included city, region, lat, lon, and zip. That body is not usable from an HTTPS page. Values were not recorded."
+      },
+      "retention": {
+        "provider_summary": "Not adopted, so client retention does not arise.",
+        "client_keeps_ip": false,
+        "client_keeps_coordinates": false
+      },
+      "decision": "Not selected. HTTPS from the Pages origin was forbidden, and the HTTP endpoint cannot be called from an HTTPS page."
+    },
+    {
+      "id": "freeipapi.com",
+      "selected": false,
+      "url": "https://free.freeipapi.com/api/v1/json/",
+      "requires_secret": false,
+      "terms": {
+        "url": "https://freeipapi.com/docs/api-reference/api-introduction",
+        "checked_at": "2026-10-30T13:32:00Z",
+        "commercial_use": "unknown",
+        "summary": "The documented free server is rate limited to 10 requests per 10 seconds and 60 per minute, with no key. Paid browser access uses an API key or a domain whitelist, which is an account. The legacy host https://freeipapi.com/api/json still returned 200 during the probe. That legacy URL is not the contract this evaluation will pin."
+      },
+      "cors": {
+        "checked_from_origin": "https://worldwidelaws.github.io",
+        "access_control_allow_origin": "*",
+        "status": 200,
+        "readable_from_pages": true,
+        "notes": "The 200 and the CORS header were observed on https://freeipapi.com/api/json, not on the documented free host."
+      },
+      "quota": {
+        "summary": "Documented free limit is 60 requests per minute per caller. Paid browser use requires an account.",
+        "per": "visitor-ip",
+        "fits_one_session_request": true
+      },
+      "precision": {
+        "level": "coordinates",
+        "summary": "The legacy response keys included city, region, zip, latitude, longitude, and an IP field. Values were not recorded."
+      },
+      "retention": {
+        "provider_summary": "A retention statement was not on the API introduction page that was read.",
+        "client_keeps_ip": false,
+        "client_keeps_coordinates": false
+      },
+      "decision": "Not selected. The URL that answered is not the documented free URL, the documented paid browser path wants an account, and the payload includes a city, a postal code, and coordinates."
+    },
+    {
+      "id": "api.ip.sb",
+      "selected": false,
+      "url": "https://api.ip.sb/geoip",
+      "requires_secret": false,
+      "terms": {
+        "url": null,
+        "checked_at": "2026-10-30T13:32:00Z",
+        "commercial_use": "unknown",
+        "summary": "No terms, quota, or retention page was verified in this pass."
+      },
+      "cors": {
+        "checked_from_origin": "https://worldwidelaws.github.io",
+        "access_control_allow_origin": "*",
+        "status": 200,
+        "readable_from_pages": true
+      },
+      "quota": {
+        "summary": "Not published on a page this evaluation could cite.",
+        "per": "unknown",
+        "fits_one_session_request": false
+      },
+      "precision": {
+        "level": "coordinates",
+        "summary": "Live keys included city, region, postal_code, latitude, longitude, and ip. Values were not recorded."
+      },
+      "retention": {
+        "provider_summary": "Not verified.",
+        "client_keeps_ip": false,
+        "client_keeps_coordinates": false
+      },
+      "decision": "Not selected. CORS succeeded, and the terms, quota, and retention were not verified. The payload is also finer than a country."
+    },
+    {
+      "id": "cloudflare-trace",
+      "selected": false,
+      "url": "https://www.cloudflare.com/cdn-cgi/trace",
+      "requires_secret": false,
+      "terms": {
+        "url": null,
+        "checked_at": "2026-10-30T13:32:00Z",
+        "commercial_use": "not-applicable",
+        "summary": "cdn-cgi/trace is a Cloudflare diagnostic response, not a GeoIP product with terms for a third-party site. The resolver host's diagnostic trace URL behaved the same way."
+      },
+      "cors": {
+        "checked_from_origin": "https://worldwidelaws.github.io",
+        "access_control_allow_origin": "*",
+        "status": 200,
+        "readable_from_pages": true
+      },
+      "quota": {
+        "summary": "No published GeoIP quota. This is not a GeoIP contract.",
+        "per": "not-applicable",
+        "fits_one_session_request": false
+      },
+      "precision": {
+        "level": "country",
+        "summary": "The text body includes an ip field and a loc country field. Values were not recorded."
+      },
+      "retention": {
+        "provider_summary": "Not a documented GeoIP service. The body includes the raw IP, which this feature will not keep.",
+        "client_keeps_ip": false,
+        "client_keeps_coordinates": false
+      },
+      "decision": "Not selected. It is an undocumented diagnostic URL, even though CORS and a country code were present."
+    },
+    {
+      "id": "reallyfreegeoip.org",
+      "selected": false,
+      "url": "https://reallyfreegeoip.org/json/",
+      "requires_secret": false,
+      "terms": {
+        "url": null,
+        "checked_at": "2026-10-30T13:32:00Z",
+        "commercial_use": "unknown",
+        "summary": "The endpoint returned 403. Terms were not reachable through a successful call."
+      },
+      "cors": {
+        "checked_from_origin": "https://worldwidelaws.github.io",
+        "access_control_allow_origin": null,
+        "status": 403,
+        "readable_from_pages": false
+      },
+      "quota": {
+        "summary": "Not usable. The request was forbidden.",
+        "per": "not-applicable",
+        "fits_one_session_request": false
+      },
+      "precision": {
+        "level": "none",
+        "summary": "No JSON body was accepted."
+      },
+      "retention": {
+        "provider_summary": "Not adopted.",
+        "client_keeps_ip": false,
+        "client_keeps_coordinates": false
+      },
+      "decision": "Not selected. The Pages-origin GET was forbidden and no CORS allow-origin header was returned."
+    },
+    {
+      "id": "ipwhois.app",
+      "selected": false,
+      "url": "https://ipwhois.app/json/",
+      "requires_secret": false,
+      "terms": {
+        "url": null,
+        "checked_at": "2026-10-30T13:32:00Z",
+        "commercial_use": "unknown",
+        "summary": "The endpoint returned 403."
+      },
+      "cors": {
+        "checked_from_origin": "https://worldwidelaws.github.io",
+        "access_control_allow_origin": "*",
+        "status": 403,
+        "readable_from_pages": false
+      },
+      "quota": {
+        "summary": "Not usable. The request was forbidden.",
+        "per": "not-applicable",
+        "fits_one_session_request": false
+      },
+      "precision": {
+        "level": "none",
+        "summary": "No successful body."
+      },
+      "retention": {
+        "provider_summary": "Not adopted.",
+        "client_keeps_ip": false,
+        "client_keeps_coordinates": false
+      },
+      "decision": "Not selected. HTTPS GET from the Pages origin returned 403."
+    },
+    {
+      "id": "ip.guide",
+      "selected": false,
+      "url": "https://ip.guide/json",
+      "requires_secret": false,
+      "terms": {
+        "url": null,
+        "checked_at": "2026-10-30T13:32:00Z",
+        "commercial_use": "unknown",
+        "summary": "The URL returned 404."
+      },
+      "cors": {
+        "checked_from_origin": "https://worldwidelaws.github.io",
+        "access_control_allow_origin": "*",
+        "status": 404,
+        "readable_from_pages": false
+      },
+      "quota": {
+        "summary": "No service at this URL.",
+        "per": "not-applicable",
+        "fits_one_session_request": false
+      },
+      "precision": {
+        "level": "none",
+        "summary": "The probed URL returned 404, so no location fields were read."
+      },
+      "retention": {
+        "provider_summary": "Not adopted.",
+        "client_keeps_ip": false,
+        "client_keeps_coordinates": false
+      },
+      "decision": "Not selected. The probed URL does not exist."
+    },
+    {
+      "id": "maxmind-geolite2-self-host",
+      "selected": false,
+      "url": null,
+      "requires_secret": true,
+      "terms": {
+        "url": "https://country.is/",
+        "checked_at": "2026-10-30T13:32:00Z",
+        "commercial_use": "restricted",
+        "summary": "A self-hosted country.is or GeoLite2 lookup needs a MaxMind account id and license key. Those are secrets. A database on static Pages still cannot see the visitor IP unless some other party reveals it."
+      },
+      "cors": {
+        "checked_from_origin": "https://worldwidelaws.github.io",
+        "access_control_allow_origin": null,
+        "status": null,
+        "readable_from_pages": false
+      },
+      "quota": {
+        "summary": "Not applicable. There is no Pages-origin request that learns the visitor IP from a local file.",
+        "per": "not-applicable",
+        "fits_one_session_request": false
+      },
+      "precision": {
+        "level": "unknown",
+        "summary": "GeoLite2 can be country or city. This deployment does not ship the database."
+      },
+      "retention": {
+        "provider_summary": "Not used. A local database would not receive the search text, and it also would not know the visitor IP.",
+        "client_keeps_ip": false,
+        "client_keeps_coordinates": false
+      },
+      "decision": "Not selected. It requires a secret and cannot observe the visitor IP from a static Pages site."
+    }
+  ],
+  "known_limits": [
+    "Provider terms can change after 2026-10-30. This record is the check that selected the current endpoint.",
+    "The CORS probe used an Origin header from the evaluation host. It was not a browser running on GitHub Pages.",
+    "The selected response includes an IP field. The client discards it and does not store it.",
+    "A country code is not a stable place id. With no resolver, the place stays unselected and manual search stays complete.",
+    "A resolver may map the country code to a stable country place id. It cannot map that code to a city.",
+    "The default does not ask for consent before the single request. A deployment can set consentRequired and the client then waits for Suggest my approximate location.",
+    "This record is not a legal opinion that disclosure satisfies every ePrivacy rule.",
+    "country.is publishes no SLA. Timeout, HTTP errors, and an unreadable body leave manual search in place.",
+    "One failed attempt still consumes the session request so the client does not retry in a loop."
+  ]
+}
