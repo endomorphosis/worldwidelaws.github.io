@@ -1,0 +1,83 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-030",
+  "title": "Implement the place state machine and stable URL contract",
+  "recorded_at": "2026-10-30T12:48:17Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-030-5f473c293cd7-attempt-1-1793362997",
+  "site_revision": "b18a62515c960c4e701e84d16ad4c642e1018cf7",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "state.ts, routes.ts, and location-state.test.ts are untracked working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status.",
+    "The machine does not resolve coordinates to a city, contact a GeoIP provider, or request device permission. Those are later tasks. A late GeoIP or device response is only admitted while no URL, manual, or saved choice is active.",
+    "A country-only suggestion cannot select a city. Multiple border candidates stay unresolved until the visitor chooses.",
+    "Browser language and timezone can suggest a UI language. They do not select a place or a legal date.",
+    "Search text can propose a place change. It does not replace the active place until that proposal is accepted.",
+    "Default shared links omit latitude, longitude, and street addresses. An explicit opt-in may add lat and lon. Addresses are never put on a shared link.",
+    "A coordinate pair or country code in the place parameter is not a place id. No city is invented from it, and a later suggestion cannot fill that gap.",
+    "The legacy public token netherlands migrates to place:netherlands. Documented Dutch migration targets keep place=netherlands. New shared links use the stable place id.",
+    "Publisher links on wetten.overheid.nl stay beside /#/law/<record-id>. The application route does not replace them. A date in a publisher path is not treated as the legal as-of date.",
+    "The three bundled sample CIDs migrate to partial coverage for the Netherlands. They are not presented as the published corpus.",
+    "Saved places store the stable id, label, civil date, and scope. Coordinate fields in a saved record are ignored.",
+    "A malformed link does not clear an existing place or date.",
+    "node_modules was absent and was installed with npm ci --ignore-scripts so Jest could run. package.json and package-lock.json were not edited.",
+    "CI=1 was set so Jest would not enter watch mode. The argv is the task command.",
+    "The Jest reporter and the existing Node NO_COLOR and VM Modules warnings were written to stderr, along with the ts-jest isolatedModules deprecation warning. stderr was not empty. The process exit code was 0.",
+    "The reporter counted 18 passing tests. One is the existing setup test. Seventeen exercise this place machine and URL contract.",
+    "This module does not decide that a law applies."
+  ],
+  "place_state": {
+    "schema": "worldwide-legal-search.place-state@1",
+    "saved_schema": "worldwide-legal-search.saved-place@1",
+    "route_contract": "worldwide-legal-search.route-contract@1",
+    "origin_rank": ["url", "manual", "saved", "suggestion", "unselected"],
+    "routes": ["search", "place", "law", "coverage", "sources", "compare"],
+    "stable_netherlands_place_id": "place:netherlands",
+    "legacy_netherlands_token": "netherlands",
+    "default_share_includes_precise_coordinates": false
+  },
+  "outputs": [
+    {
+      "path": "src/lib/worldwide/location/state.ts",
+      "bytes": 34029,
+      "sha256": "051d2bbf8f5cab7905d82ee648a3f28301bec7b5467c8659a8c9613d8bfda2f8"
+    },
+    {
+      "path": "src/lib/worldwide/routes.ts",
+      "bytes": 37424,
+      "sha256": "6aa7f77414909c9c6736d5872b0fa7ea3ef038c8d73e1bc293ba23810e944bac"
+    },
+    {
+      "path": "tests/worldwide/location-state.test.ts",
+      "bytes": 25639,
+      "sha256": "bae91d4190fe6ca2e2cb49f3c810a7767fb568d0e834fb46a109636ae6675b8e"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/location-state.test.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_4f86d185d1ba_359fdf5ad956",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-wwl030b. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. CI=1 was set so Jest would not enter watch mode. npm wrote the script banner to stdout. Jest wrote the passing reporter to stderr.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 18,
+      "failed": 0,
+      "behavior_tests": 17,
+      "setup_tests": 1
+    },
+    "stdout_sha256": "5d9584da685d7ae51999bbbb6b17a9bbccccc3abaa13201ffb85a705567e5b75",
+    "stderr_sha256": "54062b3ccde005bf6032eea9ce736e6e69884f27413546dfbed75ffa048d21c7"
+  }
+}
