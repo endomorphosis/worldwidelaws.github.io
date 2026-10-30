@@ -1,0 +1,63 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-006",
+  "title": "Extract reusable TypeScript provider boundaries and Netherlands compatibility",
+  "recorded_at": "2026-10-30T04:31:29Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates.",
+  "site_branch": "implementation/wwl-006-8132e8d0e608-attempt-1-1793333640",
+  "site_revision": "92e2168c5724b5cd4b6b550e44b7b825c3417308",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "The outputs are uncommitted working-tree files. site_revision is HEAD before those edits.",
+    "Remote Hugging Face was not contacted. The compatibility run refused datasets-server.huggingface.co and huggingface.co and used the bundled static sample.",
+    "Keyword and hybrid rankings in this run use no query embedding, so the vector score is zero. They match the recorded static-sample rankings.",
+    "The React shell was not edited. Publisher links remain section.source_url, opened with target=_blank and rel=noreferrer. The hash route sits beside that URL and does not replace it.",
+    "node_modules was absent and was installed with npm ci --ignore-scripts so Jest could run. package.json and package-lock.json were not edited.",
+    "The three bundled articles stay labelled static-sample and current. They are not the published partial corpus of 4999 laws and 89737 articles."
+  ],
+  "outputs": [
+    {
+      "path": "src/lib/worldwide/contracts.ts",
+      "bytes": 10023,
+      "sha256": "1d74b01b35e3d46e1dfe373b8f1445a1b6087926dac6720ed9f59215ec02fc72"
+    },
+    {
+      "path": "src/lib/worldwide/adapters/netherlands.ts",
+      "bytes": 9784,
+      "sha256": "8dc72e26aac0ad722958b4ccf6bb92fe4de7c22bc3d406b9ba85995bfe8bf51b"
+    },
+    {
+      "path": "tests/worldwide/netherlands-compat.test.ts",
+      "bytes": 18076,
+      "sha256": "0d707eecad1b1216d43993db290e66ad0be893eec941292d5fdd228fa75c55ca"
+    },
+    {
+      "path": "src/lib/netherlandsCorpus.ts",
+      "bytes": 52589,
+      "sha256": "fc07827d04a27317df05c199a1ba034dfd8cae920d7b20ee5d73bb08042040cf"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/netherlands-compat.test.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_3259e4ea6aff_9ec664632b5c",
+    "env_note": "CI=1 was set so Jest would not enter watch mode. The argv is the task command.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites_passed": 1,
+      "tests_passed": 7,
+      "tests_failed": 0
+    },
+    "stdout_sha256": "0f471ce79bfd286c75c9df688069ca69ae02b555ac1fef7c3f23fa505c139b72"
+  }
+}

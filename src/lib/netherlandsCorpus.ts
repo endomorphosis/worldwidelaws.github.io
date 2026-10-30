@@ -1,104 +1,73 @@
-export type SearchMode = 'keyword' | 'vector' | 'hybrid';
-export type LegalRecordStatus = 'current' | 'historical' | 'repealed' | 'superseded' | 'unknown';
+import {
+  LEGACY_NETHERLANDS_PROFILE,
+  NETHERLANDS_CORPUS_BASE_URL,
+  NETHERLANDS_DATASET_VIEWER_API,
+  NETHERLANDS_HUB_DATASETS_API,
+  NETHERLANDS_INITIAL_REMOTE_LIMIT,
+  NETHERLANDS_JURISDICTION_LABEL,
+  NETHERLANDS_PROVIDER_ENV_KEY,
+  NETHERLANDS_PROVIDER_STORAGE_KEY,
+  NETHERLANDS_REQUEST_TIMEOUT_MS,
+  UNIFIED_NETHERLANDS_PROFILE,
+  buildNetherlandsLegislationJsonLd,
+  labelNetherlandsSampleManifest,
+  labelNetherlandsSampleSection,
+  netherlandsRemoteCorpusDescriptor,
+  readConfiguredNetherlandsProviderMode,
+  readNetherlandsProviderMode,
+  resolvePublisherDeepLink,
+  type NetherlandsDatasetProfile,
+  type NetherlandsProviderMode,
+} from './worldwide/adapters/netherlands';
+import {
+  REMOTE_PROVIDER_LABEL,
+  normalizeContentId,
+  normalizeRecordStatus,
+  toIpfsUri,
+  type CorpusArtifact,
+  type CorpusEntity,
+  type CorpusHierarchyItem,
+  type CorpusManifest,
+  type CorpusProvider,
+  type CorpusRelationship,
+  type CorpusSection,
+  type CorpusState,
+  type GraphProvider,
+  type GraphRagEvidence,
+  type LegalRecordStatus,
+  type RetrievalProvider,
+  type SearchFilters,
+  type SearchMode,
+  type SearchProvider,
+  type SearchResult,
+} from './worldwide/contracts';
 
-export interface CorpusHierarchyItem {
-  kind: string;
-  label: string;
-  number?: string | null;
-}
+export type {
+  CorpusArtifact,
+  CorpusEntity,
+  CorpusHierarchyItem,
+  CorpusProvider,
+  CorpusRelationship,
+  CorpusSection,
+  CorpusState,
+  GraphProvider,
+  GraphRagEvidence,
+  LegalRecordStatus,
+  RetrievalProvider,
+  SearchFilters,
+  SearchMode,
+  SearchProvider,
+  SearchResult,
+};
+export type WetWijzerCorpusManifest = CorpusManifest;
 
-export interface CorpusSection {
-  ipfs_cid: string;
-  cid?: string;
-  law_cid?: string | null;
-  content_address?: string;
-  identifier: string;
-  law_id?: string;
-  law_identifier?: string;
-  article_identifier?: string | null;
-  article_number?: string | null;
-  article_heading?: string | null;
-  title: string;
-  text: string;
-  source_url: string;
-  official_cite: string;
-  bluebook_citation: string;
-  citation?: string;
-  document_citation?: string;
-  chapter: string;
-  title_number: string;
-  hierarchy_path?: CorpusHierarchyItem[];
-  hierarchy_path_text?: string;
-  hierarchy_labels?: string[];
-  book_label?: string | null;
-  title_label?: string | null;
-  chapter_label?: string | null;
-  division_label?: string | null;
-  paragraph_label?: string | null;
-  article_label?: string | null;
-  book_number?: string | null;
-  chapter_number?: string | null;
-  division_number?: string | null;
-  paragraph_number?: string | null;
-  version_start_date?: string | null;
-  version_end_date?: string | null;
-  scraped_at?: string | null;
-  jsonld: string;
-  law_status?: LegalRecordStatus;
-  is_current?: boolean | null;
-  valid_from?: string | null;
-  valid_to?: string | null;
-  effective_date?: string | null;
-  retrieved_at?: string | null;
-  status_source?: string | null;
-  status_confidence?: string | number | null;
-  status_note?: string | null;
-  provider?: 'huggingface' | 'static-sample';
-  jurisdiction?: string;
-}
-
-export interface CorpusEntity {
-  id: string;
-  type: string;
-  label: string;
-  properties: Record<string, unknown>;
-}
-
-export interface CorpusRelationship {
-  id: string;
-  source: string;
-  target: string;
-  type: string;
-  properties?: Record<string, unknown>;
-}
-
-export interface SearchFilters {
-  titleNumber?: string;
-  entityTypes?: string[];
-  limit?: number;
-}
-
-export interface SearchResult {
-  ipfs_cid: string;
-  section: CorpusSection;
-  score: number;
-  scoreParts: {
-    keyword: number;
-    vector: number;
-    title: number;
-    citation: number;
-    bm25?: number;
-    graph?: number;
-  };
-  snippet: string;
-  citation: string;
-}
-
-export interface GraphRagEvidence {
-  sections: SearchResult[];
-  entities: CorpusEntity[];
-  relationships: CorpusRelationship[];
-}
+const CORPUS_BASE_URL = NETHERLANDS_CORPUS_BASE_URL;
+const DATASET_VIEWER_API = NETHERLANDS_DATASET_VIEWER_API;
+const HUGGING_FACE_API = NETHERLANDS_HUB_DATASETS_API;
+const REQUEST_TIMEOUT_MS = NETHERLANDS_REQUEST_TIMEOUT_MS;
+const INITIAL_REMOTE_ARTICLE_LIMIT = NETHERLANDS_INITIAL_REMOTE_LIMIT;
+const UNIFIED_PROFILE = UNIFIED_NETHERLANDS_PROFILE;
+const LEGACY_PROFILE = LEGACY_NETHERLANDS_PROFILE;
 
 interface EmbeddingIndex {
   count: number;
@@ -130,98 +99,6 @@ interface GraphAdjacency {
   outgoing: Record<string, CorpusRelationship[]>;
   incoming: Record<string, CorpusRelationship[]>;
 }
-
-interface HuggingFaceDatasetProfile {
-  id: 'unified' | 'legacy-four-repo';
-  datasetId: string;
-  datasets: {
-    base: string;
-    vector: string;
-    bm25: string;
-    graph: string;
-    logic?: string;
-  };
-  configs: {
-    laws: string;
-    articles: string;
-    cidIndex: string;
-    vectorIndex: string;
-    bm25Documents: string;
-    graphNodes: string;
-    graphEdges: string;
-    logicRelationships?: string;
-  };
-}
-
-export interface CorpusArtifact {
-  id: string;
-  path: string;
-  bytes: number;
-  role: string;
-  sourceUrl?: string;
-}
-
-export interface WetWijzerCorpusManifest {
-  schemaVersion: number;
-  generatedAt: string;
-  datasetId: string;
-  datasetPath: string;
-  corpus: {
-    jurisdiction: string;
-    name: string;
-    source: string;
-  };
-  artifacts: CorpusArtifact[];
-  generatedFiles: string[];
-  provider?: 'huggingface' | 'static-sample';
-  backend?: {
-    baseCorpus: string;
-    vectorIndex: string;
-    bm25Index: string;
-    knowledgeGraph: string;
-    release?: string;
-    lastModified?: string;
-  };
-  counts?: {
-    laws?: number;
-    articles?: number;
-    cidRows?: number;
-    vectorRows?: number;
-    bm25Documents?: number;
-    graphNodes?: number;
-    graphEdges?: number;
-  };
-}
-
-export interface CorpusState {
-  sections: CorpusSection[];
-  sectionByCid: Map<string, CorpusSection>;
-  manifest: WetWijzerCorpusManifest;
-}
-
-export interface CorpusProvider {
-  loadManifest(): Promise<WetWijzerCorpusManifest>;
-  loadInitialCorpus(limit?: number): Promise<CorpusState>;
-  getSection(ipfsCid: string): Promise<CorpusSection | null>;
-}
-
-export interface SearchProvider {
-  search(
-    query: string,
-    filters?: SearchFilters,
-    mode?: SearchMode,
-    queryEmbedding?: Float32Array | number[],
-  ): Promise<SearchResult[]>;
-}
-
-export interface GraphProvider {
-  getRelatedGraph(ipfsCid: string, depth?: number): Promise<{
-    entities: CorpusEntity[];
-    relationships: CorpusRelationship[];
-  }>;
-}
-
-export type RetrievalProvider = CorpusProvider & SearchProvider & GraphProvider;
 
 interface ViewerRow<T> {
   row: T;
@@ -257,57 +134,6 @@ interface ViewerSizeResponse {
 }
 
 type DatasetRow = Record<string, unknown>;
-type DataProviderMode = 'huggingface' | 'static';
-
-const DEFAULT_CORPUS_BASE_URL = '/corpus/netherlands/current';
-const CORPUS_BASE_URL = DEFAULT_CORPUS_BASE_URL;
-const DATASET_VIEWER_API = 'https://datasets-server.huggingface.co';
-const HUGGING_FACE_API = 'https://huggingface.co/api/datasets';
-const REQUEST_TIMEOUT_MS = 9000;
-const INITIAL_REMOTE_ARTICLE_LIMIT = 80;
-
-const UNIFIED_DATASET_ID = 'justicedao/wetwijzer_netherlands_legal_corpus';
-const LEGACY_DATASETS = {
-  base: 'justicedao/ipfs_netherlands_laws',
-  vector: 'justicedao/ipfs_netherlands_laws_vector_index',
-  bm25: 'justicedao/ipfs_netherlands_laws_bm25_index',
-  graph: 'justicedao/ipfs_netherlands_laws_knowledge_graph',
-};
-const UNIFIED_PROFILE: HuggingFaceDatasetProfile = {
-  id: 'unified',
-  datasetId: UNIFIED_DATASET_ID,
-  datasets: {
-    base: UNIFIED_DATASET_ID,
-    vector: UNIFIED_DATASET_ID,
-    bm25: UNIFIED_DATASET_ID,
-    graph: UNIFIED_DATASET_ID,
-    logic: UNIFIED_DATASET_ID,
-  },
-  configs: {
-    laws: 'laws',
-    articles: 'articles',
-    cidIndex: 'cid_index',
-    vectorIndex: 'vector_index',
-    bm25Documents: 'bm25_documents',
-    graphNodes: 'knowledge_graph_nodes',
-    graphEdges: 'knowledge_graph_edges',
-    logicRelationships: 'logic_relationships',
-  },
-};
-const LEGACY_PROFILE: HuggingFaceDatasetProfile = {
-  id: 'legacy-four-repo',
-  datasetId: LEGACY_DATASETS.base,
-  datasets: LEGACY_DATASETS,
-  configs: {
-    laws: 'laws',
-    articles: 'articles',
-    cidIndex: 'cid_index',
-    vectorIndex: 'mapping',
-    bm25Documents: 'documents',
-    graphNodes: 'nodes',
-    graphEdges: 'edges',
-  },
-};
 
 let staticManifestPromise: Promise<WetWijzerCorpusManifest> | null = null;
 let activeManifestPromise: Promise<WetWijzerCorpusManifest> | null = null;
@@ -397,7 +223,7 @@ class HuggingFaceCorpusProvider implements RetrievalProvider {
   private manifestCache: Promise<WetWijzerCorpusManifest> | null = null;
   private sectionCache = new Map<string, CorpusSection>();
 
-  constructor(private readonly profile: HuggingFaceDatasetProfile = UNIFIED_PROFILE) {}
+  constructor(private readonly profile: NetherlandsDatasetProfile = UNIFIED_PROFILE) {}
 
   async loadManifest(): Promise<WetWijzerCorpusManifest> {
     if (!this.manifestCache) {
@@ -653,12 +479,8 @@ class HuggingFaceCorpusProvider implements RetrievalProvider {
       generatedAt: lastModified || new Date().toISOString(),
       datasetId: this.profile.datasetId,
       datasetPath: `hf://datasets/${this.profile.datasetId}`,
-      provider: 'huggingface',
-      corpus: {
-        jurisdiction: 'Netherlands',
-        name: 'WetWijzer Netherlands legal corpus',
-        source: 'Hugging Face Dataset Viewer backed by wetten.overheid.nl and official BWB/SRU metadata',
-      },
+      provider: REMOTE_PROVIDER_LABEL,
+      corpus: netherlandsRemoteCorpusDescriptor(),
       backend: {
         baseCorpus: this.profile.datasetId,
         vectorIndex: this.profile.datasets.vector,
@@ -752,11 +574,7 @@ class HuggingFaceCorpusProvider implements RetrievalProvider {
 class StaticCorpusProvider implements RetrievalProvider {
   async loadManifest(): Promise<WetWijzerCorpusManifest> {
     const manifest = await loadStaticWetWijzerCorpusManifest();
-    return {
-      ...manifest,
-      provider: 'static-sample',
-      counts: manifest.counts || { articles: 3, laws: 3, cidRows: 3 },
-    };
+    return labelNetherlandsSampleManifest(manifest);
   }
 
   async loadInitialCorpus(): Promise<CorpusState> {
@@ -796,20 +614,14 @@ function getProvider(): RetrievalProvider {
   return provider;
 }
 
-function getConfiguredProviderMode(): DataProviderMode {
-  if (typeof window !== 'undefined') {
-    const browserOverride = readProviderMode(window.localStorage.getItem('WETWIJZER_DATA_PROVIDER'));
-    if (browserOverride) return browserOverride;
-  }
+function getConfiguredProviderMode(): NetherlandsProviderMode {
+  const storageValue = typeof window !== 'undefined'
+    ? window.localStorage.getItem(NETHERLANDS_PROVIDER_STORAGE_KEY)
+    : null;
+  const storageMode = readNetherlandsProviderMode(storageValue);
+  if (storageMode) return storageMode;
   const viteEnv = (import.meta as unknown as { env?: Record<string, string | undefined> }).env;
-  return readProviderMode(viteEnv?.VITE_WETWIJZER_DATA_PROVIDER) || 'huggingface';
-}
-
-function readProviderMode(value?: string | null): DataProviderMode | null {
-  const normalized = value?.trim().toLowerCase();
-  if (normalized === 'static' || normalized === 'static-sample') return 'static';
-  if (normalized === 'hf' || normalized === 'huggingface') return 'huggingface';
-  return null;
+  return readConfiguredNetherlandsProviderMode(null, viteEnv?.[NETHERLANDS_PROVIDER_ENV_KEY]);
 }
 
 export async function loadWetWijzerCorpusManifest(): Promise<WetWijzerCorpusManifest> {
@@ -869,24 +681,15 @@ async function loadStaticWetWijzerCorpus(): Promise<CorpusState> {
       loadStaticWetWijzerCorpusManifest(),
       fetchCorpusJson<CorpusSection[]>('generated/sections.json'),
     ]).then(([manifest, sections]) => {
-      const normalizedSections = sections.map((section) => ({
-        ...section,
-        cid: section.cid || section.ipfs_cid,
-        content_address: section.content_address || asIpfsUri(section.ipfs_cid),
-        provider: 'static-sample' as const,
-      }));
+      const normalizedSections = sections.map((section) => labelNetherlandsSampleSection(section));
       return {
         sections: normalizedSections,
         sectionByCid: new Map(normalizedSections.map((section) => [section.ipfs_cid, section])),
-        manifest: {
-          ...manifest,
-          provider: 'static-sample' as const,
-          counts: manifest.counts || {
-            laws: new Set(normalizedSections.map((section) => section.law_id || section.title_number)).size,
-            articles: normalizedSections.length,
-            cidRows: normalizedSections.length,
-          },
-        },
+        manifest: labelNetherlandsSampleManifest(manifest, {
+          laws: new Set(normalizedSections.map((section) => section.law_id || section.title_number)).size,
+          articles: normalizedSections.length,
+          cidRows: normalizedSections.length,
+        }),
       };
     });
   }
@@ -1201,10 +1004,12 @@ function mapDatasetRowToSection(row: DatasetRow, providerName: CorpusSection['pr
     || lawIdentifier
     || cid;
   const text = readString(row, 'text') || readString(row, 'text_preview') || readString(row, 'search_text_preview') || title;
-  const sourceUrl = readString(row, 'source_url')
-    || readString(row, 'canonical_document_url')
-    || readString(row, 'canonical_law_url')
-    || (lawIdentifier ? `https://wetten.overheid.nl/${lawIdentifier}/` : 'https://wetten.overheid.nl/');
+  const sourceUrl = resolvePublisherDeepLink({
+    sourceUrl: readString(row, 'source_url'),
+    canonicalDocumentUrl: readString(row, 'canonical_document_url'),
+    canonicalLawUrl: readString(row, 'canonical_law_url'),
+    lawIdentifier,
+  });
   const hierarchyPath = readHierarchy(row.hierarchy_path);
   const hierarchyLabels = readStringArray(row.hierarchy_labels);
   const lawStatus = normalizeLawStatus(readString(row, 'law_status'));
@@ -1245,7 +1050,7 @@ function mapDatasetRowToSection(row: DatasetRow, providerName: CorpusSection['pr
     version_start_date: readString(row, 'version_start_date') || null,
     version_end_date: readString(row, 'version_end_date') || null,
     scraped_at: readString(row, 'scraped_at') || null,
-    jsonld: readString(row, 'jsonld') || buildJsonLd(title, citation, sourceUrl, lawStatus),
+    jsonld: readString(row, 'jsonld') || buildNetherlandsLegislationJsonLd(title, citation, sourceUrl, lawStatus),
     law_status: lawStatus,
     is_current: readNullableBoolean(row, 'is_current'),
     valid_from: readString(row, 'valid_from') || null,
@@ -1256,7 +1061,7 @@ function mapDatasetRowToSection(row: DatasetRow, providerName: CorpusSection['pr
     status_confidence: readString(row, 'status_confidence') || null,
     status_note: readString(row, 'status_note') || null,
     provider: providerName,
-    jurisdiction: readString(row, 'jurisdiction') || 'Netherlands',
+    jurisdiction: readString(row, 'jurisdiction') || NETHERLANDS_JURISDICTION_LABEL,
   };
 }
 
@@ -1687,24 +1492,15 @@ function readHierarchy(value: unknown): CorpusHierarchyItem[] {
 }
 
 function normalizeLawStatus(value: string): LegalRecordStatus {
-  if (
-    value === 'current' ||
-    value === 'historical' ||
-    value === 'repealed' ||
-    value === 'superseded' ||
-    value === 'unknown'
-  ) {
-    return value;
-  }
-  return 'unknown';
+  return normalizeRecordStatus(value);
 }
 
 function normalizeCid(value: string): string {
-  return value.replace(/^ipfs:\/\//i, '').trim();
+  return normalizeContentId(value);
 }
 
 function asIpfsUri(cid: string): string {
-  return cid ? `ipfs://${normalizeCid(cid)}` : '';
+  return toIpfsUri(cid);
 }
 
 function normalizeGraphId(value: string): string {
@@ -1715,18 +1511,6 @@ function normalizeGraphId(value: string): string {
 function formatCidForDisplay(value: string): string {
   const cid = normalizeCid(value);
   return cid.length > 18 ? `${cid.slice(0, 10)}...${cid.slice(-6)}` : cid;
-}
-
-function buildJsonLd(title: string, citation: string, sourceUrl: string, status: LegalRecordStatus): string {
-  return JSON.stringify({
-    '@context': 'https://schema.org',
-    '@type': 'Legislation',
-    name: title,
-    identifier: citation,
-    legislationJurisdiction: 'Netherlands',
-    url: sourceUrl,
-    lawStatus: status,
-  });
 }
 
 function isRecord(value: unknown): value is DatasetRow {
