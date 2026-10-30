@@ -1,0 +1,66 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-013",
+  "title": "Define versioned law section and source schemas",
+  "recorded_at": "2026-10-30T11:00:04Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-013-cd1f6c7d61fb-attempt-1-1793356851",
+  "site_revision": "57f1f63c2c7abfbf7beaf58d8b41521e8bef409d",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "schema.ts and schema.test.ts are uncommitted working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status.",
+    "Official identifiers are copied only from the source. A missing source id, publisher id, section id, instrument id, or pinned revision is quarantined. The qk1_ ingestion key identifies that quarantine record and is rejected if it is presented as an official citation.",
+    "When the source text is present and no text version id was supplied, the schema derives tv1:{sourceRevision}:{bodySha256}, marks textVersionId inferred, and does not store that value as an official citation. Unknown text with no supplied version id is quarantined.",
+    "A blank language or status is stored as unknown. An explicit status outside current, historical, repealed, superseded, and unknown is quarantined rather than coerced.",
+    "Jurisdiction and country strings are territorial labels, not issuer ids. Section license, language, and scope are not inherited from the parent instrument or the source envelope.",
+    "Content CIDs are stored only when the row supplies one. This schema does not compute CIDs. Article-title inheritance and Python fixture parity belong to WWL-014.",
+    "A revision is accepted when it is 40 or 64 hex characters, or a 12 to 128 character stable token. Floating labels such as main, HEAD, latest, and refs/* are rejected. The schema does not ask a host whether the revision exists.",
+    "Repeal-before-enactment is the only chronology check, and it uses the coarser shared precision. Equal values at that precision are admitted.",
+    "The Jest reporter and the existing Node NO_COLOR and VM Modules warnings were written to stderr. stderr was not empty. The process exit code was 0."
+  ],
+  "law_schema": {
+    "law_source": "worldwide-legal-search.law-source@1",
+    "law_section": "worldwide-legal-search.law-section@1",
+    "quarantine": "worldwide-legal-search.quarantine@1",
+    "schema_version": 1,
+    "required_law_columns": ["id", "title", "text"],
+    "required_article_columns": ["id", "law_id", "title", "text"]
+  },
+  "outputs": [
+    {
+      "path": "src/lib/worldwide/data/schema.ts",
+      "bytes": 97778,
+      "sha256": "44d08c1b2c76c21a2b61f31c150e4d0750612a753ed189ab5c76c1e8410ac8fd"
+    },
+    {
+      "path": "tests/worldwide/schema.test.ts",
+      "bytes": 25597,
+      "sha256": "f101de2a11e024cf4d3c308f209a7ad57dc5dfe3b4eba6e290106023ac61d449"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/schema.test.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_0e6e22bb2b0e_6d4e3d253ef5",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-hKC5dR. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. npm wrote the script banner to stdout. Jest wrote the passing reporter to stderr.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 11,
+      "failed": 0
+    },
+    "stdout_sha256": "64a9b7da875558f63433c3452d41299275d51e9e1c51936668005980def6b496",
+    "stderr_sha256": "464d268871ce07da97855a33d3be0f055e73e2aa7f11dfda90c0c47f0d36a57d"
+  }
+}
