@@ -1,0 +1,75 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-011",
+  "title": "Classify corpus and index families without naming assumptions",
+  "recorded_at": "2026-10-30T10:17:46Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-011-c8e82c110c8f-attempt-1-1793353430",
+  "site_revision": "ca181e3730634fcf663d86b55c44490f5592c31e",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "The classifier and disposition document are uncommitted working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status.",
+    "Repository ids are identity keys. They are removed from card text before scope matching and are not used as coverage or as proof of an index.",
+    "A dataset can receive more than one family when the card, tags, or schema level state more than one administrative level. Supranational text is recorded on the national row because the disposition schema has no separate supranational family.",
+    "Shared schema wording (national row, national columns, national pack, laws/articles schema) and institution names (National Archives, a national register, a national law-information center) are not coverage.",
+    "The unified Netherlands bundle is the dataset whose configs are laws, articles, cid_index, vector_index, bm25_documents, knowledge_graph_nodes, knowledge_graph_edges, and logic_relationships. The three legacy indexes are the split documents/terms, edges/nodes, and mapping/faiss layouts. justicedao/ipfs_netherlands_laws remains the legacy compatibility text corpus and is national, not a legacy index.",
+    "Country IR is the GraphRAG config set or the sibling layout data/corpus or data/bm25 together with data/graph. A viewer config named default is not an index. Germany and Canada IR rows use the probed path layout.",
+    "Code-only releases are excluded. Their schema capability is code, not text.",
+    "Case law, court metadata, patent indexes, embeddings, span caches, and crawl-pointer indexes stay in unassigned. They are not given a statute or country-IR family.",
+    "Deprecated or superseded cards are excluded even when a laws schema is present.",
+    "Zero-row viewer sizes, gated or private datasets, metadata access errors, and missing parquet/JSONL/FAISS/DuckDB payloads are blocked when a family is otherwise known.",
+    "9 datasets have no fetched card. They stay unassigned when no statute, country-IR, unified, or legacy schema is known.",
+    "384 inventory file lists are partial. Layout probes used the checkpoint cache of top-level, data/, and indexes/ paths. A failed probe stores an empty path list and does not invent an index.",
+    "The disposition document is pretty JSON and is within the 1048576-byte single-file budget.",
+    "Node may print an ExperimentalWarning when it type-strips scripts/worldwide/classify.ts. The source-dispositions audit validates the document and the companion needles; it does not execute classify.ts."
+  ],
+  "classification": {
+    "schema": "worldwide-legal-search.source-dispositions@1",
+    "inventory_revision": "0b6db3b679d8b9042c97ca5a48e3625892804ca14e2edf3badde368941665326",
+    "inventory_dataset_count": 642,
+    "dispositions": 624,
+    "unassigned": 40,
+    "card_absent": 9,
+    "code_only_rows": 6,
+    "code_only_datasets": 2,
+    "by_family": {
+      "national": { "include": 228, "exclude": 3, "blocked": 5 },
+      "regional": { "include": 32, "exclude": 1, "blocked": 0 },
+      "municipal": { "include": 62, "exclude": 1, "blocked": 2 },
+      "country-ir": { "include": 280, "exclude": 2, "blocked": 4 },
+      "unified-netherlands": { "include": 1, "exclude": 0, "blocked": 0 },
+      "legacy-index": { "include": 3, "exclude": 0, "blocked": 0 }
+    }
+  },
+  "outputs": [
+    {
+      "path": "scripts/worldwide/classify.ts",
+      "bytes": 44820,
+      "sha256": "99c3d1d1b402834471e3ed692ca2bea7c4408b04a057b532ef1c84916e46701d"
+    },
+    {
+      "path": "data/worldwide/source-dispositions.json",
+      "bytes": 439063,
+      "sha256": "bd713600b9931ddc081059cb53162d5ee4be30f603134ab08697ff6386f1cd9a"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "node",
+      "scripts/worldwide/audit.mjs",
+      "source-dispositions"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_77a9996650f3_3f4c894c6294",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node. HOME was a private directory whose name starts with ipfs-accelerate-validation-home-. stderr was empty. This provider run used the worktree as cwd.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "command": "source-dispositions"
+    },
+    "stdout_sha256": "545702879cf66f71c27287a99de73030692f1e6381eb2efe2b672430bec61ca9"
+  }
+}
