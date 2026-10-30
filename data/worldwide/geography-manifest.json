@@ -1,0 +1,375 @@
+{
+  "schema": "worldwide-legal-search.geography-manifest@1",
+  "dataset_id": "wmgeolab/geoBoundaries",
+  "revision": "1289e40e366c7b320550be1ee0614a9472d572d4",
+  "release": "6.0.0",
+  "product": "gbOpen",
+  "license": "geoBoundaries project statement is CC-BY-4.0. Geometry redistribution follows each file boundaryLicense.",
+  "attribution": "geoBoundaries, www.geoboundaries.org. Cite Runfola et al. 2020, PLoS ONE 15(4): e0231866, and the boundarySource named in each file.",
+  "municipality_detail": "partial",
+  "municipality_limit": "56 of 231 gbOpen directories have a boundaryCanonical in the closed municipal label set (61 files). 55 of those directories have at least one attribution, public-domain, or share-alike file. CHE ADM3 is labeled Municipality (2286 units) and is withheld because the swisstopo terms were not read. The other 175 directories, including USA where ADM2 is Counties (3233 units), have no municipal label. 23 directories are ADM0 only, and PRI has no ADM0 file. An ADM number is not a municipality, and a label is not a claim that every municipality is present.",
+  "native_alias_sample": [
+    {
+      "name": "Shqipëria",
+      "lang": "sq",
+      "iso": "ALB",
+      "adm": "ADM0",
+      "field": "boundaryCanonical",
+      "english_shape_name": "Albania",
+      "metadata_sha256": "c1c360e95c593ace37fbcf37a10756dd8ca914745daa8a79003210c8aa2088bf",
+      "geometry_sha256": "7431add9519f29d260cc7bf3948a6850914be27460d3be2968e62bc141223ecb",
+      "geometry_bytes": 28613,
+      "upstream_path": "releaseData/gbOpen/ALB/ADM0/geoBoundaries-ALB-ADM0_simplified.geojson",
+      "note": "boundaryCanonical on ALB ADM0. The simplified geometry shapeName is Albania. The file has no language column."
+    },
+    {
+      "name": "Việt Nam",
+      "lang": "vi",
+      "iso": "VNM",
+      "adm": "ADM0",
+      "field": "boundaryCanonical",
+      "english_shape_name": "Vietnam",
+      "metadata_sha256": "647ad2fb50a0373314802091b5523091e7bb92606e6b2747660e20ecba0585ac",
+      "geometry_sha256": "f7683a5394520eaf19d9ab3deea46c36c1279d8fc8dca2a20991fb6cc3297490",
+      "geometry_bytes": 143545,
+      "upstream_path": "releaseData/gbOpen/VNM/ADM0/geoBoundaries-VNM-ADM0_simplified.geojson",
+      "note": "boundaryCanonical on VNM ADM0. The simplified geometry shapeName is Vietnam. The file has no language column."
+    },
+    {
+      "name": "'s-Gravenhage",
+      "lang": "nl",
+      "iso": "NLD",
+      "adm": "ADM2",
+      "field": "shapeName",
+      "english_shape_name": null,
+      "metadata_sha256": "10365f763f9c92339d04987da96e4931a017ca0f7d617240e3b58592a99ff6a5",
+      "geometry_sha256": "68dc4d1e43b60c80067aabf45d7b73fdd2e9480ab302998e81b8a9ea0b0200fc",
+      "geometry_bytes": 767672,
+      "upstream_path": "releaseData/gbOpen/NLD/ADM2/geoBoundaries-NLD-ADM2_simplified.geojson",
+      "note": "shapeName on the NLD ADM2 simplified geometry (344 features). Den Haag is not a shapeName in that file. The file has no language column."
+    },
+    {
+      "name": "Noardeast-Fryslân",
+      "lang": "fy",
+      "iso": "NLD",
+      "adm": "ADM2",
+      "field": "shapeName",
+      "english_shape_name": null,
+      "metadata_sha256": "10365f763f9c92339d04987da96e4931a017ca0f7d617240e3b58592a99ff6a5",
+      "geometry_sha256": "68dc4d1e43b60c80067aabf45d7b73fdd2e9480ab302998e81b8a9ea0b0200fc",
+      "geometry_bytes": 767672,
+      "upstream_path": "releaseData/gbOpen/NLD/ADM2/geoBoundaries-NLD-ADM2_simplified.geojson",
+      "note": "Frisian shapeName in the same NLD ADM2 simplified geometry. The file has no language column."
+    }
+  ],
+  "coverage_limits": [
+    "The pinned source is geoBoundaries gbOpen release 6.0.0, git commit 1289e40e366c7b320550be1ee0614a9472d572d4, committed 2023-09-13T20:20:48Z. The geoboundaries.org current API is a later build and is not this revision.",
+    "231 country directories and 712 metadata files were read (635323 bytes) on 2026-10-30. 23 directories are ADM0 only. PRI has no ADM0 file. complete_world is false.",
+    "An ADM number is not a municipality. USA ADM2 is Counties (3233 units, public domain). NLD ADM2 is Municipality (344 units, CC0). DEU has no municipal label: ADM2 is Government District and ADM3 is Independent City or District.",
+    "56 of 231 gbOpen directories have a boundaryCanonical in the closed municipal label set (61 files). 55 of those directories have at least one attribution, public-domain, or share-alike file. CHE ADM3 is labeled Municipality (2286 units) and is withheld because the swisstopo terms were not read. The other 175 directories, including USA where ADM2 is Counties (3233 units), have no municipal label. 23 directories are ADM0 only, and PRI has no ADM0 file. An ADM number is not a municipality, and a label is not a claim that every municipality is present. The FRA ADM5 canonical names several unit types in one string and is not a pure commune layer.",
+    "shapeName has no language code and no alternate-name list. English shapeName Albania is paired with canonical Shqipëria, and English shapeName Vietnam is paired with canonical Việt Nam. NLD ADM2 shape names include 's-Gravenhage and Noardeast-Fryslân and do not include Den Haag. Language codes on the samples are identified from the name form because the file does not carry one.",
+    "Opened simplified ADM1 files whose shape names are ASCII exonyms: CHN (34 features, sha256 f5c27a823eb51fca2948ba4fc383c0dcb2ae412581ff8636fcf0df1cbce88176), SAU (13 features, sha256 072cb6439c6b5e485c95dd56ed40d80eeebb60f3de45c39553e8471a0e1784ec), GRC (8 features, sha256 a5dd7f6d50ab05fc084438aa93f36bd393164d75bba8c6910dcf9582e132c2d0), THA (77 features, sha256 f02d9530f4084a833f7c982cd37b3d67682c5686a45fb9c4e5b725a3a06076b9). The CHN file includes a shape named Taiwan Province. This registry does not decide that claim. TWN is a separate directory and its ADM0 file is withheld.",
+    "Project LICENSE sha256 f3e5a21600528018a566fe0020a8b433f542bd67920c6804aac8929b598035bd and CITATION-AND-USE sha256 f6ea7572bea6036c4cdcacf8c0ca7bf09098d4e600d19546d7432533e9a290d5 state CC-BY-4.0 and require attribution to geoBoundaries plus each file boundarySource. That statement does not replace a file boundaryLicense. 280 files are share-alike, 116 are public domain or CC0, and 305 use an attribution license.",
+    "5 files use source terms this registry has not read (every CHE level, and ESP ADM2). 6 files are not a reusable grant: OMN ADM2, SLB ADM3, SLB ADM4, TUV ADM3, and VUT ADM3 say Other - Direct Permission, and TWN ADM0 says Pixabay License for Content. Those files are indexed and withheld.",
+    "shapeISO was empty on the opened NLD ADM2 feature Groningen. ISO 3166-2 is not guaranteed. shapeID identifies a geometry and boundaryID identifies a file.",
+    "The default download is hierarchical and small: per-country metadata JSON under geography/country/, geography/admin/, and geography/place/. The metadata layer is 635323 bytes. Simplified and full-resolution geometries, shapefiles, and global composites are outside that layout. The opened NLD ADM2 simplified geometry alone is 767672 bytes.",
+    "Postal codes are not in gbOpen. Enclaves, holes, antimeridian cuts, and disputed borders were not topology-tested. Some upstream licenseSource values omit the colon in https and are not copied as URLs. boundaryCanonical is sometimes a unit type and sometimes a country name."
+  ],
+  "hierarchical": true,
+  "complete_world": false,
+  "layout": [
+    {
+      "level": "country",
+      "path": "geography/country/"
+    },
+    {
+      "level": "admin",
+      "path": "geography/admin/"
+    },
+    {
+      "level": "place",
+      "path": "geography/place/"
+    }
+  ],
+  "source": {
+    "repository": "wmgeolab/geoBoundaries",
+    "tag": "v6.0.0",
+    "committed_at": "2023-09-13T20:20:48Z",
+    "acquired_on": "2026-10-30",
+    "license_file_sha256": "f3e5a21600528018a566fe0020a8b433f542bd67920c6804aac8929b598035bd",
+    "citation_file_sha256": "f6ea7572bea6036c4cdcacf8c0ca7bf09098d4e600d19546d7432533e9a290d5",
+    "read_from": "git-lfs-media-at-revision",
+    "links": [
+      {
+        "rel": "repository",
+        "url": "https://github.com/wmgeolab/geoBoundaries"
+      },
+      {
+        "rel": "revision",
+        "url": "https://github.com/wmgeolab/geoBoundaries/commit/1289e40e366c7b320550be1ee0614a9472d572d4"
+      },
+      {
+        "rel": "tag",
+        "url": "https://github.com/wmgeolab/geoBoundaries/releases/tag/v6.0.0"
+      },
+      {
+        "rel": "product",
+        "url": "https://www.geoboundaries.org"
+      },
+      {
+        "rel": "project-license",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      {
+        "rel": "citation",
+        "url": "https://doi.org/10.1371/journal.pone.0231866"
+      }
+    ]
+  },
+  "identifiers": {
+    "file_id": "boundaryID",
+    "geometry_id": "shapeID",
+    "country_code": "boundaryISO",
+    "subdivision_code": "shapeISO",
+    "subdivision_code_guaranteed": false
+  },
+  "download": {
+    "hierarchical": true,
+    "default_payload": "metadata-json",
+    "metadata_bytes": 635323,
+    "geometry_in_default_layout": false,
+    "full_resolution_in_default_layout": false,
+    "global_composite_in_default_layout": false,
+    "patterns": {
+      "country": "geography/country/{iso}/{adm}-metaData.json",
+      "admin": "geography/admin/{iso}/{adm}-metaData.json",
+      "place": "geography/place/{iso}/{adm}-metaData.json"
+    }
+  },
+  "census": {
+    "metadata_files": 712,
+    "country_directories": 231,
+    "metadata_bytes": 635323,
+    "metadata_rollup_sha256": "d16964dc698a44beb2fb62ce9a50b049a7a979609ee58db199e3c3744b7dbfae",
+    "by_level": {
+      "ADM0": 230,
+      "ADM1": 198,
+      "ADM2": 180,
+      "ADM3": 80,
+      "ADM4": 20,
+      "ADM5": 4
+    },
+    "license_classes": {
+      "attribution": 305,
+      "share-alike": 280,
+      "public-domain": 116,
+      "not-a-reusable-grant": 6,
+      "unreviewed-source-terms": 5
+    },
+    "municipal_files": 61,
+    "municipal_countries": 56,
+    "open_municipal_files": 60,
+    "open_municipal_countries": 55,
+    "adm0_only": [
+      "ABW",
+      "AIA",
+      "ATA",
+      "BES",
+      "BLM",
+      "BMU",
+      "COK",
+      "CUW",
+      "CYM",
+      "FLK",
+      "FRO",
+      "GGY",
+      "GIB",
+      "IMN",
+      "MSR",
+      "NCL",
+      "PCN",
+      "PYF",
+      "SHN",
+      "TCA",
+      "VAT",
+      "VGB",
+      "WLF"
+    ],
+    "missing_adm0": [
+      "PRI"
+    ],
+    "exonym_samples": [
+      {
+        "iso": "CHN",
+        "adm": "ADM1",
+        "features": 34,
+        "bytes": 231485,
+        "sha256": "f5c27a823eb51fca2948ba4fc383c0dcb2ae412581ff8636fcf0df1cbce88176",
+        "names": [
+          "Hainan Province",
+          "Taiwan Province",
+          "Guangxi Zhuang Autonomous Region"
+        ]
+      },
+      {
+        "iso": "SAU",
+        "adm": "ADM1",
+        "features": 13,
+        "bytes": 379403,
+        "sha256": "072cb6439c6b5e485c95dd56ed40d80eeebb60f3de45c39553e8471a0e1784ec",
+        "names": [
+          "Eastern Region",
+          "Najran Region",
+          "Northern Borders Region"
+        ]
+      },
+      {
+        "iso": "GRC",
+        "adm": "ADM1",
+        "features": 8,
+        "bytes": 491360,
+        "sha256": "a5dd7f6d50ab05fc084438aa93f36bd393164d75bba8c6910dcf9582e132c2d0",
+        "names": [
+          "Agion Oros",
+          "Crete",
+          "Attica"
+        ]
+      },
+      {
+        "iso": "THA",
+        "adm": "ADM1",
+        "features": 77,
+        "bytes": 865312,
+        "sha256": "f02d9530f4084a833f7c982cd37b3d67682c5686a45fb9c4e5b725a3a06076b9",
+        "names": [
+          "Roi Et Province",
+          "Phayao Province",
+          "Nakhon Sawan Province"
+        ]
+      }
+    ]
+  },
+  "withheld": [
+    {
+      "iso": "CHE",
+      "adm": "ADM0",
+      "boundary_id": "CHE-ADM0-87024499",
+      "canonical": "The Swiss Confederation",
+      "license": "Federal Office of Topography swisstopo License",
+      "license_class": "unreviewed-source-terms",
+      "level": "country",
+      "path": "geography/country/CHE/ADM0-metaData.json",
+      "admission": "withhold"
+    },
+    {
+      "iso": "CHE",
+      "adm": "ADM1",
+      "boundary_id": "CHE-ADM1-70761945",
+      "canonical": "Canton",
+      "license": "Federal Office of Topography swisstopo License",
+      "license_class": "unreviewed-source-terms",
+      "level": "admin",
+      "path": "geography/admin/CHE/ADM1-metaData.json",
+      "admission": "withhold"
+    },
+    {
+      "iso": "CHE",
+      "adm": "ADM2",
+      "boundary_id": "CHE-ADM2-98125504",
+      "canonical": "District",
+      "license": "Federal Office of Topography swisstopo License",
+      "license_class": "unreviewed-source-terms",
+      "level": "admin",
+      "path": "geography/admin/CHE/ADM2-metaData.json",
+      "admission": "withhold"
+    },
+    {
+      "iso": "CHE",
+      "adm": "ADM3",
+      "boundary_id": "CHE-ADM3-14041887",
+      "canonical": "Municipality",
+      "license": "Federal Office of Topography swisstopo License",
+      "license_class": "unreviewed-source-terms",
+      "level": "place",
+      "path": "geography/place/CHE/ADM3-metaData.json",
+      "admission": "withhold"
+    },
+    {
+      "iso": "ESP",
+      "adm": "ADM2",
+      "boundary_id": "ESP-ADM2-93216281",
+      "canonical": "Province",
+      "license": "National Institute of Statistics (INE) Data License",
+      "license_class": "unreviewed-source-terms",
+      "level": "admin",
+      "path": "geography/admin/ESP/ADM2-metaData.json",
+      "admission": "withhold"
+    },
+    {
+      "iso": "OMN",
+      "adm": "ADM2",
+      "boundary_id": "OMN-ADM2-60546857",
+      "canonical": "Wilayaf",
+      "license": "Other - Direct Permission",
+      "license_class": "not-a-reusable-grant",
+      "level": "admin",
+      "path": "geography/admin/OMN/ADM2-metaData.json",
+      "admission": "withhold"
+    },
+    {
+      "iso": "SLB",
+      "adm": "ADM3",
+      "boundary_id": "SLB-ADM3-93323949",
+      "canonical": "Wards",
+      "license": "Other - Direct Permission",
+      "license_class": "not-a-reusable-grant",
+      "level": "admin",
+      "path": "geography/admin/SLB/ADM3-metaData.json",
+      "admission": "withhold"
+    },
+    {
+      "iso": "SLB",
+      "adm": "ADM4",
+      "boundary_id": "SLB-ADM4-40647771",
+      "canonical": "Wards",
+      "license": "Other - Direct Permission",
+      "license_class": "not-a-reusable-grant",
+      "level": "admin",
+      "path": "geography/admin/SLB/ADM4-metaData.json",
+      "admission": "withhold"
+    },
+    {
+      "iso": "TUV",
+      "adm": "ADM3",
+      "boundary_id": "TUV-ADM3-10671868",
+      "canonical": "",
+      "license": "Other - Direct Permission",
+      "license_class": "not-a-reusable-grant",
+      "level": "admin",
+      "path": "geography/admin/TUV/ADM3-metaData.json",
+      "admission": "withhold"
+    },
+    {
+      "iso": "TWN",
+      "adm": "ADM0",
+      "boundary_id": "TWN-ADM0-7377636",
+      "canonical": "Republic of China",
+      "license": "Pixabay License for Content",
+      "license_class": "not-a-reusable-grant",
+      "level": "country",
+      "path": "geography/country/TWN/ADM0-metaData.json",
+      "admission": "withhold"
+    },
+    {
+      "iso": "VUT",
+      "adm": "ADM3",
+      "boundary_id": "VUT-ADM3-87457531",
+      "canonical": "",
+      "license": "Other - Direct Permission",
+      "license_class": "not-a-reusable-grant",
+      "level": "admin",
+      "path": "geography/admin/VUT/ADM3-metaData.json",
+      "admission": "withhold"
+    }
+  ]
+}
