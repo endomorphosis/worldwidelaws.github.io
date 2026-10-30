@@ -36,7 +36,8 @@
       "ipfs_accelerate_py/agent_supervisor/validation/project_dependency_preflight.py",
       "ipfs_accelerate_py/agent_supervisor/validation/validation_commands.py",
       "ipfs_accelerate_py/agent_supervisor/validation/validation_runtime.py",
-      "ipfs_accelerate_py/agent_supervisor/todo_daemon/fenced_candidate_retirement.py"
+      "ipfs_accelerate_py/agent_supervisor/todo_daemon/fenced_candidate_retirement.py",
+      "ipfs_accelerate_py/agent_supervisor/todo_daemon/native_validation_failure_retry.py"
     ],
     "exact_paths_must_be_bound_to_reproducer_at_admission": true,
     "native_scope_enforcement_required": true,
