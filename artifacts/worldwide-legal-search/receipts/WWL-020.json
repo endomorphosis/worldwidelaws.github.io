@@ -1,0 +1,80 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-020",
+  "title": "Define the dated jurisdiction and issuer graph",
+  "recorded_at": "2026-10-30T12:02:35Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-020-df5460433f2f-attempt-1-1793360341",
+  "site_revision": "8a93ff3f753bd260a32c2f373e435ab6a689cd88",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "schema.ts and jurisdiction-schema.test.ts are uncommitted working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status.",
+    "The schema admits a dated directed graph. It does not resolve coordinates, fetch polygons, or decide that a law applies.",
+    "Country and ISO codes are code aliases or external ids. A bare code, including the final segment of a node id, is rejected as identity.",
+    "A top-level or node city, country, province, or state field is rejected. No place is invented from that tuple. A place does not need a city or municipality node.",
+    "Omitted edges are not unknown statements and are not legal conclusions. An unknown relationship is an explicit statement with no target.",
+    "parentKnowledge none means the source says there is no administrative parent. It is not a claim that no instrument applies.",
+    "Exclusive administrative parents that overlap in one view are both quarantined. Neither parent is chosen. Real multiple parents set exclusive false. Disputed alternatives use named views and are absent from the base slice until a caller opts into those views.",
+    "An unknown validity bound is not current. An open end is inside a later as-of date only when the source says the interval has no end. Dates are civil dates at year, month, or day precision. This schema does not apply a timezone.",
+    "Geometry is an artifact reference plus pinned provenance. Topology flags such as hole, enclave, island, unincorporated, antimeridian, and border-uncertain are stored and not spatially tested.",
+    "An unrecognized level is kept as given when it has an explicit label. It is not rewritten to city.",
+    "Issuer-only nodes do not need a boundary or a city. A place needs a boundary reference or an explicit unknown boundary statement.",
+    "Admission bounds are 20000 nodes, 40000 edges, 2000 disputed views, and 20000 unknown relationships.",
+    "The Jest reporter and the existing Node NO_COLOR and VM Modules warnings were written to stderr. stderr was not empty. The process exit code was 0.",
+    "The reporter counted 10 passing tests. One is the existing setup test. Nine exercise this schema."
+  ],
+  "jurisdiction_schema": {
+    "graph": "worldwide-legal-search.jurisdiction-graph@1",
+    "node": "worldwide-legal-search.jurisdiction-node@1",
+    "edge": "worldwide-legal-search.jurisdiction-edge@1",
+    "disputed_view": "worldwide-legal-search.disputed-view@1",
+    "unknown_relationship": "worldwide-legal-search.unknown-relationship@1",
+    "quarantine": "worldwide-legal-search.jurisdiction-quarantine@1",
+    "schema_version": 1,
+    "city_required": false,
+    "applicability": "not-asserted",
+    "relation_kinds": [
+      "administrative-containment",
+      "territorial-coverage",
+      "delegated-authority",
+      "legal-relationship"
+    ]
+  },
+  "outputs": [
+    {
+      "path": "src/lib/worldwide/jurisdiction/schema.ts",
+      "bytes": 79116,
+      "sha256": "642e2fbb1aa3859ee83b28b8c4dcc375e364353067b968b0e65c7709fd0855ff"
+    },
+    {
+      "path": "tests/worldwide/jurisdiction-schema.test.ts",
+      "bytes": 37149,
+      "sha256": "143ef8eb31a6d44c3d1626977a9c575521ad37b7008228d235bc43c10f62ed07"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/jurisdiction-schema.test.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_c1ff4a870992_1627fd29480a",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-5UQGzr. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. npm wrote the script banner to stdout. Jest wrote the passing reporter to stderr.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 10,
+      "failed": 0
+    },
+    "stdout_sha256": "4aae257f766cbfc51b263aca24ba0c6d6f70201205611e3e9249150610e250d8",
+    "stderr_sha256": "1e45ce2118f5abe7c88cd60c3f1aaee439308ba7ef8829844978ff7b904de1d9"
+  }
+}
