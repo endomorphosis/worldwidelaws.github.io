@@ -392,6 +392,99 @@ class WatchdogScenarios(unittest.TestCase):
         self.assertEqual(result["reason"], "reconcile_incident_budget_exhausted")
         self.assertNotIn("action", result)
 
+    def exhausted_settled_episode(self):
+        self.register_host_fence()
+        self.state["last_progress_at"] = self.now - 1300
+        self.snapshot.update(active_attempt_id="attempt:diagnosis-fixture", native_diagnostic_available=True, stage_deadline_at=self.now + 5000)
+        first = self.confirmed()["action"]
+        self.acknowledge_action(first, "blocked")
+        for offset in (361, 1000, 1601):
+            action = self.poll(offset)["action"]
+            self.acknowledge_action(action, "blocked")
+        return first
+
+    def test_exhausted_settled_recovery_requests_bounded_native_diagnosis(self):
+        first = self.exhausted_settled_episode()
+        result = self.poll(2500)
+        action = result["action"]
+        self.assertEqual(action["kind"], "diagnose")
+        self.assertEqual(action["incident_id"], first["incident_id"])
+        self.assertEqual(action["active_attempt_id"], self.snapshot["active_attempt_id"])
+        self.assertEqual((action["exhausted_reconcile_count"], action["exhausted_recovery_count"]), (2, 2))
+        self.assertEqual(self.state["repairs"], 0)
+        self.assertEqual(self.state["actions"], 5)
+        self.acknowledge_action(action, "blocked")
+        second = self.poll(2801)["action"]
+        self.assertEqual(second["kind"], "diagnose")
+        self.acknowledge_action(second, "blocked")
+        self.assertEqual(self.poll(3500)["reason"], "diagnose_incident_budget_exhausted")
+        incident = self.state["incidents"][first["incident_id"]]
+        self.assertEqual((incident["reconcile"], incident["recover"], incident["diagnose"], incident["repair"]), (2, 2, 2, 0))
+
+    def test_read_only_diagnosis_can_observe_provider_uncertainty_without_resetting_episode_or_repair(self):
+        first = self.exhausted_settled_episode()
+        self.snapshot["effects_unknown"] = True
+        result = self.poll(2500)
+        self.assertEqual(result["action"]["kind"], "diagnose")
+        self.assertEqual(result["action"]["incident_id"], first["incident_id"])
+        self.assertEqual(self.state["repairs"], 0)
+        self.assertEqual(len(self.state["incidents"]), 1)
+        self.assertEqual((self.state["incidents"][first["incident_id"]]["reconcile"],
+            self.state["incidents"][first["incident_id"]]["recover"]), (2, 2))
+        # A diagnostic with a lost response is retained and cannot be repeated
+        # over an unsettled control action or silently converted to repair.
+        next_result = self.poll(2801)
+        self.assertNotIn("action", next_result)
+        self.assertEqual(next_result["reason"], "recover_incident_budget_exhausted")
+        self.assertEqual(self.state["repairs"], 0)
+
+    def test_verified_native_diagnosis_reuses_episode_and_preserves_all_spent_budgets(self):
+        first = self.exhausted_settled_episode()
+        diagnostic = self.poll(2500)["action"]
+        w.acknowledge(self.state, {"schema": "wwl.watchdog.action-result@1", "action_id": diagnostic["action_id"],
+            "status": "accepted", "receipt": "native:diagnosis-admitted", "deadline_at": self.now + 2620}, self.policy, self.now + 2500)
+        self.snapshot.update(blocked_kind="software_defect", failure_key="actual-native-defect", reproducer_receipt="native:sealed-failure",
+            native_diagnosis={"schema": "wwl.native-diagnosis@1", "action_id": diagnostic["action_id"], "incident_id": diagnostic["incident_id"],
+                "task_id": diagnostic["task_id"], "active_attempt_id": diagnostic["active_attempt_id"], "status": "reproduced_software_defect",
+                "receipt_id": "native:diagnosis-proof", "failure_receipt": "native:sealed-failure"},
+            action_observations=[{"schema": "wwl.watchdog.action-observation@1", "action_id": diagnostic["action_id"], "status": "succeeded",
+                "effects_verified": True, "receipt": "native:diagnosis-proof"}])
+        proof = self.snapshot["native_diagnosis"]
+        proof["receipt_id"] = "sha256:" + w.hashlib.sha256(json.dumps({k: v for k, v in proof.items() if k != "receipt_id"},
+            sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()).hexdigest()
+        self.snapshot["action_observations"][0]["receipt"] = proof["receipt_id"]
+        result = self.poll(2801)
+        repair = result["action"]
+        self.assertEqual(repair["kind"], "repair")
+        self.assertEqual(repair["incident_id"], first["incident_id"])
+        self.assertEqual(self.state["actions"], 6)
+        self.assertEqual(self.state["repairs"], 1)
+        incident = self.state["incidents"][first["incident_id"]]
+        self.assertEqual((incident["reconcile"], incident["recover"], incident["diagnose"], incident["repair"]), (2, 2, 1, 1))
+        self.assertEqual(len(self.state["incidents"]), 1)
+        for key in ("action_id", "incident_id", "task_id", "active_attempt_id", "receipt_id", "failure_receipt"):
+            with self.subTest(key=key):
+                corrupt = copy.deepcopy(self.snapshot)
+                corrupt["native_diagnosis"][key] = "another-identity"
+                self.assertEqual(w.diagnosed_incident(corrupt, self.state), "")
+        corrupt = copy.deepcopy(self.snapshot)
+        corrupt["native_diagnosis"]["status"] = "arbitrary-rewritten-proof"
+        self.assertEqual(w.diagnosed_incident(corrupt, self.state), "")
+        corrupt = copy.deepcopy(self.snapshot)
+        corrupt["native_diagnosis"]["new_unbound_claim"] = "release requirements waived"
+        self.assertEqual(w.diagnosed_incident(corrupt, self.state), "")
+        corrupt = copy.deepcopy(self.snapshot)
+        corrupt["native_diagnosis"]["action_id"] = []
+        self.assertEqual(w.diagnosed_incident(corrupt, self.state), "")
+
+    def test_legacy_incidents_gain_only_zero_diagnostic_counter(self):
+        self.exhausted_settled_episode()
+        old = copy.deepcopy(self.state)
+        incident = next(iter(self.state["incidents"].values()))
+        del incident["diagnose"]
+        w.state_check(self.state, self.policy, "test-run")
+        self.assertEqual(self.state, old)
+
     def test_failed_acknowledgements_cannot_create_unlimited_host_restarts(self):
         self.register_host_fence()
         self.state["last_progress_at"] = self.now - 1300

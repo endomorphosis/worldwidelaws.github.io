@@ -29,7 +29,14 @@
       "ipfs_accelerate_py/agent_supervisor/rescue/supervisor_watchdog.py",
       "ipfs_accelerate_py/agent_supervisor/rescue/campaign_watchdog.py",
       "ipfs_accelerate_py/llm_router.py",
-      "test/api/test_worldwide_legal_search*.py"
+      "test/api/test_worldwide_legal_search*.py",
+      "ipfs_accelerate_py/agent_supervisor/todo_daemon/database_portal_bridge.py",
+      "ipfs_accelerate_py/agent_supervisor/todo_daemon/implementation_daemon_runner.py",
+      "ipfs_accelerate_py/agent_supervisor/todo_daemon/dependency_preflight_retry.py",
+      "ipfs_accelerate_py/agent_supervisor/validation/project_dependency_preflight.py",
+      "ipfs_accelerate_py/agent_supervisor/validation/validation_commands.py",
+      "ipfs_accelerate_py/agent_supervisor/validation/validation_runtime.py",
+      "ipfs_accelerate_py/agent_supervisor/todo_daemon/fenced_candidate_retirement.py"
     ],
     "exact_paths_must_be_bound_to_reproducer_at_admission": true,
     "native_scope_enforcement_required": true,

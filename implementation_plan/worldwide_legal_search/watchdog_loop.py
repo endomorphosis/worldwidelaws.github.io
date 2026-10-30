@@ -26,6 +26,7 @@ HERE = Path(__file__).resolve().parent
 EXTERNAL = {"credentials", "permission", "source_unavailable", "rights", "budget", "resource_quota"}
 BINDINGS = {"task_source", "lifecycle_restart", "rescue_planner", "rescue_orchestrator", "route_policy", "independent_validation", "validated_promotion", "incident_deduplication", "meaningful_progress"}
 NATIVE_REPAIR_BINDINGS = (BINDINGS - {"rescue_planner", "rescue_orchestrator"}) | {"repair_dispatch", "scoped_repair_admission", "exclusive_effect_ownership", "repair_canary_verified"}
+ACTION_KINDS = {"reconcile", "recover", "diagnose", "repair"}
 MAX_BYTES = 1_048_576
 
 
@@ -142,22 +143,23 @@ def state_check(state: dict[str, Any], policy: dict[str, Any], run_id: str) -> N
         if not isinstance(state.get(field), dict) or len(state[field]) > policy["max_campaign_actions"]:
             raise ContractError("invalid durable action lifecycle state")
     for action_id, action in state["inflight"].items():
-        if not isinstance(action, dict) or action.get("action_id") != action_id or action.get("run_id") != run_id or action.get("kind") not in {"reconcile", "recover", "repair"} or not action.get("admission_receipt") or type(action.get("deadline_at")) not in (int, float) or not math.isfinite(action["deadline_at"]) or action["deadline_at"] < 0:
+        if not isinstance(action, dict) or action.get("action_id") != action_id or action.get("run_id") != run_id or action.get("kind") not in ACTION_KINDS or not action.get("admission_receipt") or type(action.get("deadline_at")) not in (int, float) or not math.isfinite(action["deadline_at"]) or action["deadline_at"] < 0:
             raise ContractError("invalid durable admitted action")
     for action_id, action in state["uncertain_actions"].items():
-        if not isinstance(action, dict) or action.get("schema") != "wwl.watchdog.action@1" or action.get("action_id") != action_id or action.get("run_id") != run_id or action.get("kind") not in {"reconcile", "recover", "repair"} or type(action.get("issued_at")) not in (int, float) or not math.isfinite(action["issued_at"]):
+        if not isinstance(action, dict) or action.get("schema") != "wwl.watchdog.action@1" or action.get("action_id") != action_id or action.get("run_id") != run_id or action.get("kind") not in ACTION_KINDS or type(action.get("issued_at")) not in (int, float) or not math.isfinite(action["issued_at"]):
             raise ContractError("invalid durable uncertain action")
     for incident in state["incidents"].values():
         if not isinstance(incident, dict):
             raise ContractError("invalid durable incident")
-        for key in ("confirmations", "reconcile", "recover", "repair"):
+        incident.setdefault("diagnose", 0)
+        for key in ("confirmations", "reconcile", "recover", "diagnose", "repair"):
             if type(incident.get(key)) is not int or incident[key] < 0:
                 raise ContractError("invalid durable incident accounting")
         for key in ("last_confirmed_at", "next_action_at"):
             if type(incident.get(key)) not in (int, float) or not math.isfinite(incident[key]) or incident[key] < 0:
                 raise ContractError("invalid durable incident time")
     outbox = state.get("outbox")
-    if outbox is not None and (not isinstance(outbox, dict) or outbox.get("schema") != "wwl.watchdog.action@1" or outbox.get("run_id") != run_id or not outbox.get("action_id") or outbox.get("kind") not in {"reconcile", "recover", "repair"}):
+    if outbox is not None and (not isinstance(outbox, dict) or outbox.get("schema") != "wwl.watchdog.action@1" or outbox.get("run_id") != run_id or not outbox.get("action_id") or outbox.get("kind") not in ACTION_KINDS):
         raise ContractError("invalid durable action outbox")
 
 
@@ -189,6 +191,11 @@ def reconcile_action_observations(snapshot: dict[str, Any], state: dict[str, Any
             continue
         if item["status"] in {"succeeded", "failed", "blocked"}:
             state["settled_actions"][action_id] = {"status": item["status"], "receipt": item["receipt"]}
+            if action["kind"] == "diagnose":
+                # Keep the original issued context. A freeform failure string
+                # cannot reassign a later repair to an old exhausted episode.
+                state["settled_actions"][action_id].update({key: action[key] for key in
+                    ("kind", "incident_id", "task_id", "active_attempt_id")})
             state["inflight"].pop(action_id, None)
             state["uncertain_actions"].pop(action_id, None)
             if pending and pending["action_id"] == action_id:
@@ -206,6 +213,30 @@ def reconcile_action_observations(snapshot: dict[str, Any], state: dict[str, Any
                 state["outbox"] = None
         elif action_id in state["inflight"]:
             state["inflight"][action_id]["outcome_unknown"] = True
+
+
+def diagnosed_incident(snapshot: dict[str, Any], state: dict[str, Any]) -> str:
+    """Bind a reproduced failure to an actually issued, settled diagnosis."""
+    proof = snapshot.get("native_diagnosis")
+    if not isinstance(proof, dict) or proof.get("schema") != "wwl.native-diagnosis@1" or proof.get("status") != "reproduced_software_defect":
+        return ""
+    if not all(isinstance(proof.get(key), str) and 0 < len(proof[key]) <= 512 for key in
+               ("action_id", "incident_id", "task_id", "active_attempt_id", "receipt_id", "failure_receipt")):
+        return ""
+    expected = "sha256:" + hashlib.sha256(json.dumps({k: v for k, v in proof.items() if k != "receipt_id"},
+        sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode("utf-8")).hexdigest()
+    if proof["receipt_id"] != expected:
+        return ""
+    action = state["settled_actions"].get(proof["action_id"], {})
+    if (action.get("kind") != "diagnose" or action.get("status") != "succeeded"
+            or not proof.get("receipt_id") or action.get("receipt") != proof["receipt_id"]
+            or proof.get("failure_receipt") != snapshot.get("reproducer_receipt")
+            or not proof.get("failure_receipt") or not snapshot.get("failure_key")
+            or not all(action.get(key) == proof.get(key) == snapshot.get(key) for key in ("task_id", "active_attempt_id"))
+            or action.get("incident_id") != proof.get("incident_id")
+            or proof.get("incident_id") not in state["incidents"]):
+        return ""
+    return proof["incident_id"]
 
 
 def decide(snapshot: dict[str, Any], state: dict[str, Any], policy: dict[str, Any], now: float) -> dict[str, Any]:
@@ -290,6 +321,8 @@ def decide(snapshot: dict[str, Any], state: dict[str, Any], policy: dict[str, An
         # A lost ACK keeps the ORIGINAL incident, so restart or changing
         # observe revisions cannot reset the unknown-effect recovery bound.
         incident_id = unsettled["incident_id"]
+    elif kind == "repair" and diagnosed_incident(snapshot, state):
+        incident_id = diagnosed_incident(snapshot, state)
     else:
         identity_fields = [snapshot["run_id"], snapshot["task_id"], snapshot["stage"], snapshot["failure_key"], reason]
         if snapshot.get("active_attempt_id"):
@@ -297,11 +330,24 @@ def decide(snapshot: dict[str, Any], state: dict[str, Any], policy: dict[str, An
             # restarts, observed roots and progress strings cannot mint one.
             identity_fields.append({"active_attempt_id": snapshot["active_attempt_id"]})
         incident_id = digest(identity_fields)
+        if snapshot.get("active_attempt_id") and not snapshot["failure_key"]:
+            # Classifying the same attempt more accurately (for example,
+            # discovering unknown provider effects) cannot buy new restarts.
+            # Recognize prior v1 identities rather than resetting old state.
+            stall_reasons = {"unknown_effects", "native_action_unsettled_or_expired", "stage_deadline_expired",
+                "heartbeat_stale", "meaningful_progress_stalled", "owner_identity_unverified", "owner_absent", "runnable_work_idle"}
+            if reason in stall_reasons:
+                candidates = [digest([snapshot["run_id"], snapshot["task_id"], snapshot["stage"], "", cause,
+                    {"active_attempt_id": snapshot["active_attempt_id"]}]) for cause in sorted(stall_reasons)]
+                existing = [key for key in candidates if key in state["incidents"]]
+                if existing:
+                    incident_id = max(existing, key=lambda key: sum(state["incidents"][key].get(k, 0)
+                        for k in ("reconcile", "recover", "diagnose", "repair")))
     incidents = state["incidents"]
     if incident_id not in incidents:
         if len(incidents) >= policy["max_incidents"]:
             return report("blocked", "campaign_incident_budget_exhausted")
-        incidents[incident_id] = {"confirmations": 0, "last_confirmed_at": 0, "next_action_at": 0, "reconcile": 0, "recover": 0, "repair": 0}
+        incidents[incident_id] = {"confirmations": 0, "last_confirmed_at": 0, "next_action_at": 0, "reconcile": 0, "recover": 0, "diagnose": 0, "repair": 0}
     incident = incidents[incident_id]
     if state["confirmation_incident_id"] != incident_id:
         reset_confirmations(state)
@@ -325,7 +371,19 @@ def decide(snapshot: dict[str, Any], state: dict[str, Any], policy: dict[str, An
         # Keep the incident and uncertainty, but use the separately bounded
         # registered host fence so a new owner can perform native recovery.
         kind, reason = "recover", "reconciliation_requires_registered_host_fence"
-    limit_key = {"reconcile": "max_reconcile_attempts_per_incident", "recover": "max_recovery_attempts_per_incident", "repair": "max_repairs_per_incident"}[kind]
+    stalled_reason = reason
+    if (kind == "recover" and incident["recover"] >= policy["max_recovery_attempts_per_incident"]
+            and can_escalate and registered_fence and snapshot.get("native_diagnostic_available") is True
+            and snapshot.get("task_id") and snapshot.get("active_attempt_id")
+            and not pending and not uncertain and not inflight):
+        # Exhausted restarts are evidence that more restarting is unhelpful,
+        # not proof of a code defect. Ask the native owner to diagnose using
+        # its own sealed evidence before any paid repair can be admitted.
+        # This read-only operation can observe unknown provider effects; it
+        # cannot settle them or authorize a new writer.
+        kind, reason = "diagnose", "recovery_exhausted_requires_native_diagnosis"
+    limit_key = {"reconcile": "max_reconcile_attempts_per_incident", "recover": "max_recovery_attempts_per_incident",
+                 "diagnose": "max_reconcile_attempts_per_incident", "repair": "max_repairs_per_incident"}[kind]
     if incident[kind] >= policy[limit_key]:
         return report("blocked", kind + "_incident_budget_exhausted", incident_id=incident_id)
     if state["actions"] >= policy["max_campaign_actions"] or (kind == "repair" and state["repairs"] >= policy["max_campaign_repairs"]):
@@ -340,6 +398,9 @@ def decide(snapshot: dict[str, Any], state: dict[str, Any], policy: dict[str, An
               "accepted_tree": snapshot["accepted_tree"], "reproducer_receipt": snapshot["reproducer_receipt"],
               "issued_at": now, "unsettled_action_ids": unsettled_action_ids(state),
               "previous_unacknowledged_action": pending["action_id"] if pending else ""}
+    if kind == "diagnose":
+        action.update(stalled_reason=stalled_reason, exhausted_reconcile_count=incident["reconcile"],
+                      exhausted_recovery_count=incident["recover"])
     if reload_parent is not None and reason == "validated_repair_requires_fenced_reload":
         action.update(reload_after_action_id=reload_parent["action_id"], expected_framework_revision=reload_parent["expected_framework_revision"], original_failure_receipt=reload_parent["original_failure_receipt"])
     if snapshot.get("active_attempt_id"):
@@ -551,7 +612,7 @@ def _run_main(argv: list[str] | None = None) -> int:
                 capability_wait = False
                 if args.execute and command and report.get("action"):
                     kind = report["action"]["kind"]
-                    bound = execution_ready or (kind != "repair" and ready["bindings"].get({"reconcile": "reconcile", "recover": "lifecycle_restart"}[kind]) is True)
+                    bound = (kind != "diagnose" and execution_ready) or (kind != "repair" and ready["bindings"].get({"reconcile": "reconcile", "recover": "lifecycle_restart", "diagnose": "diagnose"}[kind]) is True)
                     if not bound:
                         # Observation and already-authorized lifecycle work
                         # remain possible while an asynchronous repair canary
