@@ -1,0 +1,104 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-010",
+  "title": "Enumerate both HF organizations and pin every candidate",
+  "recorded_at": "2026-10-30T09:43:09Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates.",
+  "site_branch": "implementation/wwl-010-f3bb3fe260b8-attempt-1-1793350945",
+  "site_revision": "4b4ae9e656ac02f0494c76f06facb8581e1b3f06",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "The enumerator and inventory are uncommitted working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status.",
+    "Anonymous pagination lists public datasets only. Private datasets are not visible and are not invented.",
+    "Inventory status complete means both organization listings were exhausted and every listed candidate is recorded. It does not mean every sibling file hash is embedded.",
+    "258 datasets embed a complete sibling file list. 384 keep a partial file list with an extension count and an omission reason. The resolved revision still pins the omitted paths. The complete-file sibling limit is 24, and the compact document stays within 1048576 bytes.",
+    "22 datasets remain in the inventory with metadata access errors: 12 recorded no configs or splits, 7 did not fetch a dataset card, 2 did neither, and 1 still has viewer splits pending.",
+    "Dataset viewer sizes are recorded for 609 of 642 datasets. Missing size payloads are omitted rather than invented.",
+    "Models and spaces are outside this dataset inventory.",
+    "The inventory file is compact JSON because the pretty form exceeds 1048576 bytes.",
+    "Node may print an ExperimentalWarning when it type-strips scripts/worldwide/discover.ts. The source-inventory audit validates the inventory document and the companion needles; it does not execute discover.ts."
+  ],
+  "inventory": {
+    "schema": "worldwide-legal-search.source-inventory@1",
+    "inventory_status": "complete",
+    "partial_reasons": [],
+    "retrieved_at": "2026-10-30T09:39:25.250Z",
+    "credentials": "none",
+    "pagination": "link-rel-next",
+    "encoding": "compact-json",
+    "evidence_byte_budget": 1048576,
+    "file_lists_complete": 258,
+    "file_lists_partial": 384,
+    "dataset_access_errors": 22,
+    "access_error_class": "metadata",
+    "access_error_buckets": {
+      "no_configs_or_splits": 12,
+      "card_not_fetched": 7,
+      "card_not_fetched_and_no_configs": 2,
+      "viewer_splits_pending": 1
+    },
+    "viewer_sizes_recorded": 609,
+    "extension_maps_recorded": 384,
+    "organizations": [
+      {
+        "id": "justicedao",
+        "dataset_count": 321,
+        "access_error": null,
+        "pagination": {
+          "followed": true,
+          "pages": 4,
+          "exhausted": true,
+          "limit": 100,
+          "continuation": "link-rel-next"
+        },
+        "listing_sha256": "7a208ad29f2d5f99dd1ca9e1fdd785ceda59920ead3df7151da712e30c9105a4",
+        "revision_set_sha256": "190b24838f74075348a9b1bde18a75c800f1961871347ac1e9769816f2b6fc67"
+      },
+      {
+        "id": "endomorphosis",
+        "dataset_count": 321,
+        "access_error": null,
+        "pagination": {
+          "followed": true,
+          "pages": 4,
+          "exhausted": true,
+          "limit": 100,
+          "continuation": "link-rel-next"
+        },
+        "listing_sha256": "cfd9c987f0c0b02281a6a99093c008da088454d779d77e072a9ebe7c6da84a79",
+        "revision_set_sha256": "e67f8d438cf219d60e680385da95d53691fcd29bd24ad34ff329f17abca26c17"
+      }
+    ]
+  },
+  "outputs": [
+    {
+      "path": "scripts/worldwide/discover.ts",
+      "bytes": 49930,
+      "sha256": "4f0704390f95a3752e7b334c6d1f6fee2f4f901926cb39b8f4c8c3dd2ad12682"
+    },
+    {
+      "path": "data/worldwide/source-inventory.json",
+      "bytes": 982961,
+      "sha256": "0b6db3b679d8b9042c97ca5a48e3625892804ca14e2edf3badde368941665326"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "node",
+      "scripts/worldwide/audit.mjs",
+      "source-inventory"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_15ac15aab965_a3b971bf7f3e",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node. stderr was empty. This provider run used the worktree as cwd.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "command": "source-inventory"
+    },
+    "stdout_sha256": "6b0a6ebc47a252d4af8c8adf56104caf6e3ad435921c8c5f8c192840510c1797"
+  }
+}
