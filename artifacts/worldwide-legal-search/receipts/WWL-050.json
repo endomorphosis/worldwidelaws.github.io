@@ -1,0 +1,59 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-050",
+  "title": "Specify worldwide visual system and all interaction states",
+  "recorded_at": "2026-11-03T07:42:59Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-050-baafd6d130cc-attempt-1-1793691056",
+  "site_revision": "5427517c5bd8c150166b85820a4066fcd5e1ca1b",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "docs/worldwide/design.md, docs/worldwide/interaction-states.json, and src/styles/worldwide.css are untracked. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "The audit checks the interaction-state contract and the design prose. It does not render the stylesheet, open a browser, or measure pixels. Contrast ratios in the design were computed from the token hex values.",
+    "This task does not implement the React shell, results, reader, coverage pages, locale runtime, or browser audit. Those remain WWL-051 through WWL-056.",
+    "No font files are added. The named families fall back to system fonts that cover Latin, Arabic, Hebrew, and CJK.",
+    "The origin wording shared URL is stored under the key shared. A JSON key named url is rejected by the contract walker unless the value is an https URL.",
+    "The map block and the model block stay closed unless the visitor opens the map or a model is offered or unavailable. Search does not use either one.",
+    "Interface labels are specified for English, Dutch, Arabic, and Japanese. Loading them at runtime is a later task.",
+    "Nothing in this visual system decides that a law applies.",
+    "node is v23.11.1 at /usr/bin/node. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-wwl050.QDk1OK. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state.",
+    "stderr was empty. The process exit code was 0."
+  ],
+  "outputs": [
+    {
+      "path": "docs/worldwide/design.md",
+      "bytes": 28672,
+      "sha256": "7da1959cd67d0ef19207e069b2c28353fc471ba7c89da7045d6e4d935414950e"
+    },
+    {
+      "path": "docs/worldwide/interaction-states.json",
+      "bytes": 28945,
+      "sha256": "a11bcb1c3eae9a2d4ba241b9f7276697b22dd95afcadce68cc360e4359ccdcfb"
+    },
+    {
+      "path": "src/styles/worldwide.css",
+      "bytes": 16757,
+      "sha256": "aeecd8df2d67876efe7031720d11d828edbfbfa36d5f1284dcc7417391a42cd1"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "node",
+      "scripts/worldwide/audit.mjs",
+      "ux-contract"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_23496557a28e_0d88dfc14a84",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node v23.11.1. HOME was /tmp/ipfs-accelerate-validation-home-wwl050.QDk1OK. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. stdout was the ux-contract acceptance object. stderr was empty.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "command": "ux-contract"
+    },
+    "stdout_sha256": "26735c2c8090ddfbb5bd2042de5634b3635386d33b2513724abbc69da289310c",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
