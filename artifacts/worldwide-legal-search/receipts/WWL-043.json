@@ -1,0 +1,72 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-043",
+  "title": "Implement bounded worker BM25 retrieval with parity checks",
+  "recorded_at": "2026-11-03T07:29:24Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-043-721e1ce18ae5-attempt-1-1793689761",
+  "site_revision": "fdecdacf997307a39c2aacb22764176da8784b6b",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "src/lib/worldwide/search/bm25.ts, src/workers/worldwideSearchWorker.ts, and tests/worldwide/bm25-parity.test.ts are untracked working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "Scores follow country_laws_ir bm25.score_query at commit 2ea4ca6804b3c4cc44e43d0539f4c3fcae011747. A repeated query token adds the term again. DuckDB bm25_search keeps one contribution per distinct term.",
+    "Equal scores keep the first document that received a contribution. That is score_query's stable sort. DuckDB orders those ties by document_index.",
+    "A query term outside every inclusive route is not searched. query.py reads every posting shard when no range matches. This reader does not.",
+    "k1, b, title weight, and body weight are pinned to 1.2, 0.75, 5, and 1. average_document_length comes from the index. A missing or non-positive average becomes 1.",
+    "The reader uses the stored idf and document length. Term frequency is title_weight times the title count plus body_weight times the body count.",
+    "A traversal budget stops before the next posting entry. A memory budget stops before the next posting record, counted as the canonical JSON byte size of that record. Earlier contributions remain. Default caps are 50000 entries and 8 MiB, with a ceiling of 200000 entries and 32 MiB.",
+    "Routed shards must carry a sha256 of their record array. Flat postings have no shard checksum. topK is an integer from 1 to 100 and defaults to 10. Query tokens are sliced at 64.",
+    "The worker scores off the caller stack. A handled search error is returned as ok:false and the port stays open. A port error or a silent port is terminated so the caller is not left waiting. The default yield is a zero-delay timer every 128 applied entries, so a cancel flag is observed on that boundary and on every budget check.",
+    "Jest's jsdom environment does not provide a dedicated Worker. The failure tests drive the client through an in-process port. The dedicated-worker listener is installed only when globalThis is a WorkerGlobalScope.",
+    "The parity test runs /usr/bin/python3.12 -I. That process is a stdlib transcription of score_query. It does not import country_laws_ir, numpy, or pandas. Its ranks match scores previously captured from bm25.score_query on the pinned file.",
+    "The Jest reporter counted 21 passing tests. One is the existing setup test in src/__tests__/setup.ts. Twenty exercise this BM25 reader and worker.",
+    "node_modules was absent and was installed with npm ci --ignore-scripts so Jest could run. package.json and package-lock.json were not edited.",
+    "node is v23.11.1 at /usr/bin/node. npm is 10.9.2 at /usr/bin/npm. python3.12 is /usr/bin/python3.12.",
+    "CI=1 was set so Jest would not enter watch mode. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-wwl043.XWqxBw. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state.",
+    "The Jest reporter and the Node NO_COLOR and VM Modules warnings were written to stderr, along with the ts-jest isolatedModules deprecation warning. stderr was not empty. The process exit code was 0."
+  ],
+  "outputs": [
+    {
+      "path": "src/lib/worldwide/search/bm25.ts",
+      "bytes": 20592,
+      "sha256": "0c5ab9ed47197ec515efbed3e5700ae6dc1bfb532adb01f2eab39a0ba9cc9bf2"
+    },
+    {
+      "path": "src/workers/worldwideSearchWorker.ts",
+      "bytes": 9823,
+      "sha256": "d35891ff5e872a4ac9ac28e11d8b72c2b16ed2281e43dc7228e27c7f76d81875"
+    },
+    {
+      "path": "tests/worldwide/bm25-parity.test.ts",
+      "bytes": 26302,
+      "sha256": "97361288289a9781f08aebba4ce78bf357e766fc76b6746139be98a839ac124c"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/bm25-parity.test.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_1d58fa9a731a_681ef036f132",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. python3.12 is /usr/bin/python3.12. HOME was /tmp/ipfs-accelerate-validation-home-wwl043.XWqxBw. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. CI=1 was set. npm wrote the script banner to stdout. Jest wrote the passing reporter and the Node NO_COLOR, VM Modules, and ts-jest isolatedModules warnings to stderr. The test ran /usr/bin/python3.12 -I and did not import country_laws_ir.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 21,
+      "failed": 0,
+      "setup_tests": 1,
+      "bm25_parity_tests": 20
+    },
+    "stdout_sha256": "51b9d7644980257e25835930ad3959b46435bcad9c204556f5b1c5d9b8e76018",
+    "stderr_sha256": "305a8b217ae84104415121b01bfbb15d74645f176fc46fd4a0d762a6ceca6ec9"
+  }
+}
