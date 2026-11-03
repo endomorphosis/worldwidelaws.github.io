@@ -726,3 +726,77 @@
     box-shadow: none;
   }
 }
+
+/* WWL-051 shell. Place, as-of date, and language stay in the header. */
+.wwl-banner .wwl-context,
+.wwl-banner .wwl-date-field,
+.wwl-banner .wwl-language-field,
+.wwl-banner .wwl-place,
+.wwl-banner .wwl-place-origin {
+  display: flex;
+  visibility: visible;
+}
+
+.wwl-date-field,
+.wwl-language-field {
+  flex-direction: column;
+  gap: var(--wwl-space-1);
+}
+
+.wwl-nav,
+.wwl-examples,
+.wwl-place-list {
+  list-style: none;
+  margin: var(--wwl-space-2) 0 0;
+  padding: 0;
+}
+
+.wwl-nav,
+.wwl-examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wwl-space-2);
+}
+
+.wwl-nav a,
+.wwl-examples button,
+.wwl-change,
+.wwl-save,
+.wwl-next,
+.wwl-filters-toggle,
+.wwl-place-list [role="option"] {
+  min-height: var(--wwl-control-min);
+  padding-block: var(--wwl-space-2);
+  padding-inline: var(--wwl-space-3);
+  font: inherit;
+  color: var(--wwl-color-link);
+  background: var(--wwl-color-surface);
+  border: 2px solid var(--wwl-color-link);
+  border-radius: var(--wwl-radius);
+  text-align: start;
+}
+
+.wwl-place-list {
+  max-block-size: 16rem;
+  overflow: auto;
+  background: var(--wwl-color-surface);
+  border: 1px solid var(--wwl-color-border);
+}
+
+.wwl-place-list [role="option"] {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  border-inline: 0;
+  border-block: 0;
+  border-block-end: 1px solid var(--wwl-color-border);
+}
+
+.wwl-place-list [role="option"][data-active="true"] {
+  background: var(--wwl-color-muted-surface);
+}
+
+.wwl-filters[hidden] {
+  display: none;
+}

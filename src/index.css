@@ -153,6 +153,27 @@ body {
   text-shadow: 0 0.1em 0 rgba(0, 0, 0, 0.5);
 }
 
+/* Worldwide shell: paper stays light, and focus stays visible on legal text. */
+html[data-wwl-shell="worldwide"] {
+  color-scheme: light;
+  background: #f7f4ef;
+  --foreground-rgb: 23, 32, 38;
+  --background-start-rgb: 247, 244, 239;
+  --background-end-rgb: 247, 244, 239;
+}
+
+html[data-wwl-shell="worldwide"] body {
+  color: #172026;
+  background: #f7f4ef;
+}
+
+.wwl :focus,
+.wwl :focus-visible {
+  outline: 3px solid #0b3a5b;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px #f7f4ef;
+}
+
 .bubble {
   border-width: 30px;
   border-image-source: url(../assets/ui/bubble-left.svg);
