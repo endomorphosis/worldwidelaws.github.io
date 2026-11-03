@@ -1,0 +1,94 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-015",
+  "title": "Publish a revision-pinned browser catalog and coverage matrix",
+  "recorded_at": "2026-11-03T03:10:17Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-015-e30e824e3754-attempt-1-1793674360",
+  "site_revision": "f01f7b3aeb44900807400246f558917d833783e4",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "scripts/worldwide/catalog.ts, src/lib/worldwide/data/catalog.ts, and data/worldwide/catalog.schema.json are uncommitted working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status.",
+    "Law collections use jurisdiction id unstated. Dispositions do not carry an official jurisdiction id, and repository slugs are not used as one.",
+    "Level other holds country IR releases whose cards did not state an administrative level, the unified Netherlands bundle, and legacy split indexes. That means the disposition did not assign national, regional, or municipal. It is not a finding that those collections sit outside every country.",
+    "A cell is known only when every included collection in that cell has a pinned revision, no omitted sibling paths, a positive viewer row count, and resolved rights that were not inferred from organization membership. On this snapshot that intersection is empty, so known is 0 and partial is 42. assertCatalogInvariants still builds a known fixture cell, and a legal_completeness value of complete is rejected.",
+    "collection_count is 588 included law datasets. record_denominator is 497443072 viewer rows, summed once per included dataset that published num_rows. 23 included datasets published no viewer row count and add nothing. 11 blocked datasets sit on unstated/other/metadata and stay unavailable, with collection_count 0. A cell denominator repeats a dataset that advertises more than one capability. None of these counts is legal completeness.",
+    "Boundary metadata stays on its own denominator. wmgeolab/geoBoundaries revision 1289e40e366c7b320550be1ee0614a9472d572d4 contributes boundary_record_denominator 712, which is not added to the law record denominator. National uses the ADM0 file count, regional the ADM1 file count, and municipal the 61 labeled municipal files. Level other for that source is unknown, so ADM2 through ADM5 are not counted again. An ADM number is not a municipality. complete_world is false. The metadata rollup sha256 is the manifest pin and was not recomputed from geometry bytes.",
+    "The audit checks the schema and that both modules are production source mentioning coverage, integrity, and denominator. It does not execute TypeScript. node --experimental-strip-types scripts/worldwide/catalog.ts was run separately and exited 0. Its stderr contains the Node type-stripping warning and the NO_COLOR/FORCE_COLOR warning, including the process id, so that stderr digest is run-specific. The audit stderr was empty.",
+    "The browser catalog JSON is 443249 bytes. It is returned by the publisher and is not written into the repository."
+  ],
+  "catalog": {
+    "schema": "worldwide-legal-search.catalog@1",
+    "inventory_revision": "0b6db3b679d8b9042c97ca5a48e3625892804ca14e2edf3badde368941665326",
+    "disposition_revision": "bd713600b9931ddc081059cb53162d5ee4be30f603134ab08697ff6386f1cd9a",
+    "geography_revision": "1289e40e366c7b320550be1ee0614a9472d572d4",
+    "geography_manifest_sha256": "18fd87acb24f1d0f69ea20ad780aba0b6051b71bc5598c9be16c6822ff7377a0",
+    "as_of": "2026-10-30T09:39:25.250Z",
+    "legal_completeness": "not_claimed",
+    "counts_are_not_legal_completeness": true,
+    "collection_count": 588,
+    "record_denominator": 497443072,
+    "uncounted_collections": 23,
+    "boundary_collection_count": 1,
+    "boundary_record_denominator": 712,
+    "cells": 104,
+    "by_state": {
+      "known": 0,
+      "partial": 42,
+      "missing": 60,
+      "unknown": 1,
+      "unavailable": 1
+    },
+    "catalog_bytes": 443249,
+    "integrity": "8ea0b4eefd6f458c80cecbc74118a347f8faa2c51ad1d8a70f58711542151142"
+  },
+  "outputs": [
+    {
+      "path": "scripts/worldwide/catalog.ts",
+      "bytes": 6656,
+      "sha256": "15404d584178e6b8732d832b66d66a5173225ecc7e286921b5ceb23d16a9ec10"
+    },
+    {
+      "path": "src/lib/worldwide/data/catalog.ts",
+      "bytes": 49738,
+      "sha256": "b11dc6ec442ec3000a4844c1a0009004daafe013032f1b41a2521401dcc14f6e"
+    },
+    {
+      "path": "data/worldwide/catalog.schema.json",
+      "bytes": 3838,
+      "sha256": "211e81895030f10bfe74fc5820fbaa6b1e2663ef477982bfc6322ce84b850cc4"
+    }
+  ],
+  "builder": {
+    "argv": [
+      "node",
+      "--experimental-strip-types",
+      "scripts/worldwide/catalog.ts"
+    ],
+    "exit_code": 0,
+    "stdout_sha256": "a04520b755fe462d689aeadb5fb3cca4e982a5df9541f741a48c256f3cc6c99c",
+    "stderr_sha256": "716998637eda9c2a1dc44c2f7add354910b2f54ef7f9eb57996a7e50039c474d",
+    "stderr_note": "Node wrote the experimental type-stripping warning and the NO_COLOR/FORCE_COLOR warning. The process id is inside that warning, so a later run has a different stderr digest."
+  },
+  "validation": {
+    "argv": [
+      "node",
+      "scripts/worldwide/audit.mjs",
+      "catalog"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_c5c2763ed0fc_866ed9fde3fd",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node. HOME was /tmp/ipfs-accelerate-validation-home-DQEXKz. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. stderr was empty.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "command": "catalog",
+      "probes": 4
+    },
+    "stdout_sha256": "a42a2fabd148f48114cc278082f89626f3da2ebabb5e55fb895953d38305ae33",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Root instance is one coverage cell. collection_count and record_denominator are collection accounting. They are never legal completeness. The value complete is rejected.",
+  "title": "Worldwide legal-search coverage cell",
+  "description": "Revision-pinned coverage for one jurisdiction, one administrative level, and one source capability. A known or partial cell names how many collections were pinned and the record denominator of those collections. legal_completeness stays not_claimed.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "coverage_state",
+    "record_denominator",
+    "collection_count",
+    "legal_completeness",
+    "as_of",
+    "integrity"
+  ],
+  "properties": {
+    "coverage_state": {
+      "description": "known, partial, missing, unknown, or unavailable. known describes the pinned collections only.",
+      "enum": ["known", "partial", "missing", "unknown", "unavailable"]
+    },
+    "record_denominator": {
+      "description": "Non-negative count of viewer rows or metadata files in the pinned collections. Zero means the count was not published or this cell is not a counted level. It is not a census of the law.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "collection_count": {
+      "description": "Non-negative number of included collections in this cell. This is not the record denominator and it is not legal completeness.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "legal_completeness": {
+      "description": "Always not_claimed. A collection count, a record denominator, or a known coverage state does not make the law complete.",
+      "enum": ["not_claimed"]
+    },
+    "as_of": {
+      "description": "Calendar date or UTC timestamp of this coverage statement.",
+      "type": "string",
+      "minLength": 10,
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}(?:T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z)?$"
+    },
+    "integrity": {
+      "description": "SHA-256 of the canonical cell identity, member revisions, counts, and coverage state.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sha256"],
+      "properties": {
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "jurisdiction_id": {
+      "description": "unstated when the disposition has no official jurisdiction id. A boundary dataset id is a source id, not an issuer id.",
+      "type": "string",
+      "minLength": 1
+    },
+    "level": {
+      "description": "Administrative level used by the coverage matrix. other means the disposition did not state national, regional, or municipal.",
+      "enum": ["national", "regional", "municipal", "other"]
+    },
+    "capability": {
+      "description": "Source capability advertised by the pinned disposition, or boundary for the place registry.",
+      "type": "string",
+      "minLength": 1
+    },
+    "denominator_kind": {
+      "description": "What record_denominator counts. viewer-rows and metadata-files are different units and are not added together.",
+      "enum": ["viewer-rows", "metadata-files", "not-counted"]
+    },
+    "uncounted_collections": {
+      "description": "Included collections in this cell whose viewer row count was absent. Their rows were not invented.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "blocked_count": {
+      "description": "Collections at this cell that are blocked or unreadable. They are outside collection_count.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "reason": {
+      "description": "Why the coverage state was chosen, including the distinction between collection counts, the record denominator, and legal completeness.",
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
