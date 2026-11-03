@@ -1,0 +1,166 @@
+{
+  "schema": "worldwide-legal-search.browser-boundary@1",
+  "task_id": "WWL-080",
+  "title": "Audit browser-only dependency and deployment boundaries",
+  "audited_at": "2026-11-03T10:24:50Z",
+  "acceptance": "Demonstrate core search without Node-only modules, Convex, proxies, Python, login, GPU or secrets; production workers/WASM run without relying on development COOP/COEP headers.",
+  "production_origin": "https://worldwidelaws.github.io",
+  "roots": [
+    "src/main.tsx",
+    "src/workers/worldwideSearchWorker.ts",
+    "src/components/worldwide/SearchResults.tsx",
+    "src/lib/worldwide/data/transport.ts"
+  ],
+  "closure": [
+    { "path": "src/AppStatic.tsx", "role": "production-entry" },
+    { "path": "src/components/worldwide/JurisdictionStack.tsx", "role": "retrieval-ui" },
+    { "path": "src/components/worldwide/SearchContext.tsx", "role": "shell" },
+    { "path": "src/components/worldwide/SearchFilters.tsx", "role": "retrieval-ui" },
+    { "path": "src/components/worldwide/SearchResults.tsx", "role": "retrieval-ui" },
+    { "path": "src/components/worldwide/WorldwideLegalSearchApp.tsx", "role": "shell" },
+    { "path": "src/index.css", "role": "shell-style" },
+    { "path": "src/lib/worldwide/adapters/netherlands.ts", "role": "compatibility-adapter" },
+    { "path": "src/lib/worldwide/contracts.ts", "role": "retrieval-contract" },
+    { "path": "src/lib/worldwide/data/identity.ts", "role": "browser-hash" },
+    { "path": "src/lib/worldwide/data/schema.ts", "role": "record-schema" },
+    { "path": "src/lib/worldwide/data/transport.ts", "role": "artifact-transport" },
+    { "path": "src/lib/worldwide/jurisdiction/authority.ts", "role": "authority-stack" },
+    { "path": "src/lib/worldwide/jurisdiction/schema.ts", "role": "jurisdiction-graph" },
+    { "path": "src/lib/worldwide/jurisdiction/temporal.ts", "role": "effective-date" },
+    { "path": "src/lib/worldwide/location/state.ts", "role": "place-state" },
+    { "path": "src/lib/worldwide/routes.ts", "role": "shell-routing" },
+    { "path": "src/lib/worldwide/search/bm25.ts", "role": "lexical-search" },
+    { "path": "src/lib/worldwide/search/citation.ts", "role": "lexical-search" },
+    { "path": "src/lib/worldwide/search/fusion.ts", "role": "lexical-search" },
+    { "path": "src/lib/worldwide/search/global.ts", "role": "lexical-search" },
+    { "path": "src/lib/worldwide/search/planner.ts", "role": "lexical-search" },
+    { "path": "src/lib/worldwide/search/tokenize.ts", "role": "lexical-search" },
+    { "path": "src/main.tsx", "role": "production-entry" },
+    { "path": "src/styles/worldwide.css", "role": "shell-style" },
+    { "path": "src/workers/worldwideSearchWorker.ts", "role": "search-worker" }
+  ],
+  "allowed_bare_specifiers": {
+    "react": [
+      "src/components/worldwide/SearchContext.tsx",
+      "src/components/worldwide/SearchFilters.tsx",
+      "src/components/worldwide/SearchResults.tsx",
+      "src/components/worldwide/WorldwideLegalSearchApp.tsx",
+      "src/main.tsx"
+    ],
+    "react-dom/client": [
+      "src/main.tsx"
+    ]
+  },
+  "dynamic_imports_excluded": [
+    {
+      "from": "src/AppStatic.tsx",
+      "specifier": "./components/WetWijzerLegalResearchApp",
+      "resolved": "src/components/WetWijzerLegalResearchApp.tsx",
+      "reason": "The Netherlands research workspace loads only after the migration flag and an explicit control. It is not on the static core-search graph."
+    }
+  ],
+  "excluded_paths": [
+    "api/",
+    "convex/",
+    "scripts/openrouter-proxy-server.mjs",
+    "scripts/voice-proxy-server.mjs",
+    "src/components/WetWijzerLegalResearchApp.tsx",
+    "src/components/worldwide/LocationPrivacy.tsx",
+    "src/components/worldwide/PlacePicker.tsx",
+    "src/lib/worldwide/location/device.ts",
+    "src/lib/worldwide/location/geoip.ts",
+    "src/workers/backendDetectionWorker.ts",
+    "src/workers/clientLLMWorker.ts",
+    "src/workers/embeddingWorker.ts",
+    "vite.config.ts"
+  ],
+  "forbidden_specifier_patterns": [
+    "(^|/)child_process$",
+    "(^|/)convex(/|$)",
+    "@clerk/",
+    "@huggingface/transformers",
+    "^crypto$",
+    "^fs$",
+    "^node:",
+    "^os$",
+    "^path$",
+    "^worker_threads$",
+    "dotenv",
+    "duckdb",
+    "hnswlib",
+    "libp2p",
+    "onnxruntime",
+    "openrouter",
+    "parquet-wasm",
+    "proxy-server",
+    "replicate"
+  ],
+  "forbidden_code_patterns": [
+    "\\bWebAssembly\\b",
+    "\\bSharedArrayBuffer\\b",
+    "\\bcrossOriginIsolated\\b",
+    "\\bnumThreads\\b",
+    "\\bnavigator\\.gpu\\b",
+    "\\bWebGPU\\b",
+    "\\bonnxruntime\\b",
+    "\\bchild_process\\b",
+    "\\bspawn(?:Sync)?\\s*\\(",
+    "\\bexecFile(?:Sync)?\\s*\\(",
+    "\\bexecSync\\s*\\(",
+    "\\brequire\\s*\\(",
+    "\\bprocess\\.env\\b",
+    "\\bimport\\.meta\\.env\\b",
+    "\\bpython3?\\b",
+    "\\bconvex\\b",
+    "\\b@clerk/",
+    "\\bClerkProvider\\b",
+    "\\bsignIn\\s*\\(",
+    "\\bopenrouter\\b",
+    "\\bparquet-wasm\\b",
+    "\\bduckdb\\b",
+    "\\bhuggingface\\b"
+  ],
+  "forbidden_raw_patterns": [
+    "\\bprocess\\.env\\b",
+    "\\bimport\\.meta\\.env\\b",
+    "sk-[A-Za-z0-9]",
+    "hf_[A-Za-z0-9]",
+    "AKIA[0-9A-Z]{16}",
+    "BEGIN (?:RSA |OPENSSH |EC )?PRIVATE KEY",
+    "OPENROUTER_API_KEY|CLERK_SECRET|CONVEX_DEPLOY_KEY|CONVEX_URL|REPLICATE_API_TOKEN",
+    "from ['\\\"]node:"
+  ],
+  "worker_constructor_files": [
+    "src/workers/worldwideSearchWorker.ts"
+  ],
+  "deployment": {
+    "development_only_headers_const": "developmentIsolationHeaders",
+    "development_headers": {
+      "Cross-Origin-Embedder-Policy": "require-corp",
+      "Cross-Origin-Opener-Policy": "same-origin"
+    },
+    "server_headers_reference": "developmentIsolationHeaders",
+    "preview_headers_empty": true,
+    "build_sends_isolation_headers": false,
+    "worker_format": "es",
+    "search_worker_module_type": "module",
+    "production_cross_origin_isolated": false,
+    "production_shared_array_buffer": false,
+    "production_wasm_threads": false,
+    "core_search_loads_wasm": false,
+    "onnx_alias_reachable_from_core_search": false,
+    "vite_config_is_build_tooling": true
+  },
+  "limitations": [
+    "GitHub Pages does not send Cross-Origin-Opener-Policy or Cross-Origin-Embedder-Policy. developmentIsolationHeaders is applied only to the Vite development server. vite preview sends an empty header map. The production build has no isolation headers.",
+    "Core search scores compact postings in TypeScript on a module worker. It does not instantiate WebAssembly, allocate a SharedArrayBuffer, or read crossOriginIsolated. A COOP or COEP response is ignored by interpretByteRangeResponse and cannot authorize a download.",
+    "The onnxruntime-web alias in vite.config.ts points at a WebGPU bundle for an optional transformers import. That specifier is not reachable from the core-search closure. This audit does not retarget the alias.",
+    "src/AppStatic.tsx dynamically imports WetWijzerLegalResearchApp only when the caller invokes the explicit migration control. That module is outside the static closure and can reach the legacy model workers. Ordinary search does not load it.",
+    "pythonJsonDumps is a TypeScript canonical-JSON helper. The core-search closure does not spawn Python.",
+    "The production entry still imports src/index.css, which references existing public font and UI assets. Those URLs are not Node modules, Convex, a proxy, or a secret.",
+    "WorldwideLegalSearchApp does not mount SearchResults. Both are in this closure because place retrieval and the shell are core search. Mounting them together is a later task.",
+    "GeoIP, device location, PlacePicker, and LocationPrivacy are outside this closure. The shell does not call them while it loads.",
+    "vite.config.ts imports node:path for the build tool. It is not part of the browser closure.",
+    "This audit did not open a browser and did not probe a live Pages response. The production capability interpreter and the in-process search worker are what this record runs."
+  ]
+}
