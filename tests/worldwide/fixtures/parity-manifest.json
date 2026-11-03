@@ -1,0 +1,2257 @@
+{
+  "schema": "worldwide-legal-search.parity-manifest@1",
+  "taskId": "WWL-014",
+  "oracle": "Python cidutil, normalize.normalize_text, and instrument_inherit at the pinned worktree hashes. Fixture rows are synthetic structural samples, not redistributed official consolidations.",
+  "textLicense": "fixture-synthetic",
+  "upstream": {
+    "repository": "/home/barberb/lift_coding/external/ipfs_datasets",
+    "commit": "2ea4ca6804b3c4cc44e43d0539f4c3fcae011747",
+    "committedAt": "2026-10-29T05:41:34+01:00",
+    "license": "AGPL-3.0-only",
+    "licenseName": "GNU Affero General Public License version 3",
+    "schemas": {
+      "corpus": "country-laws-ir-graphrag/v1",
+      "entry": "country-laws-entry/v1",
+      "law": "country-laws-law/v1",
+      "inherit": "instrument-inherit/v1"
+    },
+    "files": [
+      {
+        "path": "ipfs_datasets_py/processors/legal_scrapers/country_laws_ir/cidutil.py",
+        "worktreeSha256": "037dec4d1eb929c52741c63c6fed5b35ce7fd112c2eb8490a0c47ff29521d47d",
+        "headBlob": "f6e13daa170a5b874d50d4539ad1817565fdd0e9",
+        "dirty": false
+      },
+      {
+        "path": "ipfs_datasets_py/processors/legal_scrapers/country_laws_ir/schema.py",
+        "worktreeSha256": "9000e130a045fbd218e7e08e1c91a656190f554b34717efe521bc21b16834015",
+        "headBlob": "46843e06e2bec239796b4490bf2fb111cc60d5fc",
+        "dirty": false
+      },
+      {
+        "path": "ipfs_datasets_py/processors/legal_scrapers/country_laws_ir/normalize.py",
+        "worktreeSha256": "6577eb30628ea6412c660a9122f960dac23e52d45372130c1040dab4338bf513",
+        "headBlob": "43d9a7293616497fc3a5d0c08c2ef16742f6aaeb",
+        "dirty": false
+      },
+      {
+        "path": "ipfs_datasets_py/processors/legal_scrapers/country_laws_ir/instrument_inherit.py",
+        "worktreeSha256": "3da665523a0112e3a09d9547aa234e4eb46d44aa4cfef38d483919b25fb3263b",
+        "headBlob": "495e949922a32801adc90342c476d21b1f985c78",
+        "dirty": false
+      },
+      {
+        "path": "ipfs_datasets_py/processors/legal_scrapers/country_laws_ir/__init__.py",
+        "worktreeSha256": "024c968ed45252063aa8e3b3a006d464429d28591d4096d26b9377b7234df9cf",
+        "headBlob": "35db2f270ce51a1cb5b90306650e116f8f4aa343",
+        "dirty": false
+      },
+      {
+        "path": "ipfs_datasets_py/processors/legal_scrapers/country_laws_ir/national_directory.py",
+        "worktreeSha256": "72e87993589cb7e5f3129af0a818b1b14ce22d581f77a9a03ea80eb1459be58a",
+        "headBlob": "d3e0f16e278f26c559d534a6abc9031573bd270e",
+        "dirty": true
+      },
+      {
+        "path": "LICENSE",
+        "worktreeSha256": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef",
+        "headBlob": "0ad25db4bd1d86c452db3f9602ccdbe172438f52",
+        "dirty": false
+      }
+    ],
+    "notes": [
+      "national_directory.py may be dirty in the reference worktree. The dirty hunk does not change _HEADING_LINE, _TITLE_LOI, _ROMAN, _HEADING_KIND, or _fold.",
+      "Row license strings are preserved labels. They are not a WWL-012 redistribution decision."
+    ]
+  },
+  "covers": [
+    "nulls",
+    "conflicting-status",
+    "article-inheritance",
+    "canonical-hashes-cids",
+    "duplicated-mirrors"
+  ],
+  "vectors": [
+    {
+      "kind": "sha256-text",
+      "name": "sha256 empty",
+      "input": "",
+      "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "covers": [
+        "canonical-hashes-cids"
+      ]
+    },
+    {
+      "kind": "sha256-text",
+      "name": "sha256 abc",
+      "input": "abc",
+      "expected": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "covers": [
+        "canonical-hashes-cids"
+      ]
+    },
+    {
+      "kind": "sha256-text",
+      "name": "sha256 harbor",
+      "input": "A national rule about harbours.",
+      "expected": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+      "covers": [
+        "canonical-hashes-cids"
+      ]
+    },
+    {
+      "kind": "cid-bytes-empty",
+      "name": "cid empty bytes",
+      "expected": "bafkreihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku",
+      "covers": [
+        "canonical-hashes-cids"
+      ]
+    },
+    {
+      "kind": "cid-text",
+      "name": "cid of text parts",
+      "parts": [
+        "a",
+        null,
+        "b"
+      ],
+      "expected": "bafkreibyaix5fog3yxft2lhootqih3n7lhr5jyj5az7lzno3mm6uz72nrq",
+      "covers": [
+        "canonical-hashes-cids"
+      ]
+    },
+    {
+      "kind": "canonical-json",
+      "name": "canonical empty object",
+      "input": {},
+      "expected": "{}",
+      "covers": [
+        "canonical-hashes-cids"
+      ]
+    },
+    {
+      "kind": "canonical-json",
+      "name": "canonical sorted keys",
+      "input": {
+        "b": 1,
+        "a": "x"
+      },
+      "expected": "{\"a\":\"x\",\"b\":1}",
+      "covers": [
+        "canonical-hashes-cids"
+      ]
+    },
+    {
+      "kind": "canonical-json",
+      "name": "canonical nested unicode",
+      "input": {
+        "z": [
+          1,
+          {
+            "b": true,
+            "a": null
+          }
+        ],
+        "m": "line\nnext \"q\" / côte"
+      },
+      "expected": "{\"m\":\"line\\nnext \\\"q\\\" / côte\",\"z\":[1,{\"a\":null,\"b\":true}]}",
+      "covers": [
+        "canonical-hashes-cids"
+      ]
+    },
+    {
+      "kind": "cid-json",
+      "name": "cid unicode object",
+      "input": {
+        "language": "fr",
+        "title": "Código",
+        "place": "Côte d'Ivoire"
+      },
+      "expected": "bafkreicmsr7ktlnkc6agv4ekmnphxvcgipxyggyvcnczu64ux6cvinwure",
+      "covers": [
+        "canonical-hashes-cids"
+      ]
+    },
+    {
+      "kind": "sha256-key",
+      "name": "sha256 key prefixed",
+      "input": "sha256:ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "expected": "bafkreif2pall7dybz7vecqka3zo24irdwabwdi4wc55jznaq75q7eaavvu",
+      "covers": [
+        "canonical-hashes-cids"
+      ]
+    },
+    {
+      "kind": "sha256-key",
+      "name": "sha256 key bare",
+      "input": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "expected": "bafkreif2pall7dybz7vecqka3zo24irdwabwdi4wc55jznaq75q7eaavvu",
+      "covers": [
+        "canonical-hashes-cids"
+      ]
+    },
+    {
+      "kind": "sha256-key",
+      "name": "sha256 key suffix",
+      "input": "sha256:ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad/mirror",
+      "expected": "bafkreif2pall7dybz7vecqka3zo24irdwabwdi4wc55jznaq75q7eaavvu/mirror",
+      "covers": [
+        "canonical-hashes-cids"
+      ]
+    },
+    {
+      "kind": "sha256-key",
+      "name": "sha256 key unchanged",
+      "input": "not-a-hash",
+      "expected": "not-a-hash",
+      "covers": [
+        "canonical-hashes-cids"
+      ]
+    },
+    {
+      "kind": "python-json",
+      "name": "spaced sorted json",
+      "input": {
+        "z": 1,
+        "a": "côte",
+        "nested": {
+          "b": true,
+          "a": null
+        }
+      },
+      "expected": "{\"a\": \"côte\", \"nested\": {\"a\": null, \"b\": true}, \"z\": 1}",
+      "covers": [
+        "canonical-hashes-cids"
+      ]
+    },
+    {
+      "kind": "normalize-text",
+      "name": "null text",
+      "input": null,
+      "expected": "",
+      "covers": [
+        "nulls"
+      ]
+    },
+    {
+      "kind": "normalize-nan",
+      "name": "nan text",
+      "expected": "",
+      "covers": [
+        "nulls"
+      ]
+    },
+    {
+      "kind": "normalize-text",
+      "name": "blank text",
+      "input": "   ",
+      "expected": "",
+      "covers": [
+        "nulls"
+      ]
+    },
+    {
+      "kind": "normalize-text",
+      "name": "nbsp text",
+      "input": "A B",
+      "expected": "A B",
+      "covers": [
+        "nulls"
+      ]
+    },
+    {
+      "kind": "normalize-text",
+      "name": "html text",
+      "input": "<p>Article&nbsp;1</p>",
+      "expected": "Article 1",
+      "covers": [
+        "nulls"
+      ]
+    },
+    {
+      "kind": "normalize-text",
+      "name": "fullwidth text",
+      "input": "Ａ",
+      "expected": "A",
+      "covers": [
+        "nulls",
+        "canonical-hashes-cids"
+      ]
+    },
+    {
+      "kind": "normalize-text",
+      "name": "hyphen break",
+      "input": "pre-\nfix",
+      "expected": "prefix",
+      "covers": [
+        "nulls"
+      ]
+    },
+    {
+      "kind": "fold",
+      "name": "fold code civil",
+      "input": "Code civil",
+      "expected": "code civil",
+      "covers": [
+        "article-inheritance"
+      ]
+    },
+    {
+      "kind": "fold",
+      "name": "fold accent",
+      "input": "Côte d'Ivoire",
+      "expected": "cote d'ivoire",
+      "covers": [
+        "article-inheritance"
+      ]
+    },
+    {
+      "kind": "inheritance-plan",
+      "name": "sole code and rejected second code",
+      "rows": [
+        {
+          "law_id": "fr-code-1",
+          "text": "CODE CIVIL\nTitre - I\nChapitre - 1\nLes personnes restent soumises à cette fixture."
+        },
+        {
+          "law_id": "fr-code-1",
+          "text": "Le contrat fixture tient lieu de loi entre les parties."
+        },
+        {
+          "law_id": "fr-code-2",
+          "text": "CODE CIVIL\nCODE DE LA ROUTE\nDeux noms de code figurent ici."
+        },
+        {
+          "law_id": "fr-code-2",
+          "text": "Deux noms de code, donc aucun heritage."
+        },
+        {
+          "law_id": "  ",
+          "text": "CODE CIVIL"
+        },
+        {
+          "law_id": null,
+          "text": "CODE PENAL"
+        }
+      ],
+      "expected": {
+        "fr-code-1": {
+          "code": "CODE CIVIL",
+          "headings": {
+            "title": "I",
+            "chapter": "1"
+          }
+        }
+      },
+      "covers": [
+        "article-inheritance"
+      ]
+    },
+    {
+      "kind": "replacement-title",
+      "name": "replacement caption",
+      "title": "Article 1",
+      "text": "Le contrat fixture tient lieu de loi entre les parties.",
+      "lawCode": "CODE CIVIL",
+      "expected": "CODE CIVIL",
+      "covers": [
+        "article-inheritance"
+      ]
+    },
+    {
+      "kind": "replacement-title",
+      "name": "replacement loi",
+      "title": "Article 4 de la loi du 1er mars 2024",
+      "text": "Cette disposition demeure dans la fixture.",
+      "lawCode": "CODE CIVIL",
+      "expected": null,
+      "covers": [
+        "article-inheritance"
+      ]
+    },
+    {
+      "kind": "replacement-title",
+      "name": "replacement breadcrumb",
+      "title": "Code civil > Article 12",
+      "text": "Le caption fixture ne change pas le texte.",
+      "lawCode": "CODE CIVIL",
+      "expected": "CODE CIVIL",
+      "covers": [
+        "article-inheritance"
+      ]
+    },
+    {
+      "kind": "replacement-title",
+      "name": "replacement already",
+      "title": "CODE CIVIL",
+      "text": "Le titre deja porte le nom du code.",
+      "lawCode": "CODE CIVIL",
+      "expected": null,
+      "covers": [
+        "article-inheritance"
+      ]
+    },
+    {
+      "kind": "replacement-title",
+      "name": "replacement empty",
+      "title": "",
+      "text": "Le titre vide herite du code.",
+      "lawCode": "CODE CIVIL",
+      "expected": "CODE CIVIL",
+      "covers": [
+        "article-inheritance"
+      ]
+    },
+    {
+      "kind": "replacement-title",
+      "name": "replacement no code",
+      "title": "Article 2",
+      "text": "Deux noms de code, donc aucun heritage.",
+      "lawCode": null,
+      "expected": null,
+      "covers": [
+        "article-inheritance"
+      ]
+    },
+    {
+      "kind": "refine-atom",
+      "name": "dict provenance",
+      "record": {
+        "title": "Article 1",
+        "text": "Le contrat fixture tient lieu de loi entre les parties.",
+        "provenance": {
+          "book": "",
+          "chapter": "",
+          "jsonld": {
+            "@type": "Legislation",
+            "name": "Article 1",
+            "text": "Le contrat fixture tient lieu de loi entre les parties."
+          }
+        }
+      },
+      "lawCode": "CODE CIVIL",
+      "headings": {
+        "title": "I",
+        "chapter": "1"
+      },
+      "expected": {
+        "title": "CODE CIVIL",
+        "text": "Le contrat fixture tient lieu de loi entre les parties.",
+        "provenance": {
+          "book": "",
+          "chapter": "1",
+          "jsonld": {
+            "@type": "Legislation",
+            "name": "CODE CIVIL",
+            "text": "Le contrat fixture tient lieu de loi entre les parties.",
+            "additionalProperty": [
+              {
+                "@type": "PropertyValue",
+                "propertyID": "title",
+                "value": "I"
+              },
+              {
+                "@type": "PropertyValue",
+                "propertyID": "chapter",
+                "value": "1"
+              }
+            ]
+          },
+          "title": "I"
+        }
+      },
+      "covers": [
+        "article-inheritance"
+      ]
+    },
+    {
+      "kind": "refine-atom",
+      "name": "string provenance",
+      "record": {
+        "title": "Code civil > Article 12",
+        "text": "Le caption fixture ne change pas le texte.",
+        "provenance": "{\"jsonld\": {\"text\": \"Le caption fixture ne change pas le texte.\", \"name\": \"old\", \"@type\": \"Legislation\"}}"
+      },
+      "lawCode": "CODE CIVIL",
+      "headings": {
+        "title": "I",
+        "chapter": "1"
+      },
+      "expected": {
+        "title": "CODE CIVIL",
+        "text": "Le caption fixture ne change pas le texte.",
+        "provenance": "{\"chapter\": \"1\", \"jsonld\": {\"@type\": \"Legislation\", \"additionalProperty\": [{\"@type\": \"PropertyValue\", \"propertyID\": \"title\", \"value\": \"I\"}, {\"@type\": \"PropertyValue\", \"propertyID\": \"chapter\", \"value\": \"1\"}], \"name\": \"CODE CIVIL\", \"text\": \"Le caption fixture ne change pas le texte.\"}, \"title\": \"I\"}"
+      },
+      "covers": [
+        "article-inheritance"
+      ]
+    },
+    {
+      "kind": "refine-atom",
+      "name": "loi kept",
+      "record": {
+        "title": "Article 4 de la loi du 1er mars 2024",
+        "text": "Cette disposition demeure dans la fixture.",
+        "provenance": null
+      },
+      "lawCode": "CODE CIVIL",
+      "headings": {
+        "title": "I",
+        "chapter": "1"
+      },
+      "expected": {
+        "title": "Article 4 de la loi du 1er mars 2024",
+        "text": "Cette disposition demeure dans la fixture.",
+        "provenance": null
+      },
+      "covers": [
+        "article-inheritance"
+      ]
+    },
+    {
+      "kind": "law-cid",
+      "name": "malta law cid",
+      "input": {
+        "sourceDataset": "endomorphosis/ipfs_malta_laws",
+        "instrumentId": "mt-act-1",
+        "instrumentTitle": "Malta Fixture Act",
+        "jurisdiction": "Malta",
+        "language": "en"
+      },
+      "expected": "bafkreihubprwllv3xudyzmr3xaurpdhxtrnhggzc6abhjthg6dttmxp354",
+      "covers": [
+        "canonical-hashes-cids"
+      ]
+    },
+    {
+      "kind": "entry-cid",
+      "name": "malta article entry cid",
+      "input": {
+        "recordType": "article",
+        "sourceDataset": "endomorphosis/ipfs_malta_laws",
+        "instrumentId": "mt-act-1",
+        "articleNumber": "1",
+        "articleTitle": "Article 1",
+        "bodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+        "language": "en",
+        "jurisdiction": "Malta",
+        "sourceUrl": ""
+      },
+      "expected": "bafkreih4jesjmzvozqhmsnfbdbms2km7p2ho3jjes4scst262uvihbu4dq",
+      "covers": [
+        "canonical-hashes-cids"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "id": "nulls",
+      "covers": [
+        "nulls"
+      ],
+      "input": {
+        "sourceDataset": "fixture/national-mt",
+        "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "publisherId": "publisher:fixture-mt",
+        "laws": [
+          {
+            "id": null,
+            "title": "Missing id",
+            "text": "This id must not be invented."
+          },
+          {
+            "id": "mt-null-body",
+            "title": "Empty body",
+            "text": null,
+            "language": "en"
+          },
+          {
+            "id": "mt-null-title",
+            "title": null,
+            "text": "Body stays.",
+            "language": null,
+            "law_status": null,
+            "date": null,
+            "license": null,
+            "jurisdiction": "Malta",
+            "country": "MT",
+            "admin_level": "country"
+          }
+        ],
+        "articles": [
+          {
+            "id": " ",
+            "law_id": "mt-null-title",
+            "title": "Blank id",
+            "text": "No invented article id."
+          },
+          {
+            "id": "mt-art-blank-parent",
+            "law_id": null,
+            "title": "No parent",
+            "text": "No invented instrument."
+          },
+          {
+            "id": "mt-art-orphan",
+            "law_id": "missing-law",
+            "title": "Orphan",
+            "text": "The parent was not admitted."
+          },
+          {
+            "id": "mt-art-empty",
+            "law_id": "mt-null-title",
+            "title": "Empty article",
+            "text": "  "
+          }
+        ]
+      },
+      "expected": {
+        "records": [
+          {
+            "recordType": "law",
+            "sourceDataset": "fixture/national-mt",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "publisherId": "publisher:fixture-mt",
+            "sourceId": "mt-null-title",
+            "instrumentId": "mt-null-title",
+            "instrumentTitle": "",
+            "lawCid": "bafkreibssb2asycs3x6o2adsqzl6qyvb5pcsepcfuhbcpbl55x6koa6rv4",
+            "articleNumber": "",
+            "articleTitle": "",
+            "title": "",
+            "body": "Body stays.",
+            "bodySha256": "a35841f97d596ddd419ca22b000c5636d97e54976ad2e12815a98d7fb9448d46",
+            "entryCid": "bafkreihllq3qvsdyus7lxhnisstvltdybhh2k7hnt33t6ycr2zlc5yezvm",
+            "jurisdiction": "Malta",
+            "language": "",
+            "sourceUrl": "",
+            "snapshotDate": "",
+            "publication": null,
+            "enactment": null,
+            "license": "",
+            "lawStatus": null,
+            "statusKnowledge": "unknown",
+            "coverage": "article-level",
+            "adminLevel": "country",
+            "inheritedTitle": false,
+            "inheritedHeadings": [],
+            "provenance": null
+          }
+        ],
+        "quarantined": [
+          {
+            "reason": "missing-section-id",
+            "detail": "Section id is absent. No official identifier was invented.",
+            "table": "laws",
+            "rowIndex": 0,
+            "sourceDataset": "fixture/national-mt",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sourceId": null,
+            "field": "id",
+            "officialCitation": null
+          },
+          {
+            "reason": "missing-section-id",
+            "detail": "Section id is absent. No official identifier was invented.",
+            "table": "articles",
+            "rowIndex": 0,
+            "sourceDataset": "fixture/national-mt",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sourceId": null,
+            "field": "id",
+            "officialCitation": null
+          },
+          {
+            "reason": "missing-instrument-id",
+            "detail": "Instrument id is absent. No official identifier was invented.",
+            "table": "articles",
+            "rowIndex": 1,
+            "sourceDataset": "fixture/national-mt",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sourceId": "mt-art-blank-parent",
+            "field": "law_id",
+            "officialCitation": null
+          }
+        ],
+        "drops": {
+          "emptyBody": [
+            "mt-null-body",
+            "mt-art-empty"
+          ],
+          "missingInstrument": [
+            "mt-art-orphan"
+          ]
+        },
+        "mirrors": []
+      }
+    },
+    {
+      "id": "conflicting-status",
+      "covers": [
+        "conflicting-status",
+        "nulls"
+      ],
+      "input": {
+        "sourceDataset": "fixture/national-mt",
+        "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "publisherId": "publisher:fixture-mt",
+        "laws": [
+          {
+            "id": "mt-conflict",
+            "title": "Conflict",
+            "text": "Conflict body.",
+            "law_status": "current",
+            "metadata_json": "{\"status\": \"repealed\"}",
+            "language": "en",
+            "jurisdiction": "Malta",
+            "admin_level": "country"
+          },
+          {
+            "id": "mt-status-meta",
+            "title": "From metadata",
+            "text": "Historical body.",
+            "metadata_json": "{\"law_status\": \"historical\"}",
+            "language": "en",
+            "jurisdiction": "Malta",
+            "admin_level": "country"
+          },
+          {
+            "id": "mt-status-col",
+            "title": "From column",
+            "text": "Repealed body.",
+            "law_status": "repealed",
+            "language": "en",
+            "jurisdiction": "Malta",
+            "admin_level": "country"
+          },
+          {
+            "id": "mt-date-conflict",
+            "title": "Dates",
+            "text": "Date conflict.",
+            "date": "2020-01-01",
+            "metadata_json": "{\"publication_date\": \"2021-01-01\"}",
+            "language": "en",
+            "jurisdiction": "Malta",
+            "admin_level": "country"
+          },
+          {
+            "id": "mt-bad-status",
+            "title": "Bad",
+            "text": "Bad status.",
+            "law_status": "not-a-status",
+            "language": "en",
+            "jurisdiction": "Malta",
+            "admin_level": "country"
+          },
+          {
+            "id": "mt-same-status",
+            "title": "Same",
+            "text": "Same status.",
+            "law_status": "Current",
+            "metadata_json": "{\"status\": \"current\"}",
+            "date": "2020-05-01T00:00:00Z",
+            "language": "en",
+            "jurisdiction": "Malta",
+            "admin_level": "country"
+          }
+        ],
+        "articles": []
+      },
+      "expected": {
+        "records": [
+          {
+            "recordType": "law",
+            "sourceDataset": "fixture/national-mt",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "publisherId": "publisher:fixture-mt",
+            "sourceId": "mt-status-meta",
+            "instrumentId": "mt-status-meta",
+            "instrumentTitle": "From metadata",
+            "lawCid": "bafkreie37ev7lzrge6lkxnhlm6ewex7ykvss7cypr2c7lyhaadnvggjiui",
+            "articleNumber": "",
+            "articleTitle": "",
+            "title": "From metadata",
+            "body": "Historical body.",
+            "bodySha256": "f5ca94e94067e15d9abd6e55bc300200dd3511dbe9f726369a4c8950d78847aa",
+            "entryCid": "bafkreifowhm2ghwn5u5ia5vcasks6szzonogr65h2clr4zrpv5ryiecyoa",
+            "jurisdiction": "Malta",
+            "language": "en",
+            "sourceUrl": "",
+            "snapshotDate": "",
+            "publication": null,
+            "enactment": null,
+            "license": "",
+            "lawStatus": "historical",
+            "statusKnowledge": "known",
+            "coverage": "law-level (articles empty or unavailable in source snapshot)",
+            "adminLevel": "country",
+            "inheritedTitle": false,
+            "inheritedHeadings": [],
+            "provenance": null
+          },
+          {
+            "recordType": "law",
+            "sourceDataset": "fixture/national-mt",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "publisherId": "publisher:fixture-mt",
+            "sourceId": "mt-status-col",
+            "instrumentId": "mt-status-col",
+            "instrumentTitle": "From column",
+            "lawCid": "bafkreiad667k3fh42xkznc3r2uxjmwvskzmfo57klal7xzkdaquf6ak33u",
+            "articleNumber": "",
+            "articleTitle": "",
+            "title": "From column",
+            "body": "Repealed body.",
+            "bodySha256": "93c84687019a87d6556ea87260c0dd8ca7b9c241a599dd6b444f4df714e45b57",
+            "entryCid": "bafkreigyaz4ek3yw4gu6t7fpu3g5tbsdvyixt7dmjr7ak2moknwtb5ccjm",
+            "jurisdiction": "Malta",
+            "language": "en",
+            "sourceUrl": "",
+            "snapshotDate": "",
+            "publication": null,
+            "enactment": null,
+            "license": "",
+            "lawStatus": "repealed",
+            "statusKnowledge": "known",
+            "coverage": "law-level (articles empty or unavailable in source snapshot)",
+            "adminLevel": "country",
+            "inheritedTitle": false,
+            "inheritedHeadings": [],
+            "provenance": null
+          },
+          {
+            "recordType": "law",
+            "sourceDataset": "fixture/national-mt",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "publisherId": "publisher:fixture-mt",
+            "sourceId": "mt-same-status",
+            "instrumentId": "mt-same-status",
+            "instrumentTitle": "Same",
+            "lawCid": "bafkreiehd552ew3vw7t3ga5ayd2lnx7xg76ujqfplkp2f6kw7cahllgtxy",
+            "articleNumber": "",
+            "articleTitle": "",
+            "title": "Same",
+            "body": "Same status.",
+            "bodySha256": "63f2d85788c58ff0f0745ecb78778b012e13c43504f87fb5e8c2d2c055bddf66",
+            "entryCid": "bafkreia27manl3qggb2dkb74oi6wr7oskstig6xnp4han4ecjyhohamco4",
+            "jurisdiction": "Malta",
+            "language": "en",
+            "sourceUrl": "",
+            "snapshotDate": "2020-05-01",
+            "publication": "2020-05-01T00:00:00Z",
+            "enactment": null,
+            "license": "",
+            "lawStatus": "current",
+            "statusKnowledge": "known",
+            "coverage": "law-level (articles empty or unavailable in source snapshot)",
+            "adminLevel": "country",
+            "inheritedTitle": false,
+            "inheritedHeadings": [],
+            "provenance": null
+          }
+        ],
+        "quarantined": [
+          {
+            "reason": "conflicting-status",
+            "detail": "Status current conflicts with repealed. Neither value was chosen.",
+            "table": "laws",
+            "rowIndex": 0,
+            "sourceDataset": "fixture/national-mt",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sourceId": "mt-conflict",
+            "field": "law_status",
+            "officialCitation": null
+          },
+          {
+            "reason": "conflicting-date",
+            "detail": "Publication 2020-01-01 conflicts with 2021-01-01. Neither value was chosen.",
+            "table": "laws",
+            "rowIndex": 3,
+            "sourceDataset": "fixture/national-mt",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sourceId": "mt-date-conflict",
+            "field": "publication",
+            "officialCitation": null
+          },
+          {
+            "reason": "invalid-status",
+            "detail": "Status \"not-a-status\" is not current, historical, repealed, superseded, or unknown.",
+            "table": "laws",
+            "rowIndex": 4,
+            "sourceDataset": "fixture/national-mt",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sourceId": "mt-bad-status",
+            "field": "law_status",
+            "officialCitation": null
+          }
+        ],
+        "drops": {
+          "emptyBody": [],
+          "missingInstrument": []
+        },
+        "mirrors": []
+      }
+    },
+    {
+      "id": "article-inheritance",
+      "covers": [
+        "article-inheritance",
+        "canonical-hashes-cids"
+      ],
+      "input": {
+        "sourceDataset": "fixture/national-fr",
+        "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "publisherId": "publisher:fixture-fr",
+        "laws": [
+          {
+            "id": "fr-code-1",
+            "title": "",
+            "text": "CODE CIVIL\nTitre - I\nChapitre - 1\nLes personnes restent soumises à cette fixture.",
+            "jurisdiction": "France",
+            "country": "FR",
+            "language": "fr",
+            "license": "fixture-synthetic",
+            "source_url": "https://example.test/fr/code-civil",
+            "admin_level": "country"
+          },
+          {
+            "id": "fr-code-2",
+            "title": "Deux codes",
+            "text": "CODE CIVIL\nCODE DE LA ROUTE\nDeux noms de code figurent ici.",
+            "jurisdiction": "France",
+            "country": "FR",
+            "language": "fr",
+            "license": "fixture-synthetic",
+            "admin_level": "country"
+          }
+        ],
+        "articles": [
+          {
+            "id": "fr-a1",
+            "law_id": "fr-code-1",
+            "title": "Article 1",
+            "text": "Le contrat fixture tient lieu de loi entre les parties.",
+            "article_number": "1",
+            "provenance": {
+              "book": "",
+              "chapter": "",
+              "jsonld": {
+                "@type": "Legislation",
+                "name": "Article 1",
+                "text": "Le contrat fixture tient lieu de loi entre les parties."
+              }
+            }
+          },
+          {
+            "id": "fr-a2",
+            "law_id": "fr-code-1",
+            "title": "Article 4 de la loi du 1er mars 2024",
+            "text": "Cette disposition demeure dans la fixture.",
+            "article_number": "4"
+          },
+          {
+            "id": "fr-a3",
+            "law_id": "fr-code-1",
+            "title": "Code civil > Article 12",
+            "text": "Le caption fixture ne change pas le texte.",
+            "article_number": "12",
+            "provenance": "{\"jsonld\": {\"text\": \"Le caption fixture ne change pas le texte.\", \"name\": \"old\", \"@type\": \"Legislation\"}}"
+          },
+          {
+            "id": "fr-a4",
+            "law_id": "fr-code-1",
+            "title": "CODE CIVIL",
+            "text": "Le titre deja porte le nom du code.",
+            "article_number": "2",
+            "provenance": {
+              "book": "II",
+              "chapter": "",
+              "jsonld": {
+                "@type": "Legislation",
+                "name": "CODE CIVIL",
+                "text": "Le titre deja porte le nom du code."
+              }
+            }
+          },
+          {
+            "id": "fr-a5",
+            "law_id": "fr-code-1",
+            "title": "",
+            "text": "Le titre vide herite du code.",
+            "article_number": "3"
+          },
+          {
+            "id": "fr-a6",
+            "law_id": "fr-code-2",
+            "title": "Article 2",
+            "text": "Deux noms de code, donc aucun heritage.",
+            "article_number": "2"
+          }
+        ]
+      },
+      "expected": {
+        "records": [
+          {
+            "recordType": "law",
+            "sourceDataset": "fixture/national-fr",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "publisherId": "publisher:fixture-fr",
+            "sourceId": "fr-code-1",
+            "instrumentId": "fr-code-1",
+            "instrumentTitle": "",
+            "lawCid": "bafkreieigcyx55n2tpregha2vj5m6bdl6rpwl43nsppspwah7ypuusow2u",
+            "articleNumber": "",
+            "articleTitle": "",
+            "title": "CODE CIVIL",
+            "body": "CODE CIVIL\nTitre - I\nChapitre - 1\nLes personnes restent soumises à cette fixture.",
+            "bodySha256": "38785e067695f19c36f6080094ead1532cfe9844ba3d2cf4d518665eed49049e",
+            "entryCid": "bafkreif6hjo2aah7lasnnhmbgvlu55a2qywhp5gr5askmadfjer3c2qkti",
+            "jurisdiction": "France",
+            "language": "fr",
+            "sourceUrl": "",
+            "snapshotDate": "",
+            "publication": null,
+            "enactment": null,
+            "license": "fixture-synthetic",
+            "lawStatus": null,
+            "statusKnowledge": "unknown",
+            "coverage": "article-level",
+            "adminLevel": "country",
+            "inheritedTitle": true,
+            "inheritedHeadings": [],
+            "provenance": null
+          },
+          {
+            "recordType": "law",
+            "sourceDataset": "fixture/national-fr",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "publisherId": "publisher:fixture-fr",
+            "sourceId": "fr-code-2",
+            "instrumentId": "fr-code-2",
+            "instrumentTitle": "Deux codes",
+            "lawCid": "bafkreifipdokxudhxt7ofbvmor24yyw6btsuyppeeyomuagdhovmdboeg4",
+            "articleNumber": "",
+            "articleTitle": "",
+            "title": "Deux codes",
+            "body": "CODE CIVIL\nCODE DE LA ROUTE\nDeux noms de code figurent ici.",
+            "bodySha256": "76e0d89b4b691e588f88787bed9dc9aa5a4fe05a85463f9330b78f827440ff7f",
+            "entryCid": "bafkreie4suummy4qmocz4ss3wynf45v4j7fqfuvryhrrvux2yjdmxuya7y",
+            "jurisdiction": "France",
+            "language": "fr",
+            "sourceUrl": "",
+            "snapshotDate": "",
+            "publication": null,
+            "enactment": null,
+            "license": "fixture-synthetic",
+            "lawStatus": null,
+            "statusKnowledge": "unknown",
+            "coverage": "article-level",
+            "adminLevel": "country",
+            "inheritedTitle": false,
+            "inheritedHeadings": [],
+            "provenance": null
+          },
+          {
+            "recordType": "article",
+            "sourceDataset": "fixture/national-fr",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "publisherId": "publisher:fixture-fr",
+            "sourceId": "fr-a1",
+            "instrumentId": "fr-code-1",
+            "instrumentTitle": "",
+            "lawCid": "bafkreieigcyx55n2tpregha2vj5m6bdl6rpwl43nsppspwah7ypuusow2u",
+            "articleNumber": "1",
+            "articleTitle": "Article 1",
+            "title": "CODE CIVIL",
+            "body": "Le contrat fixture tient lieu de loi entre les parties.",
+            "bodySha256": "a8a6656e17658f0ec4f58f33f6c014b04d53540dcfc9bef16f5fe25c38998438",
+            "entryCid": "bafkreif5nbcomxb5fonsmp6qcuxpkbklg65kaigq4srutfyka5ofor7eue",
+            "jurisdiction": "France",
+            "language": "fr",
+            "sourceUrl": "",
+            "snapshotDate": "",
+            "publication": null,
+            "enactment": null,
+            "license": "fixture-synthetic",
+            "lawStatus": null,
+            "statusKnowledge": "unknown",
+            "coverage": "article-level",
+            "adminLevel": "country",
+            "inheritedTitle": true,
+            "inheritedHeadings": [
+              "title",
+              "chapter"
+            ],
+            "provenance": {
+              "book": "",
+              "chapter": "1",
+              "jsonld": {
+                "@type": "Legislation",
+                "name": "CODE CIVIL",
+                "text": "Le contrat fixture tient lieu de loi entre les parties.",
+                "additionalProperty": [
+                  {
+                    "@type": "PropertyValue",
+                    "propertyID": "title",
+                    "value": "I"
+                  },
+                  {
+                    "@type": "PropertyValue",
+                    "propertyID": "chapter",
+                    "value": "1"
+                  }
+                ]
+              },
+              "title": "I"
+            }
+          },
+          {
+            "recordType": "article",
+            "sourceDataset": "fixture/national-fr",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "publisherId": "publisher:fixture-fr",
+            "sourceId": "fr-a2",
+            "instrumentId": "fr-code-1",
+            "instrumentTitle": "",
+            "lawCid": "bafkreieigcyx55n2tpregha2vj5m6bdl6rpwl43nsppspwah7ypuusow2u",
+            "articleNumber": "4",
+            "articleTitle": "Article 4 de la loi du 1er mars 2024",
+            "title": "Article 4 de la loi du 1er mars 2024",
+            "body": "Cette disposition demeure dans la fixture.",
+            "bodySha256": "52ddc1ad07bb37c0e2de51ed0b4c52aaf8b2ec6b5f4fa35711e1c54147c67331",
+            "entryCid": "bafkreigski77gases6p7ekzq2awwf5mid4cuilv2cmvqmdhpst25ht6bve",
+            "jurisdiction": "France",
+            "language": "fr",
+            "sourceUrl": "",
+            "snapshotDate": "",
+            "publication": null,
+            "enactment": null,
+            "license": "fixture-synthetic",
+            "lawStatus": null,
+            "statusKnowledge": "unknown",
+            "coverage": "article-level",
+            "adminLevel": "country",
+            "inheritedTitle": false,
+            "inheritedHeadings": [],
+            "provenance": null
+          },
+          {
+            "recordType": "article",
+            "sourceDataset": "fixture/national-fr",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "publisherId": "publisher:fixture-fr",
+            "sourceId": "fr-a3",
+            "instrumentId": "fr-code-1",
+            "instrumentTitle": "",
+            "lawCid": "bafkreieigcyx55n2tpregha2vj5m6bdl6rpwl43nsppspwah7ypuusow2u",
+            "articleNumber": "12",
+            "articleTitle": "Code civil > Article 12",
+            "title": "CODE CIVIL",
+            "body": "Le caption fixture ne change pas le texte.",
+            "bodySha256": "92237db1cec8379aea6999947b5cc4bbc18fea27fd8c650f54eb9745b890fac5",
+            "entryCid": "bafkreieaew5r6a7prqtutmuv56swkcjwt4ak5whn4ucisp4jm2u3kxsmke",
+            "jurisdiction": "France",
+            "language": "fr",
+            "sourceUrl": "",
+            "snapshotDate": "",
+            "publication": null,
+            "enactment": null,
+            "license": "fixture-synthetic",
+            "lawStatus": null,
+            "statusKnowledge": "unknown",
+            "coverage": "article-level",
+            "adminLevel": "country",
+            "inheritedTitle": true,
+            "inheritedHeadings": [
+              "title",
+              "chapter"
+            ],
+            "provenance": "{\"chapter\": \"1\", \"jsonld\": {\"@type\": \"Legislation\", \"additionalProperty\": [{\"@type\": \"PropertyValue\", \"propertyID\": \"title\", \"value\": \"I\"}, {\"@type\": \"PropertyValue\", \"propertyID\": \"chapter\", \"value\": \"1\"}], \"name\": \"CODE CIVIL\", \"text\": \"Le caption fixture ne change pas le texte.\"}, \"title\": \"I\"}"
+          },
+          {
+            "recordType": "article",
+            "sourceDataset": "fixture/national-fr",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "publisherId": "publisher:fixture-fr",
+            "sourceId": "fr-a4",
+            "instrumentId": "fr-code-1",
+            "instrumentTitle": "",
+            "lawCid": "bafkreieigcyx55n2tpregha2vj5m6bdl6rpwl43nsppspwah7ypuusow2u",
+            "articleNumber": "2",
+            "articleTitle": "CODE CIVIL",
+            "title": "CODE CIVIL",
+            "body": "Le titre deja porte le nom du code.",
+            "bodySha256": "9d7d307baf360cc293a9d998bdc9f675c58b43303785aa229703f525d52779a7",
+            "entryCid": "bafkreieyl2xf6vnhpfzx5cxzzutfjkb6fb6ipd7dbyhxc63v3tk24mk4um",
+            "jurisdiction": "France",
+            "language": "fr",
+            "sourceUrl": "",
+            "snapshotDate": "",
+            "publication": null,
+            "enactment": null,
+            "license": "fixture-synthetic",
+            "lawStatus": null,
+            "statusKnowledge": "unknown",
+            "coverage": "article-level",
+            "adminLevel": "country",
+            "inheritedTitle": false,
+            "inheritedHeadings": [
+              "title",
+              "chapter"
+            ],
+            "provenance": {
+              "book": "II",
+              "chapter": "1",
+              "jsonld": {
+                "@type": "Legislation",
+                "name": "CODE CIVIL",
+                "text": "Le titre deja porte le nom du code.",
+                "additionalProperty": [
+                  {
+                    "@type": "PropertyValue",
+                    "propertyID": "title",
+                    "value": "I"
+                  },
+                  {
+                    "@type": "PropertyValue",
+                    "propertyID": "chapter",
+                    "value": "1"
+                  }
+                ]
+              },
+              "title": "I"
+            }
+          },
+          {
+            "recordType": "article",
+            "sourceDataset": "fixture/national-fr",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "publisherId": "publisher:fixture-fr",
+            "sourceId": "fr-a5",
+            "instrumentId": "fr-code-1",
+            "instrumentTitle": "",
+            "lawCid": "bafkreieigcyx55n2tpregha2vj5m6bdl6rpwl43nsppspwah7ypuusow2u",
+            "articleNumber": "3",
+            "articleTitle": "",
+            "title": "CODE CIVIL",
+            "body": "Le titre vide herite du code.",
+            "bodySha256": "d74ffff2b2f7c023901a6aab25a19a333d9796f11f0959736ba951829516329d",
+            "entryCid": "bafkreic2weltprdea4wcubs7d5wbz7wg3zthmy7ibjwp75vofhkahhnpbq",
+            "jurisdiction": "France",
+            "language": "fr",
+            "sourceUrl": "",
+            "snapshotDate": "",
+            "publication": null,
+            "enactment": null,
+            "license": "fixture-synthetic",
+            "lawStatus": null,
+            "statusKnowledge": "unknown",
+            "coverage": "article-level",
+            "adminLevel": "country",
+            "inheritedTitle": true,
+            "inheritedHeadings": [],
+            "provenance": null
+          },
+          {
+            "recordType": "article",
+            "sourceDataset": "fixture/national-fr",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "publisherId": "publisher:fixture-fr",
+            "sourceId": "fr-a6",
+            "instrumentId": "fr-code-2",
+            "instrumentTitle": "Deux codes",
+            "lawCid": "bafkreifipdokxudhxt7ofbvmor24yyw6btsuyppeeyomuagdhovmdboeg4",
+            "articleNumber": "2",
+            "articleTitle": "Article 2",
+            "title": "Article 2",
+            "body": "Deux noms de code, donc aucun heritage.",
+            "bodySha256": "e1a69e00807be7f7ec73955d70e002962c7386f7aabb0be5af9c3dfd9014e74e",
+            "entryCid": "bafkreibjgjknuor4wpspdgaqoqdvxrbluapstbsdlpxvo5eot7pea4uyzm",
+            "jurisdiction": "France",
+            "language": "fr",
+            "sourceUrl": "",
+            "snapshotDate": "",
+            "publication": null,
+            "enactment": null,
+            "license": "fixture-synthetic",
+            "lawStatus": null,
+            "statusKnowledge": "unknown",
+            "coverage": "article-level",
+            "adminLevel": "country",
+            "inheritedTitle": false,
+            "inheritedHeadings": [],
+            "provenance": null
+          }
+        ],
+        "quarantined": [],
+        "drops": {
+          "emptyBody": [],
+          "missingInstrument": []
+        },
+        "mirrors": []
+      }
+    },
+    {
+      "id": "duplicated-mirrors",
+      "covers": [
+        "duplicated-mirrors",
+        "canonical-hashes-cids",
+        "conflicting-status"
+      ],
+      "input": {
+        "sourceDataset": "endomorphosis/ipfs_malta_laws",
+        "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "publisherId": "publisher:malta-fixture",
+        "laws": [
+          {
+            "id": "mt-act-1",
+            "title": "Malta Fixture Act",
+            "text": "A national rule about harbours.",
+            "jurisdiction": "Malta",
+            "country": "MT",
+            "language": "en",
+            "license": "CC0-1.0",
+            "law_status": "current",
+            "date": "2020-05-01",
+            "source_url": "https://example.test/malta/act-1",
+            "admin_level": "country"
+          }
+        ],
+        "articles": [
+          {
+            "id": "mt-art-1",
+            "law_id": "mt-act-1",
+            "title": "Article 1",
+            "text": "A national rule about harbours.",
+            "article_number": "1",
+            "source_url": "https://example.test/malta/act-1/1"
+          },
+          {
+            "id": "mt-art-1",
+            "law_id": "mt-act-1",
+            "title": "Article 1",
+            "text": "A national rule about harbours.",
+            "article_number": "1",
+            "source_url": "https://example.test/malta/act-1/1"
+          }
+        ],
+        "mirrors": [
+          {
+            "sourceDataset": "endomorphosis/ipfs_malta_laws",
+            "sourceRevision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "publisherId": "publisher:malta-mirror",
+            "laws": [
+              {
+                "id": "mt-act-1",
+                "title": "Malta Fixture Act",
+                "text": "A national rule about harbours.",
+                "jurisdiction": "Malta",
+                "country": "MT",
+                "language": "en",
+                "license": "CC-BY-4.0",
+                "law_status": "repealed",
+                "date": "2020-05-01",
+                "source_url": "https://example.test/malta/act-1",
+                "admin_level": "country"
+              }
+            ],
+            "articles": [
+              {
+                "id": "mt-art-1",
+                "law_id": "mt-act-1",
+                "title": "Article 1",
+                "text": "A national rule about harbours.",
+                "article_number": "1",
+                "source_url": "https://example.test/malta/act-1/1"
+              }
+            ]
+          },
+          {
+            "sourceDataset": "endomorphosis/ipfs_malta_laws",
+            "sourceRevision": "cccccccccccccccccccccccccccccccccccccccc",
+            "publisherId": "publisher:malta-fixture",
+            "laws": [
+              {
+                "id": "mt-act-1",
+                "title": "Malta Fixture Act",
+                "text": "A national rule about harbours, amended.",
+                "jurisdiction": "Malta",
+                "country": "MT",
+                "language": "en",
+                "license": "CC0-1.0",
+                "law_status": "current",
+                "date": "2020-05-01",
+                "source_url": "https://example.test/malta/act-1",
+                "admin_level": "country"
+              }
+            ],
+            "articles": [
+              {
+                "id": "mt-art-1",
+                "law_id": "mt-act-1",
+                "title": "Article 1",
+                "text": "A national rule about harbours, amended.",
+                "article_number": "1",
+                "source_url": "https://example.test/malta/act-1/1"
+              }
+            ]
+          },
+          {
+            "sourceDataset": "endomorphosis/ipfs_malta_laws",
+            "sourceRevision": "dddddddddddddddddddddddddddddddddddddddd",
+            "publisherId": "publisher:malta-fixture",
+            "laws": [
+              {
+                "id": "mt-act-1",
+                "title": "Malta Fixture Act",
+                "text": "A national rule about harbours.",
+                "jurisdiction": "Malta",
+                "country": "MT",
+                "language": "en",
+                "license": "CC0-1.0",
+                "law_status": "current",
+                "date": "2020-05-01",
+                "source_url": "https://example.test/malta/act-1",
+                "admin_level": "country"
+              }
+            ],
+            "articles": [
+              {
+                "id": "mt-art-1bis",
+                "law_id": "mt-act-1",
+                "title": "Article 1-bis",
+                "text": "A national rule about harbours.",
+                "article_number": "1-bis",
+                "source_url": "https://example.test/malta/act-1/1-bis"
+              }
+            ]
+          },
+          {
+            "sourceDataset": "mirror/ipfs_malta_laws",
+            "sourceRevision": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "publisherId": "publisher:malta-alt",
+            "laws": [
+              {
+                "id": "mt-act-1",
+                "title": "Malta Fixture Act",
+                "text": "A national rule about harbours.",
+                "jurisdiction": "Malta",
+                "country": "MT",
+                "language": "en",
+                "license": "ODbL-1.0",
+                "law_status": "current",
+                "date": "2020-05-01",
+                "source_url": "https://example.test/malta/act-1",
+                "admin_level": "country"
+              }
+            ],
+            "articles": [
+              {
+                "id": "mt-art-1",
+                "law_id": "mt-act-1",
+                "title": "Article 1",
+                "text": "A national rule about harbours.",
+                "article_number": "1",
+                "source_url": "https://example.test/malta/act-1/1"
+              }
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "records": [
+          {
+            "recordType": "law",
+            "sourceDataset": "endomorphosis/ipfs_malta_laws",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "publisherId": "publisher:malta-fixture",
+            "sourceId": "mt-act-1",
+            "instrumentId": "mt-act-1",
+            "instrumentTitle": "Malta Fixture Act",
+            "lawCid": "bafkreihubprwllv3xudyzmr3xaurpdhxtrnhggzc6abhjthg6dttmxp354",
+            "articleNumber": "",
+            "articleTitle": "",
+            "title": "Malta Fixture Act",
+            "body": "A national rule about harbours.",
+            "bodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "entryCid": "bafkreigxydfq65jsek6ruiebhqveqzqdwacryw2jzgews4ce4lqyfuqw44",
+            "jurisdiction": "Malta",
+            "language": "en",
+            "sourceUrl": "",
+            "snapshotDate": "",
+            "publication": null,
+            "enactment": null,
+            "license": "CC0-1.0",
+            "lawStatus": "current",
+            "statusKnowledge": "known",
+            "coverage": "article-level",
+            "adminLevel": "country",
+            "inheritedTitle": false,
+            "inheritedHeadings": [],
+            "provenance": null
+          },
+          {
+            "recordType": "article",
+            "sourceDataset": "endomorphosis/ipfs_malta_laws",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "publisherId": "publisher:malta-fixture",
+            "sourceId": "mt-art-1",
+            "instrumentId": "mt-act-1",
+            "instrumentTitle": "Malta Fixture Act",
+            "lawCid": "bafkreihubprwllv3xudyzmr3xaurpdhxtrnhggzc6abhjthg6dttmxp354",
+            "articleNumber": "1",
+            "articleTitle": "Article 1",
+            "title": "Article 1",
+            "body": "A national rule about harbours.",
+            "bodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "entryCid": "bafkreih4jesjmzvozqhmsnfbdbms2km7p2ho3jjes4scst262uvihbu4dq",
+            "jurisdiction": "Malta",
+            "language": "en",
+            "sourceUrl": "",
+            "snapshotDate": "",
+            "publication": null,
+            "enactment": null,
+            "license": "CC0-1.0",
+            "lawStatus": "current",
+            "statusKnowledge": "known",
+            "coverage": "article-level",
+            "adminLevel": "country",
+            "inheritedTitle": false,
+            "inheritedHeadings": [],
+            "provenance": null
+          },
+          {
+            "recordType": "law",
+            "sourceDataset": "endomorphosis/ipfs_malta_laws",
+            "sourceRevision": "cccccccccccccccccccccccccccccccccccccccc",
+            "publisherId": "publisher:malta-fixture",
+            "sourceId": "mt-act-1",
+            "instrumentId": "mt-act-1",
+            "instrumentTitle": "Malta Fixture Act",
+            "lawCid": "bafkreihubprwllv3xudyzmr3xaurpdhxtrnhggzc6abhjthg6dttmxp354",
+            "articleNumber": "",
+            "articleTitle": "",
+            "title": "Malta Fixture Act",
+            "body": "A national rule about harbours, amended.",
+            "bodySha256": "a431dfad7b9b0f950a8a426e7a1c7603acf224b656a9498463fdc9e1d7aa9ec2",
+            "entryCid": "bafkreid64vnww2fncwd7qusyb33auiiqoqdkrkbdqfdxpuqqwqtq2shxcu",
+            "jurisdiction": "Malta",
+            "language": "en",
+            "sourceUrl": "",
+            "snapshotDate": "",
+            "publication": null,
+            "enactment": null,
+            "license": "CC0-1.0",
+            "lawStatus": "current",
+            "statusKnowledge": "known",
+            "coverage": "article-level",
+            "adminLevel": "country",
+            "inheritedTitle": false,
+            "inheritedHeadings": [],
+            "provenance": null
+          },
+          {
+            "recordType": "article",
+            "sourceDataset": "endomorphosis/ipfs_malta_laws",
+            "sourceRevision": "cccccccccccccccccccccccccccccccccccccccc",
+            "publisherId": "publisher:malta-fixture",
+            "sourceId": "mt-art-1",
+            "instrumentId": "mt-act-1",
+            "instrumentTitle": "Malta Fixture Act",
+            "lawCid": "bafkreihubprwllv3xudyzmr3xaurpdhxtrnhggzc6abhjthg6dttmxp354",
+            "articleNumber": "1",
+            "articleTitle": "Article 1",
+            "title": "Article 1",
+            "body": "A national rule about harbours, amended.",
+            "bodySha256": "a431dfad7b9b0f950a8a426e7a1c7603acf224b656a9498463fdc9e1d7aa9ec2",
+            "entryCid": "bafkreiemiwl4v5ahj72b4ecgeqqqx3zrvs6iy3gxmxir6n6qm2mqy4djw4",
+            "jurisdiction": "Malta",
+            "language": "en",
+            "sourceUrl": "",
+            "snapshotDate": "",
+            "publication": null,
+            "enactment": null,
+            "license": "CC0-1.0",
+            "lawStatus": "current",
+            "statusKnowledge": "known",
+            "coverage": "article-level",
+            "adminLevel": "country",
+            "inheritedTitle": false,
+            "inheritedHeadings": [],
+            "provenance": null
+          },
+          {
+            "recordType": "article",
+            "sourceDataset": "endomorphosis/ipfs_malta_laws",
+            "sourceRevision": "dddddddddddddddddddddddddddddddddddddddd",
+            "publisherId": "publisher:malta-fixture",
+            "sourceId": "mt-art-1bis",
+            "instrumentId": "mt-act-1",
+            "instrumentTitle": "Malta Fixture Act",
+            "lawCid": "bafkreihubprwllv3xudyzmr3xaurpdhxtrnhggzc6abhjthg6dttmxp354",
+            "articleNumber": "1-bis",
+            "articleTitle": "Article 1-bis",
+            "title": "Article 1-bis",
+            "body": "A national rule about harbours.",
+            "bodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "entryCid": "bafkreib5m6yi4nu5p7akdpuayreub36jam5wsxod64cv3vwplsruex4ge4",
+            "jurisdiction": "Malta",
+            "language": "en",
+            "sourceUrl": "",
+            "snapshotDate": "",
+            "publication": null,
+            "enactment": null,
+            "license": "CC0-1.0",
+            "lawStatus": "current",
+            "statusKnowledge": "known",
+            "coverage": "article-level",
+            "adminLevel": "country",
+            "inheritedTitle": false,
+            "inheritedHeadings": [],
+            "provenance": null
+          },
+          {
+            "recordType": "law",
+            "sourceDataset": "mirror/ipfs_malta_laws",
+            "sourceRevision": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "publisherId": "publisher:malta-alt",
+            "sourceId": "mt-act-1",
+            "instrumentId": "mt-act-1",
+            "instrumentTitle": "Malta Fixture Act",
+            "lawCid": "bafkreie3zbhj7cfboiallwgvwfy5hvjw5t7zlyxiqecypc3mcpe55olchi",
+            "articleNumber": "",
+            "articleTitle": "",
+            "title": "Malta Fixture Act",
+            "body": "A national rule about harbours.",
+            "bodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "entryCid": "bafkreidefe5oe5s6jthngqz622hh7nq3kod25ljwb75uha2pscohpbl5ya",
+            "jurisdiction": "Malta",
+            "language": "en",
+            "sourceUrl": "",
+            "snapshotDate": "",
+            "publication": null,
+            "enactment": null,
+            "license": "ODbL-1.0",
+            "lawStatus": "current",
+            "statusKnowledge": "known",
+            "coverage": "article-level",
+            "adminLevel": "country",
+            "inheritedTitle": false,
+            "inheritedHeadings": [],
+            "provenance": null
+          },
+          {
+            "recordType": "article",
+            "sourceDataset": "mirror/ipfs_malta_laws",
+            "sourceRevision": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "publisherId": "publisher:malta-alt",
+            "sourceId": "mt-art-1",
+            "instrumentId": "mt-act-1",
+            "instrumentTitle": "Malta Fixture Act",
+            "lawCid": "bafkreie3zbhj7cfboiallwgvwfy5hvjw5t7zlyxiqecypc3mcpe55olchi",
+            "articleNumber": "1",
+            "articleTitle": "Article 1",
+            "title": "Article 1",
+            "body": "A national rule about harbours.",
+            "bodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "entryCid": "bafkreiam4iptnmub7ccihtlrjnuydbb3o7aftj6fdljyatj7yyw2jw42xu",
+            "jurisdiction": "Malta",
+            "language": "en",
+            "sourceUrl": "",
+            "snapshotDate": "",
+            "publication": null,
+            "enactment": null,
+            "license": "ODbL-1.0",
+            "lawStatus": "current",
+            "statusKnowledge": "known",
+            "coverage": "article-level",
+            "adminLevel": "country",
+            "inheritedTitle": false,
+            "inheritedHeadings": [],
+            "provenance": null
+          }
+        ],
+        "quarantined": [],
+        "drops": {
+          "emptyBody": [],
+          "missingInstrument": []
+        },
+        "mirrors": [
+          {
+            "relation": "duplicate-cid",
+            "instrumentId": "mt-act-1",
+            "keptEntryCid": "bafkreih4jesjmzvozqhmsnfbdbms2km7p2ho3jjes4scst262uvihbu4dq",
+            "otherEntryCid": "bafkreih4jesjmzvozqhmsnfbdbms2km7p2ho3jjes4scst262uvihbu4dq",
+            "keptSourceId": "mt-art-1",
+            "otherSourceId": "mt-art-1",
+            "keptSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "otherSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "keptSourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "otherSourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "keptPublisherId": "publisher:malta-fixture",
+            "otherPublisherId": "publisher:malta-fixture",
+            "keptLicense": "CC0-1.0",
+            "otherLicense": "CC0-1.0",
+            "keptSourceUrl": "",
+            "otherSourceUrl": "",
+            "bodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "otherBodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "keptStatus": "current",
+            "otherStatus": "current",
+            "provenancePreserved": true
+          },
+          {
+            "relation": "duplicate-cid",
+            "instrumentId": "mt-act-1",
+            "keptEntryCid": "bafkreigxydfq65jsek6ruiebhqveqzqdwacryw2jzgews4ce4lqyfuqw44",
+            "otherEntryCid": "bafkreigxydfq65jsek6ruiebhqveqzqdwacryw2jzgews4ce4lqyfuqw44",
+            "keptSourceId": "mt-act-1",
+            "otherSourceId": "mt-act-1",
+            "keptSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "otherSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "keptSourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "otherSourceRevision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "keptPublisherId": "publisher:malta-fixture",
+            "otherPublisherId": "publisher:malta-mirror",
+            "keptLicense": "CC0-1.0",
+            "otherLicense": "CC-BY-4.0",
+            "keptSourceUrl": "",
+            "otherSourceUrl": "",
+            "bodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "otherBodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "keptStatus": "current",
+            "otherStatus": "repealed",
+            "provenancePreserved": true
+          },
+          {
+            "relation": "duplicate-cid",
+            "instrumentId": "mt-act-1",
+            "keptEntryCid": "bafkreih4jesjmzvozqhmsnfbdbms2km7p2ho3jjes4scst262uvihbu4dq",
+            "otherEntryCid": "bafkreih4jesjmzvozqhmsnfbdbms2km7p2ho3jjes4scst262uvihbu4dq",
+            "keptSourceId": "mt-art-1",
+            "otherSourceId": "mt-art-1",
+            "keptSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "otherSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "keptSourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "otherSourceRevision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "keptPublisherId": "publisher:malta-fixture",
+            "otherPublisherId": "publisher:malta-mirror",
+            "keptLicense": "CC0-1.0",
+            "otherLicense": "CC-BY-4.0",
+            "keptSourceUrl": "",
+            "otherSourceUrl": "",
+            "bodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "otherBodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "keptStatus": "current",
+            "otherStatus": "repealed",
+            "provenancePreserved": true
+          },
+          {
+            "relation": "duplicate-cid",
+            "instrumentId": "mt-act-1",
+            "keptEntryCid": "bafkreigxydfq65jsek6ruiebhqveqzqdwacryw2jzgews4ce4lqyfuqw44",
+            "otherEntryCid": "bafkreigxydfq65jsek6ruiebhqveqzqdwacryw2jzgews4ce4lqyfuqw44",
+            "keptSourceId": "mt-act-1",
+            "otherSourceId": "mt-act-1",
+            "keptSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "otherSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "keptSourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "otherSourceRevision": "dddddddddddddddddddddddddddddddddddddddd",
+            "keptPublisherId": "publisher:malta-fixture",
+            "otherPublisherId": "publisher:malta-fixture",
+            "keptLicense": "CC0-1.0",
+            "otherLicense": "CC0-1.0",
+            "keptSourceUrl": "",
+            "otherSourceUrl": "",
+            "bodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "otherBodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "keptStatus": "current",
+            "otherStatus": "current",
+            "provenancePreserved": true
+          },
+          {
+            "relation": "conflicting-version",
+            "instrumentId": "mt-act-1",
+            "keptEntryCid": "bafkreigxydfq65jsek6ruiebhqveqzqdwacryw2jzgews4ce4lqyfuqw44",
+            "otherEntryCid": "bafkreid64vnww2fncwd7qusyb33auiiqoqdkrkbdqfdxpuqqwqtq2shxcu",
+            "keptSourceId": "mt-act-1",
+            "otherSourceId": "mt-act-1",
+            "keptSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "otherSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "keptSourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "otherSourceRevision": "cccccccccccccccccccccccccccccccccccccccc",
+            "keptPublisherId": "publisher:malta-fixture",
+            "otherPublisherId": "publisher:malta-fixture",
+            "keptLicense": "CC0-1.0",
+            "otherLicense": "CC0-1.0",
+            "keptSourceUrl": "",
+            "otherSourceUrl": "",
+            "bodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "otherBodySha256": "a431dfad7b9b0f950a8a426e7a1c7603acf224b656a9498463fdc9e1d7aa9ec2",
+            "keptStatus": "current",
+            "otherStatus": "current",
+            "provenancePreserved": true
+          },
+          {
+            "relation": "conflicting-version",
+            "instrumentId": "mt-act-1",
+            "keptEntryCid": "bafkreih4jesjmzvozqhmsnfbdbms2km7p2ho3jjes4scst262uvihbu4dq",
+            "otherEntryCid": "bafkreiemiwl4v5ahj72b4ecgeqqqx3zrvs6iy3gxmxir6n6qm2mqy4djw4",
+            "keptSourceId": "mt-art-1",
+            "otherSourceId": "mt-art-1",
+            "keptSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "otherSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "keptSourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "otherSourceRevision": "cccccccccccccccccccccccccccccccccccccccc",
+            "keptPublisherId": "publisher:malta-fixture",
+            "otherPublisherId": "publisher:malta-fixture",
+            "keptLicense": "CC0-1.0",
+            "otherLicense": "CC0-1.0",
+            "keptSourceUrl": "",
+            "otherSourceUrl": "",
+            "bodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "otherBodySha256": "a431dfad7b9b0f950a8a426e7a1c7603acf224b656a9498463fdc9e1d7aa9ec2",
+            "keptStatus": "current",
+            "otherStatus": "current",
+            "provenancePreserved": true
+          },
+          {
+            "relation": "equivalent-text",
+            "instrumentId": "mt-act-1",
+            "keptEntryCid": "bafkreigxydfq65jsek6ruiebhqveqzqdwacryw2jzgews4ce4lqyfuqw44",
+            "otherEntryCid": "bafkreib5m6yi4nu5p7akdpuayreub36jam5wsxod64cv3vwplsruex4ge4",
+            "keptSourceId": "mt-act-1",
+            "otherSourceId": "mt-art-1bis",
+            "keptSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "otherSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "keptSourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "otherSourceRevision": "dddddddddddddddddddddddddddddddddddddddd",
+            "keptPublisherId": "publisher:malta-fixture",
+            "otherPublisherId": "publisher:malta-fixture",
+            "keptLicense": "CC0-1.0",
+            "otherLicense": "CC0-1.0",
+            "keptSourceUrl": "",
+            "otherSourceUrl": "",
+            "bodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "otherBodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "keptStatus": "current",
+            "otherStatus": "current",
+            "provenancePreserved": true
+          },
+          {
+            "relation": "equivalent-text",
+            "instrumentId": "mt-act-1",
+            "keptEntryCid": "bafkreih4jesjmzvozqhmsnfbdbms2km7p2ho3jjes4scst262uvihbu4dq",
+            "otherEntryCid": "bafkreib5m6yi4nu5p7akdpuayreub36jam5wsxod64cv3vwplsruex4ge4",
+            "keptSourceId": "mt-art-1",
+            "otherSourceId": "mt-art-1bis",
+            "keptSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "otherSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "keptSourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "otherSourceRevision": "dddddddddddddddddddddddddddddddddddddddd",
+            "keptPublisherId": "publisher:malta-fixture",
+            "otherPublisherId": "publisher:malta-fixture",
+            "keptLicense": "CC0-1.0",
+            "otherLicense": "CC0-1.0",
+            "keptSourceUrl": "",
+            "otherSourceUrl": "",
+            "bodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "otherBodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "keptStatus": "current",
+            "otherStatus": "current",
+            "provenancePreserved": true
+          },
+          {
+            "relation": "equivalent-text",
+            "instrumentId": "mt-act-1",
+            "keptEntryCid": "bafkreigxydfq65jsek6ruiebhqveqzqdwacryw2jzgews4ce4lqyfuqw44",
+            "otherEntryCid": "bafkreidefe5oe5s6jthngqz622hh7nq3kod25ljwb75uha2pscohpbl5ya",
+            "keptSourceId": "mt-act-1",
+            "otherSourceId": "mt-act-1",
+            "keptSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "otherSourceDataset": "mirror/ipfs_malta_laws",
+            "keptSourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "otherSourceRevision": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "keptPublisherId": "publisher:malta-fixture",
+            "otherPublisherId": "publisher:malta-alt",
+            "keptLicense": "CC0-1.0",
+            "otherLicense": "ODbL-1.0",
+            "keptSourceUrl": "",
+            "otherSourceUrl": "",
+            "bodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "otherBodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "keptStatus": "current",
+            "otherStatus": "current",
+            "provenancePreserved": true
+          },
+          {
+            "relation": "equivalent-text",
+            "instrumentId": "mt-act-1",
+            "keptEntryCid": "bafkreih4jesjmzvozqhmsnfbdbms2km7p2ho3jjes4scst262uvihbu4dq",
+            "otherEntryCid": "bafkreidefe5oe5s6jthngqz622hh7nq3kod25ljwb75uha2pscohpbl5ya",
+            "keptSourceId": "mt-art-1",
+            "otherSourceId": "mt-act-1",
+            "keptSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "otherSourceDataset": "mirror/ipfs_malta_laws",
+            "keptSourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "otherSourceRevision": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "keptPublisherId": "publisher:malta-fixture",
+            "otherPublisherId": "publisher:malta-alt",
+            "keptLicense": "CC0-1.0",
+            "otherLicense": "ODbL-1.0",
+            "keptSourceUrl": "",
+            "otherSourceUrl": "",
+            "bodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "otherBodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "keptStatus": "current",
+            "otherStatus": "current",
+            "provenancePreserved": true
+          },
+          {
+            "relation": "conflicting-version",
+            "instrumentId": "mt-act-1",
+            "keptEntryCid": "bafkreid64vnww2fncwd7qusyb33auiiqoqdkrkbdqfdxpuqqwqtq2shxcu",
+            "otherEntryCid": "bafkreidefe5oe5s6jthngqz622hh7nq3kod25ljwb75uha2pscohpbl5ya",
+            "keptSourceId": "mt-act-1",
+            "otherSourceId": "mt-act-1",
+            "keptSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "otherSourceDataset": "mirror/ipfs_malta_laws",
+            "keptSourceRevision": "cccccccccccccccccccccccccccccccccccccccc",
+            "otherSourceRevision": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "keptPublisherId": "publisher:malta-fixture",
+            "otherPublisherId": "publisher:malta-alt",
+            "keptLicense": "CC0-1.0",
+            "otherLicense": "ODbL-1.0",
+            "keptSourceUrl": "",
+            "otherSourceUrl": "",
+            "bodySha256": "a431dfad7b9b0f950a8a426e7a1c7603acf224b656a9498463fdc9e1d7aa9ec2",
+            "otherBodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "keptStatus": "current",
+            "otherStatus": "current",
+            "provenancePreserved": true
+          },
+          {
+            "relation": "equivalent-text",
+            "instrumentId": "mt-act-1",
+            "keptEntryCid": "bafkreib5m6yi4nu5p7akdpuayreub36jam5wsxod64cv3vwplsruex4ge4",
+            "otherEntryCid": "bafkreidefe5oe5s6jthngqz622hh7nq3kod25ljwb75uha2pscohpbl5ya",
+            "keptSourceId": "mt-art-1bis",
+            "otherSourceId": "mt-act-1",
+            "keptSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "otherSourceDataset": "mirror/ipfs_malta_laws",
+            "keptSourceRevision": "dddddddddddddddddddddddddddddddddddddddd",
+            "otherSourceRevision": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "keptPublisherId": "publisher:malta-fixture",
+            "otherPublisherId": "publisher:malta-alt",
+            "keptLicense": "CC0-1.0",
+            "otherLicense": "ODbL-1.0",
+            "keptSourceUrl": "",
+            "otherSourceUrl": "",
+            "bodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "otherBodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "keptStatus": "current",
+            "otherStatus": "current",
+            "provenancePreserved": true
+          },
+          {
+            "relation": "equivalent-text",
+            "instrumentId": "mt-act-1",
+            "keptEntryCid": "bafkreigxydfq65jsek6ruiebhqveqzqdwacryw2jzgews4ce4lqyfuqw44",
+            "otherEntryCid": "bafkreiam4iptnmub7ccihtlrjnuydbb3o7aftj6fdljyatj7yyw2jw42xu",
+            "keptSourceId": "mt-act-1",
+            "otherSourceId": "mt-art-1",
+            "keptSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "otherSourceDataset": "mirror/ipfs_malta_laws",
+            "keptSourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "otherSourceRevision": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "keptPublisherId": "publisher:malta-fixture",
+            "otherPublisherId": "publisher:malta-alt",
+            "keptLicense": "CC0-1.0",
+            "otherLicense": "ODbL-1.0",
+            "keptSourceUrl": "",
+            "otherSourceUrl": "",
+            "bodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "otherBodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "keptStatus": "current",
+            "otherStatus": "current",
+            "provenancePreserved": true
+          },
+          {
+            "relation": "equivalent-text",
+            "instrumentId": "mt-act-1",
+            "keptEntryCid": "bafkreih4jesjmzvozqhmsnfbdbms2km7p2ho3jjes4scst262uvihbu4dq",
+            "otherEntryCid": "bafkreiam4iptnmub7ccihtlrjnuydbb3o7aftj6fdljyatj7yyw2jw42xu",
+            "keptSourceId": "mt-art-1",
+            "otherSourceId": "mt-art-1",
+            "keptSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "otherSourceDataset": "mirror/ipfs_malta_laws",
+            "keptSourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "otherSourceRevision": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "keptPublisherId": "publisher:malta-fixture",
+            "otherPublisherId": "publisher:malta-alt",
+            "keptLicense": "CC0-1.0",
+            "otherLicense": "ODbL-1.0",
+            "keptSourceUrl": "",
+            "otherSourceUrl": "",
+            "bodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "otherBodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "keptStatus": "current",
+            "otherStatus": "current",
+            "provenancePreserved": true
+          },
+          {
+            "relation": "conflicting-version",
+            "instrumentId": "mt-act-1",
+            "keptEntryCid": "bafkreiemiwl4v5ahj72b4ecgeqqqx3zrvs6iy3gxmxir6n6qm2mqy4djw4",
+            "otherEntryCid": "bafkreiam4iptnmub7ccihtlrjnuydbb3o7aftj6fdljyatj7yyw2jw42xu",
+            "keptSourceId": "mt-art-1",
+            "otherSourceId": "mt-art-1",
+            "keptSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "otherSourceDataset": "mirror/ipfs_malta_laws",
+            "keptSourceRevision": "cccccccccccccccccccccccccccccccccccccccc",
+            "otherSourceRevision": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "keptPublisherId": "publisher:malta-fixture",
+            "otherPublisherId": "publisher:malta-alt",
+            "keptLicense": "CC0-1.0",
+            "otherLicense": "ODbL-1.0",
+            "keptSourceUrl": "",
+            "otherSourceUrl": "",
+            "bodySha256": "a431dfad7b9b0f950a8a426e7a1c7603acf224b656a9498463fdc9e1d7aa9ec2",
+            "otherBodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "keptStatus": "current",
+            "otherStatus": "current",
+            "provenancePreserved": true
+          },
+          {
+            "relation": "equivalent-text",
+            "instrumentId": "mt-act-1",
+            "keptEntryCid": "bafkreib5m6yi4nu5p7akdpuayreub36jam5wsxod64cv3vwplsruex4ge4",
+            "otherEntryCid": "bafkreiam4iptnmub7ccihtlrjnuydbb3o7aftj6fdljyatj7yyw2jw42xu",
+            "keptSourceId": "mt-art-1bis",
+            "otherSourceId": "mt-art-1",
+            "keptSourceDataset": "endomorphosis/ipfs_malta_laws",
+            "otherSourceDataset": "mirror/ipfs_malta_laws",
+            "keptSourceRevision": "dddddddddddddddddddddddddddddddddddddddd",
+            "otherSourceRevision": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "keptPublisherId": "publisher:malta-fixture",
+            "otherPublisherId": "publisher:malta-alt",
+            "keptLicense": "CC0-1.0",
+            "otherLicense": "ODbL-1.0",
+            "keptSourceUrl": "",
+            "otherSourceUrl": "",
+            "bodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "otherBodySha256": "0457257f3cca2098e072f1775f87d9c4303fd38794bfd3468458898d3c06dec1",
+            "keptStatus": "current",
+            "otherStatus": "current",
+            "provenancePreserved": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "regional-ontario",
+      "covers": [
+        "nulls",
+        "canonical-hashes-cids"
+      ],
+      "input": {
+        "sourceDataset": "fixture/regional-ca-on",
+        "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "publisherId": "publisher:fixture-on",
+        "laws": [
+          {
+            "id": "ca-on-1",
+            "title": "Ontario Fixture Statute",
+            "text": "A provincial rule.",
+            "jurisdiction": "Ontario",
+            "country": "CA",
+            "language": "en",
+            "license": "fixture-synthetic",
+            "source_url": "https://example.test/ca/on/1",
+            "admin_level": "adm1",
+            "metadata_json": {
+              "publication_date": "2019-04-02"
+            }
+          }
+        ],
+        "articles": []
+      },
+      "expected": {
+        "records": [
+          {
+            "recordType": "law",
+            "sourceDataset": "fixture/regional-ca-on",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "publisherId": "publisher:fixture-on",
+            "sourceId": "ca-on-1",
+            "instrumentId": "ca-on-1",
+            "instrumentTitle": "Ontario Fixture Statute",
+            "lawCid": "bafkreibeetppkkaekrfwos6np2rycf2vh5h5ixyk3ujvgidmvfqbhtycga",
+            "articleNumber": "",
+            "articleTitle": "",
+            "title": "Ontario Fixture Statute",
+            "body": "A provincial rule.",
+            "bodySha256": "01b2215c437930541e5a136419cce17294f8af4ba879cfe3677d5ea7a534a411",
+            "entryCid": "bafkreihvzdc5qdhzbyyddisgkxenx5hncqpmc2ams5u346tnfkigilu5da",
+            "jurisdiction": "Ontario",
+            "language": "en",
+            "sourceUrl": "",
+            "snapshotDate": "",
+            "publication": null,
+            "enactment": null,
+            "license": "fixture-synthetic",
+            "lawStatus": null,
+            "statusKnowledge": "unknown",
+            "coverage": "law-level (articles empty or unavailable in source snapshot)",
+            "adminLevel": "adm1",
+            "inheritedTitle": false,
+            "inheritedHeadings": [],
+            "provenance": null
+          }
+        ],
+        "quarantined": [],
+        "drops": {
+          "emptyBody": [],
+          "missingInstrument": []
+        },
+        "mirrors": []
+      }
+    },
+    {
+      "id": "municipal-amsterdam",
+      "covers": [
+        "canonical-hashes-cids"
+      ],
+      "input": {
+        "sourceDataset": "fixture/municipal-nl-ams",
+        "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "publisherId": "publisher:fixture-ams",
+        "laws": [
+          {
+            "id": "nl-ams-1",
+            "title": "Amsterdam Fixture Verordening",
+            "text": "Een gemeentelijke regel.",
+            "jurisdiction": "Amsterdam",
+            "country": "NL",
+            "language": "nl",
+            "license": "CC-BY-4.0",
+            "law_status": "Current",
+            "source_url": "https://example.test/nl/ams/1",
+            "admin_level": "municipality"
+          }
+        ],
+        "articles": []
+      },
+      "expected": {
+        "records": [
+          {
+            "recordType": "law",
+            "sourceDataset": "fixture/municipal-nl-ams",
+            "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "publisherId": "publisher:fixture-ams",
+            "sourceId": "nl-ams-1",
+            "instrumentId": "nl-ams-1",
+            "instrumentTitle": "Amsterdam Fixture Verordening",
+            "lawCid": "bafkreighehq7nezlwmal4wkva3dorraezp6n25z2cryxc23e7koj6driny",
+            "articleNumber": "",
+            "articleTitle": "",
+            "title": "Amsterdam Fixture Verordening",
+            "body": "Een gemeentelijke regel.",
+            "bodySha256": "2648d3b3f1ba92e4299bfa1d317cd4b4567dcbac6f02c2ba23f4efde7366b176",
+            "entryCid": "bafkreidazoe5f6jqtpjjzk5wvciet4lzxuc6phz3hljupqox7pzvcym2ru",
+            "jurisdiction": "Amsterdam",
+            "language": "nl",
+            "sourceUrl": "",
+            "snapshotDate": "",
+            "publication": null,
+            "enactment": null,
+            "license": "CC-BY-4.0",
+            "lawStatus": "current",
+            "statusKnowledge": "known",
+            "coverage": "law-level (articles empty or unavailable in source snapshot)",
+            "adminLevel": "municipality",
+            "inheritedTitle": false,
+            "inheritedHeadings": [],
+            "provenance": null
+          }
+        ],
+        "quarantined": [],
+        "drops": {
+          "emptyBody": [],
+          "missingInstrument": []
+        },
+        "mirrors": []
+      }
+    },
+    {
+      "id": "missing-required-columns",
+      "covers": [
+        "nulls"
+      ],
+      "expect": "schema-error",
+      "messageIncludes": [
+        "title",
+        "invent"
+      ],
+      "input": {
+        "sourceDataset": "fixture/national-mt",
+        "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "publisherId": "publisher:fixture-mt",
+        "laws": [
+          {
+            "id": "x",
+            "text": "y"
+          }
+        ],
+        "articles": []
+      }
+    },
+    {
+      "id": "unpinned-revision",
+      "covers": [
+        "nulls"
+      ],
+      "expect": "schema-error",
+      "messageIncludes": [
+        "floating"
+      ],
+      "input": {
+        "sourceDataset": "fixture/national-mt",
+        "sourceRevision": "main",
+        "publisherId": "publisher:fixture-mt",
+        "laws": [
+          {
+            "id": "x",
+            "title": "t",
+            "text": "y"
+          }
+        ],
+        "articles": []
+      }
+    },
+    {
+      "id": "missing-publisher",
+      "covers": [
+        "nulls"
+      ],
+      "expect": "schema-error",
+      "messageIncludes": [
+        "Publisher",
+        "invent"
+      ],
+      "input": {
+        "sourceDataset": "fixture/national-mt",
+        "sourceRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "publisherId": "  ",
+        "laws": [
+          {
+            "id": "x",
+            "title": "t",
+            "text": "y"
+          }
+        ],
+        "articles": []
+      }
+    }
+  ]
+}

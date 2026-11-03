@@ -1,0 +1,84 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-014",
+  "title": "Port normalization identity and article inheritance with Python fixtures",
+  "recorded_at": "2026-11-03T02:28:03Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-014-7df5c4a4bafd-attempt-1-1793670942",
+  "site_revision": "572b33f07fe15396d6d70cfd9b8ab79cd020b943",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "normalize.ts, identity.ts, data-parity.test.ts, and parity-manifest.json are uncommitted working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status.",
+    "Python validate_laws and validate_articles abort the frame when any id is null. This port quarantines that row and continues the batch.",
+    "Title-shell parent-span body expansion is not ported.",
+    "Full normalize_legal_text is not ported. The subset covers null and NaN, NFKC, controls, NBSP and unicode spaces, dashes, hyphen-break joins, simple HTML and entities, whitespace collapse, and whole-line URL or numeric-date chrome. Latin-1 repair, learned patterns, numero folding, and the rest of gazette chrome stay out. Fixture statute sentences are invariant under the full Python normalizer.",
+    "A source value whose entire text is a URL or a numeric date is removed, matching country_laws_ir chrome removal, so those fixture fields are empty. A timestamp such as 2020-05-01T00:00:00Z is kept.",
+    "national_directory.py is dirty in the reference worktree. The dirty hunk is national-gap admin level and locators_from_marked_title. It does not change _HEADING_LINE, _TITLE_LOI, _ROMAN, _HEADING_KIND, or _fold. The manifest pins the worktree hash.",
+    "The datasets research pin is older than commit 2ea4ca6804b3c4cc44e43d0539f4c3fcae011747. The fixture binds that worktree HEAD.",
+    "Snapshot date uses retrieved_at, then date_issued, then date. A column value that conflicts with metadata publication or enactment quarantines the row and chooses neither value.",
+    "Article identity records copy parent license, language, jurisdiction, and status the way Python _article_outcome does. schema.ts LawSection does not inherit those fields. Entry CIDs use that parent snapshot.",
+    "Citations, bluebook labels, parquet refine_assembled_corpus, admit_source_law, Hugging Face download, structure splitting, and BM25 are not in this task.",
+    "Fixture sentences are synthetic structural samples. AGPL-3.0-only binds the upstream code. It is not a corpus redistribution grant. Row license strings are preserved labels and are not a WWL-012 decision.",
+    "entry_cid is the identity CID of canonical JSON. It is not sha256_key_to_cidv1 of the body hash. Both are tested. contentCid on schema sections remains caller-supplied.",
+    "Folding is NFKD, toLowerCase, and stripping marks. It is not full Python casefold for ß or İ. The fixtures avoid ß.",
+    "The entry CID is not recomputed after title inheritance, matching Python.",
+    "The Jest reporter and the Node NO_COLOR and VM Modules warnings were written to stderr. stderr was not empty. The process exit code was 0."
+  ],
+  "identity": {
+    "corpus_schema": "country-laws-ir-graphrag/v1",
+    "entry_schema": "country-laws-entry/v1",
+    "law_schema": "country-laws-law/v1",
+    "inherit_schema": "instrument-inherit/v1",
+    "upstream_commit": "2ea4ca6804b3c4cc44e43d0539f4c3fcae011747",
+    "upstream_license": "AGPL-3.0-only",
+    "fixture_vectors": 35,
+    "fixture_cases": 9
+  },
+  "outputs": [
+    {
+      "path": "scripts/worldwide/normalize.ts",
+      "bytes": 25332,
+      "sha256": "7406da6299a621223dd3b82e73dfdc4e7439a73b6f7bd953b89d6629103f1b95"
+    },
+    {
+      "path": "src/lib/worldwide/data/identity.ts",
+      "bytes": 21735,
+      "sha256": "552a0a00ba664bbf6fe422c3c845fb6042909fb302efe993ae634cb9b0354e24"
+    },
+    {
+      "path": "tests/worldwide/data-parity.test.ts",
+      "bytes": 13901,
+      "sha256": "4dcc0cc9990335161f2762a5674d4512277ae785c06c453088d83fa4a8774b6f"
+    },
+    {
+      "path": "tests/worldwide/fixtures/parity-manifest.json",
+      "bytes": 84470,
+      "sha256": "cb386ecd897c1db0665c81d92f983dfb543595ee2c7056edfcbd21e7f8ad4f93"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/data-parity.test.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_4f9b7b7baac1_8f4992c94c51",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-UoRrDk. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. npm wrote the script banner to stdout. Jest wrote the passing reporter and the Node NO_COLOR and VM Modules warnings to stderr. The test did not call Python.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 52,
+      "failed": 0
+    },
+    "stdout_sha256": "11b16de6ddc6311a1da008e4f8d56595a4088cb811c9043ef70636288550ec8b",
+    "stderr_sha256": "1ea5523bd1a865c5660ada91a33c8957ba50bb0c2b982c43a70962872ed6de75"
+  }
+}
