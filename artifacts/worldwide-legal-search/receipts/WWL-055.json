@@ -1,0 +1,88 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-055",
+  "title": "Implement internationalization and RTL behavior",
+  "recorded_at": "2026-11-03T21:55:04Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-055-8f6d23d22c7a-attempt-1-1793741586",
+  "site_revision": "2d4266645ab4f9ac1fcd1abc812fd71e4f71c75e",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "src/lib/worldwide/i18n.ts, src/locales/worldwide/, and tests/worldwide/i18n.test.tsx are untracked. site_revision is HEAD before those edits. WorldwideLegalSearchApp, SearchContext, SearchFilters, and LawReader keep their existing copy tables. Those files are outside this task's declared outputs, so this change does not mount the new module in the shell.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "The interface locale, the law language, and the search jurisdiction are separate values. A browser language can suggest en, nl, ar, or ja for the interface. It does not select a place or a jurisdiction. A language tag or a two- or three-letter code is rejected as a jurisdiction id. An explicit internal id such as netherlands or place:netherlands is kept.",
+    "Civil dates keep year, month, or day precision. A missing part is not filled in. A finer requested precision than the value contains is unknown. English, Dutch, and Arabic month names come from the locale catalogs. Japanese dates use numeric months. A civil date is not shifted by a timezone. An instant becomes a civil day only in a timezone the caller names. IANA zones use Intl.DateTimeFormat formatToParts. The browser timezone is not read.",
+    "Original titles keep the direction of the law text. Arabic and Hebrew titles are rtl. Japanese, Chinese, and Korean titles are CJK and ltr, including inside an Arabic interface. Latin identifiers inside an rtl title are isolated. Machine and official translations use the catalogue label. Any other kind stays the generic translation label. The original title remains. A translation is not a source revision.",
+    "The Japanese catalogue key included_because is 収録した理由, matching the interaction contract. A supplied reason is joined with a fullwidth colon. English, Dutch, and Arabic join the same label and reason with a space. The reason text is not rewritten.",
+    "The screen was exercised in Jest with jsdom. A browser was not opened.",
+    "node is v23.11.1 at /usr/bin/node. npm is /usr/bin/npm 10.9.2. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-aFQBuw. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state.",
+    "This worktree had no node_modules. npm test used a gitignored symlink at node_modules pointing at workspace_6a9967f6dae4_8ef424897d55/node_modules. That symlink is not a task output.",
+    "The process exit code was 0. Jest reported 13 passed, 0 failed, and 1 suite. Twelve tests are in tests/worldwide/i18n.test.tsx. One is the shared setup smoke test in src/__tests__/setup.ts. Jest wrote its report to stderr, together with the ts-jest isolatedModules deprecation warning, the VM Modules experimental warning, and the NO_COLOR warning caused by FORCE_COLOR. stdout is the npm script banner plus the wrapper lines EXIT:0 and HOME_USED=/tmp/ipfs-accelerate-validation-home-aFQBuw."
+  ],
+  "outputs": [
+    {
+      "path": "src/lib/worldwide/i18n.ts",
+      "bytes": 34448,
+      "sha256": "da725293ae0893f1567e0491c07a1d3ec61f9c2d502aaa8b639de47d10f656f4"
+    },
+    {
+      "path": "src/locales/worldwide/types.ts",
+      "bytes": 1956,
+      "sha256": "1c0544080d07537c8e647bcb71d2d36fc8d5487317aaf826ea2ca68a0436814c"
+    },
+    {
+      "path": "src/locales/worldwide/en.ts",
+      "bytes": 2617,
+      "sha256": "2bff44c798cbe0280f7243b4a1b0b1d9e243ea0c693a6a5f44c11b4e1159276b"
+    },
+    {
+      "path": "src/locales/worldwide/nl.ts",
+      "bytes": 2700,
+      "sha256": "8ec0aae8d0c46803dc8d79c1eb10b077902bd7822eb5e31b3431848bf0e85213"
+    },
+    {
+      "path": "src/locales/worldwide/ar.ts",
+      "bytes": 3355,
+      "sha256": "a72d5d276f0498479178beef21af815eb16f05878403cba095fc970fea4aed53"
+    },
+    {
+      "path": "src/locales/worldwide/ja.ts",
+      "bytes": 2834,
+      "sha256": "f9182b967c4b862453535c44b1e3d445151c361c2bf60fa38f8e1dae35f0c77a"
+    },
+    {
+      "path": "src/locales/worldwide/index.ts",
+      "bytes": 558,
+      "sha256": "58ec540f8a68b0341e1b63894e500370c605b8cf78766a449aeda9d10eebaa25"
+    },
+    {
+      "path": "tests/worldwide/i18n.test.tsx",
+      "bytes": 32264,
+      "sha256": "9073e40500048f753c4e84defea91e7886bc1e54e408845352083f4f15a0ac96"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/i18n.test.tsx"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_84713189c60b_43c3240f3136",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node v23.11.1. npm is /usr/bin/npm 10.9.2. HOME was /tmp/ipfs-accelerate-validation-home-aFQBuw. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. The package script runs NODE_OPTIONS=--experimental-vm-modules jest --verbose. stdout was the npm script banner plus the wrapper lines named in known_limitations. stderr was the Jest report and the warnings named in known_limitations.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "failed": 0,
+      "passed": 13,
+      "suites": 1
+    },
+    "stdout_sha256": "b74913c6d241bc6c3018982bfb8c0806342d90564740839a1f5ae67341d4ea44",
+    "stderr_sha256": "07e689a022c9b09bdbb7bee0139475ad82706a7144255529ae990d237e8a587a"
+  }
+}
