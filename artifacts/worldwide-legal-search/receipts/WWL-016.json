@@ -1,0 +1,72 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-016",
+  "title": "Make ingestion incremental and resilient to schema drift",
+  "recorded_at": "2026-11-03T05:12:47Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-016-c2f7bb49b485-attempt-1-1793681501",
+  "site_revision": "e7753c6cf67e250ca8784e870f6f28f38805922a",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "scripts/worldwide/update.ts and tests/worldwide/incremental-data.test.ts are uncommitted working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status.",
+    "The updater does not fetch Hugging Face and does not rewrite the browser catalog. Records are stored as supplied after the id, title, and text contract. They are not passed through normalize.ts.",
+    "A changed or removed source revision is published by writing a new immutable snapshot and then replacing current.json with rename. Older snapshot directories stay readable by id. An unreferenced snapshot is not a current result.",
+    "An incompatible schema or a corrupt artifact is omitted from the manifest. Other accepted operations in the same request still publish together. A bad payload does not replace that source's last accepted revision.",
+    "Hex revisions are stored lowercase. Other stable revision tokens keep their trimmed spelling. Missing id, title, or text is incompatible schema drift; those columns are not renamed, coerced, or invented. Extra record fields are kept.",
+    "Artifacts larger than 536870912 bytes are quarantined instead of loaded. Removed sources do not delete content-addressed artifact files.",
+    "A leftover .update.lock from a killed process blocks the next update until that file is removed. The updater does not steal a lock.",
+    "A corrupt current pointer, or a snapshot whose artifact bytes no longer match payloadSha256, fail-closes the read and the next update. The updater does not invent a replacement current and does not drop the bad source out of an already published snapshot.",
+    "Credentials are not read or written.",
+    "Jest also executed the global setup test from src/__tests__/setup.ts. The file itself contains 15 tests. The reporter total is 16 passed.",
+    "stderr was not empty. It contains the ts-jest isolatedModules deprecation warning, the Node VM Modules experimental warning with the process id, and the Jest reporter. The process id and timings make the stderr digest specific to this run. stdout is the npm script banner."
+  ],
+  "incremental": {
+    "artifact_schema": "worldwide-legal-search.ingestion-artifact@1",
+    "manifest_schema": "worldwide-legal-search.ingestion-manifest@1",
+    "current_schema": "worldwide-legal-search.ingestion-current@1",
+    "quarantine_schema": "worldwide-legal-search.ingestion-quarantine@1",
+    "update_schema": "worldwide-legal-search.incremental-update@1",
+    "schema_version": 1,
+    "max_artifact_bytes": 536870912,
+    "file_tests": 15,
+    "jest_tests_passed": 16,
+    "jest_tests_failed": 0
+  },
+  "outputs": [
+    {
+      "path": "scripts/worldwide/update.ts",
+      "bytes": 52464,
+      "sha256": "c6aa78ec731ab3821a6b29ca07d983ff500bb1e31dd253201a18f4e1240bd746"
+    },
+    {
+      "path": "tests/worldwide/incremental-data.test.ts",
+      "bytes": 27088,
+      "sha256": "39f68f9c8a5d1735c0b66ce191522d55c03b07a5f7b03a88b177dce792f04400"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/incremental-data.test.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_df44c6280273_3c48d81de662",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-wRB1Aw. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. NO_COLOR and FORCE_COLOR were unset. npm wrote the script banner to stdout. Jest wrote the passing reporter, the ts-jest isolatedModules warning, and the Node VM Modules warning to stderr.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 16,
+      "failed": 0
+    },
+    "stdout_sha256": "951b6440b99367b6f50d6f7fb34dccd02ccc445ade36f673e82cf3117457bc57",
+    "stderr_sha256": "803d38adf832686624eb0d634e87bd9023d47c8967e255b0a4d5f3aa0357795d"
+  }
+}
