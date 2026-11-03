@@ -1,0 +1,70 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-040",
+  "title": "Implement immutable artifact transport and measured Viewer compatibility",
+  "recorded_at": "2026-11-03T05:49:36Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-040-f8ebcd56d38f-attempt-1-1793682838",
+  "site_revision": "9c52da16c4c660c09c3159c968c3771fdbe128cf",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "transport.ts and transport.test.ts are untracked working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status.",
+    "Every capability and viewer report records live false and originProof unproven. A caller that passes live true is ignored and listed in ignoredClaims. WWL-082 owns live Pages-origin probes. This suite injects fetch and does not contact huggingface.co or datasets-server.huggingface.co.",
+    "CORS is accepted only when Access-Control-Allow-Origin is * or the exact Pages origin. The default origin is https://worldwidelaws.github.io. Credentials are omit. No Authorization header is sent.",
+    "Range is accepted only for HTTP 206 whose Content-Range is bytes 0-31/<size> and whose body is at most 32 bytes. A 200 that ignores Range, or Accept-Ranges alone, is not Range. An oversized Content-Length is cancelled before the body is read and recorded as bodyRefused.",
+    "COOP and COEP response headers are recorded and ignored. crossOriginIsolationAssumed and sharedArrayBufferAssumed stay false. workerModel is single-thread. A dev-server isolation header is not Pages production evidence.",
+    "Outgoing headers are a plain record so Range is not deleted by a Headers implementation that still treats Range as a forbidden name. jsdom does that. The Fetch standard allows Range. This suite does not prove that a production browser attached Range from the Pages origin.",
+    "Retries default to 3 and cannot be configured above 4. Retryable statuses are 408, 429, 500, 502, 503, and 504. Backoff starts at 200 ms, doubles, and stops at 8 seconds. Retry-After above 8 seconds fails immediately and is not slept. The last failed attempt does not sleep. Abort becomes cancelled and is not retried. Integrity and revision failures are not retried.",
+    "At most 4 requests are in flight. The gate is held for the whole fetch, including capability probes, and is released during backoff.",
+    "One transport instance is one search session. Artifact bytes stop at 10 MiB. There is no public budget reset. Unknown-size JSON is reserved at the caller's byte cap, which defaults to 2 MiB and cannot exceed 10 MiB. Parquet of unknown size, or declared above 2 MiB, is refused unless the caller requests an explicit Range slice, the probe measured both CORS and Range, and the slice itself fits the budget. A slice that starts at 0 and covers a declared file larger than the budget is refused. This module does not walk Range slices to rebuild a country file.",
+    "Revisions must be 40-hex commits. Branch names such as main are rejected. Trusted response headers are x-repo-commit, x-commit, and x-revision. ETag is not a commit. A resolve URL or an embedded sourceRevision, source_revision, or revision that disagrees with the pin is revision-mismatch or revision-mix. requireConfirmedRevision defaults to false, so a hash-matched body with no commit header is returned as sha256-only and revisionConfirmed false.",
+    "A batch that names two revisions of one dataset fails before any request. A failure aborts the other in-flight members of that batch.",
+    "Mirrors are HTTPS, at most 3, and only after a CORS-capable probe. A redirect must stay on the mirror host or an allowed Hugging Face host. A missing CORS response blocks the body GET.",
+    "Viewer calls use /splits, /rows, /search, and /filter only. /parquet and /is-valid are not called. No revision query is sent. Page length is clamped to 100. A walk stops after 4 pages. One dataset, config, and split keeps at most 400 rows and 2 MiB. The splits budget key is dataset, then *, then *. Payload flags that claim joins or revision pinning are ignored. VIEWER_JOINS_SUPPORTED and VIEWER_REVISION_PIN_SUPPORTED stay false. Stemming is english-porter and is not a complete multilingual index. partial stops the walk. Search and filter are separate requests. A rows page cannot carry a query or a where predicate.",
+    "Viewer rows requested against a pin are withheld unless the payload commit equals that pin. A missing commit is viewer-revision-unconfirmed. A different commit is revision-mix. /splits is not treated as a revision pin. requestedRevision is stored on the layout and is not put in the URL.",
+    "The Jest reporter counted 14 passing tests. One is the existing setup test in src/__tests__/setup.ts. Thirteen exercise this transport.",
+    "node is v23.11.1 at /usr/bin/node. Jest's declared engine range does not list Node 23. The suite still exited 0. package.json and package-lock.json were not edited.",
+    "CI=1 was set so Jest would not enter watch mode. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-wwl040.bdb7uM. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state.",
+    "The Jest reporter and the Node NO_COLOR and VM Modules warnings were written to stderr, along with the ts-jest isolatedModules deprecation warning. stderr was not empty. The process exit code was 0.",
+    "The test did not call Python."
+  ],
+  "outputs": [
+    {
+      "path": "src/lib/worldwide/data/transport.ts",
+      "bytes": 69142,
+      "sha256": "03de28112f6c0e2f4a92ed07845bb67b82be6ed77ceb209f179f6f95f99bf96e"
+    },
+    {
+      "path": "tests/worldwide/transport.test.ts",
+      "bytes": 36301,
+      "sha256": "d75cccbd1243a2ee035aa9c1860e19e7ac2e18917fcf2d33fcd13a087f45fb14"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/transport.test.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_c361ba4c396d_6649c8d8c46a",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-wwl040.bdb7uM. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. CI=1 was set. npm wrote the script banner to stdout. Jest wrote the passing reporter and the Node NO_COLOR, VM Modules, and ts-jest isolatedModules warnings to stderr. The test did not call Python.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 14,
+      "failed": 0,
+      "setup_tests": 1,
+      "transport_tests": 13
+    },
+    "stdout_sha256": "28976b43a403caaaac1a56cff4afff6b6c6d7bb0f03a277c7ba8ec30350005e1",
+    "stderr_sha256": "b8b6f6801d6038e5f0025dbf69250fd1f7b5e6370bb69f78c897069ff67c33ba"
+  }
+}
