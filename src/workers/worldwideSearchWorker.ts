@@ -80,7 +80,17 @@ export class SearchWorkerFailure extends Error {
 }
 
 const DEFAULT_TIMEOUT_MS = 5_000;
-const DEFAULT_YIELD_EVERY = 128;
+
+/**
+ * Entries scored between returns to the event loop.
+ *
+ * A full place shard is the production traversal budget, 50_000 posting
+ * entries. Yielding every 128 entries on that shard spends the warm-search
+ * budget on timer turns. 1024 still returns often enough for a cancel
+ * message to land before the shard is finished, and shouldCancel is still
+ * read on every entry.
+ */
+export const SEARCH_WORKER_YIELD_EVERY = 1024;
 
 function macrotask(): Promise<void> {
   return new Promise((resolve) => {
@@ -133,7 +143,7 @@ export async function handleWorkerMessage(message: WorkerInbound, session: Worke
     return { id: message.id, type: 'search', ok: false, error: { code: 'invalid-request', message: 'invalid-request: unknown worker message' } };
   }
   if (session.cancelled.has(message.id)) return emptyCancelled(message.id, message.topK ?? 10);
-  const yieldEvery = message.yieldEvery ?? DEFAULT_YIELD_EVERY;
+  const yieldEvery = message.yieldEvery ?? SEARCH_WORKER_YIELD_EVERY;
   try {
     const result = await searchCompactPostings({
       query: message.query,

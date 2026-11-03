@@ -414,6 +414,43 @@ export function isDirectoryPayload(payload: RoutingPayload): payload is Director
   return payload.schema === DIRECTORY_SCHEMA;
 }
 
+export interface CommonTermFanout {
+  requests: number;
+  shardRequests: number;
+  maxConcurrentRequests: typeof GLOBAL_CONCURRENCY;
+  perCountryFanout: false;
+  commonQuery: boolean;
+  unopenedShards: number;
+  claimsAllWorldwideResults: false;
+}
+
+/**
+ * Requests a common-term page actually scheduled.
+ * A hierarchical page stays inside the four-request shard cap. Pending shard
+ * paths are the countries that were not opened. Routing document frequency
+ * is not a fanout count.
+ */
+export function readCommonTermFanout(page: WorldwidePage): CommonTermFanout {
+  if (page.schema !== SEARCH_SCHEMA || page.fanout !== 'hierarchical' || page.perCountryFanout !== false) {
+    throw new WorldwideSearchError('internal-invalid', 'common-term search fanned out by country');
+  }
+  if (page.claimsAllWorldwideResults !== false || page.fullPostingsLoaded !== false) {
+    throw new WorldwideSearchError('internal-invalid', 'common-term search claimed a complete worldwide scan');
+  }
+  if (page.budgets.maxConcurrentRequests !== GLOBAL_CONCURRENCY || page.budgets.shardRequests > GLOBAL_CONCURRENCY) {
+    throw new WorldwideSearchError('internal-invalid', 'common-term search opened more shards than the concurrency cap');
+  }
+  return {
+    requests: page.budgets.requests,
+    shardRequests: page.budgets.shardRequests,
+    maxConcurrentRequests: GLOBAL_CONCURRENCY,
+    perCountryFanout: false,
+    commonQuery: page.commonQuery,
+    unopenedShards: page.walk.pendingShardPaths.length,
+    claimsAllWorldwideResults: false,
+  };
+}
+
 export function pagesEnvelopeJson(index: GlobalRoutingIndex): string {
   const root = index.documents[index.rootPath];
   if (!root) throw new WorldwideSearchError('missing-document', 'the routing root is not in the index');
