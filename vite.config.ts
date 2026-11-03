@@ -7,12 +7,27 @@ const transformersOrtBundle = path.resolve(
   'node_modules/@huggingface/transformers/node_modules/onnxruntime-web/dist/ort.webgpu.bundle.min.mjs',
 );
 
+/**
+ * Development server only. GitHub Pages does not send these headers, and
+ * `vite preview` must not send them either. Production search workers and
+ * any WASM they load have to run single-threaded, without SharedArrayBuffer
+ * and without cross-origin isolation. These headers are not evidence that
+ * a production worker can use threads.
+ */
+const developmentIsolationHeaders = {
+  'Cross-Origin-Embedder-Policy': 'require-corp',
+  'Cross-Origin-Opener-Policy': 'same-origin',
+} as const;
+
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/',
   plugins: [react()],
   resolve: {
     alias: [
+      // Optional transformers import. The worldwide search worker does not
+      // import onnxruntime-web, and this alias is not a production isolation
+      // or GPU requirement for core search.
       { find: /^onnxruntime-web$/, replacement: transformersOrtBundle },
     ],
   },
@@ -21,11 +36,10 @@ export default defineConfig({
     watch: {
       ignored: ['**/ppd/**', '**/ipfs_datasets_py/**', '**/.cache/**', '**/dist/**'],
     },
-    headers: {
-      // Enable SharedArrayBuffer for WebAssembly threading
-      'Cross-Origin-Embedder-Policy': 'require-corp',
-      'Cross-Origin-Opener-Policy': 'same-origin',
-    },
+    headers: developmentIsolationHeaders,
+  },
+  preview: {
+    headers: {},
   },
   build: {
     target: 'es2020', // Ensure modern browser features are supported
@@ -36,6 +50,7 @@ export default defineConfig({
       },
     },
   },
+  // Module workers. Production search does not use SharedArrayBuffer, COOP, or COEP.
   worker: {
     format: 'es',
   },
