@@ -1,0 +1,392 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Offline index manifest. Shard descriptors carry measured size_bytes. coverage and tokenizer are required. full_corpus_bundled is false. Posting payloads and document summaries live under offline and are not the Pages bundle.",
+  "title": "Worldwide legal-search index format",
+  "description": "Versioned routing manifest for one reused country IR release or one compact postings build. GitHub Pages receives the routing manifest only. Full corpus bytes, posting payloads, document bodies, and embeddings stay remote.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "format_version",
+    "decision",
+    "compatibility",
+    "tokenizer",
+    "coverage",
+    "bm25",
+    "checksums",
+    "term_routing",
+    "shards",
+    "excluded_corpus_paths",
+    "pages",
+    "source",
+    "offline"
+  ],
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "safePath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240,
+      "pattern": "^(?!/)(?!.*\\.\\.)(?!.*data/corpus)[A-Za-z0-9][A-Za-z0-9_./-]*$"
+    },
+    "shard": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "One remote shard. size_bytes is the measured artifact length. bundled_on_pages is false.",
+      "required": [
+        "shard_id",
+        "kind",
+        "relative_path",
+        "sha256",
+        "size_bytes",
+        "first_key",
+        "last_key",
+        "row_count",
+        "bundled_on_pages"
+      ],
+      "properties": {
+        "shard_id": { "type": "integer", "minimum": 0 },
+        "kind": {
+          "enum": ["country-ir-postings", "country-ir-documents", "compact-postings", "document-summaries"]
+        },
+        "relative_path": { "$ref": "#/$defs/safePath" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "size_bytes": {
+          "description": "Measured shard length in bytes. This is the artifact size a client would fetch, not a Pages bundle size.",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10485760
+        },
+        "first_key": { "type": "string", "minLength": 1, "maxLength": 4096 },
+        "last_key": { "type": "string", "minLength": 1, "maxLength": 4096 },
+        "row_count": { "type": "integer", "minimum": 0 },
+        "bundled_on_pages": { "const": false }
+      }
+    },
+    "posting": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "term",
+        "document_indices",
+        "title_frequencies",
+        "body_frequencies",
+        "tfs",
+        "document_lengths",
+        "document_frequency",
+        "corpus_frequency",
+        "idf",
+        "posting_chunk_index",
+        "posting_chunk_count",
+        "schema_version"
+      ],
+      "properties": {
+        "term": { "type": "string", "minLength": 1, "pattern": "^[0-9a-z]+$" },
+        "document_indices": { "type": "array", "minItems": 1, "items": { "type": "integer", "minimum": 0 } },
+        "title_frequencies": { "type": "array", "minItems": 1, "items": { "type": "integer", "minimum": 0 } },
+        "body_frequencies": { "type": "array", "minItems": 1, "items": { "type": "integer", "minimum": 0 } },
+        "tfs": { "type": "array", "minItems": 1, "items": { "type": "integer", "minimum": 0 } },
+        "document_lengths": { "type": "array", "minItems": 1, "items": { "type": "integer", "minimum": 0 } },
+        "document_frequency": { "type": "integer", "minimum": 1 },
+        "corpus_frequency": { "type": "integer", "minimum": 0 },
+        "idf": { "type": "number" },
+        "posting_chunk_index": { "type": "integer", "minimum": 0 },
+        "posting_chunk_count": { "type": "integer", "minimum": 1 },
+        "schema_version": { "const": "worldwide-legal-search.compact-postings/v1" }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Document summary. Body text is not a property. text_sha256 checksums the tokenized title and body.",
+      "required": [
+        "document_index",
+        "identity",
+        "identity_kind",
+        "source_id",
+        "record_id",
+        "title",
+        "title_truncated",
+        "record_type",
+        "language",
+        "jurisdiction_id",
+        "jurisdiction_label",
+        "instrument_id",
+        "law_id",
+        "article_number",
+        "identifier",
+        "official_identifier",
+        "title_tokens",
+        "body_tokens",
+        "document_length",
+        "text_sha256",
+        "official_citation_invented"
+      ],
+      "properties": {
+        "document_index": { "type": "integer", "minimum": 0 },
+        "identity": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "identity_kind": { "enum": ["entry_cid", "source-record"] },
+        "source_id": { "type": "string", "maxLength": 256 },
+        "record_id": { "type": "string", "maxLength": 256 },
+        "title": { "type": "string", "maxLength": 256 },
+        "title_truncated": { "type": "boolean" },
+        "record_type": { "enum": ["law", "article", "other"] },
+        "language": { "type": "string", "maxLength": 32 },
+        "jurisdiction_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "jurisdiction_label": { "type": "string", "maxLength": 128 },
+        "instrument_id": { "type": "string", "maxLength": 256 },
+        "law_id": { "type": "string", "maxLength": 256 },
+        "article_number": { "type": "string", "maxLength": 64 },
+        "identifier": { "type": "string", "maxLength": 256 },
+        "official_identifier": { "type": "string", "maxLength": 256 },
+        "title_tokens": { "type": "integer", "minimum": 0 },
+        "body_tokens": { "type": "integer", "minimum": 0 },
+        "document_length": { "type": "integer", "minimum": 0 },
+        "text_sha256": { "$ref": "#/$defs/sha256" },
+        "official_citation_invented": { "const": false }
+      }
+    },
+    "postingShard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["relative_path", "sha256", "size_bytes", "records"],
+      "properties": {
+        "relative_path": { "$ref": "#/$defs/safePath" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "size_bytes": { "type": "integer", "minimum": 1, "maximum": 10485760 },
+        "records": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/posting" } }
+      }
+    },
+    "summaryShard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["relative_path", "sha256", "size_bytes", "records"],
+      "properties": {
+        "relative_path": { "$ref": "#/$defs/safePath" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "size_bytes": { "type": "integer", "minimum": 1, "maximum": 10485760 },
+        "records": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/summary" } }
+      }
+    }
+  },
+  "properties": {
+    "schema": { "const": "worldwide-legal-search.index-format@1" },
+    "format_version": {
+      "enum": [
+        "worldwide-legal-search.country-ir-reuse/v1",
+        "worldwide-legal-search.compact-postings/v1"
+      ]
+    },
+    "decision": { "enum": ["reuse-country-ir", "emit-compact"] },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["measured", "compatible", "reasons", "notes", "country_ir_schema", "country_ir_tokenizer"],
+      "properties": {
+        "measured": { "const": true },
+        "compatible": { "type": "boolean" },
+        "reasons": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "notes": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "country_ir_schema": { "type": "string" },
+        "country_ir_tokenizer": { "type": "string" }
+      }
+    },
+    "tokenizer": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Index tokenizer. fts5-unicode61 is the pinned country_laws_ir tokenizer. A language on a source row does not switch this block.",
+      "required": [
+        "tokenizer_id",
+        "strategy",
+        "upstream_tokenizer",
+        "upstream_commit",
+        "unicode",
+        "license",
+        "matches_country_ir"
+      ],
+      "properties": {
+        "tokenizer_id": { "const": "country-laws-ir-fts5-unicode61/v1" },
+        "strategy": { "const": "fts5-unicode61" },
+        "upstream_tokenizer": { "const": "fts5-unicode61-remove-diacritics-2-python/v1" },
+        "upstream_commit": { "const": "2ea4ca6804b3c4cc44e43d0539f4c3fcae011747" },
+        "unicode": { "const": "15.0.0" },
+        "license": { "const": "AGPL-3.0-only" },
+        "matches_country_ir": { "const": true }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Coverage of this index. indexed_records is not legal completeness.",
+      "required": [
+        "coverage_state",
+        "indexed_records",
+        "eligible_records",
+        "record_denominator",
+        "denominator_kind",
+        "collection_count",
+        "blocked_count",
+        "legal_completeness",
+        "as_of",
+        "jurisdiction_id",
+        "level",
+        "reason",
+        "tokenizer_id",
+        "integrity"
+      ],
+      "properties": {
+        "coverage_state": { "enum": ["known", "partial", "missing", "unknown", "unavailable"] },
+        "indexed_records": { "type": ["integer", "null"], "minimum": 0 },
+        "eligible_records": { "type": ["integer", "null"], "minimum": 0 },
+        "record_denominator": { "type": "integer", "minimum": 0 },
+        "denominator_kind": { "enum": ["indexed-documents", "not-counted"] },
+        "collection_count": { "type": "integer", "minimum": 0 },
+        "blocked_count": { "type": "integer", "minimum": 0 },
+        "legal_completeness": { "const": "not_claimed" },
+        "as_of": {
+          "type": "string",
+          "minLength": 10,
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}(?:T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z)?$"
+        },
+        "jurisdiction_id": { "type": "string", "minLength": 1 },
+        "level": { "enum": ["national", "regional", "municipal", "other"] },
+        "reason": { "type": "string", "minLength": 1 },
+        "tokenizer_id": { "const": "country-laws-ir-fts5-unicode61/v1" },
+        "integrity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sha256"],
+          "properties": { "sha256": { "$ref": "#/$defs/sha256" } }
+        }
+      }
+    },
+    "bm25": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "k1",
+        "b",
+        "title_weight",
+        "body_weight",
+        "average_document_length",
+        "max_query_terms",
+        "posting_rows_per_record",
+        "terms_per_shard",
+        "n_docs",
+        "n_terms",
+        "n_postings"
+      ],
+      "properties": {
+        "k1": { "const": 1.2 },
+        "b": { "const": 0.75 },
+        "title_weight": { "const": 5 },
+        "body_weight": { "const": 1 },
+        "average_document_length": { "type": "number", "minimum": 0 },
+        "max_query_terms": { "const": 64 },
+        "posting_rows_per_record": { "type": "integer", "minimum": 1, "maximum": 1000000 },
+        "terms_per_shard": { "type": "integer", "minimum": 1, "maximum": 1000000 },
+        "n_docs": { "type": ["integer", "null"], "minimum": 0 },
+        "n_terms": { "type": ["integer", "null"], "minimum": 0 },
+        "n_postings": { "type": ["integer", "null"], "minimum": 0 }
+      }
+    },
+    "checksums": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["routing_sha256", "postings_sha256", "summaries_sha256", "pages_bundle_sha256"],
+      "properties": {
+        "routing_sha256": { "$ref": "#/$defs/sha256" },
+        "postings_sha256": { "$ref": "#/$defs/sha256" },
+        "summaries_sha256": { "$ref": "#/$defs/sha256" },
+        "pages_bundle_sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "term_routing": {
+      "type": "array",
+      "description": "Inclusive term ranges. A term outside every range is absent. There is no fallback that selects every shard.",
+      "items": { "$ref": "#/$defs/shard" }
+    },
+    "shards": {
+      "type": "array",
+      "description": "Remote posting and document-summary shards with measured size_bytes and checksums.",
+      "items": { "$ref": "#/$defs/shard" }
+    },
+    "excluded_corpus_paths": {
+      "type": "array",
+      "description": "Corpus artifact paths seen on a country IR release. They are not shards and they are not Pages files.",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 240,
+        "pattern": "^(?!/)(?!.*\\.\\.)[A-Za-z0-9][A-Za-z0-9_./-]*$"
+      }
+    },
+    "pages": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "full_corpus_bundled",
+        "index_payload_bundled",
+        "bundled_roles",
+        "excluded_roles",
+        "bundled_bytes",
+        "bundled_sha256",
+        "remote_shard_bytes",
+        "logical_path",
+        "origin",
+        "shard_byte_cap",
+        "pages_budget_bytes",
+        "absolute_shard_bytes"
+      ],
+      "properties": {
+        "full_corpus_bundled": { "const": false },
+        "index_payload_bundled": { "const": false },
+        "bundled_roles": { "const": ["routing-manifest"] },
+        "excluded_roles": {
+          "const": [
+            "full-corpus",
+            "document-bodies",
+            "embeddings",
+            "posting-payloads",
+            "document-summaries",
+            "parquet-corpus"
+          ]
+        },
+        "bundled_bytes": { "type": "integer", "minimum": 0, "maximum": 1048576 },
+        "bundled_sha256": { "$ref": "#/$defs/sha256" },
+        "remote_shard_bytes": { "type": "integer", "minimum": 0 },
+        "logical_path": { "const": "indexes/routing-manifest.json" },
+        "origin": { "const": "unbundled" },
+        "shard_byte_cap": { "type": "integer", "minimum": 1, "maximum": 10485760 },
+        "pages_budget_bytes": { "type": "integer", "minimum": 1, "maximum": 1048576 },
+        "absolute_shard_bytes": { "const": 10485760 }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dataset_id", "source_revision", "collection_id", "jurisdiction_id"],
+      "properties": {
+        "dataset_id": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "source_revision": { "type": "string", "pattern": "^$|^[0-9a-f]{40}$" },
+        "collection_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "jurisdiction_id": { "type": "string", "minLength": 1, "maxLength": 128 }
+      }
+    },
+    "offline": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Compact postings and document summaries for a remote artifact. Empty when a measured country IR is reused. Omitted from the Pages bundle.",
+      "required": ["postings", "document_summaries", "posting_shards", "summary_shards"],
+      "properties": {
+        "postings": { "type": "array", "items": { "$ref": "#/$defs/posting" } },
+        "document_summaries": { "type": "array", "items": { "$ref": "#/$defs/summary" } },
+        "posting_shards": { "type": "array", "items": { "$ref": "#/$defs/postingShard" } },
+        "summary_shards": { "type": "array", "items": { "$ref": "#/$defs/summaryShard" } }
+      }
+    }
+  }
+}
