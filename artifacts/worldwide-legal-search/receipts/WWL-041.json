@@ -1,0 +1,106 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-041",
+  "title": "Port language-aware tokenization and exact citation lookup",
+  "recorded_at": "2026-11-03T02:51:48Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-041-0cb4680ccb88-attempt-1-1793672920",
+  "site_revision": "84af3b1f55b5d8e4ebc49831dffc52e9cdcc9488",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "tokenize.ts, citation.ts, and tokenizer-parity.test.ts are uncommitted working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status.",
+    "Default tokenize() with no options matches country_laws_ir/tokenize.py at commit 2ea4ca6804b3c4cc44e43d0539f4c3fcae011747: NFKD, drop Unicode 15.0.0 combining class non-zero, lowercase, then ASCII [0-9A-Za-z] runs.",
+    "That pinned strategy deletes letters that do not fold into ASCII. ø, æ, ł, ð, þ, đ, and ß split or disappear. Cyrillic, Greek, Hebrew, Arabic, Indic, Han, Hangul, kana, and Thai letters are dropped except for ASCII digits left behind.",
+    "Pinned folding also decomposes Hangul syllables into jamo and strips kana dakuten and Thai tone marks before the ASCII filter deletes the letters. The hangul, kana, and southeast-asian-run strategies do not do that.",
+    "Selecting a language, or any strategy other than fts5-unicode61, keeps native letters and diacritics. It is not the pinned index tokenizer. An explicit fts5-unicode61 strategy wins over a language.",
+    "No stemming, lemmatization, stopword removal, synonym expansion, transliteration, cross-language recall, Turkish locale casing, or ß to ss expansion.",
+    "No dictionary segmentation for Chinese, Japanese, Thai, Lao, Khmer, or Myanmar, and no Japanese morphological analysis. cjk-unigram emits one token per Han character. Southeast Asian strategies keep a maximal run. identifier keeps a Han run whole.",
+    "No Arabic, Hebrew, or Persian orthographic folding. Harakat, niqqud, and tatweel are kept by those strategies. Tatweel is not removed.",
+    "Indic strategies do not split on virama. ICU word boundaries are not used.",
+    "The combining-class table is Unicode 15.0.0 from the pinned CPython unicodedata. Host NFKD is Node's Unicode normalization. A mark with combining class 0, such as U+034F, is kept by the pinned fold. The tested compatibility decompositions (ligatures, circled digits, numero sign, micro sign, fullwidth letters) matched the pin on this Node.",
+    "query.py MAX_QUERY_TERMS is a retrieval cap. tokenize() does not apply it.",
+    "normalizeCiteKey matches citations.py. It deletes non-ASCII instead of folding diacritics, so Código becomes c digo, not codigo. officialCitation and nativeIdentifier keep the original identifier.",
+    "ORS 1.010 and Or. Rev. Stat. § 1.010 do not share a citeKey.",
+    "Bluebook text is emitted only for pinned rows with emit bluebook. In bluebook_t2.json that is usa and united states. Unknown jurisdictions are not given an invented Bluebook form.",
+    "The United States Bluebook form does not include the title number. Title is only required. The official citation carries the identifier.",
+    "Pinpoint suppression is a case-insensitive substring test, so art. 1 is treated as already present inside art. 12.",
+    "Slug is consulted before country and jurisdiction.",
+    "Non-Latin official text can collapse to an ASCII pinpoint citeKey such as art 1. Format any therefore matches that key. Format native does not consult citeKey.",
+    "A pinpoint with no eli, official identifier, identifier, or title has status unknown and is not returned by lookup.",
+    "Format native, plus optional exact sourceRevision and jurisdiction filters, are additions. duckdb cite_search has no jurisdiction or revision predicate and no native format. Formats any, bluebook, and official still match citeKey, as cite_search does.",
+    "Year is the caller year, or the first four digits of snapshotDate when year is empty, matching the normalize.py call site rather than citations.py alone.",
+    "Lookup is exact and in memory. It does not read parquet, DuckDB, or a BM25 index.",
+    "The Jest reporter counted 96 passing tests. One is the existing setup test. Ninety-five exercise tokenization and citation lookup.",
+    "node_modules was absent and was installed with npm ci --ignore-scripts so Jest could run. package.json and package-lock.json were not edited.",
+    "CI=1 was set so Jest would not enter watch mode. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-wwl041.Aycjpt. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state.",
+    "The Jest reporter and the Node NO_COLOR and VM Modules warnings were written to stderr, along with the ts-jest isolatedModules deprecation warning. stderr was not empty. The process exit code was 0.",
+    "The test did not call Python."
+  ],
+  "identity": {
+    "tokenizer_id": "country-laws-ir-fts5-unicode61/v1",
+    "upstream_commit": "2ea4ca6804b3c4cc44e43d0539f4c3fcae011747",
+    "upstream_unicode": "15.0.0",
+    "upstream_license": "AGPL-3.0-only",
+    "tokenize_sha256": "c15b8373cce6de282c9240f24a89caa374fc6ac2df2c1b9ced605c44f4878f56",
+    "citations_sha256": "5b0b0d8d4083ddf9a186b8f27a1d8ad48b85cbe2584ec07119274455a7ea63d3",
+    "bluebook_sha256": "3ebb330f51d4c235d7e1a0168fddabfd236212335d466f955f790122be1cbba8",
+    "default_strategy": "fts5-unicode61",
+    "strategies": [
+      "fts5-unicode61",
+      "latin-preserve",
+      "cyrillic",
+      "greek",
+      "hebrew",
+      "arabic",
+      "indic",
+      "cjk-unigram",
+      "hangul",
+      "kana",
+      "southeast-asian-run",
+      "identifier",
+      "auto"
+    ]
+  },
+  "outputs": [
+    {
+      "path": "src/lib/worldwide/search/tokenize.ts",
+      "bytes": 21339,
+      "sha256": "6d2bf709732cff5dd4e415e574310ac8240efb922cde9827cbc49aa6ca61e074"
+    },
+    {
+      "path": "src/lib/worldwide/search/citation.ts",
+      "bytes": 15154,
+      "sha256": "e0c7c6a39d3dafce4b377a9cb5f078775ccce64f32c1a4eee85d232412f41238"
+    },
+    {
+      "path": "tests/worldwide/tokenizer-parity.test.ts",
+      "bytes": 26674,
+      "sha256": "ffd015f44f9bf0443769bfe2e809ba91466b4588ff6455fbf0a3540e4fd6c89b"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/tokenizer-parity.test.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_642d137d04b0_be924ba8f3c0",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-wwl041.Aycjpt. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. CI=1 was set. npm wrote the script banner to stdout. Jest wrote the passing reporter and the Node NO_COLOR, VM Modules, and ts-jest isolatedModules warnings to stderr. The test did not call Python.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 96,
+      "failed": 0
+    },
+    "stdout_sha256": "1e7914172f2c163b71e5aefa59ece084efd0602266a69f038aaa5ea8a4bc290d",
+    "stderr_sha256": "056ce28c586994e4e5aa239b359031c02dd0b9750bd6179155b1402a28555a40"
+  }
+}
