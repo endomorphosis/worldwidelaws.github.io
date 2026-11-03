@@ -1,0 +1,67 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-054",
+  "title": "Implement place source and coverage pages",
+  "recorded_at": "2026-11-03T21:31:34Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-054-029412426fe4-attempt-1-1793740151",
+  "site_revision": "ab17e8c8a19f59c427bd4fda36fb0cca5825a4ba",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "CoveragePage.tsx, PlacePage.tsx, SourcePage.tsx, and tests/worldwide/coverage-ui.test.tsx are untracked. site_revision is HEAD before those edits. WorldwideLegalSearchApp is unchanged and does not mount these pages.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "The pages read a catalog already published by WWL-015. They do not search the corpus and they do not print hit titles. An empty or whitespace query stays a prompt even when the hit list is empty. A missing municipal cell, an unknown municipal cell, a counted zero, and a no-match statement each say that the gap is not a finding that no law exists.",
+    "A named place is not joined to a municipal collection unless the caller passes joined source ids. An unknown level, a country, and a region do not invent a municipality. Boundary metadata stays outside the law record denominator. Organization membership is not treated as a license.",
+    "The screen was exercised in Jest with jsdom. A browser was not opened.",
+    "node is v23.11.1 at /usr/bin/node. npm is /usr/bin/npm 10.9.2. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-rnDU9N. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state.",
+    "This worktree had no node_modules. npm test resolved jest through a gitignored symlink at node_modules to the identical package-lock install in workspace_6a9967f6dae4_8ef424897d55. That symlink is not a task output.",
+    "The Jest VM does not define TextEncoder or structuredClone. The test file assigns Node's util.TextEncoder and a JSON structuredClone only when those globals are missing, before publishCatalog. The pages call validateBrowserCatalog and do not need those globals.",
+    "The process exit code was 0. Jest reported 13 passed, 0 failed, and 1 suite. Twelve tests are in tests/worldwide/coverage-ui.test.tsx. One is the shared setup smoke test in src/__tests__/setup.ts. Jest wrote its report to stderr, together with the ts-jest isolatedModules deprecation warning, the VM Modules experimental warning, and the NO_COLOR warning caused by FORCE_COLOR. stdout is the npm script banner plus the wrapper lines EXIT:0 and HOME_USED=/tmp/ipfs-accelerate-validation-home-rnDU9N."
+  ],
+  "outputs": [
+    {
+      "path": "src/components/worldwide/CoveragePage.tsx",
+      "bytes": 30998,
+      "sha256": "5fafeda339cafd42757ea8149dfd71e82bde11bc45e46c1d7c29be70a8f2d594"
+    },
+    {
+      "path": "src/components/worldwide/PlacePage.tsx",
+      "bytes": 6583,
+      "sha256": "9e3340fa6568bd17b6ce8c2a3be565262f9e98fbd1d444b4a4ad79dcaeccc5d0"
+    },
+    {
+      "path": "src/components/worldwide/SourcePage.tsx",
+      "bytes": 7335,
+      "sha256": "a839d4896ad74861b466ca837bcf3140270649c2d628a70e91675ac9a9101f18"
+    },
+    {
+      "path": "tests/worldwide/coverage-ui.test.tsx",
+      "bytes": 26849,
+      "sha256": "f8e3151c40899be64cc24618c3564f5bde155251cb89f54a33ae598e457e65d0"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/coverage-ui.test.tsx"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_86cdd040a75e_da68f66e718c",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node v23.11.1. npm is /usr/bin/npm 10.9.2. HOME was /tmp/ipfs-accelerate-validation-home-rnDU9N. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. The package script runs NODE_OPTIONS=--experimental-vm-modules jest --verbose. stdout was the npm script banner plus the wrapper lines named in known_limitations. stderr was the Jest report and the warnings named in known_limitations.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "failed": 0,
+      "passed": 13,
+      "suites": 1
+    },
+    "stdout_sha256": "26c867f67885aeea0bbed7085677f35d37c8d8de307885b39c873894d47e6dec",
+    "stderr_sha256": "75a1c768f2dad12e2ed8119a637d04c0d5fb4b5bd5c573661bdfb996fe6cadbe"
+  }
+}
