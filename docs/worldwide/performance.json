@@ -1,0 +1,93 @@
+{
+  "schema": "worldwide-legal-search.performance@1",
+  "profile": "mid-range-mobile",
+  "measurements": {
+    "shell_gzip_bytes": 66139,
+    "catalog_bytes": 458774,
+    "first_place_search_bytes": 649535,
+    "warm_p95_ms": 820,
+    "cold_p95_ms": 1979,
+    "concurrent_requests": 4,
+    "heap_bytes": 150702448,
+    "common_term_fanout_requests": 7,
+    "cancellation_observed": true
+  },
+  "targets": {
+    "shell_gzip_bytes": 358400,
+    "catalog_bytes": 1048576,
+    "first_place_search_bytes": 10485760,
+    "warm_p95_ms": 1000,
+    "cold_p95_ms": 5000,
+    "concurrent_requests": 4,
+    "heap_bytes": 268435456
+  },
+  "budgets_met": true,
+  "regressions": [],
+  "scale": {
+    "jurisdictions": 36,
+    "posting_entries": 50000,
+    "worker_yield_every": 1024,
+    "trials": 21,
+    "concurrency_batch": 12,
+    "common_term": "statute",
+    "place_term": "housing",
+    "place_jurisdiction": "nl"
+  },
+  "trace": {
+    "cpu_slowdown": 4,
+    "rtt_ms": 70,
+    "downlink_bits_per_second": 12000000,
+    "source": "Recorded mid-range mobile profile. CPU slowdown is the Chrome DevTools 4x throttle. Network is a responsive LTE trace of 70 ms RTT and 12 Mbit/s, applied to the measured catalog, directory, shard-summary, and posting bytes. Not a physical handset."
+  },
+  "host": {
+    "warm_p95_ms": 205,
+    "warm_samples_ms": [
+      204.923,
+      239.726,
+      195.112,
+      175.386,
+      184.494,
+      168.128,
+      200.093,
+      161.19,
+      167.987,
+      160.365,
+      191.179,
+      172.663,
+      163.599,
+      160.842,
+      187.988,
+      179.363,
+      160.384,
+      171.054,
+      171.528,
+      194.983,
+      181.63
+    ]
+  },
+  "transfers": {
+    "shell_gzip_bytes": 66139,
+    "shell_files": [
+      "assets/index-ba3bb010.js",
+      "assets/shell-vendor-b17b141a.js"
+    ],
+    "catalog_json_bytes": 443249,
+    "gazetteer_bytes": 15525,
+    "routing_bytes": 10530,
+    "posting_bytes": 639005,
+    "directory_waves": 3,
+    "shard_summary_bytes": 1050
+  },
+  "fanout": {
+    "requests": 7,
+    "shard_requests": 4,
+    "unopened_shards": 32,
+    "searchable_collections": 36,
+    "per_country_fanout": false
+  },
+  "cancellation": {
+    "worker_examined_entries": 1024,
+    "worker_cancelled": true,
+    "transport_cancelled": true
+  }
+}

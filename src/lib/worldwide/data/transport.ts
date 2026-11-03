@@ -1011,6 +1011,7 @@ function defaultSleep(ms: number, signal: AbortSignal | undefined): Promise<void
 
 class RequestGate {
   private active = 0;
+  private peak = 0;
   private readonly waiters: Array<{
     signal: AbortSignal | undefined;
     resolve: () => void;
@@ -1020,10 +1021,21 @@ class RequestGate {
 
   constructor(private readonly limit: number) {}
 
+  /** Highest number of artifact exchanges in flight since the last sample. */
+  peakActive(): number {
+    return this.peak;
+  }
+
+  /** Start a new in-flight sample without dropping exchanges that are still running. */
+  resetPeak(): void {
+    this.peak = this.active;
+  }
+
   async enter(signal: AbortSignal | undefined): Promise<void> {
     throwIfAborted(signal, 0);
     if (this.active < this.limit) {
       this.active += 1;
+      if (this.active > this.peak) this.peak = this.active;
       return;
     }
     await new Promise<void>((resolve, reject) => {
@@ -1043,6 +1055,7 @@ class RequestGate {
     });
     throwIfAborted(signal, 0);
     this.active += 1;
+    if (this.active > this.peak) this.peak = this.active;
   }
 
   leave(): void {
@@ -1166,6 +1179,16 @@ export class ArtifactTransport {
 
   limitations(): readonly string[] {
     return TRANSPORT_LIMITATIONS;
+  }
+
+  /** Peak in-flight artifact exchanges since the last concurrency sample. */
+  peakConcurrent(): number {
+    return this.gate.peakActive();
+  }
+
+  /** Measure the next batch from zero, or from the exchanges still inside the gate. */
+  resetConcurrencySample(): void {
+    this.gate.resetPeak();
   }
 
   async discoverCapability(input: {

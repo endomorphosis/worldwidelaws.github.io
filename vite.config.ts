@@ -43,7 +43,26 @@ export default defineConfig({
   },
   build: {
     target: 'es2020', // Ensure modern browser features are supported
+    cssCodeSplit: true,
+    // The initial script graph is the shell. Optional model, game, and
+    // database packages stay in their own chunk and are not preloaded.
+    modulePreload: {
+      resolveDependencies(_filename, deps) {
+        return deps.filter((dep) => !dep.includes('optional-tools'));
+      },
+    },
     rollupOptions: {
+      output: {
+        manualChunks(id) {
+          const normalized = id.replace(/\\/g, '/');
+          if (!normalized.includes('/node_modules/')) return undefined;
+          if (/\/(react|react-dom|scheduler)\//.test(normalized)) return 'shell-vendor';
+          if (/\/(pixi\.js|@pixi|@huggingface|onnxruntime-web|@duckdb|duckdb|@electric-sql|libp2p|hnswlib-node|hnswlib-wasm|parquet-wasm|@clerk|replicate|uplot)\//.test(normalized)) {
+            return 'optional-tools';
+          }
+          return undefined;
+        },
+      },
       onwarn(warning, warn) {
         // All warnings are now processed normally
         warn(warning);

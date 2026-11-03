@@ -1,0 +1,76 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-081",
+  "title": "Measure corpus shard scale memory and network budgets",
+  "recorded_at": "2026-11-03T21:07:29Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete. The recorded sample meets the PLAN.md mid-range mobile ceilings: shell gzip 66139 of 358400, catalog plus gazetteer 458774 of 1048576, first place search 649535 of 10485760, warm p95 820 ms of 1000 ms, cold p95 1979 ms of 5000 ms, 4 concurrent artifact requests, and heap 150702448 of 268435456. Common-term search scheduled 7 requests and opened 4 of 36 jurisdiction shards. Cancellation was observed.",
+  "site_branch": "implementation/wwl-081-aa8ac156fd19-attempt-1-1793738605",
+  "site_revision": "4d69920cfb2037d681eb491d81734eee686170c5",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "site_revision is HEAD before these edits. scripts/worldwide/benchmark.ts and docs/worldwide/performance.json are untracked. vite.config.ts, src/lib/worldwide/search/global.ts, src/lib/worldwide/data/transport.ts, and src/workers/worldwideSearchWorker.ts are modified and uncommitted.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "Cold and warm percentiles use a recorded mid-range mobile profile: Chrome DevTools 4x CPU throttle, and a responsive LTE trace of 70 ms RTT and 12 Mbit/s applied to the measured transfer sizes. This is not a physical handset and not a live upstream.",
+    "Shell gzip counts the production module script and the static JavaScript it imports or modulepreloads. The measured files are assets/index-ba3bb010.js at 20673 gzip bytes and assets/shell-vendor-b17b141a.js at 45466 gzip bytes. CSS and the async research and model chunks are outside that graph. The Vite dist directory is not committed.",
+    "catalog_bytes is the published browser catalog JSON at 443249 bytes plus the geography manifest at 15525 bytes. publishCatalog already stays inside its own 1 MiB catalog budget.",
+    "first_place_search_bytes is the hierarchical routing transfer for housing in nl at 10530 bytes plus the canonical JSON of one 50000-entry posting shard at 639005 bytes. The whole 36-country index is not included.",
+    "The benchmark corpus keeps 36 searchable jurisdictions and two unsearchable collections. The common term statute has document frequency 48 on every searchable collection. The place term housing is only on nl and is scored as 50000 posting entries. Those counts were not reduced.",
+    "Common-term search scheduled 7 requests, of which 4 were shard requests, and left 32 shards unopened. perCountryFanout stayed false.",
+    "The worker yields every 1024 posting entries. Caller cancellation stopped scoring after 1024 of 50000 entries. Transport cancellation returned TransportError code cancelled. Host warm p95 over 21 timed trials, after one untimed warmup, was 205 ms. The recorded mobile warm p95 is ceil(205 ms times 4), which is 820 ms.",
+    "heap_bytes is the peak process.memoryUsage().heapUsed sampled while publishing the catalog, building routing, fetching the concurrency batch, and running the warm trials. It is the benchmark process heap, not a separate isolated heap dump.",
+    "concurrent_requests is the RequestGate peak and the fetch-wrapper peak. Both were 4 while 12 artifacts were in the batch.",
+    "node is v23.11.1 at /usr/bin/node. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-wwl081.B0Xm1C. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. Python was not required. stdout is the audit JSON. stderr was empty.",
+    "This worktree had no committed node_modules. The Vite build and the TypeScript loader used a gitignored symlink at node_modules to the package-lock install in workspace_6a9967f6dae4_8ef424897d55. That symlink is not a task output. package.json and package-lock.json were not edited. The benchmark loaded each TypeScript module separately so the routing builder kept its own import.meta.url and did not run as a CLI."
+  ],
+  "outputs": [
+    {
+      "path": "scripts/worldwide/benchmark.ts",
+      "bytes": 27335,
+      "sha256": "053163cf9b5c357f4c0e5db5cd89c239527197402eb9a37c72f68472f487fa9f"
+    },
+    {
+      "path": "docs/worldwide/performance.json",
+      "bytes": 2274,
+      "sha256": "ad4f6c9f1b0c85857e43880124fa7fba1c0d17f1e98a32d046e86302015c3247"
+    },
+    {
+      "path": "vite.config.ts",
+      "bytes": 2957,
+      "sha256": "0e0b01f7498de922a73e591899cf00983dd36686634054e47a2fe2e65674fc19"
+    },
+    {
+      "path": "src/lib/worldwide/search/global.ts",
+      "bytes": 45620,
+      "sha256": "1754d97ba3b532576ae77ce1d60d73b54a6ff2594a7a8cc7b2dba17fcb4ab8fa"
+    },
+    {
+      "path": "src/lib/worldwide/data/transport.ts",
+      "bytes": 69858,
+      "sha256": "88e61c14551598c607a07b256babfa5984ec2e726d709edacb06cc921653fa74"
+    },
+    {
+      "path": "src/workers/worldwideSearchWorker.ts",
+      "bytes": 10227,
+      "sha256": "b70a9b55a48ec82a276cdae2d0029058af343a3fb6318e2568d834775b1ff30c"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "node",
+      "scripts/worldwide/audit.mjs",
+      "performance"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_2b1c20bd4e93_3d1b01a1001a",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node v23.11.1. HOME was /tmp/ipfs-accelerate-validation-home-wwl081.B0Xm1C. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. stdout was the audit JSON. stderr was empty.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "command": "performance"
+    },
+    "stdout_sha256": "f66f148644d100e557b13e08a7097481b65785d45b15de9bdbd27fac3ac1f48d",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
