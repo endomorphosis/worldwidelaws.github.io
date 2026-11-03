@@ -1,0 +1,76 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-045",
+  "title": "Implement progressive worldwide search without per-country fanout",
+  "recorded_at": "2026-11-03T09:08:16Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-045-b52b0b9129e9-attempt-1-1793695129",
+  "site_revision": "2c1bdc8cfb1c1f5fa0536a5f36f872ebcdddcf4d",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "scripts/worldwide/build-global-routing.ts, src/lib/worldwide/search/global.ts, and tests/worldwide/worldwide-search.test.ts are untracked working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "Worldwide search walks a hierarchical term directory or a hierarchical citation directory. It does not issue one request per country and it does not load posting payloads, document bodies, or embeddings.",
+    "The Pages document is the routing root only. Child directories and shard summaries stay remote. fullCorpusBundled and shardSummariesBundled stay false.",
+    "A directory that would exceed maxDirectoryBytes is split by key range. A shard summary that would exceed maxShardSummaryBytes drops hits from the tail and sets summariesTruncated.",
+    "Default page bounds are 8 artifact requests, 4 shard summaries, 1 MiB, and concurrency 4. The implementation accounts those loads in order and reports batches of at most 4. It does not perform network I/O; the caller supplies an in-memory routing index.",
+    "A cursor is bound to the catalog revision, normalized query or citation, allow-list filters, page size, and page budgets. A different binding is cursor-mismatch.",
+    "Common terms open at most maxShardRequestsPerPage summaries and keep the unopened shard pointers for continuation. Repeating a cursor returns the same page.",
+    "matchTotal is null while any directory or shard remains, a summary was truncated, the query was token-capped, or any collection is not known with a numeric indexedRecords. Routing document frequency is not reported as a total.",
+    "matchTotal on a finished known catalog is the count of emitted summary hits. claimsAllWorldwideResults is false, and the label does not say all worldwide results.",
+    "Continuation reads the remaining queued directories and shards. A wave remainder is emitted before another shard is opened, and an already visited summary is not loaded again.",
+    "Summary scores are caller-supplied integers used only for stable order. This module does not rescore BM25 and does not fuse ranks. Titles are stored up to 256 characters.",
+    "Missing, unknown, and unavailable collections stay in the coverage display and have no shard. Partial collections that are searched remain partial.",
+    "Strict filters are allow-lists. They remove shard pointers and hits. They do not add a country and they are not score weights.",
+    "Place-scoped authority stack selection stays in the planner. This module does not decide that an instrument binds conduct.",
+    "The Jest reporter counted 10 passing tests. One is the existing setup test in src/__tests__/setup.ts. Nine exercise this routing builder and worldwide search.",
+    "node_modules was absent and was installed with npm ci --ignore-scripts so Jest could run. package.json and package-lock.json were not edited.",
+    "node is v23.11.1 at /usr/bin/node. npm is 10.9.2 at /usr/bin/npm.",
+    "CI=1 was set so Jest would not enter watch mode. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-wwl045.receipt. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. FORCE_COLOR and NO_COLOR were unset.",
+    "npm wrote the script banner to stdout. Jest wrote the passing reporter, the VM Modules experimental warning, and the ts-jest isolatedModules deprecation warning to stderr. stderr was not empty. The process exit code was 0.",
+    "The test did not call Python. A separate tsc --noEmit of the repository reported existing diagnostics in other files and none in these three outputs. That tsc run is not the task validation command."
+  ],
+  "outputs": [
+    {
+      "path": "scripts/worldwide/build-global-routing.ts",
+      "bytes": 35438,
+      "sha256": "a4cc21f050fdc58bb27d1c5cae92ac3085e389c1ad7e4b74ea88de8b133c1ad1"
+    },
+    {
+      "path": "src/lib/worldwide/search/global.ts",
+      "bytes": 44087,
+      "sha256": "e67b1cb4063657de2674cef2c6ce6fc1855097f5cdcef72fd31ac9c4d292c6b4"
+    },
+    {
+      "path": "tests/worldwide/worldwide-search.test.ts",
+      "bytes": 18712,
+      "sha256": "ae8d90c17d7b1ea0f5f03e0ff009ec352c1e4dfccda1743e2cb17612c2a3870b"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/worldwide-search.test.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_91fcb1c3818e_0a7324c6e06d",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-wwl045.receipt. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. CI=1 was set. FORCE_COLOR and NO_COLOR were unset. npm wrote the script banner to stdout. Jest wrote the passing reporter and the Node VM Modules and ts-jest isolatedModules warnings to stderr.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 10,
+      "failed": 0,
+      "setup_tests": 1,
+      "worldwide_search_tests": 9
+    },
+    "stdout_sha256": "ad793cbcb345446206576becdb6005603199050b4c002aa257fed06fa6e09104",
+    "stderr_sha256": "e349aa87f9b6d2e5fa7aff3c0acd1417445179079f3379c1d292f6ddfd6ece64"
+  }
+}
