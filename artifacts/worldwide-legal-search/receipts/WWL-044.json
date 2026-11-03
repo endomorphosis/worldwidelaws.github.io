@@ -1,0 +1,75 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-044",
+  "title": "Implement place-scoped federated retrieval and rank fusion",
+  "recorded_at": "2026-11-03T08:08:03Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-044-169b30ffe0ff-attempt-1-1793691859",
+  "site_revision": "cd3f82afb225f7fe096c22670a46a5531a54b7b9",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "src/lib/worldwide/search/planner.ts, src/lib/worldwide/search/fusion.ts, and tests/worldwide/search-scope.test.ts are untracked working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "The planner resolves the supported authority stack before it selects sources. It does not rank and it does not fetch shard bytes. Shard requests are grouped into batches of at most 4.",
+    "A strict filter is an allow-list. It can narrow the already selected stack. It cannot add a place, band, or source the stack omitted, and it has no score weight.",
+    "Unevidenced special and supranational authorities stay out of the stack. A nearby place is not searched. Administrative containment is not a rank bonus.",
+    "Searched collections are pinned sources with known or partial coverage and a bm25, citation, vector, or title index. Missing, unknown, unavailable, blocked, excluded, unpinned, and unindexed sources are counted and are not searched.",
+    "knownRecords sums indexedRecords of searched sources. eligibleRecords is not added. A null indexedRecords value makes knownRecordsComplete false. A partial source stays partial.",
+    "A stack candidate with no source remains a coverage gap. The larger or nearer corpus is not substituted.",
+    "Fusion is reciprocal rank fusion with k=60. The score is the sum of 1/(60+rank). Each index contributes its best rank once. Raw BM25, vector, title, and citation scores are stored as ignoredRawScore and are not added.",
+    "The same source, revision, instrument, text version, and section collapse to one row. Equivalent-text merges only on an explicit relation. A shared body hash alone does not merge. A conflicting-version relation blocks that merge.",
+    "Different text versions of one instrument stay separate, keep their own ranks, and share a version group. No official citation is invented for a hit that has no identity.",
+    "Hits from a source or index outside the planned batches are quarantined and are not ranked.",
+    "Unknown status does not satisfy a current or in-force filter. When the caller supplies temporal clocks, in-force requires the temporal assessment to be current. A missing timezone is not treated as UTC.",
+    "returnedMatches is the fused page, capped at 100 and defaulting to 20. It is not an unsearched total. partialSearch stays true when coverage is partial or missing, a stack candidate has no source, or a list or page is truncated.",
+    "The planner and fusion do not decide that an instrument binds conduct.",
+    "The Jest reporter counted 9 passing tests. One is the existing setup test in src/__tests__/setup.ts. Eight exercise this planner and fusion.",
+    "node_modules was absent and was installed with npm ci --ignore-scripts so Jest could run. package.json and package-lock.json were not edited.",
+    "node is v23.11.1 at /usr/bin/node. npm is 10.9.2 at /usr/bin/npm.",
+    "CI=1 was set so Jest would not enter watch mode. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-wwl044.1JokFs. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. FORCE_COLOR and NO_COLOR were unset.",
+    "npm wrote the script banner to stdout. Jest wrote the passing reporter, the VM Modules experimental warning, and the ts-jest isolatedModules deprecation warning to stderr. stderr was not empty. The process exit code was 0."
+  ],
+  "outputs": [
+    {
+      "path": "src/lib/worldwide/search/planner.ts",
+      "bytes": 45136,
+      "sha256": "482844d4107123b5ce603f8e67ca0a08e68b0f47fbc0ca2194d7ef82a464c155"
+    },
+    {
+      "path": "src/lib/worldwide/search/fusion.ts",
+      "bytes": 34650,
+      "sha256": "e4625486b83bbd5380957a53ac86adb4046694608df39a3745f8c3eaff9cd789"
+    },
+    {
+      "path": "tests/worldwide/search-scope.test.ts",
+      "bytes": 34447,
+      "sha256": "6a1e556f170b4325a8fd8615725f3c356093786bc4d6b2376e40acadac7b103b"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/search-scope.test.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_92e0ab51fe2a_efde2683c6f8",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-wwl044.1JokFs. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. CI=1 was set. FORCE_COLOR and NO_COLOR were unset. npm wrote the script banner to stdout. Jest wrote the passing reporter and the Node VM Modules and ts-jest isolatedModules warnings to stderr.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 9,
+      "failed": 0,
+      "setup_tests": 1,
+      "search_scope_tests": 8
+    },
+    "stdout_sha256": "553950e1e911dc68bd4e2f084a278b1f9a2dda13eb02007044e1df377d1da6d6",
+    "stderr_sha256": "524f88312f2b1512809b1f605f0a8d42a68ce01efec2ea501e26b50206a8dc7a"
+  }
+}
