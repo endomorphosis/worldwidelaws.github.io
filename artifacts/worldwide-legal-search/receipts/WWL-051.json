@@ -1,0 +1,89 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-051",
+  "title": "Implement the global application shell navigation and context",
+  "recorded_at": "2026-11-03T08:37:07Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-051-5cfbdbc6ffbc-attempt-1-1793693372",
+  "site_revision": "65bedbddd91482208ce401bbca93c5ee318c8900",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "The shell files are uncommitted. site_revision is HEAD before those edits. index.html, src/AppStatic.tsx, src/index.css, src/main.tsx, and src/styles/worldwide.css are modified. SearchContext.tsx, WorldwideLegalSearchApp.tsx, and tests/worldwide/shell.test.tsx are untracked.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "Search does not retrieve laws or sources. Counts stay at 0. Results, filters that query a collection, the reader, and coverage pages remain WWL-052 and later.",
+    "The shell does not call device geolocation, GeoIP, a model, login, or a proxy while it loads. Map and model stay closed.",
+    "The Netherlands research workspace loads only when the migration flag is on and the visitor uses the explicit control. The flag is the URL query nl or wwl-nl, or localStorage worldwide-legal-search.nl-migration.",
+    "Interface labels for English, Dutch, Arabic, and Japanese live in the shell. They are not a separate locale loader. Document direction is set on the .wwl root.",
+    "The place combobox offers the current stable id and, when migration is on, the Netherlands row, plus a typed stable id. It does not download a gazetteer.",
+    "Nothing in this shell decides that a law applies.",
+    "The screen was exercised in Jest with jsdom. A browser was not opened.",
+    "node is v23.11.1 at /usr/bin/node. npm is /usr/bin/npm. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-wwl051.b80843. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state.",
+    "The process exit code was 0. Nine tests passed. Jest wrote its report to stderr, together with the NO_COLOR/FORCE_COLOR warning, the ts-jest isolatedModules deprecation warning, and the VM Modules experimental warning. stdout is the npm script banner."
+  ],
+  "outputs": [
+    {
+      "path": "src/components/worldwide/WorldwideLegalSearchApp.tsx",
+      "bytes": 18537,
+      "sha256": "ec1fc633a16229127be8c48862b6456f889845bae20464105c4b6fd29616ff82"
+    },
+    {
+      "path": "src/components/worldwide/SearchContext.tsx",
+      "bytes": 39644,
+      "sha256": "38ba7ad119acdce129a74e732cce1397060ef0f92e6c936b9c8ed7604aa28f73"
+    },
+    {
+      "path": "src/AppStatic.tsx",
+      "bytes": 526,
+      "sha256": "41a8f27ce7382b8d4e99abefd68763ee8a59b9f4b680fc0c2c860444dd09880e"
+    },
+    {
+      "path": "src/main.tsx",
+      "bytes": 291,
+      "sha256": "d43b0ed26d6fcf6cad0d1c70a3365d5206cb0e0d86c6af36f3a1c9c4bacbe911"
+    },
+    {
+      "path": "src/index.css",
+      "bytes": 5839,
+      "sha256": "9072fcf59ba388f9934bd0692a7f79cfe0c9d54f22e4e70cc3b75a4bf37fe7e6"
+    },
+    {
+      "path": "index.html",
+      "bytes": 1360,
+      "sha256": "eac534a71ccb848392824dfa1d52657dc724fa54986711ec4ef5b3e34a3770dc"
+    },
+    {
+      "path": "src/styles/worldwide.css",
+      "bytes": 18258,
+      "sha256": "c6a1ef950a8a02089c8486f875a8d4a82c01e15efcf4fe7cc1296807de75d64e"
+    },
+    {
+      "path": "tests/worldwide/shell.test.tsx",
+      "bytes": 13970,
+      "sha256": "511215600ec10ebd11ea0c582b927d13e99b91627a42dabc57a0404624047445"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/shell.test.tsx"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_c5912602ce90_4ba20c3092d2",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node v23.11.1. npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-wwl051.b80843. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. The package script runs NODE_OPTIONS=--experimental-vm-modules jest --verbose. stdout was the npm script banner. stderr was the Jest report and the warnings named in known_limitations.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "failed": 0,
+      "passed": 9,
+      "suites": 1
+    },
+    "stdout_sha256": "da7fef9b458961a6be934462c2858918f65ab51e652356db24f964ad31fb7cdd",
+    "stderr_sha256": "078bedb4ba3da995681ac6c338d53688aca3e1471cc71fd7f148f7405b09211f"
+  }
+}
