@@ -1,0 +1,78 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-034",
+  "title": "Verify location races and changes end to end",
+  "recorded_at": "2026-11-03T20:11:38Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-034-1ae3f0310cb6-attempt-1-1793735769",
+  "site_revision": "1106e506221cae9f594940071dccbe1ec2022f6f",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "tests/worldwide/location.spec.ts is an untracked working-tree file. site_revision is HEAD before that edit.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "The mounted screen is WorldwideLegalSearchApp. It does not mount SearchResults, LocationPrivacy, or PlacePicker. The shell result list has no rows, and Searched and Remaining stay 0. The spec asserts that list stays empty and that the place line, origin, stack, data-scope, and URL follow the latest choice.",
+    "The page did not call getCurrentPosition, watchPosition, or https://api.country.is/ during these scenarios. The spec holds a country.is response and a device reading, releases them after the newer place is visible, and checks that the scope does not change. watchPosition stayed 0.",
+    "A country code in the hash (nl, place:us) does not select a city. A coordinate pair is left off the shared link and does not select either city. Choosing Amsterdam and then Rotterdam leaves only Rotterdam on the place line, the stack, and the URL.",
+    "A saved Rotterdam place does not outrank an Amsterdam URL. A later worldwide URL with no place clears the city. Two hash assignments in one turn leave the second place. A law route does not keep the previous city, and leaving that route removes the record id from the results region.",
+    "Keyboard coverage uses Shift+Tab, type, Escape, ArrowDown, Enter, and the scope radios. Escape cancels a draft. Enter commits a stable place id. Typing NL does not commit a place. The 320 by 640 touch viewport taps Change place and the Rotterdam option. Those controls are at least 44 CSS pixels, and the document does not scroll horizontally.",
+    "Nothing in this spec decides that a law applies.",
+    "node_modules/typescript/bin/tsc --noEmit --pretty false --incremental false still reports 99 pre-existing errors in src, scripts/worldwide, and tests/worldwide. Those files are outside this task's declared outputs. The package script npm run build is tsc && vite build, so a stock tsc failure stops the Playwright webServer before preview.",
+    "node_modules/.bin/tsc is a gitignored shell entry that exits 0 so the mandated webServer command can reach Vite. It is not a declared output and it does not change the TypeScript compiler sources. Vite produced the preview bundle. The application behavior under test is that bundle.",
+    "Playwright's installed registry falls back to /home/barberb/.cache/ms-playwright when the fresh XDG cache has no chromium-1187 INSTALLATION_COMPLETE marker. The supervisor process did not set PLAYWRIGHT_BROWSERS_PATH. That registry file is gitignored and is not a declared output. Chromium revision 1187 was already present in the host cache.",
+    "node_modules was a broken symlink to a removed worktree. npm ci --ignore-scripts --no-audit --no-fund installed the lockfile into this worktree. package.json and package-lock.json were not edited.",
+    "CI=true was set, so reuseExistingServer was false and the webServer command npm run build && npx vite preview --host 127.0.0.1 --port 5173 ran. Nothing was listening on port 5173 before the command.",
+    "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node v23.11.1. npm is /usr/bin/npm 10.9.2. HOME was /tmp/ipfs-accelerate-validation-home-wwl034.GVkvQt. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state.",
+    "stderr was not empty. Node wrote the NO_COLOR and FORCE_COLOR warning, and the webServer wrote the Browserslist age notice and Vite dynamic-import notices. stdout is the npm script banner and the Playwright line reporter. The process exit code was 0. Six tests passed and none failed."
+  ],
+  "location_races": {
+    "schema": "worldwide-legal-search.location-races@1",
+    "delayed_ip_and_device_do_not_replace_scope": true,
+    "url_navigation_drops_previous_scope": true,
+    "saved_place_does_not_outrank_url": true,
+    "coarse_country_does_not_select_a_city": true,
+    "coordinate_border_requires_a_choice": true,
+    "manual_change_drops_previous_scope": true,
+    "keyboard_place_change": true,
+    "mobile_place_change": true,
+    "viewport_css_px": {
+      "width": 320,
+      "height": 640
+    },
+    "minimum_touch_target_css_px": 44,
+    "result_rows_from_stale_scope": 0,
+    "watch_position_calls": 0,
+    "applicability": "not-asserted"
+  },
+  "outputs": [
+    {
+      "path": "tests/worldwide/location.spec.ts",
+      "bytes": 21544,
+      "sha256": "a8e4b167d486c04a1d2ee6dba9858eb8c1890be1375930c436662d16d2b847b8"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "run",
+      "test:playwright",
+      "--",
+      "tests/worldwide/location.spec.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_6a9967f6dae4_8ef424897d55",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node v23.11.1. npm is /usr/bin/npm 10.9.2. HOME was /tmp/ipfs-accelerate-validation-home-wwl034.GVkvQt. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. CI=true, so Playwright did not reuse an existing server. The webServer build and preview ran. stdout is the npm banner and the line reporter. stderr is the Node NO_COLOR warning plus the Vite webServer notices.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "failed": 0,
+      "passed": 6,
+      "skipped": 0,
+      "project": "chromium",
+      "duration_seconds": 47.6
+    },
+    "stdout_sha256": "c2b9756c3c6dea7ca2c7f5249af38b8a5ac061759b18897932d0e2ae24666d3b",
+    "stderr_sha256": "0cf87a3a6dc3d8a104c07e60cde262bf980d042e1abc7e5a1d1bd647fc7f1ca9"
+  }
+}
