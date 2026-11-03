@@ -1,0 +1,81 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-024",
+  "title": "Implement date-aware candidate scope and law status",
+  "recorded_at": "2026-11-03T06:12:40Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-024-5a1bbb29d99e-attempt-1-1793685186",
+  "site_revision": "2d602622cfe87b96276fad31aa5430162250dc76",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "temporal.ts and temporal-scope.test.ts are uncommitted relative to site_revision. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of an ordinary git status unless it is already in the index.",
+    "As-of scope does not decide what binds conduct. applicability is not-asserted.",
+    "Boundary validity and law validity are evaluated separately. A law is current only when its own interval is in force and at least one named territory is a current place.",
+    "Territorial ids must name places in the graph. Administrative parents, territorial-coverage edges, and issuer links are not walked.",
+    "Geometry, distance, and boundary flags are not inputs. Exclusion and hole roles are reported and do not establish date scope.",
+    "A civil as-of date is compared as a calendar label. It is not reinterpreted as UTC midnight. A zoned instant is converted to the civil day of each source timezone before the partial-date comparison.",
+    "Partial dates use the jurisdiction interval rule: comparison is at the coarser shared precision, the start is inclusive, and the end date itself stays inside. A repeal or boundary end leaves the interval only when the as-of value is strictly later at that precision.",
+    "An unknown commencement, unknown repeal, unknown declared status, unknown amendment date, or unknown or invalid timezone is not current. An open repeal is a sourced statement that there is no end. It is not an unknown repeal.",
+    "Publication is not commencement. An amendment stays on its own field: it does not replace commencement and it does not repeal the instrument. Repeal is not stored as an amendment.",
+    "A declared status of historical or superseded stays that label and is not current, even when the commencement-repeal interval contains the date. A declared status that contradicts the interval is unknown rather than choosing a side.",
+    "A missing place or boundary clock is an unknown timezone, so that place is not current even when the civil interval would contain the date.",
+    "An approximate boundary can make a place current only when the place has no primary or disputed boundary. An unknown primary is not replaced by an approximate boundary.",
+    "A disputed boundary is omitted until its view id is selected. Selecting a view does not rank it above another selected boundary.",
+    "Inferred dates are comparable, matching jurisdiction intervals. Inferred is not treated as unknown.",
+    "The candidate walk stops at 20000 places, 20000 boundaries, 5000 laws, and 64 amendments per law. Omitted laws and amendments are not treated as current.",
+    "Duplicate law ids are not merged and are not current. A floating source revision such as latest or current is not current.",
+    "Jest is not on the sealed PATH. This worktree had no node_modules. A gitignored symlink named node_modules points at the identical package-lock install in workspace_c361ba4c396d_6649c8d8c46a and is left in place. npm prepends node_modules/.bin when it runs the test script.",
+    "The Jest reporter and the existing Node NO_COLOR and VM Modules warnings were written to stderr. stderr was not empty. The process exit code was 0.",
+    "The reporter counted 17 passing tests. One is the existing setup test. Sixteen exercise this temporal scope."
+  ],
+  "temporal_scope": {
+    "schema": "worldwide-legal-search.temporal-scope@1",
+    "applicability": "not-asserted",
+    "law_date_fields": ["commencement", "publication", "amendment", "repeal"],
+    "law_status_labels": ["in-force", "not-yet-in-force", "repealed", "historical", "superseded", "unknown"],
+    "limits": {
+      "maxPlaces": 20000,
+      "maxBoundaries": 20000,
+      "maxLaws": 5000,
+      "maxAmendments": 64,
+      "maxOmittedIds": 100
+    }
+  },
+  "outputs": [
+    {
+      "path": "src/lib/worldwide/jurisdiction/temporal.ts",
+      "bytes": 44444,
+      "sha256": "79bd027a30ddc9ddcc37d1e311ea43db49933edffe87b589276cd8fda54b5c8c"
+    },
+    {
+      "path": "tests/worldwide/temporal-scope.test.ts",
+      "bytes": 25410,
+      "sha256": "e75a45c8d27d5dcfadcc0f7aae3d93dbe7132ca3afba27b9c6f571e576c6432e"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/temporal-scope.test.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_b3c671dc4616_16f0ad8712e7",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-wwl024.BPZOlM. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. npm wrote the script banner to stdout. Jest wrote the passing reporter to stderr.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 17,
+      "failed": 0
+    },
+    "stdout_sha256": "508dc3c30042e394ef4cd6c9c65c4931b9feeb6fbfc238094c1e31bf38d84968",
+    "stderr_sha256": "db73cb8ad8396b7d88a2ae53376d2d9ff96ddcd2133774a61ec6676c3ce1bdc8"
+  }
+}
