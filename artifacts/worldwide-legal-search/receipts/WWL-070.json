@@ -1,0 +1,67 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-070",
+  "title": "Integrate bounded source citations and graph navigation",
+  "recorded_at": "2026-11-03T22:26:37Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-070-07b46d1ceedd-attempt-1-1793743034",
+  "site_revision": "a4cf9e8a9b97e6472bdcfaa9c693a3851d4f1251",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "src/lib/worldwide/research/graph.ts and tests/worldwide/graph-parity.test.ts are untracked working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "Graph nodes, edges, labels, and adjacency order follow country_laws_ir graph.py at commit 2ea4ca6804b3c4cc44e43d0539f4c3fcae011747. A section record is stored as node_type article. ARTICLE_OF still links it to the parent entry.",
+    "A missing identifier stays empty. graph.py can stringify a pandas NaN cell as the token nan. This port does not create that token. A caller-supplied string nan is kept.",
+    "The multilingual heading segmenter in structure.py is not reimplemented. A parenthesized marker such as (1) or (a) stays inside the selected text and does not become a node.",
+    "Catalog structure links are used only when no graph is present or the supplied graph has no nodes and no edges. A present graph is navigated from its adjacency pages, including when it does not mention the selected record.",
+    "Node, depth, and network budgets stop before the next node or the next unread adjacency page. Pages already accepted stay. The selected source stays. Default caps are 32 nodes, depth 2, and 256 KiB. The ceilings are 1024 nodes, depth 8, and 8 MiB.",
+    "Network bytes are the adjacency page size declared before the read. Catalog structure links spend no network bytes. Depth 0 reads no page. ADJACENCY_POINTERS_PER_SHARD is recorded and is not a second page split.",
+    "reader.blocked is false on every result, including a missing graph, an empty graph, an unreadable graph, a refused budget, and an unknown citation. The result, every node, and every edge keep claim status not-asserted. A BM25 score is a retrieval score.",
+    "Source evidence is copied from the selected row or from that graph node's own properties. A neighbor that is not in the catalog does not inherit another row's URL. Assigned citation text is marked assigned-citation and does not replace source fields.",
+    "The pinned projection sha256 8ed6b2cceded5da9f7766b44989dc03de1c0744b2d05b08614c9fbb4ea80c68e covers nodes, edges, and stats from graph.build_graph on the clean four-row fixture. schema_version is asserted separately. The Jest file recomputes that digest in TypeScript and does not import country_laws_ir or pandas.",
+    "The hf_graphrag remote walk is not ported. Reader defaults are tighter than that engine's 64 MiB network cap.",
+    "The Jest reporter counted 25 passing tests. One is the existing setup test in src/__tests__/setup.ts. Twenty-four exercise this graph builder and citation expansion.",
+    "node_modules was absent and was installed with npm ci --ignore-scripts so Jest could run. package.json and package-lock.json were not edited.",
+    "node is v23.11.1 at /usr/bin/node. npm is 10.9.2 at /usr/bin/npm.",
+    "CI=1 was set so Jest would not enter watch mode. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-wwl070.S1M2ie. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state.",
+    "The Jest reporter and the Node VM Modules warning were written to stderr, along with the ts-jest isolatedModules deprecation warning. stderr was not empty. The process exit code was 0."
+  ],
+  "outputs": [
+    {
+      "path": "src/lib/worldwide/research/graph.ts",
+      "bytes": 47166,
+      "sha256": "de772c2d305b459052476d9fa372c6d6786e70cd5d51dff090c1c933c4167478"
+    },
+    {
+      "path": "tests/worldwide/graph-parity.test.ts",
+      "bytes": 34948,
+      "sha256": "62aafcb444681b5426c4aeedcf618c5a2853b8715021c791f0bbfd22cc7951ea"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/graph-parity.test.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_0250326c60f6_3b059b22f8bc",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-wwl070.S1M2ie. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. CI=1 was set. The process environment was otherwise empty. npm wrote the script banner to stdout. Jest wrote the passing reporter and the Node VM Modules and ts-jest isolatedModules warnings to stderr. The test did not import country_laws_ir or pandas.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 25,
+      "failed": 0,
+      "setup_tests": 1,
+      "graph_parity_tests": 24
+    },
+    "stdout_sha256": "8cace24355def4fcbf027f7d41002d021055ad03178ed7986cfd62950209420d",
+    "stderr_sha256": "f988abf60a693cde8b4251538875d854558553646a88b02c560a4e5767109613"
+  }
+}
