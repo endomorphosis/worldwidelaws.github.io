@@ -1,0 +1,87 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-023",
+  "title": "Join law issuers territorial scope and administrative parents",
+  "recorded_at": "2026-11-03T04:50:12Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-023-d0143b1d3979-attempt-1-1793681077",
+  "site_revision": "bc28f44285e1ad2b289f775ecee2f9cdc5599a0a",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "authority.ts and authority-stack.test.ts are uncommitted relative to site_revision. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of an ordinary git status unless it is already in the index.",
+    "The stack is a search candidate set. applicability is not-asserted on the stack and on every candidate. Inclusion text does not decide what binds conduct.",
+    "National, regional, and local administrative ancestors are included. Special, unrecognized, and supranational administrative parents are omitted unless a cited containment edge, territorial-coverage edge, delegated-authority edge, sourced legal relationship, or law scope evidences them.",
+    "Territorial coverage is one hop from the administrative and coverage territory set. A covering authority of a newly added supranational territory is not walked further.",
+    "A law joins only when its territorial ids intersect that territory set. Territorial labels are not place ids and are not matched. Unknown law scope is kept as an unknown link and its ids are not joined.",
+    "Issuer ids and territorial ids stay on separate candidate sides. A parent issuer is not copied onto a child whose issuer knowledge is none or unknown. An issuer-only node is not turned into a territory.",
+    "Unknown relationship statements are copied with a null target. An edge whose validity is unknown is not a current parent, and its endpoint is not included.",
+    "Disputed administrative parents stay out until their view ids are selected. Selecting more than one view keeps every selected parent. No parent is chosen as the only parent.",
+    "A nearby place id is never added. A sibling or child that was not walked is absent. It is not listed as an omission unless the caller supplied it as nearby or the walk refused it.",
+    "Display sentences use the first admitted name. They are not localized. Geometry, distance, and boundary flags are not inputs.",
+    "Inferred edges and legal relationships without evidence strings are not used. Known territorial-coverage and delegated-authority edges can evidence a special or supranational candidate without an extra citation string. The edge id is the trace.",
+    "Candidate, law, and nearby walks stop at 500 candidates, 5000 laws, 200 nearby ids, and depth 32. A stopped walk is truncated and incomplete.",
+    "Jest is not on the sealed PATH. This worktree had no node_modules. A gitignored symlink named node_modules points at the identical package-lock install in workspace_4f9b7b7baac1_8f4992c94c51 and is left in place. npm prepends node_modules/.bin when it runs the test script. Removing the symlink makes the declared command exit 127 with 'sh: 1: jest: not found'. That is the failure of rejected candidate a319d27888b6f0c21bab2c81b1596a152215435f.",
+    "The Jest reporter and the existing Node NO_COLOR and VM Modules warnings were written to stderr. stderr was not empty. The process exit code was 0.",
+    "The reporter counted 15 passing tests. One is the existing setup test. Fourteen exercise this authority stack."
+  ],
+  "authority_stack": {
+    "schema": "worldwide-legal-search.authority-stack@1",
+    "applicability": "not-asserted",
+    "heading": "Laws and sources for this place",
+    "bands": ["national", "regional", "local", "special", "supranational", "unclassified"],
+    "inclusion_reasons": [
+      "selected-place",
+      "administrative-parent",
+      "territorial-coverage",
+      "place-issuer",
+      "delegated-authority",
+      "legal-relationship",
+      "law-territorial-scope",
+      "law-issuer"
+    ],
+    "limits": {
+      "maxDepth": 32,
+      "maxCandidates": 500,
+      "maxLaws": 5000,
+      "maxNearby": 200,
+      "maxEvidence": 32
+    }
+  },
+  "outputs": [
+    {
+      "path": "src/lib/worldwide/jurisdiction/authority.ts",
+      "bytes": 46599,
+      "sha256": "b7b468eb8901b4f759f8940b67780ad84cbb58fd84deef5785fbf47d202b22f8"
+    },
+    {
+      "path": "tests/worldwide/authority-stack.test.ts",
+      "bytes": 43857,
+      "sha256": "1a408a827b007726f0c09ff4db86d7d3519f88223fb1c3fc0993d12dda585b57"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/authority-stack.test.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_2039a13ccd59_96592505fe4c",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-wwl023.i16TNc. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. npm wrote the script banner to stdout. Jest wrote the passing reporter to stderr.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 15,
+      "failed": 0
+    },
+    "stdout_sha256": "b981f6bc25d99b36ffad9de79cfea7f287549304e94995204387e38bf957ef61",
+    "stderr_sha256": "32e65cabce0524a0ffdda5f42e3d591e5456200ef1139bca64f72e7bc5056e5c"
+  }
+}
