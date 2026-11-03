@@ -1,0 +1,72 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-042",
+  "title": "Implement offline TS shard and index preparation",
+  "recorded_at": "2026-11-03T06:46:23Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-042-757fac9e1f0c-attempt-1-1793686439",
+  "site_revision": "6491ae30ff16ac15311e4bc053f7c10147bc890c",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "scripts/worldwide/build-index.ts, data/worldwide/index-format.schema.json, and tests/worldwide/index-format.test.ts are untracked working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "The builder does not read parquet and does not call Python. It measures a JSON projection of country IR routing rows. A local filesystem path is not written into the public index.",
+    "A release is reused only when schema, layout family, tokenizer, BM25 constants, a finite average document length, checksums, measured shard bytes, inclusive non-overlapping term ranges, and document shards are compatible. Corpus paths stay in excluded_corpus_paths and are omitted from remote_shard_bytes. Inline corpus text is not copied. Supplied documents are ignored on the reuse path.",
+    "An incompatible release with document records emits compact postings under the caller identity. An incompatible release without documents throws country-ir-incompatible. No inputs throws no-index-input.",
+    "The Pages document is the routing manifest only. full_corpus_bundled and index_payload_bundled stay false. Offline postings, document bodies, and embeddings are not bundled on Pages.",
+    "routeTerm returns null when no inclusive range matches. It does not fall back to every shard.",
+    "Index tokenization always uses the pinned fts5-unicode61 tokenizer. A document language does not select another strategy.",
+    "Official citations are not invented. Identifiers over the schema maximum are dropped. A stored title may be truncated to 256 characters. The body is checksummed and is not stored.",
+    "Reuse requires measured document shards and keyword ranges. An empty keyword_shards array does not fall through to indexes.bm25_keyword_shards.",
+    "utf8Size uses the utf8Bytes encoder from identity.ts. Jest's jsdom environment does not define the global TextEncoder.",
+    "The Jest reporter counted 14 passing tests. One is the existing setup test in src/__tests__/setup.ts. Thirteen exercise this index format.",
+    "node_modules was absent and was installed with npm ci --ignore-scripts so Jest could run. package.json and package-lock.json were not edited.",
+    "node is v23.11.1 at /usr/bin/node. npm is 10.9.2 at /usr/bin/npm.",
+    "CI=1 was set so Jest would not enter watch mode. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-wwl042.C2hNJ7. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state.",
+    "The Jest reporter and the Node NO_COLOR and VM Modules warnings were written to stderr, along with the ts-jest isolatedModules deprecation warning. stderr was not empty. The process exit code was 0.",
+    "The test did not call Python."
+  ],
+  "outputs": [
+    {
+      "path": "scripts/worldwide/build-index.ts",
+      "bytes": 58458,
+      "sha256": "b08ef2c3063b25929a4597644bf08a0aa543bb6566c8e3748e327be6ff7640f1"
+    },
+    {
+      "path": "data/worldwide/index-format.schema.json",
+      "bytes": 15510,
+      "sha256": "131e0cd9329e5c5834cc17f35a819bf84dab453cc75d8d7fcf642f79233e7828"
+    },
+    {
+      "path": "tests/worldwide/index-format.test.ts",
+      "bytes": 24885,
+      "sha256": "ee36c0db859a4a4252d12efebb2ad709883d46cedb823664b3f5a334d0a741a3"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/index-format.test.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_2817c6d151da_9b3632c60ce4",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-wwl042.C2hNJ7. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. CI=1 was set. npm wrote the script banner to stdout. Jest wrote the passing reporter and the Node NO_COLOR, VM Modules, and ts-jest isolatedModules warnings to stderr. The test did not call Python.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 14,
+      "failed": 0,
+      "setup_tests": 1,
+      "index_format_tests": 13
+    },
+    "stdout_sha256": "c03c52100638caa58d74453baf2bcb85077aa588fda4fd5acd68be00803b0b1c",
+    "stderr_sha256": "f74aed4bf53c99e8bc84fa70b612cbc115762b744fdce8c6a946dcdda4238950"
+  }
+}
