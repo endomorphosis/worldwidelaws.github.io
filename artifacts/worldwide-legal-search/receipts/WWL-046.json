@@ -1,0 +1,70 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-046",
+  "title": "Add revision-keyed caching and offline saved sources",
+  "recorded_at": "2026-11-03T09:37:57Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-046-8720b5e8a439-attempt-1-1793697126",
+  "site_revision": "f90b4eff5189a6d4091523ff2cb5530a894b3ba8",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "src/lib/worldwide/data/cache.ts and tests/worldwide/cache.test.ts are untracked working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "IndexedDB stores the public artifact catalog and the LRU records. CacheStorage stores the artifact bytes. The integrity key is dataset id, pinned source revision, relative path, and SHA-256 of the bytes.",
+    "A saved source remains readable after the catalog pin changes. Its cached revision and the catalog revision are both visible. Unsaved entries are removed in the same IndexedDB transaction as the new catalog pin. CacheStorage deletes for those keys run after the transaction commits. Bytes left behind are not served, and reconcile removes them.",
+    "An aborted catalog transaction leaves the previous pin, saved sources, and unsaved entries in place. A repeated install of the same pin does not drop unsaved entries.",
+    "Saved sources are not evicted to satisfy the entry count, the byte quota, or the saved-source cap. A put that cannot fit returns storage-exhausted and leaves existing saved sources readable.",
+    "QuotaExceededError from CacheStorage deletes any partial object, evicts unsaved entries, and retries the write once. A second failure returns storage-exhausted. Saved sources stay.",
+    "A byte hash mismatch, a metadata record that does not match its integrity key, or a personal field found in storage drops that record. A sibling entry stays readable. A corrupt catalog pin is deleted and the cache opens again. IndexedDB or CacheStorage open failure deletes that store and retries once.",
+    "The cache does not store a search query, coordinates, an address, or a location history. Those fields are rejected. There is no saveQuery or saveLocation method. Saved places remain outside this cache.",
+    "While offline, only saved sources are offered. Unsaved warm entries stay stored and are readable again when the device is online. They are not offered as offline sources.",
+    "The non-empty offline and stale sentences match the interaction-state contract. When nothing is saved, the offline sentence says that no saved material is on the device instead of claiming that saved material is available.",
+    "This module does not fetch bytes, register a service worker, or decide that an instrument binds conduct. The caller supplies public artifact bytes.",
+    "Default bounds are 256 entries, 64 saved sources, 32 MiB, and 2 MiB for one entry. A configured entry cannot exceed 10 MiB, and the quota cannot exceed 64 MiB.",
+    "jsdom does not provide IndexedDB, CacheStorage, Request, or Response. The tests inject in-memory objects with those method surfaces, and Request/Response stand-ins on globalThis. In a browser the module uses the platform indexedDB, caches, Request, and Response objects.",
+    "The Jest reporter counted 13 passing tests. One is the existing setup test in src/__tests__/setup.ts. Twelve exercise this cache.",
+    "node_modules was absent and was installed with npm ci --ignore-scripts so Jest could run. package.json and package-lock.json were not edited.",
+    "node is v23.11.1 at /usr/bin/node. npm is 10.9.2 at /usr/bin/npm.",
+    "CI=1 was set so Jest would not enter watch mode. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-jcOcJh. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. FORCE_COLOR and NO_COLOR were unset.",
+    "npm wrote the script banner to stdout. Jest wrote the passing reporter, the VM Modules experimental warning, and the ts-jest isolatedModules deprecation warning to stderr. stderr was not empty. The process exit code was 0.",
+    "The test did not call Python. A typecheck of the whole repository was not part of the task validation command."
+  ],
+  "outputs": [
+    {
+      "path": "src/lib/worldwide/data/cache.ts",
+      "bytes": 59706,
+      "sha256": "4d51c9377c54787e7ad34a77261ae2ffb642cbc3c63019693e12c37e7239c767"
+    },
+    {
+      "path": "tests/worldwide/cache.test.ts",
+      "bytes": 36689,
+      "sha256": "4572cc20beb90adaa5edb3850fce7f59463ccb0ed117bdc6b96c2adc8b279ed9"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/cache.test.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_218d31d520b6_d955b1279d5c",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-jcOcJh. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. CI=1 was set. FORCE_COLOR and NO_COLOR were unset. npm wrote the script banner to stdout. Jest wrote the passing reporter and the Node VM Modules and ts-jest isolatedModules warnings to stderr.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 13,
+      "failed": 0,
+      "setup_tests": 1,
+      "cache_tests": 12
+    },
+    "stdout_sha256": "eba6cc798b373109ec709ed48fe7f340d89c912d94fd35cd09358e941138b3cd",
+    "stderr_sha256": "b211f5ffa14a260cf0af4b13f63a1b8713f55e90cc9334dce17f79377e595c23"
+  }
+}
