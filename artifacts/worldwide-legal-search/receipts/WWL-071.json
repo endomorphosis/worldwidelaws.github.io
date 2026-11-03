@@ -1,0 +1,67 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-071",
+  "title": "Add optional semantic reranking with explicit download consent",
+  "recorded_at": "2026-11-03T22:45:30Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-071-bd606093d0a2-attempt-1-1793744878",
+  "site_revision": "67bfc1ca26e2da4f403cd69dc59e5a56876b8a06",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "src/lib/worldwide/research/semantic.ts and tests/worldwide/semantic-fallback.test.ts are untracked working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "Lexical overlap uses tokenize() with the query and passage languages. A candidate with no shared token is a miss. This is not BM25. Recall at k is reported. The download gate uses first place: every cross-lingual witness must rank a relevant passage first for the multilingual vectors, lexical overlap must not, and thenlper/gte-small must not. Same-language Dutch best rank must not get worse.",
+    "The witness passages are the cited Dutch, Bahraini, and Japanese sentences already copied in docs/worldwide/retrieval-evaluation.json, plus two traffic distractors. English queries were checked to share no language-aware tokens with those passages.",
+    "No multilingual-e5-small weights were downloaded or executed. The test ranks caller-supplied 384-d unit vectors. Those vectors are a controlled probe, not model outputs. A measurement without vectors, a pin mismatch, a missing gain, or a Dutch regression leaves the download closed.",
+    "The only download plan is Xenova/multilingual-e5-small at 761b726dd34fb83930e26aab4e9ac3899aa1fa78, dtype int8, five pinned files, 135138591 bytes. The base model is intfloat/multilingual-e5-small at 614241f622f53c4eeff9890bdc4f31cfecc418b3. fp16, fp32, q4, and bnb4 files are refused. The English baseline thenlper/gte-small at 17e1f347d17fe144873b1201da91788898c639cd is not offered for download.",
+    "Consent is the exact decision allow-optional-semantic-download. A boolean is not consent. WebGPU, network, and a reported heap of at least 168693023 bytes are required before the transport is called. An omitted heap is refused.",
+    "Importing the module does not construct a worker, call fetch, or encode text. There is no warmup function. Marking the model resident with warmup true is refused. The embedder runs only from rerankSemantic, and only when WebGPU is true and the pinned model is resident. Supplied pinned embeddings can rerank without the embedder, still only when WebGPU is true.",
+    "Without WebGPU, without a resident model, or without complete pinned embeddings, the lexical ids, order, and scores are returned. A thrown embedder, a bad vector, a query over 2048 code points, or a candidate window above 100 does the same. The window default is 32. Hits outside that window stay in lexical order. No hit is added or dropped.",
+    "applicability is not-asserted on every measurement and every hit. Retrieval scores are not legal conclusions.",
+    "Character budgets are not the XLM-RoBERTa tokenizer. The tokenizer file is part of the consented download and is not loaded here. Passage text sent to an embedder is clipped to 4000 code points. The hit text is kept.",
+    "The legacy WetWijzer screen still starts its own model effect. That file is outside this task's declared outputs and outside the core search closure. This module does not import it.",
+    "The Jest reporter counted 17 passing tests. One is the existing setup test in src/__tests__/setup.ts. Sixteen exercise this semantic gate.",
+    "node_modules was absent. A gitignored symlink at node_modules points at workspace_0250326c60f6_3b059b22f8bc/node_modules. package.json and package-lock.json were not edited. The symlink is not a task output.",
+    "node is v23.11.1 at /usr/bin/node. npm is 10.9.2 at /usr/bin/npm.",
+    "CI=1 was set so Jest would not enter watch mode. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-wwl071.V2jWsy. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. The process environment was otherwise empty.",
+    "The Jest reporter and the Node VM Modules warning were written to stderr, along with the ts-jest isolatedModules deprecation warning. stderr was not empty. The process exit code was 0."
+  ],
+  "outputs": [
+    {
+      "path": "src/lib/worldwide/research/semantic.ts",
+      "bytes": 41363,
+      "sha256": "738ab63513ff1d90392ec1335d9cc1b714c915cf7565c7b8b470aeb8f3b6dd25"
+    },
+    {
+      "path": "tests/worldwide/semantic-fallback.test.ts",
+      "bytes": 23743,
+      "sha256": "658fd95ff3d17f2489487f573b4f5c08dad3cfd009d33cb2d1c0d14fe86d3b6c"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/semantic-fallback.test.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_a95df2651cc5_a5618ca9f445",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-wwl071.V2jWsy. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. CI=1 was set. The process environment was otherwise empty. npm wrote the script banner to stdout. Jest wrote the passing reporter and the Node VM Modules and ts-jest isolatedModules warnings to stderr. The test did not download a model or import a transformer runtime.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 17,
+      "failed": 0,
+      "setup_tests": 1,
+      "semantic_fallback_tests": 16
+    },
+    "stdout_sha256": "35be7afe0da6df90155b48c72e2dfe30221e655624d5509104554645e2669b25",
+    "stderr_sha256": "b1ff339126f5286d94bf0ba483182644f0335f309ae0c56fea53a53fa5768d9b"
+  }
+}
