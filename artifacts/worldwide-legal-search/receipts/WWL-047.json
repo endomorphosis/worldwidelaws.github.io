@@ -1,0 +1,74 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-047",
+  "title": "Prove real multi-country national regional and local retrieval",
+  "recorded_at": "2026-11-03T10:47:12Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-047-59077cad9fec-attempt-1-1793701761",
+  "site_revision": "bc7aacf62ce472229e8bf744fc58187678f618e1",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "retrieval-evaluation.json files are untracked relative to site_revision. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of an ordinary git status. Its own sha256 is not stored inside this file.",
+    "Eight cited passages from official HTTPS responses were indexed. The index is not a full code, not every article on a fetched page, and not a pinned dataset payload.",
+    "Labelled recall at 5 is 1 for each supported judgment after jurisdiction exclusion. That is passage recall on this index. It is not worldwide corpus recall and it is not cross-language recall.",
+    "Latin queries used searchCompactPostings. Arabic used the production arabic tokenizer and Japanese used cjk-unigram, with the same BM25 contribution. The pinned FTS5 reader returned no query terms for those two queries, and its recall is 0.",
+    "Shared-token probes are filter checks, not citation judgments. On artikel, Bayern outranked Noord-Holland before the filter. On ist, the federal Grundgesetz outranked Bayern before the filter. Exclusion removed those jurisdictions.",
+    "No judgment decides that an instrument binds a person, act, or dispute.",
+    "The German page is headed Nichtamtliches Inhaltsverzeichnis. The Bavarian page did not contain the word amtlich. Response SHA-256 values are retrieved HTTP bodies, not publisher revisions. No redistribution license was read.",
+    "Aswan municipal coverage is unsupported. The presidency PDF is a national constitution file, and the pinned dispositions have no Egypt municipal row. Brazil municipal laws, United Kingdom county laws, the common-crawl municipal index, and the municipal code-only scraper release stay explicit gaps.",
+    "The audit checks the fixture contract only. It does not fetch the cited URLs again and it does not re-score the index. stderr was empty."
+  ],
+  "retrieval_evaluation": {
+    "schema": "worldwide-legal-search.retrieval-evaluation@1",
+    "judgment_count": 9,
+    "supported_recall_at_5": 1,
+    "levels": [
+      "national",
+      "regional",
+      "municipal"
+    ],
+    "countries": [
+      "NL",
+      "DE",
+      "BE",
+      "BH",
+      "JP"
+    ],
+    "non_latin_queries": 2,
+    "pinned_fts5_recall_for_non_latin": 0,
+    "unsupported_source_count": 5,
+    "legal_conclusion": "not_claimed"
+  },
+  "outputs": [
+    {
+      "path": "tests/worldwide/fixtures/retrieval-evaluation.json",
+      "bytes": 7694,
+      "sha256": "80d7a4a81f5722d09e2fad331496efa0b724d4995803d35d96d18f40dafc2d1a"
+    },
+    {
+      "path": "docs/worldwide/retrieval-evaluation.json",
+      "bytes": 39850,
+      "sha256": "bcfde2e377acdfd9702ca1eb3c7877565b463c37c0ba80c26fb2d7e570858a30"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "node",
+      "scripts/worldwide/audit.mjs",
+      "retrieval-evaluation"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_ab485e1339a0_ea72573100f9",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node v23.11.1. HOME was /tmp/ipfs-accelerate-validation-home-njiczQ. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. FORCE_COLOR and NO_COLOR were unset. stderr was empty.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "command": "retrieval-evaluation"
+    },
+    "stdout_sha256": "4a7c9462067342b31cf7960da3c0857ef769f04ba8796341c664ebc998d2bbdd",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -1,0 +1,244 @@
+{
+  "schema": "worldwide-legal-search.retrieval-evaluation@1",
+  "unsupported_sources": [
+    {
+      "source_id": "endomorphosis/ipfs_brazil_municipal_laws",
+      "reason": "Blocked municipal collection. The pinned inventory recorded no configs and splits, so Brazilian municipal SAPL text is not searchable here."
+    },
+    {
+      "source_id": "endomorphosis/ipfs_united_kingdom_county_laws",
+      "reason": "Blocked municipal collection. The pinned viewer size reports zero rows, so United Kingdom county Local Acts are not searchable here."
+    },
+    {
+      "source_id": "justicedao/world_law_scrapers",
+      "reason": "Excluded municipal code-only release. No law-text or index payload is in the inventory, so it is not admitted as municipal law text."
+    },
+    {
+      "source_id": "endomorphosis/common_crawl_municipal_index",
+      "reason": "Blocked. Pointer or crawl-index files are present and the statute schema is absent, so this is not municipal law text."
+    },
+    {
+      "source_id": "unpinned:egypt-municipal",
+      "reason": "No Egypt municipal dataset is in the pinned dispositions. National and governorate Egypt rows do not establish Aswan municipal ordinances."
+    }
+  ],
+  "judgments": [
+    {
+      "query": "Geen feit is strafbaar dan uit kracht van een daaraan voorafgegane wettelijke strafbepaling",
+      "script": "Latin",
+      "level": "national",
+      "citation": "Wetboek van Strafrecht, artikel 1, BWBR0001854",
+      "source_url": "https://wetten.overheid.nl/BWBR0001854/2026-07-01",
+      "relevant_ids": [
+        "nl:bwbr0001854:1"
+      ],
+      "excluded_jurisdiction_ids": [
+        "de",
+        "de-by",
+        "nl-nh",
+        "nl-amsterdam",
+        "be",
+        "bh",
+        "jp"
+      ],
+      "recall_at_k": 1,
+      "k": 5,
+      "unsupported_coverage": null,
+      "reader": "searchCompactPostings",
+      "pinned_fts5_recall_at_k": 1
+    },
+    {
+      "query": "Die Bundesrepublik Deutschland ist ein demokratischer und sozialer Bundesstaat",
+      "script": "Latin",
+      "level": "national",
+      "citation": "Grundgesetz für die Bundesrepublik Deutschland, Artikel 20",
+      "source_url": "https://www.gesetze-im-internet.de/gg/art_20.html",
+      "relevant_ids": [
+        "de:gg:20"
+      ],
+      "excluded_jurisdiction_ids": [
+        "nl",
+        "de-by",
+        "nl-nh",
+        "nl-amsterdam",
+        "be",
+        "bh",
+        "jp"
+      ],
+      "recall_at_k": 1,
+      "k": 5,
+      "unsupported_coverage": null,
+      "reader": "searchCompactPostings",
+      "pinned_fts5_recall_at_k": 1
+    },
+    {
+      "query": "Bayern ist ein Freistaat",
+      "script": "Latin",
+      "level": "regional",
+      "citation": "Verfassung des Freistaates Bayern, Artikel 1",
+      "source_url": "https://www.gesetze-bayern.de/Content/Document/BayVerf-1",
+      "relevant_ids": [
+        "de-by:bayverf:1"
+      ],
+      "excluded_jurisdiction_ids": [
+        "nl",
+        "de",
+        "nl-nh",
+        "nl-amsterdam",
+        "be",
+        "bh",
+        "jp"
+      ],
+      "recall_at_k": 1,
+      "k": 5,
+      "unsupported_coverage": null,
+      "reader": "searchCompactPostings",
+      "pinned_fts5_recall_at_k": 1
+    },
+    {
+      "query": "bewoonbaarheid van de provincie en de bescherming en verbetering van het leefmilieu",
+      "script": "Latin",
+      "level": "regional",
+      "citation": "Omgevingsverordening Noord-Holland 2022, artikel 1.3 Oogmerk, CVDR703568",
+      "source_url": "https://lokaleregelgeving.overheid.nl/CVDR703568",
+      "relevant_ids": [
+        "nl-nh:cvdr703568:1.3"
+      ],
+      "excluded_jurisdiction_ids": [
+        "nl",
+        "de",
+        "de-by",
+        "nl-amsterdam",
+        "be",
+        "bh",
+        "jp"
+      ],
+      "recall_at_k": 1,
+      "k": 5,
+      "unsupported_coverage": null,
+      "reader": "searchCompactPostings",
+      "pinned_fts5_recall_at_k": 1
+    },
+    {
+      "query": "fossiele reclame",
+      "script": "Latin",
+      "level": "municipal",
+      "citation": "Gemeenteblad 2026, 107760, gemeente Amsterdam, Artikel I",
+      "source_url": "https://zoek.officielebekendmakingen.nl/gmb-2026-107760.xml",
+      "relevant_ids": [
+        "nl-amsterdam:gmb-2026-107760:I"
+      ],
+      "excluded_jurisdiction_ids": [
+        "nl",
+        "de",
+        "de-by",
+        "nl-nh",
+        "be",
+        "bh",
+        "jp"
+      ],
+      "recall_at_k": 1,
+      "k": 5,
+      "unsupported_coverage": null,
+      "reader": "searchCompactPostings",
+      "pinned_fts5_recall_at_k": 1
+    },
+    {
+      "query": "België omvat vier taalgebieden",
+      "script": "Latin",
+      "level": "national",
+      "citation": "Gecoördineerde Grondwet 17 februari 1994, NUMAC 1994021048, artikel 4",
+      "source_url": "https://www.ejustice.just.fgov.be/cgi_loi/article.pl?language=nl&lg_txt=n&cn_search=1994021730&caller=eli&view_numac=1994021730nl",
+      "relevant_ids": [
+        "be:grondwet:1994021048:4"
+      ],
+      "excluded_jurisdiction_ids": [
+        "nl",
+        "de",
+        "de-by",
+        "nl-nh",
+        "nl-amsterdam",
+        "bh",
+        "jp"
+      ],
+      "recall_at_k": 1,
+      "k": 5,
+      "unsupported_coverage": null,
+      "reader": "searchCompactPostings",
+      "pinned_fts5_recall_at_k": 1
+    },
+    {
+      "query": "مملكة البحرين عربية إسلامية مستقلة ذات سيادة تامة",
+      "script": "non-Latin",
+      "level": "national",
+      "citation": "دستور مملكة البحرين، مادة 1",
+      "source_url": "https://www.lloc.gov.bh/page/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1%20%D9%85%D9%85%D9%84%D9%83%D8%A9%20%D8%A7%D9%84%D8%A8%D8%AD%D8%B1%D9%8A%D9%86",
+      "relevant_ids": [
+        "bh:dustur:1"
+      ],
+      "excluded_jurisdiction_ids": [
+        "nl",
+        "de",
+        "de-by",
+        "nl-nh",
+        "nl-amsterdam",
+        "be",
+        "jp"
+      ],
+      "recall_at_k": 1,
+      "k": 5,
+      "unsupported_coverage": null,
+      "reader": "tokenize-arabic-bm25",
+      "pinned_fts5_recall_at_k": 0
+    },
+    {
+      "query": "私権は、公共の福祉に適合しなければならない",
+      "script": "non-Latin",
+      "level": "national",
+      "citation": "民法（明治二十九年法律第八十九号）第一条",
+      "source_url": "https://laws.e-gov.go.jp/api/1/lawdata/129AC0000000089",
+      "relevant_ids": [
+        "jp:minpo:129ac0000000089:1"
+      ],
+      "excluded_jurisdiction_ids": [
+        "nl",
+        "de",
+        "de-by",
+        "nl-nh",
+        "nl-amsterdam",
+        "be",
+        "bh"
+      ],
+      "recall_at_k": 1,
+      "k": 5,
+      "unsupported_coverage": null,
+      "reader": "tokenize-cjk-unigram-bm25",
+      "pinned_fts5_recall_at_k": 0
+    },
+    {
+      "query": "Aswan municipal ordinance",
+      "script": "Latin",
+      "level": "municipal",
+      "citation": "دستور جمهورية مصر العربية 2019",
+      "source_url": "https://www.presidency.eg/media/46122/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1-%D8%AC%D9%85%D9%87%D9%88%D8%B1%D9%8A%D8%A9-%D9%85%D8%B5%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9-2019.pdf",
+      "relevant_ids": [],
+      "excluded_jurisdiction_ids": [
+        "nl",
+        "de",
+        "de-by",
+        "nl-nh",
+        "nl-amsterdam",
+        "be",
+        "bh",
+        "jp"
+      ],
+      "recall_at_k": null,
+      "k": 5,
+      "unsupported_coverage": {
+        "reason": "The presidency file is a national constitution PDF. The pinned dispositions have no Egypt municipal row, so Aswan municipal ordinances were not indexed and are not given a recall."
+      },
+      "reader": "not-indexed",
+      "pinned_fts5_recall_at_k": null
+    }
+  ]
+}

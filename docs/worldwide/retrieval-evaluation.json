@@ -1,0 +1,1000 @@
+{
+  "schema": "worldwide-legal-search.retrieval-evaluation-report@1",
+  "task_id": "WWL-047",
+  "title": "Prove real multi-country national regional and local retrieval",
+  "evaluated_at": "2026-11-03T10:43:58.718Z",
+  "fixture_path": "tests/worldwide/fixtures/retrieval-evaluation.json",
+  "legal_conclusion": "not_claimed",
+  "applicability": "not_claimed",
+  "method": "Eight cited passages were copied from official HTTPS responses after HTML or XML tags were removed and whitespace was collapsed. Each passage is a substring of that response. The index is those passages, not a full code and not a pinned dataset payload. Latin queries are ranked by searchCompactPostings with the pinned FTS5 unicode61 tokenizer. Arabic uses tokenize strategy arabic and Japanese uses tokenize strategy cjk-unigram, with the same BM25 weights and the same contribution function. That function matched searchCompactPostings on every Latin judgment and on the shared-token probes to an absolute tolerance of 1e-9. Jurisdiction exclusion drops a hit whose jurisdiction_id is in excluded_jurisdiction_ids and then keeps k hits. isolateStrictFilters and hitMatchesStrictFilters apply the labelled jurisdiction as a placeIds allow-list. The two filters kept the same ids on every judgment and probe. Recall is measured only on the filtered list. A pinned FTS5 recall is also recorded. Empty pinned query terms are not treated as cross-language recall.",
+  "bm25": {
+    "k1": 1.2,
+    "b": 0.75,
+    "title_weight": 5,
+    "body_weight": 1,
+    "idf": "ln((N - df + 0.5) / (df + 0.5) + 1)",
+    "document_count": 8,
+    "average_document_length": 76.25,
+    "length": "title token count times 5 plus body token count times 1",
+    "k": 5,
+    "modules": [
+      "src/lib/worldwide/search/bm25.ts",
+      "src/lib/worldwide/search/tokenize.ts",
+      "src/lib/worldwide/search/planner.ts"
+    ]
+  },
+  "countries": [
+    "NL",
+    "DE",
+    "BE",
+    "BH",
+    "JP"
+  ],
+  "levels": [
+    "national",
+    "regional",
+    "municipal"
+  ],
+  "snapshot": {
+    "dispositions_path": "data/worldwide/source-dispositions.json",
+    "dispositions_schema": "worldwide-legal-search.source-dispositions@1",
+    "inventory_revision": "0b6db3b679d8b9042c97ca5a48e3625892804ca14e2edf3badde368941665326",
+    "egypt_rows": [
+      {
+        "dataset_id": "endomorphosis/ipfs_egypt_governorate_laws",
+        "family": "regional",
+        "decision": "include",
+        "resolved_revision": "d78a3c934596f9890de93124021ed34a3d4d49de"
+      },
+      {
+        "dataset_id": "endomorphosis/ipfs_egypt_laws",
+        "family": "national",
+        "decision": "include",
+        "resolved_revision": "36e3b27e8640f834811a39bf63c6b9e8771ced08"
+      },
+      {
+        "dataset_id": "justicedao/ipfs_egypt_governorate_laws_ir",
+        "family": "country-ir",
+        "decision": "include",
+        "resolved_revision": "3ab6f574ef6375b174c328b804293f65c47a94f9"
+      },
+      {
+        "dataset_id": "justicedao/ipfs_egypt_laws_ir",
+        "family": "country-ir",
+        "decision": "include",
+        "resolved_revision": "ef92a2cc5e5842cd42fcf56b1fa5cef8696d4432"
+      }
+    ],
+    "egypt_municipal_include_count": 0,
+    "datasets_not_opened": [
+      "endomorphosis/ipfs_netherlands_municipal_laws",
+      "justicedao/ipfs_netherlands_municipal_laws",
+      "endomorphosis/ipfs_egypt_laws",
+      "endomorphosis/ipfs_egypt_governorate_laws"
+    ]
+  },
+  "unsupported_sources": [
+    {
+      "source_id": "endomorphosis/ipfs_brazil_municipal_laws",
+      "reason": "Blocked municipal collection. The pinned inventory recorded no configs and splits, so Brazilian municipal SAPL text is not searchable here."
+    },
+    {
+      "source_id": "endomorphosis/ipfs_united_kingdom_county_laws",
+      "reason": "Blocked municipal collection. The pinned viewer size reports zero rows, so United Kingdom county Local Acts are not searchable here."
+    },
+    {
+      "source_id": "justicedao/world_law_scrapers",
+      "reason": "Excluded municipal code-only release. No law-text or index payload is in the inventory, so it is not admitted as municipal law text."
+    },
+    {
+      "source_id": "endomorphosis/common_crawl_municipal_index",
+      "reason": "Blocked. Pointer or crawl-index files are present and the statute schema is absent, so this is not municipal law text."
+    },
+    {
+      "source_id": "unpinned:egypt-municipal",
+      "reason": "No Egypt municipal dataset is in the pinned dispositions. National and governorate Egypt rows do not establish Aswan municipal ordinances."
+    }
+  ],
+  "judgments": [
+    {
+      "measurement_id": "nl-national-artikel-1",
+      "country": "NL",
+      "jurisdiction_id": "nl",
+      "level": "national",
+      "script": "Latin",
+      "reader": "searchCompactPostings",
+      "query": "Geen feit is strafbaar dan uit kracht van een daaraan voorafgegane wettelijke strafbepaling",
+      "citation": "Wetboek van Strafrecht, artikel 1, BWBR0001854",
+      "source_url": "https://wetten.overheid.nl/BWBR0001854/2026-07-01",
+      "relevant_ids": [
+        "nl:bwbr0001854:1"
+      ],
+      "excluded_jurisdiction_ids": [
+        "de",
+        "de-by",
+        "nl-nh",
+        "nl-amsterdam",
+        "be",
+        "bh",
+        "jp"
+      ],
+      "k": 5,
+      "recall_at_k": 1,
+      "pinned_fts5_recall_at_k": 1,
+      "recall_math": {
+        "relevant_count": 1,
+        "relevant_in_filtered_top_k": 1,
+        "definition": "After ranking, drop hits whose jurisdiction_id is excluded, then keep k hits. Recall is the count of relevant ids in that list divided by the labelled relevant count."
+      },
+      "reader_query_terms": [
+        "geen",
+        "feit",
+        "is",
+        "strafbaar",
+        "dan",
+        "uit",
+        "kracht",
+        "van",
+        "een",
+        "daaraan",
+        "voorafgegane",
+        "wettelijke",
+        "strafbepaling"
+      ],
+      "pinned_query_terms": [
+        "geen",
+        "feit",
+        "is",
+        "strafbaar",
+        "dan",
+        "uit",
+        "kracht",
+        "van",
+        "een",
+        "daaraan",
+        "voorafgegane",
+        "wettelijke",
+        "strafbepaling"
+      ],
+      "unfiltered_hits": [
+        {
+          "document_id": "nl:bwbr0001854:1",
+          "jurisdiction_id": "nl",
+          "level": "national",
+          "score": 22.24526680933702
+        },
+        {
+          "document_id": "nl-amsterdam:gmb-2026-107760:I",
+          "jurisdiction_id": "nl-amsterdam",
+          "level": "municipal",
+          "score": 4.436791902357471
+        },
+        {
+          "document_id": "be:grondwet:1994021048:4",
+          "jurisdiction_id": "be",
+          "level": "national",
+          "score": 3.0514257620432788
+        },
+        {
+          "document_id": "nl-nh:cvdr703568:1.3",
+          "jurisdiction_id": "nl-nh",
+          "level": "regional",
+          "score": 2.8725607418107977
+        }
+      ],
+      "removed_excluded_jurisdiction_ids": [
+        "nl-amsterdam",
+        "be",
+        "nl-nh"
+      ],
+      "filtered_top_ids": [
+        "nl:bwbr0001854:1"
+      ],
+      "strict_place_allow": "nl",
+      "strict_filter_agrees": true,
+      "indexed_passage": "Geen feit is strafbaar dan uit kracht van een daaraan voorafgegane wettelijke strafbepaling. 2 Bij verandering in de wetgeving na het tijdstip waarop het feit begaan is, worden de voor de verdachte gunstigste bepalingen toegepast.",
+      "fetch": {
+        "checked_at": "2026-11-03T10:35:30Z",
+        "http_status": 200,
+        "requested_url": "https://wetten.overheid.nl/BWBR0001854/2026-07-01/0/HoofdstukI/Artikel1",
+        "final_url": "https://wetten.overheid.nl/BWBR0001854/2026-07-01",
+        "content_type": "text/html;charset=UTF-8",
+        "bytes": 4601174,
+        "sha256": "82786a5ed6dbf90222da9b8f087dc189d4cd419fea96e0a7941c3ded21c9a5ef",
+        "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision",
+        "redirect_locations": [
+          "/BWBR0001854/2026-07-01"
+        ]
+      },
+      "markers_observed": [
+        "Wetboek van Strafrecht",
+        "BWBR0001854",
+        "Geldend van 01-07-2026 t/m heden",
+        "Geen feit is strafbaar dan uit kracht van een daaraan voorafgegane wettelijke strafbepaling."
+      ],
+      "legal_conclusion": "not_claimed"
+    },
+    {
+      "measurement_id": "de-national-artikel-20",
+      "country": "DE",
+      "jurisdiction_id": "de",
+      "level": "national",
+      "script": "Latin",
+      "reader": "searchCompactPostings",
+      "query": "Die Bundesrepublik Deutschland ist ein demokratischer und sozialer Bundesstaat",
+      "citation": "Grundgesetz für die Bundesrepublik Deutschland, Artikel 20",
+      "source_url": "https://www.gesetze-im-internet.de/gg/art_20.html",
+      "relevant_ids": [
+        "de:gg:20"
+      ],
+      "excluded_jurisdiction_ids": [
+        "nl",
+        "de-by",
+        "nl-nh",
+        "nl-amsterdam",
+        "be",
+        "bh",
+        "jp"
+      ],
+      "k": 5,
+      "recall_at_k": 1,
+      "pinned_fts5_recall_at_k": 1,
+      "recall_math": {
+        "relevant_count": 1,
+        "relevant_in_filtered_top_k": 1,
+        "definition": "After ranking, drop hits whose jurisdiction_id is excluded, then keep k hits. Recall is the count of relevant ids in that list divided by the labelled relevant count."
+      },
+      "reader_query_terms": [
+        "die",
+        "bundesrepublik",
+        "deutschland",
+        "ist",
+        "ein",
+        "demokratischer",
+        "und",
+        "sozialer",
+        "bundesstaat"
+      ],
+      "pinned_query_terms": [
+        "die",
+        "bundesrepublik",
+        "deutschland",
+        "ist",
+        "ein",
+        "demokratischer",
+        "und",
+        "sozialer",
+        "bundesstaat"
+      ],
+      "unfiltered_hits": [
+        {
+          "document_id": "de:gg:20",
+          "jurisdiction_id": "de",
+          "level": "national",
+          "score": 17.40662517455221
+        },
+        {
+          "document_id": "de-by:bayverf:1",
+          "jurisdiction_id": "de-by",
+          "level": "regional",
+          "score": 5.607005708583257
+        },
+        {
+          "document_id": "nl-amsterdam:gmb-2026-107760:I",
+          "jurisdiction_id": "nl-amsterdam",
+          "level": "municipal",
+          "score": 1.0721261030827463
+        }
+      ],
+      "removed_excluded_jurisdiction_ids": [
+        "de-by",
+        "nl-amsterdam"
+      ],
+      "filtered_top_ids": [
+        "de:gg:20"
+      ],
+      "strict_place_allow": "de",
+      "strict_filter_agrees": true,
+      "indexed_passage": "(1) Die Bundesrepublik Deutschland ist ein demokratischer und sozialer Bundesstaat. (2) Alle Staatsgewalt geht vom Volke aus. Sie wird vom Volke in Wahlen und Abstimmungen und durch besondere Organe der Gesetzgebung, der vollziehenden Gewalt und der Rechtsprechung ausgeübt. (3) Die Gesetzgebung ist an die verfassungsmäßige Ordnung, die vollziehende Gewalt und die Rechtsprechung sind an Gesetz und Recht gebunden. (4) Gegen jeden, der es unternimmt, diese Ordnung zu beseitigen, haben alle Deutschen das Recht zum Widerstand, wenn andere Abhilfe nicht möglich ist.",
+      "fetch": {
+        "checked_at": "2026-11-03T10:36:16Z",
+        "http_status": 200,
+        "requested_url": "https://www.gesetze-im-internet.de/gg/art_20.html",
+        "final_url": "https://www.gesetze-im-internet.de/gg/art_20.html",
+        "content_type": "text/html",
+        "bytes": 4020,
+        "sha256": "ce7f68c8120563a642a3423e760da4ac7837ea9855ed462d7e67afc90d00eb92",
+        "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision"
+      },
+      "markers_observed": [
+        "Nichtamtliches Inhaltsverzeichnis",
+        "Grundgesetz für die Bundesrepublik Deutschland",
+        "Die Bundesrepublik Deutschland ist ein demokratischer und sozialer Bundesstaat."
+      ],
+      "legal_conclusion": "not_claimed"
+    },
+    {
+      "measurement_id": "de-by-regional-artikel-1",
+      "country": "DE",
+      "jurisdiction_id": "de-by",
+      "level": "regional",
+      "script": "Latin",
+      "reader": "searchCompactPostings",
+      "query": "Bayern ist ein Freistaat",
+      "citation": "Verfassung des Freistaates Bayern, Artikel 1",
+      "source_url": "https://www.gesetze-bayern.de/Content/Document/BayVerf-1",
+      "relevant_ids": [
+        "de-by:bayverf:1"
+      ],
+      "excluded_jurisdiction_ids": [
+        "nl",
+        "de",
+        "nl-nh",
+        "nl-amsterdam",
+        "be",
+        "bh",
+        "jp"
+      ],
+      "k": 5,
+      "recall_at_k": 1,
+      "pinned_fts5_recall_at_k": 1,
+      "recall_math": {
+        "relevant_count": 1,
+        "relevant_in_filtered_top_k": 1,
+        "definition": "After ranking, drop hits whose jurisdiction_id is excluded, then keep k hits. Recall is the count of relevant ids in that list divided by the labelled relevant count."
+      },
+      "reader_query_terms": [
+        "bayern",
+        "ist",
+        "ein",
+        "freistaat"
+      ],
+      "pinned_query_terms": [
+        "bayern",
+        "ist",
+        "ein",
+        "freistaat"
+      ],
+      "unfiltered_hits": [
+        {
+          "document_id": "de-by:bayverf:1",
+          "jurisdiction_id": "de-by",
+          "level": "regional",
+          "score": 8.537613833418007
+        },
+        {
+          "document_id": "de:gg:20",
+          "jurisdiction_id": "de",
+          "level": "national",
+          "score": 2.857192657963175
+        }
+      ],
+      "removed_excluded_jurisdiction_ids": [
+        "de"
+      ],
+      "filtered_top_ids": [
+        "de-by:bayverf:1"
+      ],
+      "strict_place_allow": "de-by",
+      "strict_filter_agrees": true,
+      "indexed_passage": "(1) Bayern ist ein Freistaat. (2) Die Landesfarben sind Weiß und Blau. (3) Das Landeswappen wird durch Gesetz bestimmt.",
+      "fetch": {
+        "checked_at": "2026-11-03T10:36:16Z",
+        "http_status": 200,
+        "requested_url": "https://www.gesetze-bayern.de/Content/Document/BayVerf-1",
+        "final_url": "https://www.gesetze-bayern.de/Content/Document/BayVerf-1",
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 27871,
+        "sha256": "364a977c723622f8f585730ca08afe15644eff19344d393473b0e3d42120a5b0",
+        "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision"
+      },
+      "markers_observed": [
+        "Verfassung des Freistaates Bayern",
+        "Bayern ist ein Freistaat.",
+        "Die Landesfarben sind Weiß und Blau."
+      ],
+      "legal_conclusion": "not_claimed"
+    },
+    {
+      "measurement_id": "nl-nh-regional-artikel-1-3",
+      "country": "NL",
+      "jurisdiction_id": "nl-nh",
+      "level": "regional",
+      "script": "Latin",
+      "reader": "searchCompactPostings",
+      "query": "bewoonbaarheid van de provincie en de bescherming en verbetering van het leefmilieu",
+      "citation": "Omgevingsverordening Noord-Holland 2022, artikel 1.3 Oogmerk, CVDR703568",
+      "source_url": "https://lokaleregelgeving.overheid.nl/CVDR703568",
+      "relevant_ids": [
+        "nl-nh:cvdr703568:1.3"
+      ],
+      "excluded_jurisdiction_ids": [
+        "nl",
+        "de",
+        "de-by",
+        "nl-amsterdam",
+        "be",
+        "bh",
+        "jp"
+      ],
+      "k": 5,
+      "recall_at_k": 1,
+      "pinned_fts5_recall_at_k": 1,
+      "recall_math": {
+        "relevant_count": 1,
+        "relevant_in_filtered_top_k": 1,
+        "definition": "After ranking, drop hits whose jurisdiction_id is excluded, then keep k hits. Recall is the count of relevant ids in that list divided by the labelled relevant count."
+      },
+      "reader_query_terms": [
+        "bewoonbaarheid",
+        "van",
+        "de",
+        "provincie",
+        "en",
+        "de",
+        "bescherming",
+        "en",
+        "verbetering",
+        "van",
+        "het",
+        "leefmilieu"
+      ],
+      "pinned_query_terms": [
+        "bewoonbaarheid",
+        "van",
+        "de",
+        "provincie",
+        "en",
+        "de",
+        "bescherming",
+        "en",
+        "verbetering",
+        "van",
+        "het",
+        "leefmilieu"
+      ],
+      "unfiltered_hits": [
+        {
+          "document_id": "nl-nh:cvdr703568:1.3",
+          "jurisdiction_id": "nl-nh",
+          "level": "regional",
+          "score": 17.81190040641632
+        },
+        {
+          "document_id": "nl:bwbr0001854:1",
+          "jurisdiction_id": "nl",
+          "level": "national",
+          "score": 6.735293025866951
+        },
+        {
+          "document_id": "nl-amsterdam:gmb-2026-107760:I",
+          "jurisdiction_id": "nl-amsterdam",
+          "level": "municipal",
+          "score": 6.360344542704983
+        },
+        {
+          "document_id": "be:grondwet:1994021048:4",
+          "jurisdiction_id": "be",
+          "level": "national",
+          "score": 5.79851773907397
+        }
+      ],
+      "removed_excluded_jurisdiction_ids": [
+        "nl",
+        "nl-amsterdam",
+        "be"
+      ],
+      "filtered_top_ids": [
+        "nl-nh:cvdr703568:1.3"
+      ],
+      "strict_place_allow": "nl-nh",
+      "strict_filter_agrees": true,
+      "indexed_passage": "Deze verordening is, met het oog op duurzame ontwikkeling , de bewoonbaarheid van de provincie en de bescherming en verbetering van het leefmilieu, gericht op het in onderlinge samenhang: a. bereiken en in stand houden van een veilige en gezonde fysieke leefomgeving en een goede omgevingskwaliteit ook vanwege de intrinsieke waarde van de natuur; b. behoud en herstel van de biologische diversiteit; en c. doelmatig beheren, gebruiken en ontwikkelen van de fysieke leefomgeving ter vervulling van maatschappelijke behoeften.",
+      "fetch": {
+        "checked_at": "2026-11-03T10:36:17Z",
+        "http_status": 200,
+        "requested_url": "https://lokaleregelgeving.overheid.nl/CVDR703568",
+        "final_url": "https://lokaleregelgeving.overheid.nl/CVDR703568",
+        "content_type": "text/html;charset=UTF-8",
+        "bytes": 9415720,
+        "sha256": "08afd405222fd9877c23c8e54dd66db59cc0048218b7119acb52df920e5dc85c",
+        "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision"
+      },
+      "markers_observed": [
+        "Omgevingsverordening NH2022",
+        "Geldend van 01-07-2026 t/m heden",
+        "bewoonbaarheid van de provincie"
+      ],
+      "legal_conclusion": "not_claimed"
+    },
+    {
+      "measurement_id": "nl-amsterdam-municipal",
+      "country": "NL",
+      "jurisdiction_id": "nl-amsterdam",
+      "level": "municipal",
+      "script": "Latin",
+      "reader": "searchCompactPostings",
+      "query": "fossiele reclame",
+      "citation": "Gemeenteblad 2026, 107760, gemeente Amsterdam, Artikel I",
+      "source_url": "https://zoek.officielebekendmakingen.nl/gmb-2026-107760.xml",
+      "relevant_ids": [
+        "nl-amsterdam:gmb-2026-107760:I"
+      ],
+      "excluded_jurisdiction_ids": [
+        "nl",
+        "de",
+        "de-by",
+        "nl-nh",
+        "be",
+        "bh",
+        "jp"
+      ],
+      "k": 5,
+      "recall_at_k": 1,
+      "pinned_fts5_recall_at_k": 1,
+      "recall_math": {
+        "relevant_count": 1,
+        "relevant_in_filtered_top_k": 1,
+        "definition": "After ranking, drop hits whose jurisdiction_id is excluded, then keep k hits. Recall is the count of relevant ids in that list divided by the labelled relevant count."
+      },
+      "reader_query_terms": [
+        "fossiele",
+        "reclame"
+      ],
+      "pinned_query_terms": [
+        "fossiele",
+        "reclame"
+      ],
+      "unfiltered_hits": [
+        {
+          "document_id": "nl-amsterdam:gmb-2026-107760:I",
+          "jurisdiction_id": "nl-amsterdam",
+          "level": "municipal",
+          "score": 5.230047698140324
+        }
+      ],
+      "removed_excluded_jurisdiction_ids": [],
+      "filtered_top_ids": [
+        "nl-amsterdam:gmb-2026-107760:I"
+      ],
+      "strict_place_allow": "nl-amsterdam",
+      "strict_filter_agrees": true,
+      "indexed_passage": "1. In dit artikel wordt verstaan onder: - Reclame: het aanprijzen of de aandacht vestigen op diensten, goederen, activiteiten, doelstellingen of namen met behulp van een opschrift, aankondiging of afbeelding in welke vorm dan ook; - Fossiele reclame: Reclame waarmee kennelijk wordt beoogd fossiele brandstoffen, vliegvakanties, vliegtickets, gascontracten, grijze stroomcontracten, cruisereizen of voortuigen met een brandstofmotor aan te prijzen; - Vleesreclame: Reclame waarmee kennelijk beoogd wordt producten aan te prijzen die gelet op hun uiterlijke verschijningsvorm, naam of enig ander kenmerk kennelijk geheel of gedeeltelijk bestaan uit dode dieren bedoeld voor menselijke consumptie. b. Het tweede lid komt te luiden: 2. Het is de rechthebbende op een onroerende zaak verboden deze zaak of een daarop aanwezige zaak te gebruiken of te laten gebruiken voor het maken van reclame die vanaf de weg of vanaf een andere voor publiek toegankelijke plaats zichtbaar is en: a. bestaat uit fossiele reclame of vleesreclame, tenzij het gaat om fossiele reclame of vleesreclame aan of in de directe nabijheid van het pand waar de producten of diensten worden aangeboden waar deze reclame betrekking op heeft of; b. die niet toelaatbaar is.",
+      "fetch": {
+        "checked_at": "2026-11-03T10:36:22Z",
+        "http_status": 200,
+        "requested_url": "https://zoek.officielebekendmakingen.nl/gmb-2026-107760.xml",
+        "final_url": "https://zoek.officielebekendmakingen.nl/gmb-2026-107760.xml",
+        "content_type": "text/xml",
+        "bytes": 6891,
+        "sha256": "784f7f1ae1c8ea525d2845351c28f62b24ed8d60f379d6a22798717a5139f246",
+        "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision"
+      },
+      "markers_observed": [
+        "gemeente Amsterdam",
+        "Algemene Plaatselijke Verordening 2008",
+        "Fossiele reclame",
+        "artikel 149 van de Gemeentewet"
+      ],
+      "legal_conclusion": "not_claimed"
+    },
+    {
+      "measurement_id": "be-national-artikel-4",
+      "country": "BE",
+      "jurisdiction_id": "be",
+      "level": "national",
+      "script": "Latin",
+      "reader": "searchCompactPostings",
+      "query": "België omvat vier taalgebieden",
+      "citation": "Gecoördineerde Grondwet 17 februari 1994, NUMAC 1994021048, artikel 4",
+      "source_url": "https://www.ejustice.just.fgov.be/cgi_loi/article.pl?language=nl&lg_txt=n&cn_search=1994021730&caller=eli&view_numac=1994021730nl",
+      "relevant_ids": [
+        "be:grondwet:1994021048:4"
+      ],
+      "excluded_jurisdiction_ids": [
+        "nl",
+        "de",
+        "de-by",
+        "nl-nh",
+        "nl-amsterdam",
+        "bh",
+        "jp"
+      ],
+      "k": 5,
+      "recall_at_k": 1,
+      "pinned_fts5_recall_at_k": 1,
+      "recall_math": {
+        "relevant_count": 1,
+        "relevant_in_filtered_top_k": 1,
+        "definition": "After ranking, drop hits whose jurisdiction_id is excluded, then keep k hits. Recall is the count of relevant ids in that list divided by the labelled relevant count."
+      },
+      "reader_query_terms": [
+        "belgie",
+        "omvat",
+        "vier",
+        "taalgebieden"
+      ],
+      "pinned_query_terms": [
+        "belgie",
+        "omvat",
+        "vier",
+        "taalgebieden"
+      ],
+      "unfiltered_hits": [
+        {
+          "document_id": "be:grondwet:1994021048:4",
+          "jurisdiction_id": "be",
+          "level": "national",
+          "score": 8.884905696820827
+        }
+      ],
+      "removed_excluded_jurisdiction_ids": [],
+      "filtered_top_ids": [
+        "be:grondwet:1994021048:4"
+      ],
+      "strict_place_allow": "be",
+      "strict_filter_agrees": true,
+      "indexed_passage": "België omvat vier taalgebieden : het Nederlandse taalgebied, het Franse taalgebied, het tweetalige gebied Brussel-Hoofdstad en het Duitse taalgebied. Elke gemeente van het Rijk maakt deel uit van een van deze taalgebieden.",
+      "fetch": {
+        "checked_at": "2026-11-03T10:36:21Z",
+        "http_status": 200,
+        "requested_url": "https://www.ejustice.just.fgov.be/cgi_loi/article.pl?language=nl&lg_txt=n&cn_search=1994021730&caller=eli&view_numac=1994021730nl",
+        "final_url": "https://www.ejustice.just.fgov.be/cgi_loi/article.pl?language=nl&lg_txt=n&cn_search=1994021730&caller=eli&view_numac=1994021730nl",
+        "content_type": "text/html; charset=ISO-8859-1",
+        "bytes": 220149,
+        "sha256": "343b087b7d639965ab55bef0277ede8ad9970e8619da5ea795b33da80a3813b2",
+        "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision"
+      },
+      "markers_observed": [
+        "1994021048",
+        "België omvat vier taalgebieden"
+      ],
+      "legal_conclusion": "not_claimed"
+    },
+    {
+      "measurement_id": "bh-national-article-1",
+      "country": "BH",
+      "jurisdiction_id": "bh",
+      "level": "national",
+      "script": "non-Latin",
+      "reader": "tokenize-arabic-bm25",
+      "query": "مملكة البحرين عربية إسلامية مستقلة ذات سيادة تامة",
+      "citation": "دستور مملكة البحرين، مادة 1",
+      "source_url": "https://www.lloc.gov.bh/page/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1%20%D9%85%D9%85%D9%84%D9%83%D8%A9%20%D8%A7%D9%84%D8%A8%D8%AD%D8%B1%D9%8A%D9%86",
+      "relevant_ids": [
+        "bh:dustur:1"
+      ],
+      "excluded_jurisdiction_ids": [
+        "nl",
+        "de",
+        "de-by",
+        "nl-nh",
+        "nl-amsterdam",
+        "be",
+        "jp"
+      ],
+      "k": 5,
+      "recall_at_k": 1,
+      "pinned_fts5_recall_at_k": 0,
+      "recall_math": {
+        "relevant_count": 1,
+        "relevant_in_filtered_top_k": 1,
+        "definition": "After ranking, drop hits whose jurisdiction_id is excluded, then keep k hits. Recall is the count of relevant ids in that list divided by the labelled relevant count."
+      },
+      "reader_query_terms": [
+        "مملكة",
+        "البحرين",
+        "عربية",
+        "إسلامية",
+        "مستقلة",
+        "ذات",
+        "سيادة",
+        "تامة"
+      ],
+      "pinned_query_terms": [],
+      "unfiltered_hits": [
+        {
+          "document_id": "bh:dustur:1",
+          "jurisdiction_id": "bh",
+          "level": "national",
+          "score": 9.700201735982725
+        }
+      ],
+      "removed_excluded_jurisdiction_ids": [],
+      "filtered_top_ids": [
+        "bh:dustur:1"
+      ],
+      "strict_place_allow": "bh",
+      "strict_filter_agrees": true,
+      "indexed_passage": "مملكة البحرين عربية إسلامية مستقلة ذات سيادة تامة، شعبها جزء من الأمة العربية، وإقليمها جزء من الوطن العربي الكبير، ولا يجوز التنازل عن سيادتها أو التخلي عن شيء من إقليمها.",
+      "fetch": {
+        "checked_at": "2026-11-03T10:36:18Z",
+        "http_status": 200,
+        "requested_url": "https://www.lloc.gov.bh/page/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1%20%D9%85%D9%85%D9%84%D9%83%D8%A9%20%D8%A7%D9%84%D8%A8%D8%AD%D8%B1%D9%8A%D9%86",
+        "final_url": "https://www.lloc.gov.bh/page/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1%20%D9%85%D9%85%D9%84%D9%83%D8%A9%20%D8%A7%D9%84%D8%A8%D8%AD%D8%B1%D9%8A%D9%86",
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 159810,
+        "sha256": "1f9a636219554418b79ffb47824ee9436c421ef87a855ba21a766ec94201947b",
+        "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision"
+      },
+      "markers_observed": [
+        "دستور مملكة البحرين",
+        "مادة (1)",
+        "مملكة البحرين عربية إسلامية مستقلة ذات سيادة تامة"
+      ],
+      "legal_conclusion": "not_claimed"
+    },
+    {
+      "measurement_id": "jp-national-article-1",
+      "country": "JP",
+      "jurisdiction_id": "jp",
+      "level": "national",
+      "script": "non-Latin",
+      "reader": "tokenize-cjk-unigram-bm25",
+      "query": "私権は、公共の福祉に適合しなければならない",
+      "citation": "民法（明治二十九年法律第八十九号）第一条",
+      "source_url": "https://laws.e-gov.go.jp/api/1/lawdata/129AC0000000089",
+      "relevant_ids": [
+        "jp:minpo:129ac0000000089:1"
+      ],
+      "excluded_jurisdiction_ids": [
+        "nl",
+        "de",
+        "de-by",
+        "nl-nh",
+        "nl-amsterdam",
+        "be",
+        "bh"
+      ],
+      "k": 5,
+      "recall_at_k": 1,
+      "pinned_fts5_recall_at_k": 0,
+      "recall_math": {
+        "relevant_count": 1,
+        "relevant_in_filtered_top_k": 1,
+        "definition": "After ranking, drop hits whose jurisdiction_id is excluded, then keep k hits. Recall is the count of relevant ids in that list divided by the labelled relevant count."
+      },
+      "reader_query_terms": [
+        "私",
+        "権",
+        "公",
+        "共",
+        "福",
+        "祉",
+        "適",
+        "合"
+      ],
+      "pinned_query_terms": [],
+      "unfiltered_hits": [
+        {
+          "document_id": "jp:minpo:129ac0000000089:1",
+          "jurisdiction_id": "jp",
+          "level": "national",
+          "score": 7.570696542366954
+        }
+      ],
+      "removed_excluded_jurisdiction_ids": [],
+      "filtered_top_ids": [
+        "jp:minpo:129ac0000000089:1"
+      ],
+      "strict_place_allow": "jp",
+      "strict_filter_agrees": true,
+      "indexed_passage": "私権は、公共の福祉に適合しなければならない。 ２ 権利の行使及び義務の履行は、信義に従い誠実に行わなければならない。 ３ 権利の濫用は、これを許さない。",
+      "fetch": {
+        "checked_at": "2026-11-03T10:36:20Z",
+        "http_status": 200,
+        "requested_url": "https://laws.e-gov.go.jp/api/1/lawdata/129AC0000000089",
+        "final_url": "https://laws.e-gov.go.jp/api/1/lawdata/129AC0000000089",
+        "content_type": "text/xml;charset=UTF-8",
+        "bytes": 1775381,
+        "sha256": "30d574130c40dc5fffacdf1f29163b1a3814889dc3c65085345a198cadc6625a",
+        "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision"
+      },
+      "markers_observed": [
+        "民法",
+        "明治二十九年法律第八十九号",
+        "私権は、公共の福祉に適合しなければならない。"
+      ],
+      "legal_conclusion": "not_claimed"
+    }
+  ],
+  "unsupported_judgment": {
+    "query": "Aswan municipal ordinance",
+    "script": "Latin",
+    "level": "municipal",
+    "citation": "دستور جمهورية مصر العربية 2019",
+    "source_url": "https://www.presidency.eg/media/46122/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1-%D8%AC%D9%85%D9%87%D9%88%D8%B1%D9%8A%D8%A9-%D9%85%D8%B5%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9-2019.pdf",
+    "relevant_ids": [],
+    "excluded_jurisdiction_ids": [
+      "nl",
+      "de",
+      "de-by",
+      "nl-nh",
+      "nl-amsterdam",
+      "be",
+      "bh",
+      "jp"
+    ],
+    "recall_at_k": null,
+    "k": 5,
+    "unsupported_coverage": {
+      "reason": "The presidency file is a national constitution PDF. The pinned dispositions have no Egypt municipal row, so Aswan municipal ordinances were not indexed and are not given a recall."
+    },
+    "legal_conclusion": "not_claimed",
+    "fetch": {
+      "checked_at": "2026-11-03T10:40:56Z",
+      "http_status": 200,
+      "requested_url": "https://www.presidency.eg/media/46122/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1-%D8%AC%D9%85%D9%87%D9%88%D8%B1%D9%8A%D8%A9-%D9%85%D8%B5%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9-2019.pdf",
+      "final_url": "https://www.presidency.eg/media/46122/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1-%D8%AC%D9%85%D9%87%D9%88%D8%B1%D9%8A%D8%A9-%D9%85%D8%B5%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9-2019.pdf",
+      "content_type": "application/pdf",
+      "bytes": 2051761,
+      "sha256": "dc649a48b3ba4fa031be9ae12ace567db52ce12240683cc5be82c6dee753d096",
+      "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision"
+    },
+    "pdf_header": "%PDF-1.5",
+    "same_bytes_as_wwl_025": true
+  },
+  "exclusion_probes": [
+    {
+      "role": "Shared token. Not a citation judgment and not a recall claim.",
+      "query": "artikel",
+      "reader": "searchCompactPostings",
+      "allow_jurisdiction_id": "nl-nh",
+      "query_terms": [
+        "artikel"
+      ],
+      "unfiltered_hits": [
+        {
+          "document_id": "de-by:bayverf:1",
+          "jurisdiction_id": "de-by",
+          "score": 0.608953178346911
+        },
+        {
+          "document_id": "be:grondwet:1994021048:4",
+          "jurisdiction_id": "be",
+          "score": 0.6053069542929405
+        },
+        {
+          "document_id": "nl:bwbr0001854:1",
+          "jurisdiction_id": "nl",
+          "score": 0.5957938081627159
+        },
+        {
+          "document_id": "nl-nh:cvdr703568:1.3",
+          "jurisdiction_id": "nl-nh",
+          "score": 0.5405714479666172
+        },
+        {
+          "document_id": "de:gg:20",
+          "jurisdiction_id": "de",
+          "score": 0.5357963161692971
+        },
+        {
+          "document_id": "nl-amsterdam:gmb-2026-107760:I",
+          "jurisdiction_id": "nl-amsterdam",
+          "score": 0.48735281930953095
+        }
+      ],
+      "removed_jurisdiction_ids": [
+        "de-by",
+        "be",
+        "nl",
+        "de",
+        "nl-amsterdam"
+      ],
+      "filtered_top_ids": [
+        "nl-nh:cvdr703568:1.3"
+      ],
+      "strict_filter_agrees": true
+    },
+    {
+      "role": "Shared token. Not a citation judgment and not a recall claim.",
+      "query": "ist",
+      "reader": "searchCompactPostings",
+      "allow_jurisdiction_id": "de-by",
+      "query_terms": [
+        "ist"
+      ],
+      "unfiltered_hits": [
+        {
+          "document_id": "de:gg:20",
+          "jurisdiction_id": "de",
+          "score": 1.806065581645399
+        },
+        {
+          "document_id": "de-by:bayverf:1",
+          "jurisdiction_id": "de-by",
+          "score": 1.5002733641212174
+        }
+      ],
+      "removed_jurisdiction_ids": [
+        "de"
+      ],
+      "filtered_top_ids": [
+        "de-by:bayverf:1"
+      ],
+      "strict_filter_agrees": true
+    },
+    {
+      "role": "Shared token. Not a citation judgment and not a recall claim.",
+      "query": "verordening",
+      "reader": "searchCompactPostings",
+      "allow_jurisdiction_id": "nl-amsterdam",
+      "query_terms": [
+        "verordening"
+      ],
+      "unfiltered_hits": [
+        {
+          "document_id": "nl-nh:cvdr703568:1.3",
+          "jurisdiction_id": "nl-nh",
+          "score": 1.5034020305764975
+        }
+      ],
+      "removed_jurisdiction_ids": [
+        "nl-nh"
+      ],
+      "filtered_top_ids": [],
+      "strict_filter_agrees": true
+    }
+  ],
+  "companion_fetches": {
+    "amsterdam_consolidated_apv": {
+      "checked_at": "2026-11-03T10:36:16Z",
+      "http_status": 200,
+      "requested_url": "https://lokaleregelgeving.overheid.nl/CVDR72510",
+      "final_url": "https://lokaleregelgeving.overheid.nl/CVDR72510",
+      "content_type": "text/html;charset=UTF-8",
+      "bytes": 1089603,
+      "sha256": "0d070ea6d8a59aba1023c8a52f8c0821c38e218343ae7a81712cded5b88cdbe7",
+      "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision",
+      "role": "Consolidated Algemene Plaatselijke Verordening 2008. Not the labelled municipal passage.",
+      "markers_observed": [
+        "Algemene Plaatselijke Verordening 2008",
+        "Geldend van 14-10-2026 t/m heden",
+        "Amsterdam"
+      ],
+      "regeling_vervallen_observed": false
+    },
+    "noord_holland_2026_amendment": {
+      "checked_at": "2026-11-03T10:36:22Z",
+      "http_status": 200,
+      "requested_url": "https://zoek.officielebekendmakingen.nl/prb-2026-2410.xml",
+      "final_url": "https://zoek.officielebekendmakingen.nl/prb-2026-2410.xml",
+      "content_type": "text/xml",
+      "bytes": 183526,
+      "sha256": "5917046c806377fe27e1e334e560da11676638eb651f7fad121ae54a97788c2f",
+      "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision",
+      "role": "Provinciaal blad 2026, 2410. A Gedeputeerde Staten amendment of Omgevingsverordening Noord-Holland 2022. Not the labelled artikel 1.3 passage.",
+      "markers_observed": [
+        "provincie Noord-Holland",
+        "Omgevingsverordening Noord-Holland 2022",
+        "Haarlem, 27 januari 2026"
+      ]
+    }
+  },
+  "byte_identical_to_wwl_025": [
+    "https://wetten.overheid.nl/BWBR0001854/2026-07-01",
+    "https://www.gesetze-im-internet.de/gg/art_20.html",
+    "https://www.ejustice.just.fgov.be/cgi_loi/article.pl?language=nl&lg_txt=n&cn_search=1994021730&caller=eli&view_numac=1994021730nl",
+    "https://www.lloc.gov.bh/page/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1%20%D9%85%D9%85%D9%84%D9%83%D8%A9%20%D8%A7%D9%84%D8%A8%D8%AD%D8%B1%D9%8A%D9%86",
+    "https://laws.e-gov.go.jp/api/1/lawdata/129AC0000000089",
+    "https://www.presidency.eg/media/46122/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1-%D8%AC%D9%85%D9%87%D9%88%D8%B1%D9%8A%D8%A9-%D9%85%D8%B5%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9-2019.pdf"
+  ],
+  "known_limitations": [
+    "No judgment decides that an instrument binds a person, act, or dispute. legal_conclusion and applicability stay not_claimed.",
+    "The index contains eight cited passages. It is not the full statute, not every article on the fetched page, and not the pinned Hugging Face dataset bytes.",
+    "Recall is labelled-passage recall at 5 after jurisdiction exclusion. It is not a worldwide corpus recall and it is not cross-language recall.",
+    "The Dutch article URL redirected to the whole-code HTML. Artikel 1 was copied from that response.",
+    "The German consolidation page is headed Nichtamtliches Inhaltsverzeichnis. It is not the Bundesgesetzblatt promulgation copy.",
+    "The Bavarian article page did not contain the word amtlich. It cites the 15 December 1998 Bekanntmachung. That citation is not treated as a check of the GVBl copy.",
+    "The Noord-Holland passage keeps the retrieved spacing in \"ontwikkeling ,\".",
+    "The Amsterdam labelled passage is Gemeenteblad 2026, 107760, Artikel I, including the page spelling \"voortuigen\". The page also says the verordening enters into force on 1 May 2026. That sentence is not applied to anyone.",
+    "CVDR72510, the consolidated Amsterdam APV labelled Geldend van 14-10-2026 t/m heden, was fetched and was not the indexed passage. The token verordening is absent from the indexed article, so the verordening probe does not return it.",
+    "Provinciaal blad 2026, 2410 was fetched as a later amendment witness and was not the indexed regional passage.",
+    "Arabic retrieval uses the production arabic tokenizer. The pinned FTS5 reader returns no query terms and pinned recall 0. That zero is not relabelled as same-script recall.",
+    "Japanese retrieval uses cjk-unigram. Hiragana and kana are not tokens. The Han characters in the query occur in the cited article. The pinned FTS5 reader again returns no query terms and pinned recall 0. There is no dictionary segmentation and no cross-language match.",
+    "The Egypt PDF text was not transcribed. Its body is the same SHA-256 recorded for WWL-025. Municipal coverage stays unsupported because the snapshot has no Egypt municipal row.",
+    "Response SHA-256 values identify the retrieved HTTP bodies, including page chrome, and are not publisher revisions. No redistribution license was read from these pages.",
+    "The audit command checks the fixture contract. It does not fetch these URLs again and it does not re-score the index."
+  ]
+}
