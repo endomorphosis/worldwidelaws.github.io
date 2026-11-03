@@ -1,0 +1,324 @@
+{
+  "schema": "worldwide-legal-search.jurisdiction-evaluation@1",
+  "task_id": "WWL-025",
+  "title": "Curate cross-system jurisdiction and coverage reference cases",
+  "evaluated_at": "2026-11-03T07:06:35Z",
+  "fixture_path": "tests/worldwide/fixtures/jurisdiction-cases.json",
+  "legal_conclusion": "not_claimed",
+  "applicability": "not_claimed",
+  "method": "Each case cites an official HTTPS page retrieved on the evaluation date. A quotation is copied only from that response after HTML tags are removed and whitespace is collapsed. Coverage labels record what the citation and the pinned disposition snapshot do not establish. They are not holdings about a person, act, or dispute.",
+  "required_classes": [
+    "nl",
+    "federal",
+    "multilingual",
+    "rtl-or-non-latin",
+    "special-or-overlapping",
+    "absent-municipal"
+  ],
+  "snapshot": {
+    "dispositions_path": "data/worldwide/source-dispositions.json",
+    "dispositions_schema": "worldwide-legal-search.source-dispositions@1",
+    "inventory_revision": "0b6db3b679d8b9042c97ca5a48e3625892804ca14e2edf3badde368941665326",
+    "inventory_retrieved_at": "2026-10-30T09:39:25.250Z",
+    "egypt_rows": [
+      {
+        "dataset_id": "endomorphosis/ipfs_egypt_governorate_laws",
+        "family": "regional",
+        "decision": "include",
+        "resolved_revision": "d78a3c934596f9890de93124021ed34a3d4d49de"
+      },
+      {
+        "dataset_id": "endomorphosis/ipfs_egypt_laws",
+        "family": "national",
+        "decision": "include",
+        "resolved_revision": "36e3b27e8640f834811a39bf63c6b9e8771ced08"
+      },
+      {
+        "dataset_id": "justicedao/ipfs_egypt_governorate_laws_ir",
+        "family": "country-ir",
+        "decision": "include",
+        "resolved_revision": "3ab6f574ef6375b174c328b804293f65c47a94f9"
+      },
+      {
+        "dataset_id": "justicedao/ipfs_egypt_laws_ir",
+        "family": "country-ir",
+        "decision": "include",
+        "resolved_revision": "ef92a2cc5e5842cd42fcf56b1fa5cef8696d4432"
+      }
+    ],
+    "egypt_municipal_include_count": 0,
+    "netherlands_municipal_rows": [
+      {
+        "dataset_id": "endomorphosis/ipfs_netherlands_municipal_laws",
+        "family": "municipal",
+        "decision": "include",
+        "resolved_revision": "c936eb059233d5fa3d84c37a1f4844056e85064f"
+      },
+      {
+        "dataset_id": "justicedao/ipfs_netherlands_municipal_laws",
+        "family": "municipal",
+        "decision": "include",
+        "resolved_revision": "75e74c605f698927ee386d9abecb14d31ed3214e"
+      }
+    ],
+    "inventory_retrieved_at_source": "data/worldwide/source-inventory.json"
+  },
+  "cases": [
+    {
+      "fixture_id": "nl-wetboek-van-strafrecht-artikel-1",
+      "coverage_class": "nl",
+      "fetch": {
+        "checked_at": "2026-11-03T07:06:35Z",
+        "http_status": 200,
+        "final_url": "https://wetten.overheid.nl/BWBR0001854/2026-07-01",
+        "content_type": "text/html;charset=UTF-8",
+        "bytes": 4601174,
+        "sha256": "82786a5ed6dbf90222da9b8f087dc189d4cd419fea96e0a7941c3ded21c9a5ef",
+        "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision",
+        "markers_observed": [
+          "Wetboek van Strafrecht",
+          "BWBR0001854",
+          "Geen feit is strafbaar dan uit kracht van een daaraan voorafgegane wettelijke strafbepaling.",
+          "Geldend van 01-07-2026 t/m heden"
+        ]
+      },
+      "not_claimed": [
+        "applicability to a person",
+        "municipal coverage of a Dutch gemeente"
+      ]
+    },
+    {
+      "fixture_id": "de-grundgesetz-artikel-20",
+      "coverage_class": "federal",
+      "fetch": {
+        "checked_at": "2026-11-03T07:06:35Z",
+        "http_status": 200,
+        "final_url": "https://www.gesetze-im-internet.de/gg/art_20.html",
+        "content_type": "text/html",
+        "bytes": 4020,
+        "sha256": "ce7f68c8120563a642a3423e760da4ac7837ea9855ed462d7e67afc90d00eb92",
+        "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision",
+        "markers_observed": [
+          "Artikel 20",
+          "Die Bundesrepublik Deutschland ist ein demokratischer und sozialer Bundesstaat.",
+          "Nichtamtliches Inhaltsverzeichnis"
+        ]
+      },
+      "companion_fetch": {
+        "role": "site notice that consolidated texts are nicht amtliche Texte",
+        "checked_at": "2026-11-03T07:06:35Z",
+        "http_status": 200,
+        "final_url": "https://www.gesetze-im-internet.de/hinweise.html",
+        "content_type": "text/html",
+        "bytes": 12996,
+        "sha256": "d4a663fe8142492fed659c8939755be6e3b72de3ce6f050fffdf969f90e271a9",
+        "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision",
+        "markers_observed": [
+          "als nicht amtliche Texte"
+        ]
+      },
+      "not_claimed": [
+        "which of federal or Land law governs Bayern",
+        "authenticity of the Gesetze im Internet consolidation"
+      ]
+    },
+    {
+      "fixture_id": "be-grondwet-1994021048-artikel-4",
+      "coverage_class": "multilingual",
+      "fetch": {
+        "checked_at": "2026-11-03T07:06:35Z",
+        "http_status": 200,
+        "final_url": "https://www.ejustice.just.fgov.be/cgi_loi/article.pl?language=nl&lg_txt=n&cn_search=1994021730&caller=eli&view_numac=1994021730nl",
+        "content_type": "text/html; charset=ISO-8859-1",
+        "bytes": 220149,
+        "sha256": "343b087b7d639965ab55bef0277ede8ad9970e8619da5ea795b33da80a3813b2",
+        "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision",
+        "markers_observed": [
+          "1994021048",
+          "België omvat vier taalgebieden : het Nederlandse taalgebied, het Franse taalgebied, het tweetalige gebied Brussel-Hoofdstad en het Duitse taalgebied"
+        ]
+      },
+      "parallel_fetch": {
+        "checked_at": "2026-11-03T07:06:35Z",
+        "http_status": 200,
+        "final_url": "https://www.ejustice.just.fgov.be/cgi_loi/article.pl?language=fr&lg_txt=f&cn_search=1994021730&caller=eli&view_numac=1994021730fr",
+        "content_type": "text/html; charset=ISO-8859-1",
+        "bytes": 213355,
+        "sha256": "dbb11a0ea597ad9acdf0a3d70ebd9f551b188d9a2298985a95db502c11394ad7",
+        "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision",
+        "markers_observed": [
+          "1994021048",
+          "La Belgique comprend quatre régions linguistiques : la région de langue française, la région de langue néerlandaise, la région bilingue de Bruxelles-Capitale et la région de langue allemande"
+        ]
+      },
+      "unverified_language_fetch": {
+        "language": "de",
+        "result": "HTTP 200, but the instrument wording observed was French, not a German edition",
+        "checked_at": "2026-11-03T07:06:35Z",
+        "http_status": 200,
+        "final_url": "https://www.ejustice.just.fgov.be/cgi_loi/article.pl?language=de&lg_txt=d&cn_search=1994021730&caller=eli&view_numac=1994021730de",
+        "content_type": "text/html; charset=ISO-8859-1",
+        "bytes": 213066,
+        "sha256": "f588c7be0136eb7fa2a7e1085560aac5f9582aaa888661814d395382dd689bce",
+        "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision",
+        "markers_observed": [
+          "région de langue"
+        ]
+      },
+      "not_claimed": [
+        "which language area a commune belongs to",
+        "which language edition prevails"
+      ]
+    },
+    {
+      "fixture_id": "bh-dustur-mamlakat-al-bahrain",
+      "coverage_class": "rtl-or-non-latin",
+      "fetch": {
+        "checked_at": "2026-11-03T07:06:35Z",
+        "http_status": 200,
+        "final_url": "https://www.lloc.gov.bh/page/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1%20%D9%85%D9%85%D9%84%D9%83%D8%A9%20%D8%A7%D9%84%D8%A8%D8%AD%D8%B1%D9%8A%D9%86",
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 159810,
+        "sha256": "1f9a636219554418b79ffb47824ee9436c421ef87a855ba21a766ec94201947b",
+        "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision",
+        "markers_observed": [
+          "lang=ar-bh",
+          "dir=rtl",
+          "دستور مملكة البحرين",
+          "مادة"
+        ]
+      },
+      "not_claimed": [
+        "territorial scope",
+        "which text block on the page is operative"
+      ]
+    },
+    {
+      "fixture_id": "jp-minpo-129ac0000000089",
+      "coverage_class": "rtl-or-non-latin",
+      "fetch": {
+        "checked_at": "2026-11-03T07:06:35Z",
+        "http_status": 200,
+        "final_url": "https://laws.e-gov.go.jp/api/1/lawdata/129AC0000000089",
+        "content_type": "text/xml;charset=UTF-8",
+        "bytes": 1775381,
+        "sha256": "30d574130c40dc5fffacdf1f29163b1a3814889dc3c65085345a198cadc6625a",
+        "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision",
+        "markers_observed": [
+          "LawTitle 民法",
+          "LawNum 明治二十九年法律第八十九号"
+        ]
+      },
+      "html_shell_fetch": {
+        "checked_at": "2026-11-03T07:06:35Z",
+        "http_status": 200,
+        "final_url": "https://laws.e-gov.go.jp/law/129AC0000000089",
+        "content_type": "text/html",
+        "bytes": 800,
+        "sha256": "d984761fd993755a45405911992cb80826830d21b38ade13fe8216a12910dad7",
+        "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision",
+        "markers_observed": [
+          "e-Gov 法令検索"
+        ]
+      },
+      "not_claimed": [
+        "application of any Civil Code article",
+        "right-to-left layout"
+      ]
+    },
+    {
+      "fixture_id": "nl-waterschapswet-bwbr0005108",
+      "coverage_class": "special-or-overlapping",
+      "fetch": {
+        "checked_at": "2026-11-03T07:06:35Z",
+        "http_status": 200,
+        "final_url": "https://wetten.overheid.nl/BWBR0005108/2026-01-01",
+        "content_type": "text/html;charset=UTF-8",
+        "bytes": 1877452,
+        "sha256": "3b7e722612232a1f01d3e54ee536af801d71e82cfc15d8b872377f76ee440703",
+        "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision",
+        "markers_observed": [
+          "Waterschapswet",
+          "Waterschappen zijn openbare lichamen welke de waterstaatkundige verzorging van een bepaald gebied ten doel hebben."
+        ]
+      },
+      "not_claimed": [
+        "which waterschap covers a place",
+        "applicability"
+      ]
+    },
+    {
+      "fixture_id": "nl-statuut-koninkrijk-bwbr0002154",
+      "coverage_class": "special-or-overlapping",
+      "fetch": {
+        "checked_at": "2026-11-03T07:06:35Z",
+        "http_status": 200,
+        "final_url": "https://wetten.overheid.nl/BWBR0002154/2024-01-01",
+        "content_type": "text/html;charset=UTF-8",
+        "bytes": 406287,
+        "sha256": "bce9cd8993eeb548f28e8efea6097c3bdda996a3ca5f514f804e3f33b3f3f8e2",
+        "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision",
+        "markers_observed": [
+          "Statuut voor het Koninkrijk der Nederlanden",
+          "25 november 1975"
+        ]
+      },
+      "not_claimed": [
+        "present membership of the Kingdom",
+        "applicability to a person or island"
+      ]
+    },
+    {
+      "fixture_id": "eg-aswan-absent-municipal",
+      "coverage_class": "absent-municipal",
+      "fetch": {
+        "checked_at": "2026-11-03T07:06:35Z",
+        "http_status": 200,
+        "final_url": "https://www.presidency.eg/media/46122/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1-%D8%AC%D9%85%D9%87%D9%88%D8%B1%D9%8A%D8%A9-%D9%85%D8%B5%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9-2019.pdf",
+        "content_type": "application/pdf",
+        "bytes": 2051761,
+        "sha256": "dc649a48b3ba4fa031be9ae12ace567db52ce12240683cc5be82c6dee753d096",
+        "sha256_scope": "complete HTTP response body retrieved for this check; not a publisher revision",
+        "markers_observed": [
+          "application/pdf",
+          "cover contains مصر",
+          "cover contains دستور",
+          "cover contains 2019"
+        ]
+      },
+      "not_claimed": [
+        "Aswan municipal ordinances",
+        "that Aswan has no local rules outside this snapshot",
+        "a boundary for the place string Aswan"
+      ]
+    }
+  ],
+  "rejected_witnesses": [
+    {
+      "candidate": "Fedlex Federal Constitution SR 101 in de, fr, it, and rm",
+      "result": "Each language URL returned the same HTML application shell. The constitution text was not in the response, so Switzerland is not the multilingual witness."
+    },
+    {
+      "candidate": "EUR-Lex Treaty on European Union Article 5, CELEX 12016M005",
+      "result": "HTTP 202 with an interstitial. The article text was not read and is not quoted. The Kingdom Charter is the overlapping-authority witness instead."
+    },
+    {
+      "candidate": "Egyptian presidency HTML constitution page",
+      "result": "HTTP 403. The presidency PDF returned HTTP 200 and is the absent-municipal citation."
+    },
+    {
+      "candidate": "Al-Meezan page for the Permanent Constitution of Qatar",
+      "result": "The client was redirected to an application shell. Doha is not used as a place witness."
+    }
+  ],
+  "known_limitations": [
+    "No case records a legal conclusion. expected.legal_conclusion is not_claimed, and overlapping or special authority keeps applicability not_claimed.",
+    "source.license is unknown on every case. Organization membership and a public website are not treated as a redistribution grant.",
+    "source.revision is null. Response SHA-256 values identify the retrieved bytes, including page chrome, and are not the publisher's revision id.",
+    "The Netherlands municipal collection is included in the snapshot. The Dutch criminal-code case does not say that collection lacks a gemeente.",
+    "The German consolidation is explicitly non-official on the publisher's own Hinweise page.",
+    "The Belgian German-language request did not verify a German text.",
+    "The Egyptian cover was read with pdftotext. Bidirectional extraction is not a diplomatic transcription, so the fixture quotation is null. PDF metadata names Microsoft Word 2016 as Creator.",
+    "Disposition rows were counted by family. Their law text was not opened."
+  ]
+}

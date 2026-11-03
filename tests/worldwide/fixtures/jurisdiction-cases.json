@@ -1,0 +1,293 @@
+{
+  "schema": "worldwide-legal-search.jurisdiction-cases@1",
+  "cases": [
+    {
+      "schema": "worldwide-legal-search.fixture@1",
+      "fixture_id": "nl-wetboek-van-strafrecht-artikel-1",
+      "kind": "jurisdiction-case",
+      "purpose": "Cited Dutch national criminal-code article for the Netherlands class, with no holding about a person or a municipality.",
+      "source": {
+        "citation": "Wetboek van Strafrecht, artikel 1, BWBR0001854",
+        "url": "https://wetten.overheid.nl/BWBR0001854/2026-07-01",
+        "revision": null,
+        "license": "unknown",
+        "fabricated_legal_conclusion": false,
+        "quotation": "Geen feit is strafbaar dan uit kracht van een daaraan voorafgegane wettelijke strafbepaling."
+      },
+      "inputs": {
+        "coverage_class": "nl",
+        "country": "NL",
+        "place": "Netherlands",
+        "instrument_id": "BWBR0001854",
+        "site_label": "Geldend van 01-07-2026 t/m heden",
+        "checked_on": "2026-11-03"
+      },
+      "expected": {
+        "legal_conclusion": "not_claimed",
+        "jurisdiction_level": "national"
+      },
+      "uncertainty": [
+        "The quotation is the artikel 1 sentence shown on the cited page. It is not applied to a person, act, or dispute.",
+        "The same page shows a second paragraph of artikel 1. That paragraph is not used.",
+        "Requesting BWBR0001854 dated 2026-11-03 returned HTTP 404. The version URL above is the page the site served, and its own label says Geldend van 01-07-2026 t/m heden.",
+        "No redistribution license was read. A footer link labelled Informatie hergebruiken was not opened."
+      ],
+      "adversarial": false
+    },
+    {
+      "schema": "worldwide-legal-search.fixture@1",
+      "fixture_id": "de-grundgesetz-artikel-20",
+      "kind": "jurisdiction-case",
+      "purpose": "Cited Basic Law sentence identifying Germany as a federal state, without choosing a Land rule.",
+      "source": {
+        "citation": "Grundgesetz für die Bundesrepublik Deutschland, Artikel 20 Absatz 1",
+        "url": "https://www.gesetze-im-internet.de/gg/art_20.html",
+        "revision": null,
+        "license": "unknown",
+        "fabricated_legal_conclusion": false,
+        "quotation": "Die Bundesrepublik Deutschland ist ein demokratischer und sozialer Bundesstaat."
+      },
+      "inputs": {
+        "coverage_class": "federal",
+        "system": "federal",
+        "country": "DE",
+        "place": "Bayern",
+        "cited_layer": "federal",
+        "checked_on": "2026-11-03"
+      },
+      "expected": {
+        "legal_conclusion": "not_claimed",
+        "applicability": "not_claimed",
+        "state_rule": "not_claimed"
+      },
+      "uncertainty": [
+        "The quotation comes from Gesetze im Internet. That site's Hinweise say consolidated texts are published as nicht amtliche Texte.",
+        "The article page is headed Nichtamtliches Inhaltsverzeichnis. It is not the Bundesgesetzblatt promulgation copy.",
+        "Bayern is named only as a Land in the federal system. No Bavarian statute was opened, and no choice is made between federal and Land law.",
+        "Paragraphs 2, 3, and 4 of Artikel 20 were on the page and are not used."
+      ],
+      "adversarial": false
+    },
+    {
+      "schema": "worldwide-legal-search.fixture@1",
+      "fixture_id": "be-grondwet-1994021048-artikel-4",
+      "kind": "jurisdiction-case",
+      "purpose": "Cited Dutch and French editions of the same Belgian constitutional article, without treating language as jurisdiction.",
+      "source": {
+        "citation": "Gecoördineerde Grondwet 17 februari 1994, NUMAC 1994021048, artikel 4",
+        "url": "https://www.ejustice.just.fgov.be/cgi_loi/article.pl?language=nl&lg_txt=n&cn_search=1994021730&caller=eli&view_numac=1994021730nl",
+        "revision": null,
+        "license": "unknown",
+        "fabricated_legal_conclusion": false,
+        "quotation": "België omvat vier taalgebieden : het Nederlandse taalgebied, het Franse taalgebied, het tweetalige gebied Brussel-Hoofdstad en het Duitse taalgebied"
+      },
+      "inputs": {
+        "coverage_class": "multilingual",
+        "country": "BE",
+        "languages": [
+          "nl",
+          "fr"
+        ],
+        "numac": "1994021048",
+        "dossier": "1994021730",
+        "parallel_edition": {
+          "language": "fr",
+          "url": "https://www.ejustice.just.fgov.be/cgi_loi/article.pl?language=fr&lg_txt=f&cn_search=1994021730&caller=eli&view_numac=1994021730fr",
+          "quotation": "La Belgique comprend quatre régions linguistiques : la région de langue française, la région de langue néerlandaise, la région bilingue de Bruxelles-Capitale et la région de langue allemande"
+        },
+        "checked_on": "2026-11-03"
+      },
+      "expected": {
+        "legal_conclusion": "not_claimed",
+        "jurisdiction_level": "national"
+      },
+      "uncertainty": [
+        "The Dutch and French Justel responses use different wording for the same NUMAC and article. The language of the page is not the search jurisdiction.",
+        "A German-language Justel request returned HTTP 200, but the instrument wording in that response was still the French région de langue text. A German edition is not recorded as verified.",
+        "The quoted article says each commune belongs to one language area. Which area a named commune belongs to is not decided.",
+        "No redistribution license was read on either language page."
+      ],
+      "adversarial": false
+    },
+    {
+      "schema": "worldwide-legal-search.fixture@1",
+      "fixture_id": "bh-dustur-mamlakat-al-bahrain",
+      "kind": "jurisdiction-case",
+      "purpose": "Cited Arabic constitution page marked right-to-left, without a territorial or applicability holding.",
+      "source": {
+        "citation": "دستور مملكة البحرين",
+        "url": "https://www.lloc.gov.bh/page/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1%20%D9%85%D9%85%D9%84%D9%83%D8%A9%20%D8%A7%D9%84%D8%A8%D8%AD%D8%B1%D9%8A%D9%86",
+        "revision": null,
+        "license": "unknown",
+        "fabricated_legal_conclusion": false,
+        "quotation": "دستور مملكة البحرين"
+      },
+      "inputs": {
+        "coverage_class": "rtl-or-non-latin",
+        "country": "BH",
+        "direction": "rtl",
+        "script": "non-latin",
+        "language": "ar",
+        "html_lang": "ar-bh",
+        "checked_on": "2026-11-03"
+      },
+      "expected": {
+        "legal_conclusion": "not_claimed",
+        "jurisdiction_level": "national",
+        "territorial_scope": "not_claimed"
+      },
+      "uncertainty": [
+        "The page sets lang=ar-bh and dir=rtl and is written in Arabic script. Direction and script do not decide territorial scope.",
+        "The same title appears in navigation and in more than one text block, including an explanatory memorandum. No block is selected as the operative text.",
+        "An article label مادة is present. Its words are not applied to a person, place, or dispute.",
+        "No redistribution license was read."
+      ],
+      "adversarial": false
+    },
+    {
+      "schema": "worldwide-legal-search.fixture@1",
+      "fixture_id": "jp-minpo-129ac0000000089",
+      "kind": "jurisdiction-case",
+      "purpose": "Cited Japanese Civil Code title from the official law API, a non-Latin text that is not right-to-left.",
+      "source": {
+        "citation": "民法（明治二十九年法律第八十九号）",
+        "url": "https://laws.e-gov.go.jp/api/1/lawdata/129AC0000000089",
+        "revision": null,
+        "license": "unknown",
+        "fabricated_legal_conclusion": false,
+        "quotation": "民法"
+      },
+      "inputs": {
+        "coverage_class": "rtl-or-non-latin",
+        "country": "JP",
+        "direction": "ltr",
+        "script": "non-latin",
+        "language": "ja",
+        "law_id": "129AC0000000089",
+        "law_number": "明治二十九年法律第八十九号",
+        "catalog_url": "https://laws.e-gov.go.jp/law/129AC0000000089",
+        "checked_on": "2026-11-03"
+      },
+      "expected": {
+        "legal_conclusion": "not_claimed",
+        "jurisdiction_level": "national"
+      },
+      "uncertainty": [
+        "The quotation is the LawTitle element 民法. The LawNum element is 明治二十九年法律第八十九号. No article is applied to a dispute.",
+        "Japanese is a non-Latin script and the law text is not right-to-left. The Bahrain case is the right-to-left witness.",
+        "The HTML catalog page returned a short application shell and did not contain 民法. The quotation comes from the API response, not from that shell.",
+        "No redistribution license was read."
+      ],
+      "adversarial": false
+    },
+    {
+      "schema": "worldwide-legal-search.fixture@1",
+      "fixture_id": "nl-waterschapswet-bwbr0005108",
+      "kind": "jurisdiction-case",
+      "purpose": "Cited national statute defining waterschappen as a special public-body type, without identifying a territory.",
+      "source": {
+        "citation": "Waterschapswet, artikel 1, BWBR0005108",
+        "url": "https://wetten.overheid.nl/BWBR0005108/2026-01-01",
+        "revision": null,
+        "license": "unknown",
+        "fabricated_legal_conclusion": false,
+        "quotation": "Waterschappen zijn openbare lichamen welke de waterstaatkundige verzorging van een bepaald gebied ten doel hebben."
+      },
+      "inputs": {
+        "coverage_class": "special-or-overlapping",
+        "relationship": "special",
+        "country": "NL",
+        "authority_type": "waterschap",
+        "instrument_id": "BWBR0005108",
+        "site_label": "Geldend van 01-01-2026 t/m heden",
+        "checked_on": "2026-11-03"
+      },
+      "expected": {
+        "legal_conclusion": "not_claimed",
+        "applicability": "not_claimed"
+      },
+      "uncertainty": [
+        "The quotation describes waterschappen as a type of public body. It does not name a waterschap, a gemeente, or a coordinate.",
+        "Whether a waterschap overlaps a particular municipality is not decided.",
+        "Geldend van 01-01-2026 t/m heden is the label on the page, not an independent status opinion."
+      ],
+      "adversarial": false
+    },
+    {
+      "schema": "worldwide-legal-search.fixture@1",
+      "fixture_id": "nl-statuut-koninkrijk-bwbr0002154",
+      "kind": "jurisdiction-case",
+      "purpose": "Cited Kingdom Charter preamble naming more than one country, without deciding who is bound today.",
+      "source": {
+        "citation": "Statuut voor het Koninkrijk der Nederlanden, BWBR0002154",
+        "url": "https://wetten.overheid.nl/BWBR0002154/2024-01-01",
+        "revision": null,
+        "license": "unknown",
+        "fabricated_legal_conclusion": false,
+        "quotation": "Nederland, Aruba, Curaçao en Sint Maarten, constaterende dat Nederland, Suriname en de Nederlandse Antillen in 1954 uit vrije wil hebben verklaard in het Koninkrijk der Nederlanden een nieuwe rechtsorde te aanvaarden, waarin zij de eigen belangen zelfstandig behartigen en op voet van gelijkwaardigheid de gemeenschappelijke belangen verzorgen en wederkerig bijstand verlenen, en hebben besloten in gemeen overleg het Statuut voor het Koninkrijk vast te stellen"
+      },
+      "inputs": {
+        "coverage_class": "special-or-overlapping",
+        "relationship": "overlapping",
+        "countries_named_in_quotation": [
+          "Nederland",
+          "Aruba",
+          "Curaçao",
+          "Sint Maarten",
+          "Suriname",
+          "Nederlandse Antillen"
+        ],
+        "instrument_id": "BWBR0002154",
+        "site_label": "Geldend van 01-01-2024 t/m heden",
+        "checked_on": "2026-11-03"
+      },
+      "expected": {
+        "legal_conclusion": "not_claimed",
+        "applicability": "not_claimed"
+      },
+      "uncertainty": [
+        "The quotation is one preamble recital. It names current and historical countries together. It is not a present-membership holding.",
+        "The same page later says the statutory link with Suriname ended on 25 November 1975. That sentence is not used to decide any other country's status.",
+        "No person, island, or dispute is brought under the Charter here.",
+        "A direct EUR-Lex request for Treaty on European Union Article 5 returned HTTP 202 and an interstitial, so that article was not quoted."
+      ],
+      "adversarial": false
+    },
+    {
+      "schema": "worldwide-legal-search.fixture@1",
+      "fixture_id": "eg-aswan-absent-municipal",
+      "kind": "jurisdiction-case",
+      "purpose": "Cited Egyptian constitution PDF for a named place whose snapshot has no municipal collection.",
+      "source": {
+        "citation": "دستور جمهورية مصر العربية",
+        "url": "https://www.presidency.eg/media/46122/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1-%D8%AC%D9%85%D9%87%D9%88%D8%B1%D9%8A%D8%A9-%D9%85%D8%B5%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9-2019.pdf",
+        "revision": null,
+        "license": "unknown",
+        "fabricated_legal_conclusion": false,
+        "quotation": null
+      },
+      "inputs": {
+        "coverage_class": "absent-municipal",
+        "country": "EG",
+        "place": "Aswan",
+        "publisher_host": "www.presidency.eg",
+        "cover_year_observed": "2019",
+        "checked_on": "2026-11-03"
+      },
+      "expected": {
+        "legal_conclusion": "not_claimed",
+        "municipal_coverage": "absent",
+        "applicability": "not_claimed"
+      },
+      "uncertainty": [
+        "The cited file is a national constitution PDF. It does not establish municipal ordinances for Aswan.",
+        "The pinned dispositions include Egyptian national and governorate collections and no family municipal row. Governorate decrees stay regional.",
+        "The place string Aswan was not joined to a boundary, geonames id, or coordinate.",
+        "pdftotext on the first two pages shows مصر, دستور, and 2019, with broken bidirectional order. No article is quoted from that extraction.",
+        "PDF metadata names Microsoft Word 2016 as Creator and a 2019 creation time. A personal Author field is not recorded and is not treated as the issuer. This file is not established as the gazette promulgation.",
+        "Rows inside the Egyptian datasets were not scanned. A missing municipal family is not a finding that Aswan has no local rules outside this snapshot."
+      ],
+      "adversarial": false
+    }
+  ]
+}

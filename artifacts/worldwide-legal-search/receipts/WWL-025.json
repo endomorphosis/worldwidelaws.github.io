@@ -1,0 +1,66 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-025",
+  "title": "Curate cross-system jurisdiction and coverage reference cases",
+  "recorded_at": "2026-11-03T07:07:43Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-025-dcb897c81535-attempt-1-1793688499",
+  "site_revision": "fde7d04b1fa2c96fb1a1814c51a5a63c773f173a",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "jurisdiction-cases.json and jurisdiction-evaluation.json are uncommitted relative to site_revision. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of an ordinary git status.",
+    "Every case keeps legal_conclusion not_claimed. Special and overlapping authority keep applicability not_claimed. No case decides what law binds a person, act, or dispute.",
+    "source.license is unknown. A public page and organization membership were not treated as a redistribution grant. source.revision is null. Response SHA-256 values in the evaluation are the retrieved HTTP bodies, not publisher revisions.",
+    "The German quotation is from Gesetze im Internet. That site says its consolidated texts are nicht amtliche Texte.",
+    "The Belgian witness is the Dutch and French Justel text of NUMAC 1994021048 artikel 4. The German-language request did not return a German instrument text.",
+    "EUR-Lex returned HTTP 202 for Treaty on European Union Article 5, so that article is not quoted. The overlapping witness is the Kingdom Charter preamble.",
+    "The Egypt file is a PDF hosted on presidency.eg. Its metadata names Microsoft Word 2016 as Creator. pdftotext did not produce a clean diplomatic transcription, so the fixture quotation is null.",
+    "Aswan is a place string with no boundary join. Absent municipal coverage means the cited national PDF and the pinned dispositions do not establish a municipal collection. It is not a finding that Aswan has no local rules outside the snapshot.",
+    "The audit checks the fixture contract only. It does not fetch the cited URLs again. stderr was empty."
+  ],
+  "jurisdiction_cases": {
+    "schema": "worldwide-legal-search.jurisdiction-cases@1",
+    "case_count": 8,
+    "classes": [
+      "nl",
+      "federal",
+      "multilingual",
+      "rtl-or-non-latin",
+      "special-or-overlapping",
+      "absent-municipal"
+    ],
+    "legal_conclusion": "not_claimed"
+  },
+  "outputs": [
+    {
+      "path": "tests/worldwide/fixtures/jurisdiction-cases.json",
+      "bytes": 14452,
+      "sha256": "236a766894e269f01073ffc63b3c9f873482ad9feec768cab342e74b773e3945"
+    },
+    {
+      "path": "docs/worldwide/jurisdiction-evaluation.json",
+      "bytes": 14462,
+      "sha256": "efca69d1ffc0f1587ed6d577358120362e970c769deb7691a6e93e71b32a2750"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "node",
+      "scripts/worldwide/audit.mjs",
+      "jurisdiction-fixtures"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_d0cf142e6333_a392a19159ca",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node. HOME was /tmp/ipfs-accelerate-validation-home-YOA3nX. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. stderr was empty.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "command": "jurisdiction-fixtures"
+    },
+    "stdout_sha256": "670c25b51042b60a09708d1478a6672913e154ba9f95746062052b4148202524",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
