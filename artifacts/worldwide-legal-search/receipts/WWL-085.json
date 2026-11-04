@@ -1,0 +1,46 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-085",
+  "title": "Run independent product acceptance against the accepted tree",
+  "recorded_at": "2026-11-04T06:48:00Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge, and task completion remain separate gates. This receipt does not mark the backlog complete. An independent actor ran the recorded place, date, citation, coverage, RTL, mobile, and no-backend scenarios against the Vite production preview of commit eb954f6299abedfc83454a1aa935700c28d0476d. The browser run exited 0: 25 passed in 8.7s. The module run exited 0: 10 suites, 219 tests, in 39.249s. The validation command exited 0.",
+  "site_branch": "implementation/wwl-085-7ef94c54f170-attempt-1-1793773568",
+  "site_revision": "eb954f6299abedfc83454a1aa935700c28d0476d",
+  "site_tree": "de6cd8c55aad77354f309027c702b2621d343251",
+  "operational_revision": "8492ea8c0e98191423804a6841ebde0876ed8367",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "site_revision is the accepted HEAD, subject WWL-084: require CI gates without continue-on-error, committed 2026-11-04T07:25:31+01:00. The same commit is agent/worldwide-legal-search-v1. docs/worldwide/product-acceptance.json is the new tracked output. artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "npx tsc --noEmit --pretty false --incremental false exited 2 with 135 errors in 26 files. npm run build is tsc && vite build, so that command does not complete. The scenarios used npx vite build, which exited 0 in 11.51s, and npx vite preview on 127.0.0.1:5173. The preview returned HTTP 200 and sent no COOP or COEP header.",
+    "The shell document sha256 is 4b9483e5d929f7f4c078bda7be925a376a8b377760897c2915e9523b23b5eee4. It modulepreloads assets/index-2be14ce7.js and assets/shell-vendor-b17b141a.js only. It also requests https://plausible.io/js/script.js. The acceptance probe saw that host and no search backend, Convex, OpenRouter, country.is, transformers, ort wasm, or optional worker.",
+    "location.spec.ts does not pin system Chrome. The fresh validation HOME had no Playwright browser, so the first attempt failed 6 location tests and passed 19, then the html reporter stayed open. npx playwright install chromium downloaded Chromium Headless Shell 140.0.7339.16 (build v1187) into that HOME. The authoritative rerun used --reporter=line and exited 0 with 25 passed. visual, accessibility, and transport launched /opt/google/chrome/chrome.",
+    "Jest executed the production TypeScript modules through ts-jest. It did not execute the emitted Vite bytes. The Playwright run did. Both exited 0.",
+    "coverage-audit.json on this commit records verified_ingest_receipts 0 and legal_completeness not_claimed. The shell shows coverage unknown. That explicit state is the passing coverage scenario.",
+    "The operational revision is framework commit 8492ea8c0e98191423804a6841ebde0876ed8367. That worktree has uncommitted supervisor edits, so the pin is the commit and not the dirty tree.",
+    "Receipts for WWL-017, WWL-073, WWL-081, and WWL-082 are in this worktree. WWL-084.json is not. Receipts are gitignored.",
+    "node is v23.11.1 at /usr/bin/node. npm is 10.9.2 at /usr/bin/npm. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. The scenario HOME was /tmp/ipfs-accelerate-validation-home-wwl085. The Jest HOME was /tmp/ipfs-accelerate-validation-home-wwl085jest. The audit HOME was /tmp/ipfs-accelerate-validation-home-wwl085audit. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state.",
+    "node_modules is a gitignored symlink to the matching install in workspace_308d0310b080_218ee0e85049. package-lock.json sha256 is a751d2163916831f5abad88c9b62f08025a475e2855b3cd00945e728d640b7c9 in both trees. The shared store was not modified. dist/ is gitignored build output."
+  ],
+  "outputs": [
+    {
+      "path": "docs/worldwide/product-acceptance.json",
+      "bytes": 12491,
+      "sha256": "5c6760eeefa20522e9ac96fa977d9575ab9cf10a62d952de26ce4fc1b30ad30a"
+    }
+  ],
+  "validation": {
+    "argv": ["node", "scripts/worldwide/audit.mjs", "product-acceptance"],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_5e9a1c10f310_a579d3fd50d6",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-wwl085audit. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. node is /usr/bin/node v23.11.1. stdout is the audit JSON. stderr was empty.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "command": "product-acceptance"
+    },
+    "stdout_sha256": "bfab5461ae14236406eaf73ecdab98a1b0b80a7c54fbf0aba34785e75b4756d0",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

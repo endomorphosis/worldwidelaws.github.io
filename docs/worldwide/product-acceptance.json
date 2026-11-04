@@ -1,0 +1,134 @@
+{
+  "schema": "worldwide-legal-search.product-acceptance@1",
+  "actor": "independent-product-acceptance",
+  "actor_separated": true,
+  "recorded_at": "2026-11-04T06:40:52Z",
+  "site_commit": "eb954f6299abedfc83454a1aa935700c28d0476d",
+  "site_tree": "de6cd8c55aad77354f309027c702b2621d343251",
+  "site_branch": "implementation/wwl-085-7ef94c54f170-attempt-1-1793773568",
+  "site_subject": "WWL-084: require CI gates without continue-on-error",
+  "site_committed_at": "2026-11-04T07:25:31+01:00",
+  "operational_revision": "8492ea8c0e98191423804a6841ebde0876ed8367",
+  "operational_tree": "114952a186ec006205619009b8495ce1ca1f638d",
+  "operational_branch": "agent/worldwide-legal-search-supervisor",
+  "production_build": {
+    "typecheck_argv": ["npx", "tsc", "--noEmit", "--pretty", "false", "--incremental", "false"],
+    "typecheck_exit_code": 2,
+    "typecheck_errors": 135,
+    "typecheck_files": 26,
+    "typecheck_log_sha256": "a563e67f8f6186fca45c7d0198700c7bc607e689972a03998ecf85f4b23047c7",
+    "bundle_argv": ["npx", "vite", "build"],
+    "bundle_exit_code": 0,
+    "bundle_seconds": 11.51,
+    "bundle_log_sha256": "9afc3b5f1fde288c5003ec1b5ff7e33a02049c2bfd3d31f03baa16c7cda7c7ea",
+    "preview_argv": ["npx", "vite", "preview", "--host", "127.0.0.1", "--port", "5173", "--strictPort"],
+    "preview_status": 200,
+    "preview_isolation_headers": false,
+    "preview_header_sha256": "c2acd960f243975345312b8fc5bfde27a3657c65620bbcae99714cea8787c21e",
+    "shell_document_bytes": 1534,
+    "shell_document_sha256": "4b9483e5d929f7f4c078bda7be925a376a8b377760897c2915e9523b23b5eee4",
+    "shell_script_sha256": "0c3334435e2f77e9f0e7ed4618c4beec67ce39907b2aff33c7dfb447bfda8763",
+    "shell_vendor_sha256": "492c59b7ea42e21842d0252799b9bd6bb865ba0d9c35563ed66bf59e23eaea53",
+    "shell_style_sha256": "f0eab33e28f890c654ae3b060d473d3422aa58f5f0b7276da27bf9ed2112112c",
+    "modulepreload": ["assets/shell-vendor-b17b141a.js", "assets/index-2be14ce7.js"]
+  },
+  "browser_run": {
+    "argv": ["npx", "playwright", "test", "--reporter=line", "tests/worldwide/visual.spec.ts", "tests/worldwide/location.spec.ts", "tests/worldwide/accessibility.spec.ts", "tests/worldwide/transport.spec.ts"],
+    "exit_code": 0,
+    "passed": 25,
+    "failed": 0,
+    "duration": "8.7s",
+    "stdout_sha256": "f80aec75fbfaac205c10dc9a3fea2d12e323bb3492c003cca6a1d66670f0b2d2",
+    "stderr_sha256": "f3c48fe77dda2e81ce720bfc88017d07ec8fe4830263cff05c54ff49b69f9b33",
+    "chrome_executable": "/opt/google/chrome/chrome",
+    "playwright_chromium": "Chromium Headless Shell 140.0.7339.16 (playwright build v1187)"
+  },
+  "module_run": {
+    "argv": ["npm", "test", "--", "--runInBand", "--watchAll=false", "--runTestsByPath", "tests/worldwide/browser-boundary.test.ts", "tests/worldwide/coverage-ui.test.tsx", "tests/worldwide/tokenizer-parity.test.ts", "tests/worldwide/i18n.test.tsx", "tests/worldwide/temporal-scope.test.ts", "tests/worldwide/shell.test.tsx", "tests/worldwide/reader.test.tsx", "tests/worldwide/location-state.test.ts", "tests/worldwide/place-picker.test.tsx", "tests/worldwide/search-scope.test.ts"],
+    "exit_code": 0,
+    "test_suites": 10,
+    "tests": 219,
+    "failed": 0,
+    "duration": "39.249s",
+    "stdout_sha256": "ebe6c1caef84b5ec77894b86abfaf4fa6e835d5b08007e033b57629c8827889d",
+    "stderr_sha256": "36c7800b5c96b28e1b5abbf590d964c68269739a23b8d414b8a1427639aa4101"
+  },
+  "scenarios": [
+    {
+      "id": "place",
+      "executed": true,
+      "result": "pass",
+      "evidence": "On the Vite preview of commit eb954f6299abedfc83454a1aa935700c28d0476d, the law route /#/law/BWBR0001854?place=place:amsterdam&scope=place&date=2026-10-26 showed place:amsterdam and scope place. First visit at /#/search was data-state first-visit with zero result rows. Playwright location.spec.ts covered URL replacement, late IP and device responses, country-only guesses, border coordinates, keyboard place changes, and a 320px touch place change. visual.spec.ts and accessibility.spec.ts kept the same place line. Those specs are in the 25-pass browser run (exit 0, 8.7s). Jest place-picker, location-state, search-scope, and shell tests passed inside the 219-pass module run (exit 0, 39.249s)."
+    },
+    {
+      "id": "date",
+      "executed": true,
+      "result": "pass",
+      "evidence": "The same production law route kept the as-of control at 2026-10-26. visual.spec.ts checks the Arabic label for that civil date and the short-viewport run shows the As of control. Jest temporal-scope kept commencement, publication, amendment, and repeal apart. reader.test.tsx kept a civil date unshifted and refused year precision that would pick one of two versions. i18n.test.tsx formatted a civil day, month, or year without inventing a finer part. location-state kept a URL date when the place came from a saved selection and a manual date change did not drop the place. Both the browser run and the module run exited 0."
+    },
+    {
+      "id": "citation",
+      "executed": true,
+      "result": "pass",
+      "evidence": "The production law route main text contained the record identifier BWBR0001854, and the desktop law shot was sha256 3b3995fb31043fc1563ff96080f4a70516cfaad8422a2dec44c72e65994190f9. Jest tokenizer-parity exact citation lookup passed: 42 U.S.C. § 1983 returns the 1996 version then the 2020 version, a 2020 bluebook form returns only the current version, native Código Civil and 中华人民共和国宪法 stay distinct from the destructive cite key, and BWBR0001854 art. 6:162 is limited to the requested jurisdiction. reader.test.tsx kept the bundled official citation, bluebook citation, and copied citation text for the pinned revision. The module run exited 0 with 219 passes."
+    },
+    {
+      "id": "coverage",
+      "executed": true,
+      "result": "pass",
+      "evidence": "The production shell at first visit exposed data-coverage unknown and the text Coverage: Coverage unknown, with zero result rows. An empty submit stayed no-query and did not invent a result. transport.spec.ts, including the static shell coverage, sample, empty-search, and offline case, passed in the 25-pass browser run. Jest coverage-ui.test.tsx passed: missing and unknown municipal cells stay distinct, a catalog that claims legal completeness is unavailable, and an empty search is not a result. The explicit unknown state is the passing behavior. Separate from that pass, coverage-audit.json still records verified_ingest_receipts 0 and legal_completeness not_claimed."
+    },
+    {
+      "id": "rtl",
+      "executed": true,
+      "result": "pass",
+      "evidence": "visual.spec.ts selected Arabic on the production law route. The shell became dir rtl and lang ar, the document language became ar, the product title was قوانين العالم, and the as-of value stayed 2026-10-26. The skip link sat on the right with no transform. At 320 CSS pixels the Arabic search field stayed inside the viewport. The Arabic desktop shot was sha256 cae3b4ebaf5e140921aff5b5870f08e6c9efc3a5870808673a50a2ac8d6e3c94 and the 320px shot was sha256 36377f3ae5e3b73c5f31de089c850dbbda8562258485906e101439abf00f4a17. Japanese then returned dir ltr and lang ja. Jest i18n rendered Arabic and Hebrew titles in their own direction and isolated the citation. An independent Chrome probe of the same preview confirmed dir rtl, lang ar, and product قوانين العالم."
+    },
+    {
+      "id": "mobile",
+      "executed": true,
+      "result": "pass",
+      "evidence": "visual.spec.ts used a 320px touch viewport on the production preview. The search and place columns stacked, the search field was 18px, and the Change place and search targets were at least 44 CSS pixels and inside the viewport. Filters opened a fixed dialog sheet and Escape restored focus. A 390px viewport stayed stacked. accessibility.spec.ts repeated keyboard search and the filter sheet at 320 CSS pixels. location.spec.ts changed place on a 320px touch viewport without keeping the previous scope. The 320px search shot was sha256 b016debabffeec50cd5768863768f49d528721c0ea93fcb67ba71a0f2a5cf50c. The browser run exited 0."
+    },
+    {
+      "id": "no-backend",
+      "executed": true,
+      "result": "pass",
+      "evidence": "The preview of the Vite bundle answered HTTP 200 with no Cross-Origin-Embedder-Policy or Cross-Origin-Opener-Policy header. In Chrome, crossOriginIsolated was false and SharedArrayBuffer was absent. The shell document modulepreloads only the shell script and shell-vendor. A probe of /#/search and the dated law route recorded five requests: the document, index-2be14ce7.js, shell-vendor-b17b141a.js, index-f0eab33e.css, and https://plausible.io/js/script.js. It did not request Convex, OpenRouter, country.is, the optional transformers bundle, the ort wasm, the client LLM worker, the embedding worker, or the Netherlands research chunk. Jest browser-boundary.test.ts passed: core search runs while isolation, GPU, WASM instantiation, and secrets are unavailable, and preview headers stay empty. The plausible script is recorded under unresolved gaps. It is not the search backend, and the browser specs abort that host."
+    }
+  ],
+  "unresolved_gaps": [
+    {
+      "id": "typecheck-blocks-npm-run-build",
+      "detail": "npx tsc --noEmit --pretty false --incremental false exited 2 with 135 errors in 26 files. package.json build is tsc && vite build, so the official npm run build command does not complete. The accepted bundle under test is the exit-0 vite build, whose target is es2020, served by vite preview. The type errors are outside this task's edit scope. The typecheck log sha256 is a563e67f8f6186fca45c7d0198700c7bc607e689972a03998ecf85f4b23047c7."
+    },
+    {
+      "id": "plausible-tag-in-shell-document",
+      "detail": "dist/index.html, copied from index.html, requests https://plausible.io/js/script.js with data-domain wetwijzer.github.io. The production search shell does not need that request. The recorded browser specs abort plausible.io. The acceptance probe allowed it and saw that single external host."
+    },
+    {
+      "id": "worldwide-ingest-not-complete",
+      "detail": "docs/worldwide/coverage-audit.json on this commit records verified_ingest_receipts 0, admitted_child_tasks 0, ingested national and local counts 0, and legal_completeness not_claimed. The production shell therefore shows coverage unknown. That explicit state passed the coverage scenario. It is not a claim that worldwide sources are ingested."
+    },
+    {
+      "id": "optional-chunks-remain-in-dist",
+      "detail": "The vite build also emitted WetWijzerLegalResearchApp, clientLLMWorker, embeddingWorker, transformers.web, and ort-wasm-simd-threaded.asyncify (23567050 bytes). The shell document does not preload those files, and the acceptance probe did not request them. They are still present in the build output."
+    },
+    {
+      "id": "operational-worktree-dirty",
+      "detail": "operational_revision is the committed framework HEAD 8492ea8c0e98191423804a6841ebde0876ed8367 on agent/worldwide-legal-search-supervisor, tree 114952a186ec006205619009b8495ce1ca1f638d. That worktree also has uncommitted edits under ipfs_accelerate_py/agent_supervisor/todo_daemon/, proposal_validation.py, and three untracked supervisor tests. The pin is the commit, not the dirty worktree."
+    },
+    {
+      "id": "wwl-084-receipt-not-in-worktree",
+      "detail": "HEAD is the WWL-084 commit and this worktree has receipts for WWL-017, WWL-073, WWL-081, and WWL-082. artifacts/worldwide-legal-search/receipts/WWL-084.json is absent. Receipts are gitignored, so the accepted commit does not carry that file."
+    },
+    {
+      "id": "location-spec-needs-playwright-chromium",
+      "detail": "location.spec.ts does not set executablePath. A fresh validation HOME has no Playwright browser cache, so the first browser attempt failed its 6 location tests with a missing chromium_headless_shell-1187 and passed the other 19. npx playwright install chromium then downloaded Chromium Headless Shell 140.0.7339.16 (build v1187) into that HOME. The authoritative rerun, with --reporter=line, passed all 25 tests and exited 0. visual, accessibility, and transport specs launched /opt/google/chrome/chrome."
+    },
+    {
+      "id": "native-completion-not-claimed",
+      "detail": "This record is the independent product-acceptance actor. It is not a native validation receipt or a native merge receipt, and it does not mark the backlog complete."
+    }
+  ]
+}
