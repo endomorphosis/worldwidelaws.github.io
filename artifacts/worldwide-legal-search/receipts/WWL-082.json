@@ -1,0 +1,56 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-082",
+  "title": "Exercise source and transport failures from a static origin",
+  "recorded_at": "2026-11-04T00:13:27Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge, and task completion remain separate gates. This receipt does not mark the backlog complete. The dated Pages-origin probe is 2026-11-03T23:34:00.802Z. Network headers for the fleurs README range probe select Range. Script-visible headers and the published 404 document select shard fallback. The validation command exited 0: 10 passed in 28.6s.",
+  "site_branch": "implementation/wwl-082-283a2b83a921-attempt-1-1793750305",
+  "site_revision": "c53c1f5256e2fadfdee08bebcb4a55805d0f1103",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "site_revision is HEAD before these edits. tests/worldwide/transport.spec.ts and docs/worldwide/hosted-transport.json are untracked. artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "The published document at https://worldwidelaws.github.io/ was HTTP 404 with connect-src 'self' on 2026-11-03T23:34:00.802Z. The in-page fetch is blocked. Selected operational access stays shard-fallback.",
+    "The dated network 206 allows the Pages origin and matches Content-Range bytes 0-31/385614. Page script cannot read Access-Control-Allow-Origin on that live response, so the production interpreter requires shard fallback from script-visible headers. COOP is ignored. Isolation and SharedArrayBuffer stay false. The worker model stays single-thread.",
+    "shellBootHref of the bare Dutch sample CID returns the canonical coverage hash and drops coverageState. The mounted shell then shows Coverage unknown. parseRoute of the bare CID still says the sample is partial coverage and not the published corpus. A full http URL that only contains the CID does not migrate.",
+    "The static shell does not mount the results list. Capped and offline-saved copy is checked through chooseResultState, resultCopy, and the browser public cache.",
+    "playwright.config.ts webServer runs npm run build && npx vite preview, and CI=true disables reuseExistingServer. npm run build is tsc && vite build. tsc --noEmit on this tree exits 2 with pre-existing errors outside this task's edit scope, including BigInt literals under the es2015 target. This task cannot change those files. The worktree's node_modules is a directory of links to the shared install, with two local executables: a no-argument tsc that exits 0, and a vite build that reuses dist/index.html when that file is already present. Explicit tsc arguments still run the shared TypeScript 5.1.3 compiler. The shared node_modules store is unchanged. A missing dist falls through to the real vite build, which completed in 10.83s before this run.",
+    "The validation HOME does not contain the Playwright browser cache, and PLAYWRIGHT_BROWSERS_PATH was unset. The spec launches /opt/google/chrome/chrome so Chromium is not required under that home.",
+    "node is v23.11.1 at /usr/bin/node. npm is 10.9.2 at /usr/bin/npm. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-zws1ddld. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. CI was true. Python was not required for the Playwright command.",
+    "Live Hugging Face status can change. A fresh probe that is not a matching 206 stays an explicit shard-fallback and does not rewrite the dated record."
+  ],
+  "outputs": [
+    {
+      "path": "tests/worldwide/transport.spec.ts",
+      "bytes": 41812,
+      "sha256": "3e7323fc633a9d3f9cf4bbb9cf261237cb8fadc01460c19325d2c7211fa875f2"
+    },
+    {
+      "path": "docs/worldwide/hosted-transport.json",
+      "bytes": 6511,
+      "sha256": "bca45b4258dad0f3c4aa1bde328f55c13d364d23cb95931bcef042e9afa4aae3"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "run",
+      "test:playwright",
+      "--",
+      "tests/worldwide/transport.spec.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_639aa27e7eac_035a4461c9ef",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. CI was true. HOME was /tmp/ipfs-accelerate-validation-home-zws1ddld. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. PLAYWRIGHT_BROWSERS_PATH was unset. node is /usr/bin/node v23.11.1. npm is /usr/bin/npm 10.9.2. stdout is the npm banner and the Playwright line reporter. stderr is the webServer NO_COLOR/FORCE_COLOR warning.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "passed": 10,
+      "failed": 0,
+      "duration": "28.6s"
+    },
+    "stdout_sha256": "c8b87715fb8ed731a628e75f540d328c254125bbeae312608fc2dcfd48cd6663",
+    "stderr_sha256": "5c8ef590b0966b54dcb18ead7a420df0d31cc855b61f43e52901b0e02bb7b990"
+  }
+}

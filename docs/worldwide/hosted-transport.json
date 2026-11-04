@@ -1,0 +1,105 @@
+{
+  "schema": "worldwide-legal-search.hosted-transport@1",
+  "task_id": "WWL-082",
+  "probed_at": "2026-11-03T23:34:00.802Z",
+  "pages_origin": "https://worldwidelaws.github.io",
+  "credentials": "omit",
+  "worker_model": "single-thread",
+  "cross_origin_isolation_assumed": false,
+  "shared_array_buffer_assumed": false,
+  "published_document": {
+    "url": "https://worldwidelaws.github.io/",
+    "status": 404,
+    "content_security_policy": "default-src 'none'; style-src 'unsafe-inline'; img-src data:; connect-src 'self'",
+    "connects_to_huggingface": false,
+    "selected_access": "shard-fallback",
+    "reason": "The published GitHub Pages document is HTTP 404. Its connect-src is 'self', so that document cannot fetch huggingface.co."
+  },
+  "browser_probe": {
+    "resource": "https://huggingface.co/datasets/google/fleurs/resolve/main/README.md",
+    "method": "GET",
+    "range": "bytes=0-31",
+    "credentials": "omit",
+    "mode": "cors",
+    "redirect": "follow",
+    "referrer_policy": "no-referrer",
+    "cache": "no-store",
+    "accept": "*/*",
+    "document": "Chromium document whose origin is https://worldwidelaws.github.io. Only the document response was replaced, so connect-src allowed huggingface.co. The Hugging Face response was the live host.",
+    "authorization_sent": false,
+    "cookie_sent": false,
+    "first_hop": {
+      "status": 307,
+      "access_control_allow_origin": "https://worldwidelaws.github.io",
+      "content_range": "bytes 0-31/385614",
+      "note": "HTTP 307 is not Range support. Range requires the final 206."
+    },
+    "final": {
+      "status": 206,
+      "redirected": true,
+      "body_bytes": 32,
+      "body_prefix": "---\nannotations_creators:\n- expe",
+      "body_sha256": "8f5e079be432c13d90043319e2549bcdb9a6b5f96480106fbfe55f7ece00a418",
+      "content_range": "bytes 0-31/385614",
+      "content_type": "text/plain; charset=utf-8",
+      "etag": "\"dcc0872174e54ad416dee938651d777378d4ba4f\"",
+      "x_repo_commit": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
+      "declared_resource_bytes": 385614
+    },
+    "network_headers": {
+      "access-control-allow-origin": "https://worldwidelaws.github.io",
+      "content-range": "bytes 0-31/385614",
+      "content-length": "32",
+      "content-type": "text/plain; charset=utf-8",
+      "cross-origin-opener-policy": "same-origin",
+      "x-repo-commit": "70bb2e84b976b7e960aa89f1c648e09c59f894dd"
+    },
+    "script_visible_headers": {
+      "content-length": "32",
+      "content-range": "bytes 0-31/385614",
+      "content-type": "text/plain; charset=utf-8",
+      "etag": "\"dcc0872174e54ad416dee938651d777378d4ba4f\"",
+      "x-repo-commit": "70bb2e84b976b7e960aa89f1c648e09c59f894dd"
+    },
+    "network_decision": "range",
+    "script_visible_decision": "shard-fallback",
+    "script_visible_reason": "The live 206 does not list Access-Control-Allow-Origin in Access-Control-Expose-Headers. Page script cannot read that header, so the production interpreter sees cors false and requires shard fallback."
+  },
+  "selected_access": "shard-fallback",
+  "selected_access_reason": "The published document cannot connect to Hugging Face, and an in-page reader cannot see Access-Control-Allow-Origin on the live 206. The dated network headers still show that a 206 with this Pages origin and a matching Content-Range is Range plus CORS when those headers are supplied to the interpreter. That measurement does not select Range for the current deployment.",
+  "deterministic_cases": [
+    "rate-limit-429",
+    "outage-503",
+    "integrity-mismatch",
+    "missing-viewer",
+    "viewer-page-cap",
+    "viewer-server-over-cap",
+    "viewer-partial-index",
+    "viewer-page-budget"
+  ],
+  "explicit_states": {
+    "coverage_unknown": "Coverage unknown",
+    "coverage_partial": "Partial collection",
+    "sample_partial": "The bundled Dutch sample is partial coverage, not the published corpus.",
+    "offline": "Offline. Showing saved material only.",
+    "corrupt_recovery": "The stored copy failed its integrity check and was removed. The rest of the cache remains available.",
+    "capped": "These are the results retrieved so far. This is not all worldwide results.",
+    "empty_query": "An empty search is not a result about the law.",
+    "first_visit": "No result is invented.",
+    "applicability": "This choice does not decide that a law applies.",
+    "outage": "This source is unavailable right now."
+  },
+  "limitations": [
+    "The dated probe is a Chromium document at https://worldwidelaws.github.io on 2026-11-03T23:34:00.802Z. A host request that only forges an Origin header is not this measurement.",
+    "The published document was HTTP 404 with connect-src 'self'. Selected operational access stays shard-fallback until a document on that origin can connect and the in-page reader can see Access-Control-Allow-Origin.",
+    "Hugging Face returned the Pages origin on the network 206 and did not expose Access-Control-Allow-Origin to page script. A fulfilled response exposes it only when Access-Control-Expose-Headers lists it. Deterministic fixtures do that so the production interpreter can accept the Pages origin.",
+    "HTTP 307 and a HEAD request are not Range support. Range is the final GET 206 whose Content-Range matches bytes 0-31.",
+    "COOP and COEP are recorded and ignored. crossOriginIsolationAssumed and sharedArrayBufferAssumed stay false. The worker model stays single-thread. A dev-server COOP/COEP pair is not Pages proof.",
+    "Credentials stay omit. No Authorization header and no Cookie are sent.",
+    "x-request-id is not part of the dated record because it changes per request.",
+    "Dataset Viewer length is capped at 100. A walk stops after 4 pages, on partial:true, or when the server returns more rows than the cap. Joins and revision pinning stay false even if a payload claims them.",
+    "shellBootHref of a bare Dutch sample CID returns the canonical coverage hash and drops coverageState. The mounted shell then shows Coverage unknown. parseRoute of the bare CID still reports partial coverage and says the sample is not the published corpus.",
+    "A full http URL that merely contains the sample CID does not migrate. The shell does not mount the results list, so capped and offline-saved copy is checked through the production result helpers and the browser cache.",
+    "Live Hugging Face status can change. A fresh probe that is not a matching 206 stays an explicit shard-fallback and does not rewrite this dated record."
+  ]
+}
