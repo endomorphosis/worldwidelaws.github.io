@@ -1,0 +1,3216 @@
+{
+  "schema": "worldwide-legal-search.coverage-audit@1",
+  "inventory_revision": "0b6db3b679d8b9042c97ca5a48e3625892804ca14e2edf3badde368941665326",
+  "disposition_revision": "bd713600b9931ddc081059cb53162d5ee4be30f603134ab08697ff6386f1cd9a",
+  "national_count": 84085632,
+  "regional_count": 37483392,
+  "local_count": 84767485,
+  "other_count": 314259262,
+  "entry_count": 633,
+  "legal_completeness": "not_claimed",
+  "counts_are_not_legal_completeness": true,
+  "count_basis": "national_count and local_count sum ledger record_count for national and municipal rows. record_count is sizes.num_rows from the pinned inventory when the collection is eligible and that integer is present. A dataset with more than one level repeats the same viewer total on each of its rows. Classifier-blocked rows keep record_count null. No row is an ingest receipt: WWL-018 admitted no source child and no verify manifest is present. These counts are not legal completeness.",
+  "ingested_national_count": 0,
+  "ingested_local_count": 0,
+  "verified_ingest_receipts": 0,
+  "admitted_child_tasks": 0,
+  "eligible_datasets": 588,
+  "uncounted_eligible_datasets": 23,
+  "viewer_rows_once": 497443072,
+  "repeated_viewer_rows": 23152699,
+  "repeated_level_dataset_ids": [
+    "endomorphosis/ipfs_andorra_municipal_laws",
+    "endomorphosis/ipfs_australia_laws",
+    "endomorphosis/ipfs_czech_municipal_laws",
+    "endomorphosis/ipfs_germany_laws",
+    "endomorphosis/ipfs_indonesia_municipal_laws",
+    "endomorphosis/ipfs_kazakhstan_district_laws",
+    "endomorphosis/ipfs_kazakhstan_provincial_laws",
+    "endomorphosis/ipfs_saudi_arabia_municipal_laws",
+    "endomorphosis/ipfs_switzerland_laws",
+    "endomorphosis/ipfs_tunisia_municipal_laws",
+    "endomorphosis/ipfs_uzbekistan_district_laws",
+    "endomorphosis/ipfs_uzbekistan_provincial_laws",
+    "endomorphosis/world_municipal_law",
+    "endomorphosis/world_national_law",
+    "justicedao/ipfs_france_local_laws",
+    "justicedao/ipfs_italy_municipal_statutes",
+    "justicedao/ipfs_netherlands_municipal_laws",
+    "justicedao/world_national_law"
+  ],
+  "level_entry_counts": {
+    "national": 236,
+    "regional": 38,
+    "municipal": 111,
+    "other": 248
+  },
+  "blocked_datasets": 27,
+  "excluded_datasets": 27,
+  "trace": [
+    {
+      "dataset_id": "endomorphosis/211-info",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/american_municipal_law",
+      "level": "municipal",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/common_crawl_federal_index",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/common_crawl_meta_indexes",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/common_crawl_municipal_index",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/common_crawl_pointers_by_collection",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/common_crawl_state_index",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_afghanistan_laws",
+      "level": "national",
+      "record_count": 5140
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_aland_laws",
+      "level": "municipal",
+      "record_count": 25619
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_albania_laws",
+      "level": "national",
+      "record_count": 157188
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_algeria_laws",
+      "level": "national",
+      "record_count": 43212
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_andorra_laws",
+      "level": "national",
+      "record_count": 234621
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_andorra_municipal_laws",
+      "level": "national",
+      "record_count": 44368
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_andorra_municipal_laws",
+      "level": "municipal",
+      "record_count": 44368
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_angola_laws",
+      "level": "national",
+      "record_count": 68207
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_anguilla_laws",
+      "level": "national",
+      "record_count": 30521
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_antigua_barbuda_laws",
+      "level": "national",
+      "record_count": 72329
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_argentina_laws",
+      "level": "national",
+      "record_count": 144732
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_argentina_provincial_laws",
+      "level": "regional",
+      "record_count": 119208
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_armenia_laws",
+      "level": "national",
+      "record_count": 17021
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_aruba_laws",
+      "level": "national",
+      "record_count": 1594
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_australia_laws",
+      "level": "national",
+      "record_count": 716291
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_australia_laws",
+      "level": "regional",
+      "record_count": 716291
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_australia_municipal_laws",
+      "level": "municipal",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_austria_laws",
+      "level": "national",
+      "record_count": 246711
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_austria_municipal_laws",
+      "level": "municipal",
+      "record_count": 84371
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_azerbaijan_laws",
+      "level": "national",
+      "record_count": 20789
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_bahamas_laws",
+      "level": "national",
+      "record_count": 8906
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_bahrain_laws",
+      "level": "national",
+      "record_count": 7508
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_bangladesh_laws",
+      "level": "national",
+      "record_count": 34496
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_barbados_laws",
+      "level": "national",
+      "record_count": 23601
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_belarus_laws",
+      "level": "national",
+      "record_count": 10552
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_belgium_laws",
+      "level": "national",
+      "record_count": 793106
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_belgium_municipal_laws",
+      "level": "municipal",
+      "record_count": 9029
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_belgium_regional_laws",
+      "level": "regional",
+      "record_count": 374515
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_belize_laws",
+      "level": "national",
+      "record_count": 76095
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_benin_laws",
+      "level": "national",
+      "record_count": 2316
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_bermuda_laws",
+      "level": "national",
+      "record_count": 29823
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_bhutan_laws",
+      "level": "national",
+      "record_count": 17868
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_bolivia_laws",
+      "level": "national",
+      "record_count": 69431
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_bosnia_laws",
+      "level": "national",
+      "record_count": 11069
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_botswana_laws",
+      "level": "national",
+      "record_count": 11091
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_brazil_courts",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_brazil_laws",
+      "level": "national",
+      "record_count": 116562
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_brazil_municipal_laws",
+      "level": "municipal",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_brazil_state_laws",
+      "level": "regional",
+      "record_count": 190909
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_british_virgin_islands_laws",
+      "level": "national",
+      "record_count": 9670
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_brunei_laws",
+      "level": "national",
+      "record_count": 21621
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_bulgaria_laws",
+      "level": "national",
+      "record_count": 31404
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_burkinafaso_laws",
+      "level": "national",
+      "record_count": 34034
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_burundi_laws",
+      "level": "national",
+      "record_count": 2726
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_caboverde_laws",
+      "level": "national",
+      "record_count": 5506
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_cambodia_laws",
+      "level": "national",
+      "record_count": 12301
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_cameroon_laws",
+      "level": "national",
+      "record_count": 9429
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_canada_courts",
+      "level": "national",
+      "record_count": 1242
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_canada_federal_caselaw",
+      "level": "national",
+      "record_count": 1774
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_canada_laws",
+      "level": "regional",
+      "record_count": 518924
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_canada_municipal_laws",
+      "level": "municipal",
+      "record_count": 43367
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_canada_state_laws",
+      "level": "regional",
+      "record_count": 19375
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_car_laws",
+      "level": "national",
+      "record_count": 3966
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_cayman_laws",
+      "level": "national",
+      "record_count": 20378
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_chad_laws",
+      "level": "national",
+      "record_count": 20070
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_chile_laws",
+      "level": "national",
+      "record_count": 30965
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_china_laws",
+      "level": "national",
+      "record_count": 22632
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_colombia_laws",
+      "level": "national",
+      "record_count": 84402
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_comoros_laws",
+      "level": "national",
+      "record_count": 21285
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_congobrazzaville_laws",
+      "level": "national",
+      "record_count": 12681
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_cookislands_laws",
+      "level": "national",
+      "record_count": 15891
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_costarica_laws",
+      "level": "national",
+      "record_count": 59766
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_cotedivoire_laws",
+      "level": "national",
+      "record_count": 4973
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_croatia_laws",
+      "level": "national",
+      "record_count": 313311
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_cuba_laws",
+      "level": "national",
+      "record_count": 34087
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_curacao_laws",
+      "level": "national",
+      "record_count": 5951
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_cyprus_laws",
+      "level": "national",
+      "record_count": 24815
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_czech_municipal_laws",
+      "level": "regional",
+      "record_count": 36140
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_czech_municipal_laws",
+      "level": "municipal",
+      "record_count": 36140
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_czechia_laws",
+      "level": "national",
+      "record_count": 56431
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_denmark_laws",
+      "level": "national",
+      "record_count": 613867
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_denmark_municipal_laws",
+      "level": "municipal",
+      "record_count": 5244
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_djibouti_laws",
+      "level": "national",
+      "record_count": 4364
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_dominica_laws",
+      "level": "national",
+      "record_count": 5431
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_dominicanrepublic_laws",
+      "level": "national",
+      "record_count": 316345
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_drc_laws",
+      "level": "national",
+      "record_count": 9263
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_ecuador_laws",
+      "level": "national",
+      "record_count": 54384
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_egypt_governorate_laws",
+      "level": "regional",
+      "record_count": 115
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_egypt_laws",
+      "level": "national",
+      "record_count": 2387
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_el_salvador_laws",
+      "level": "national",
+      "record_count": 991
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_elsalvador_laws",
+      "level": "national",
+      "record_count": 13796
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_embeddings_test",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_equatorialguinea_laws",
+      "level": "national",
+      "record_count": 2409
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_eritrea_laws",
+      "level": "national",
+      "record_count": 4203
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_estonia_laws",
+      "level": "national",
+      "record_count": 65792
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_estonia_municipal_laws",
+      "level": "municipal",
+      "record_count": 127915
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_eswatini_laws",
+      "level": "national",
+      "record_count": 3469
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_ethiopia_laws",
+      "level": "national",
+      "record_count": 45265
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_ethiopia_municipal_laws",
+      "level": "municipal",
+      "record_count": 1069
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_eu_laws",
+      "level": "national",
+      "record_count": 197290
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_fiji_laws",
+      "level": "national",
+      "record_count": 688
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_finland_laws",
+      "level": "national",
+      "record_count": 502895
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_finland_municipal_laws",
+      "level": "municipal",
+      "record_count": 7003
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_france_laws",
+      "level": "national",
+      "record_count": 791190
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_france_municipal_laws",
+      "level": "municipal",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_french_polynesia_laws",
+      "level": "national",
+      "record_count": 33922
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_fsm_laws",
+      "level": "national",
+      "record_count": 484
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_gabon_laws",
+      "level": "national",
+      "record_count": 12757
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_gambia_laws",
+      "level": "national",
+      "record_count": 4739
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_georgia_laws",
+      "level": "national",
+      "record_count": 4715
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_germany_courts",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_germany_laws",
+      "level": "national",
+      "record_count": 226141
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_germany_laws",
+      "level": "regional",
+      "record_count": 226141
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_germany_municipal_laws",
+      "level": "municipal",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_ghana_laws",
+      "level": "national",
+      "record_count": 21675
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_gibraltar_laws",
+      "level": "national",
+      "record_count": 108122
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_greece_laws",
+      "level": "national",
+      "record_count": 1927642
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_greece_municipal_laws",
+      "level": "municipal",
+      "record_count": 27134
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_greece_regional_laws",
+      "level": "regional",
+      "record_count": 3161
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_greenland_laws",
+      "level": "municipal",
+      "record_count": 68512
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_grenada_laws",
+      "level": "national",
+      "record_count": 13982
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_guam_laws",
+      "level": "national",
+      "record_count": 19202
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_guatemala_laws",
+      "level": "national",
+      "record_count": 29441
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_guinea_laws",
+      "level": "national",
+      "record_count": 17001
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_guineabissau_laws",
+      "level": "national",
+      "record_count": 2526
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_guyana_laws",
+      "level": "national",
+      "record_count": 2332
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_haiti_laws",
+      "level": "national",
+      "record_count": 9805
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_honduras_laws",
+      "level": "national",
+      "record_count": 10759
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_hongkong_laws",
+      "level": "national",
+      "record_count": 87719
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_hungary_laws",
+      "level": "national",
+      "record_count": 10900
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_iceland_laws",
+      "level": "national",
+      "record_count": 24685
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_india_laws",
+      "level": "national",
+      "record_count": 45069
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_india_state_laws",
+      "level": "regional",
+      "record_count": 5902
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_indonesia_laws",
+      "level": "national",
+      "record_count": 113026
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_indonesia_municipal_laws",
+      "level": "regional",
+      "record_count": 51264
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_indonesia_municipal_laws",
+      "level": "municipal",
+      "record_count": 51264
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_iran_laws",
+      "level": "national",
+      "record_count": 32773
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_iraq_laws",
+      "level": "national",
+      "record_count": 4827
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_ireland_laws",
+      "level": "national",
+      "record_count": 140917
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_ireland_municipal_laws",
+      "level": "municipal",
+      "record_count": 3949
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_israel_laws",
+      "level": "national",
+      "record_count": 8910
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_italy_laws",
+      "level": "national",
+      "record_count": 234571
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_italy_municipal_laws",
+      "level": "municipal",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_jamaica_laws",
+      "level": "national",
+      "record_count": 52893
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_japan_laws",
+      "level": "national",
+      "record_count": 180735
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_japan_municipal_laws",
+      "level": "municipal",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_jordan_laws",
+      "level": "national",
+      "record_count": 29874
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_jordan_municipal_laws",
+      "level": "municipal",
+      "record_count": 1267
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_kazakhstan_district_laws",
+      "level": "regional",
+      "record_count": 859
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_kazakhstan_district_laws",
+      "level": "municipal",
+      "record_count": 859
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_kazakhstan_laws",
+      "level": "national",
+      "record_count": 24055
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_kazakhstan_provincial_laws",
+      "level": "regional",
+      "record_count": 2735
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_kazakhstan_provincial_laws",
+      "level": "municipal",
+      "record_count": 2735
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_kenya_laws",
+      "level": "national",
+      "record_count": 10063
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_kenya_municipal_laws",
+      "level": "municipal",
+      "record_count": 9069
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_kiribati_laws",
+      "level": "national",
+      "record_count": 3408
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_korea_laws",
+      "level": "national",
+      "record_count": 179983
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_korea_municipal_laws",
+      "level": "municipal",
+      "record_count": 707698
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_kosovo_laws",
+      "level": "national",
+      "record_count": 2008
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_kuwait_laws",
+      "level": "national",
+      "record_count": 1486
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_kyrgyzstan_laws",
+      "level": "national",
+      "record_count": 12733
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_laos_laws",
+      "level": "national",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_latvia_district_laws",
+      "level": "municipal",
+      "record_count": 211
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_latvia_laws",
+      "level": "national",
+      "record_count": 970656
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_latvia_municipal_laws",
+      "level": "municipal",
+      "record_count": 167044
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_lebanon_laws",
+      "level": "national",
+      "record_count": 1509
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_lesotho_laws",
+      "level": "national",
+      "record_count": 7025
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_liberia_laws",
+      "level": "national",
+      "record_count": 8382
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_libya_laws",
+      "level": "national",
+      "record_count": 5267
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_liechtenstein_laws",
+      "level": "national",
+      "record_count": 198838
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_lithuania_laws",
+      "level": "national",
+      "record_count": 45185
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_luxembourg_laws",
+      "level": "national",
+      "record_count": 39689
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_luxembourg_municipal_laws",
+      "level": "municipal",
+      "record_count": 8323
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_madagascar_laws",
+      "level": "national",
+      "record_count": 13486
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_malawi_laws",
+      "level": "national",
+      "record_count": 10073
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_malaysia_laws",
+      "level": "national",
+      "record_count": 132923
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_maldives_laws",
+      "level": "national",
+      "record_count": 4213
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_mali_laws",
+      "level": "national",
+      "record_count": 30355
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_malta_laws",
+      "level": "national",
+      "record_count": 148069
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_malta_municipal_laws",
+      "level": "municipal",
+      "record_count": 1709
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_marshallislands_laws",
+      "level": "national",
+      "record_count": 4003
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_mauritania_laws",
+      "level": "national",
+      "record_count": 62034
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_mauritius_laws",
+      "level": "national",
+      "record_count": 23538
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_mauritius_municipal_laws",
+      "level": "municipal",
+      "record_count": 1312
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_mexico_laws",
+      "level": "national",
+      "record_count": 61815
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_mexico_municipal_laws",
+      "level": "municipal",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_moldova_laws",
+      "level": "national",
+      "record_count": 9609
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_monaco_laws",
+      "level": "national",
+      "record_count": 1300
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_mongolia_laws",
+      "level": "national",
+      "record_count": 22902
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_montenegro_laws",
+      "level": "national",
+      "record_count": 2579
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_montserrat_laws",
+      "level": "national",
+      "record_count": 31698
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_morocco_laws",
+      "level": "national",
+      "record_count": 6756
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_mozambique_laws",
+      "level": "national",
+      "record_count": 8632
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_mozambique_municipal_laws",
+      "level": "municipal",
+      "record_count": 489
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_myanmar_laws",
+      "level": "national",
+      "record_count": 10761
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_namibia_laws",
+      "level": "national",
+      "record_count": 6321
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_namibia_municipal_laws",
+      "level": "municipal",
+      "record_count": 71
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_nauru_laws",
+      "level": "national",
+      "record_count": 11402
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_nepal_laws",
+      "level": "national",
+      "record_count": 9350
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_nepal_provincial_laws",
+      "level": "regional",
+      "record_count": 7408
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_netherlands_courts",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_netherlands_laws",
+      "level": "national",
+      "record_count": 290840
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_netherlands_municipal_laws",
+      "level": "municipal",
+      "record_count": 1326072
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_new_caledonia_laws",
+      "level": "national",
+      "record_count": 36236
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_new_zealand_municipal_laws",
+      "level": "municipal",
+      "record_count": 3669
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_newzealand_courts",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_newzealand_laws",
+      "level": "national",
+      "record_count": 89496
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_nicaragua_laws",
+      "level": "national",
+      "record_count": 35080
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_niger_laws",
+      "level": "national",
+      "record_count": 17961
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_nigeria_laws",
+      "level": "national",
+      "record_count": 12056
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_niue_laws",
+      "level": "national",
+      "record_count": 2388
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_norfolk_island_laws",
+      "level": "national",
+      "record_count": 8063
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_north_korea_laws",
+      "level": "national",
+      "record_count": 84
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_northkorea_laws",
+      "level": "national",
+      "record_count": 4137
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_northmacedonia_laws",
+      "level": "national",
+      "record_count": 443009
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_norway_laws",
+      "level": "national",
+      "record_count": 174162
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_oman_laws",
+      "level": "national",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_pakistan_laws",
+      "level": "national",
+      "record_count": 42956
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_pakistan_provincial_laws",
+      "level": "regional",
+      "record_count": 22979
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_palau_laws",
+      "level": "national",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_palestine_laws",
+      "level": "national",
+      "record_count": 15998
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_palestine_municipal_laws",
+      "level": "municipal",
+      "record_count": 1179
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_panama_laws",
+      "level": "national",
+      "record_count": 15558
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_papua_new_guinea_laws",
+      "level": "national",
+      "record_count": 539
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_papuanewguinea_laws",
+      "level": "national",
+      "record_count": 518
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_paraguay_laws",
+      "level": "national",
+      "record_count": 6007
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_peru_laws",
+      "level": "national",
+      "record_count": 16080
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_peru_municipal_laws",
+      "level": "municipal",
+      "record_count": 16747
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_philippines_laws",
+      "level": "national",
+      "record_count": 104050
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_pitcairn_laws",
+      "level": "national",
+      "record_count": 3518
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_poland_laws",
+      "level": "national",
+      "record_count": 572836
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_portugal_laws",
+      "level": "national",
+      "record_count": 120159
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_portugal_municipal_laws",
+      "level": "municipal",
+      "record_count": 329910
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_puerto_rico_laws",
+      "level": "national",
+      "record_count": 4718
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_qatar_laws",
+      "level": "national",
+      "record_count": 27039
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_romania_laws",
+      "level": "national",
+      "record_count": 105856
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_russia_laws",
+      "level": "national",
+      "record_count": 77574
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_rwanda_laws",
+      "level": "national",
+      "record_count": 50611
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_saint_helena_laws",
+      "level": "national",
+      "record_count": 13684
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_saint_kitts_nevis_laws",
+      "level": "national",
+      "record_count": 25326
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_saint_lucia_laws",
+      "level": "national",
+      "record_count": 6341
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_saint_vincent_grenadines_laws",
+      "level": "national",
+      "record_count": 1420
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_samoa_laws",
+      "level": "national",
+      "record_count": 21776
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_san_marino_laws",
+      "level": "national",
+      "record_count": 380
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_sanmarino_laws",
+      "level": "national",
+      "record_count": 19147
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_saotome_laws",
+      "level": "national",
+      "record_count": 3941
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_saudi_arabia_municipal_laws",
+      "level": "national",
+      "record_count": 592
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_saudi_arabia_municipal_laws",
+      "level": "municipal",
+      "record_count": 592
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_saudiarabia_laws",
+      "level": "national",
+      "record_count": 22363
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_senegal_laws",
+      "level": "national",
+      "record_count": 15726
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_serbia_laws",
+      "level": "national",
+      "record_count": 106898
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_seychelles_laws",
+      "level": "national",
+      "record_count": 3939
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_sierraleone_laws",
+      "level": "national",
+      "record_count": 8883
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_singapore_laws",
+      "level": "national",
+      "record_count": 5730
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_sint_maarten_laws",
+      "level": "national",
+      "record_count": 9248
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_slovakia_laws",
+      "level": "national",
+      "record_count": 164222
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_slovakia_municipal_laws",
+      "level": "municipal",
+      "record_count": 23330
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_slovakia_regional_laws",
+      "level": "regional",
+      "record_count": 1732
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_slovenia_laws",
+      "level": "national",
+      "record_count": 1752215
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_slovenia_municipal_laws",
+      "level": "municipal",
+      "record_count": 964757
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_solomonislands_laws",
+      "level": "national",
+      "record_count": 6617
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_somalia_laws",
+      "level": "national",
+      "record_count": 1976
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_south_africa_municipal_laws",
+      "level": "municipal",
+      "record_count": 5366
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_south_africa_provincial_laws",
+      "level": "regional",
+      "record_count": 825
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_southafrica_laws",
+      "level": "national",
+      "record_count": 10585
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_southsudan_laws",
+      "level": "national",
+      "record_count": 726
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_spain_laws",
+      "level": "regional",
+      "record_count": 585641
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_spain_municipal_laws",
+      "level": "municipal",
+      "record_count": 9528
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_srilanka_laws",
+      "level": "national",
+      "record_count": 19563
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_sudan_laws",
+      "level": "national",
+      "record_count": 673
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_suriname_laws",
+      "level": "national",
+      "record_count": 4419
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_sweden_laws",
+      "level": "national",
+      "record_count": 261328
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_sweden_municipal_laws",
+      "level": "municipal",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_switzerland_laws",
+      "level": "national",
+      "record_count": 503971
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_switzerland_laws",
+      "level": "regional",
+      "record_count": 503971
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_switzerland_municipal_laws",
+      "level": "municipal",
+      "record_count": 17947
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_syria_laws",
+      "level": "national",
+      "record_count": 9232
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_taiwan_laws",
+      "level": "national",
+      "record_count": 322006
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_taiwan_municipal_laws",
+      "level": "municipal",
+      "record_count": 101122
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_tajikistan_laws",
+      "level": "national",
+      "record_count": 5434
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_tanzania_laws",
+      "level": "national",
+      "record_count": 30200
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_tanzania_municipal_laws",
+      "level": "municipal",
+      "record_count": 6146
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_thailand_laws",
+      "level": "national",
+      "record_count": 361
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_timorleste_laws",
+      "level": "national",
+      "record_count": 21007
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_togo_laws",
+      "level": "national",
+      "record_count": 23555
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_tonga_laws",
+      "level": "national",
+      "record_count": 7703
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_trinidad_and_tobago_laws",
+      "level": "national",
+      "record_count": 267
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_trinidad_laws",
+      "level": "national",
+      "record_count": 13076
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_tunisia_laws",
+      "level": "national",
+      "record_count": 107190
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_tunisia_municipal_laws",
+      "level": "regional",
+      "record_count": 20424
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_tunisia_municipal_laws",
+      "level": "municipal",
+      "record_count": 20424
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_turkey_laws",
+      "level": "national",
+      "record_count": 38895
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_turkmenistan_laws",
+      "level": "national",
+      "record_count": 14613
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_turks_caicos_laws",
+      "level": "national",
+      "record_count": 19266
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_tuvalu_laws",
+      "level": "national",
+      "record_count": 8430
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_uae_laws",
+      "level": "national",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_uganda_laws",
+      "level": "national",
+      "record_count": 8851
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_uganda_municipal_laws",
+      "level": "municipal",
+      "record_count": 380
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_uk_laws",
+      "level": "national",
+      "record_count": 1827835
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_uk_local_acts",
+      "level": "national",
+      "record_count": 28152
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_ukraine_laws",
+      "level": "national",
+      "record_count": 53134
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_united_kingdom_county_laws",
+      "level": "municipal",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_united_states_state_laws",
+      "level": "regional",
+      "record_count": 10430
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_uruguay_laws",
+      "level": "national",
+      "record_count": 36523
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_uzbekistan_district_laws",
+      "level": "regional",
+      "record_count": 1721
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_uzbekistan_district_laws",
+      "level": "municipal",
+      "record_count": 1721
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_uzbekistan_laws",
+      "level": "national",
+      "record_count": 8249
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_uzbekistan_provincial_laws",
+      "level": "regional",
+      "record_count": 1342
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_uzbekistan_provincial_laws",
+      "level": "municipal",
+      "record_count": 1342
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_vanuatu_laws",
+      "level": "national",
+      "record_count": 1506
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_vatican_laws",
+      "level": "national",
+      "record_count": 1622
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_venezuela_laws",
+      "level": "national",
+      "record_count": 6597
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_vietnam_laws",
+      "level": "national",
+      "record_count": 43008
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_wallis_futuna_laws",
+      "level": "national",
+      "record_count": 32735
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_yemen_laws",
+      "level": "national",
+      "record_count": 22395
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_zambia_laws",
+      "level": "national",
+      "record_count": 16384
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_zimbabwe_laws",
+      "level": "national",
+      "record_count": 27186
+    },
+    {
+      "dataset_id": "endomorphosis/ipfs_zimbabwe_municipal_laws",
+      "level": "municipal",
+      "record_count": 133
+    },
+    {
+      "dataset_id": "endomorphosis/world_caselaw",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/world_court_forms",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/world_law_scanned_text",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/world_municipal_law",
+      "level": "regional",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/world_municipal_law",
+      "level": "municipal",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/world_national_law",
+      "level": "national",
+      "record_count": null
+    },
+    {
+      "dataset_id": "endomorphosis/world_national_law",
+      "level": "regional",
+      "record_count": null
+    },
+    {
+      "dataset_id": "justicedao/american_municipal_law",
+      "level": "municipal",
+      "record_count": null
+    },
+    {
+      "dataset_id": "justicedao/american_municipal_law_norm",
+      "level": "municipal",
+      "record_count": 17109461
+    },
+    {
+      "dataset_id": "justicedao/dedup_ipfs_caselaw_access_project",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "justicedao/federal-register-full-graphrag-v20260810",
+      "level": "national",
+      "record_count": 42323059
+    },
+    {
+      "dataset_id": "justicedao/federal-register-live-graphrag-research-20260810",
+      "level": "national",
+      "record_count": null
+    },
+    {
+      "dataset_id": "justicedao/ipfs_afghanistan_laws_ir",
+      "level": "other",
+      "record_count": 337415
+    },
+    {
+      "dataset_id": "justicedao/ipfs_albania_laws_ir",
+      "level": "other",
+      "record_count": 3286510
+    },
+    {
+      "dataset_id": "justicedao/ipfs_algeria_laws_ir",
+      "level": "other",
+      "record_count": 444658
+    },
+    {
+      "dataset_id": "justicedao/ipfs_american_municipal_law_normalized_graphrag",
+      "level": "municipal",
+      "record_count": null
+    },
+    {
+      "dataset_id": "justicedao/ipfs_andorra_laws_ir",
+      "level": "other",
+      "record_count": 4306976
+    },
+    {
+      "dataset_id": "justicedao/ipfs_andorra_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 2440758
+    },
+    {
+      "dataset_id": "justicedao/ipfs_angola_laws_ir",
+      "level": "other",
+      "record_count": 2452576
+    },
+    {
+      "dataset_id": "justicedao/ipfs_anguilla_laws_ir",
+      "level": "other",
+      "record_count": 394037
+    },
+    {
+      "dataset_id": "justicedao/ipfs_antigua_barbuda_laws_ir",
+      "level": "other",
+      "record_count": 1006166
+    },
+    {
+      "dataset_id": "justicedao/ipfs_argentina_laws-ir",
+      "level": "other",
+      "record_count": 1728027
+    },
+    {
+      "dataset_id": "justicedao/ipfs_argentina_laws_ir",
+      "level": "other",
+      "record_count": 2116258
+    },
+    {
+      "dataset_id": "justicedao/ipfs_armenia_laws_ir",
+      "level": "other",
+      "record_count": 378783
+    },
+    {
+      "dataset_id": "justicedao/ipfs_aruba_laws_ir",
+      "level": "other",
+      "record_count": 46614
+    },
+    {
+      "dataset_id": "justicedao/ipfs_australia_laws_ir",
+      "level": "other",
+      "record_count": 12479038
+    },
+    {
+      "dataset_id": "justicedao/ipfs_australia_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 1680874
+    },
+    {
+      "dataset_id": "justicedao/ipfs_austria_laws_ir",
+      "level": "other",
+      "record_count": 6017063
+    },
+    {
+      "dataset_id": "justicedao/ipfs_austria_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 1988563
+    },
+    {
+      "dataset_id": "justicedao/ipfs_azerbaijan_laws_ir",
+      "level": "other",
+      "record_count": 725821
+    },
+    {
+      "dataset_id": "justicedao/ipfs_bahamas_laws_ir",
+      "level": "other",
+      "record_count": 173589
+    },
+    {
+      "dataset_id": "justicedao/ipfs_bahrain_laws_ir",
+      "level": "other",
+      "record_count": 153662
+    },
+    {
+      "dataset_id": "justicedao/ipfs_bangladesh_laws_ir",
+      "level": "other",
+      "record_count": 600112
+    },
+    {
+      "dataset_id": "justicedao/ipfs_barbados_laws_ir",
+      "level": "other",
+      "record_count": 393313
+    },
+    {
+      "dataset_id": "justicedao/ipfs_belarus_laws_ir",
+      "level": "other",
+      "record_count": 298449
+    },
+    {
+      "dataset_id": "justicedao/ipfs_belgium_laws_ir",
+      "level": "other",
+      "record_count": 13401992
+    },
+    {
+      "dataset_id": "justicedao/ipfs_belgium_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 1168440
+    },
+    {
+      "dataset_id": "justicedao/ipfs_belize_laws_ir",
+      "level": "other",
+      "record_count": 1004018
+    },
+    {
+      "dataset_id": "justicedao/ipfs_benin_laws_ir",
+      "level": "other",
+      "record_count": 181203
+    },
+    {
+      "dataset_id": "justicedao/ipfs_bermuda_laws_ir",
+      "level": "other",
+      "record_count": 432755
+    },
+    {
+      "dataset_id": "justicedao/ipfs_bhutan_laws_ir",
+      "level": "other",
+      "record_count": 368069
+    },
+    {
+      "dataset_id": "justicedao/ipfs_bolivia_laws_ir",
+      "level": "other",
+      "record_count": 1287597
+    },
+    {
+      "dataset_id": "justicedao/ipfs_bosnia_laws_ir",
+      "level": "other",
+      "record_count": 2334162
+    },
+    {
+      "dataset_id": "justicedao/ipfs_botswana_laws_ir",
+      "level": "other",
+      "record_count": 596100
+    },
+    {
+      "dataset_id": "justicedao/ipfs_brazil_laws_ir",
+      "level": "other",
+      "record_count": 2173626
+    },
+    {
+      "dataset_id": "justicedao/ipfs_brazil_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 2988484
+    },
+    {
+      "dataset_id": "justicedao/ipfs_british_virgin_islands_laws_ir",
+      "level": "other",
+      "record_count": 196579
+    },
+    {
+      "dataset_id": "justicedao/ipfs_brunei_laws_ir",
+      "level": "other",
+      "record_count": 443914
+    },
+    {
+      "dataset_id": "justicedao/ipfs_bulgaria_laws_ir",
+      "level": "other",
+      "record_count": 513964
+    },
+    {
+      "dataset_id": "justicedao/ipfs_burkinafaso_laws_ir",
+      "level": "other",
+      "record_count": 663538
+    },
+    {
+      "dataset_id": "justicedao/ipfs_burundi_laws_ir",
+      "level": "other",
+      "record_count": 374824
+    },
+    {
+      "dataset_id": "justicedao/ipfs_caboverde_laws_ir",
+      "level": "other",
+      "record_count": 122997
+    },
+    {
+      "dataset_id": "justicedao/ipfs_cambodia_laws_ir",
+      "level": "other",
+      "record_count": 240497
+    },
+    {
+      "dataset_id": "justicedao/ipfs_cameroon_laws_ir",
+      "level": "other",
+      "record_count": 186751
+    },
+    {
+      "dataset_id": "justicedao/ipfs_canada_laws_ir",
+      "level": "other",
+      "record_count": 8114965
+    },
+    {
+      "dataset_id": "justicedao/ipfs_canada_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 888998
+    },
+    {
+      "dataset_id": "justicedao/ipfs_car_laws_ir",
+      "level": "other",
+      "record_count": 232662
+    },
+    {
+      "dataset_id": "justicedao/ipfs_cayman_laws_ir",
+      "level": "other",
+      "record_count": 399888
+    },
+    {
+      "dataset_id": "justicedao/ipfs_chad_laws_ir",
+      "level": "other",
+      "record_count": 496665
+    },
+    {
+      "dataset_id": "justicedao/ipfs_chile_laws_ir",
+      "level": "other",
+      "record_count": 643723
+    },
+    {
+      "dataset_id": "justicedao/ipfs_china_laws_ir",
+      "level": "other",
+      "record_count": 287853
+    },
+    {
+      "dataset_id": "justicedao/ipfs_colombia_laws_ir",
+      "level": "other",
+      "record_count": 1704627
+    },
+    {
+      "dataset_id": "justicedao/ipfs_comoros_laws_ir",
+      "level": "other",
+      "record_count": 423158
+    },
+    {
+      "dataset_id": "justicedao/ipfs_congobrazzaville_laws_ir",
+      "level": "other",
+      "record_count": 307418
+    },
+    {
+      "dataset_id": "justicedao/ipfs_cookislands_laws_ir",
+      "level": "other",
+      "record_count": 388853
+    },
+    {
+      "dataset_id": "justicedao/ipfs_costarica_laws_ir",
+      "level": "other",
+      "record_count": 1176229
+    },
+    {
+      "dataset_id": "justicedao/ipfs_cotedivoire_laws_ir",
+      "level": "other",
+      "record_count": 191036
+    },
+    {
+      "dataset_id": "justicedao/ipfs_croatia_laws_ir",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "justicedao/ipfs_cuba_laws_ir",
+      "level": "other",
+      "record_count": 578376
+    },
+    {
+      "dataset_id": "justicedao/ipfs_curacao_laws_ir",
+      "level": "other",
+      "record_count": 113452
+    },
+    {
+      "dataset_id": "justicedao/ipfs_cyprus_laws_ir",
+      "level": "other",
+      "record_count": 1310269
+    },
+    {
+      "dataset_id": "justicedao/ipfs_czech_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 585039
+    },
+    {
+      "dataset_id": "justicedao/ipfs_czechia_laws_ir",
+      "level": "other",
+      "record_count": 4428861
+    },
+    {
+      "dataset_id": "justicedao/ipfs_denmark_laws_ir",
+      "level": "other",
+      "record_count": 16133043
+    },
+    {
+      "dataset_id": "justicedao/ipfs_denmark_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 85242
+    },
+    {
+      "dataset_id": "justicedao/ipfs_djibouti_laws_ir",
+      "level": "other",
+      "record_count": 106160
+    },
+    {
+      "dataset_id": "justicedao/ipfs_dominica_laws_ir",
+      "level": "other",
+      "record_count": 120144
+    },
+    {
+      "dataset_id": "justicedao/ipfs_dominican_republic_laws_ir",
+      "level": "other",
+      "record_count": 4869868
+    },
+    {
+      "dataset_id": "justicedao/ipfs_dominicanrepublic_laws_ir",
+      "level": "other",
+      "record_count": 7597003
+    },
+    {
+      "dataset_id": "justicedao/ipfs_drc_laws_ir",
+      "level": "other",
+      "record_count": 300143
+    },
+    {
+      "dataset_id": "justicedao/ipfs_ecuador_laws_ir",
+      "level": "other",
+      "record_count": 1143195
+    },
+    {
+      "dataset_id": "justicedao/ipfs_egypt_governorate_laws_ir",
+      "level": "regional",
+      "record_count": 1920
+    },
+    {
+      "dataset_id": "justicedao/ipfs_egypt_laws_ir",
+      "level": "other",
+      "record_count": 48888
+    },
+    {
+      "dataset_id": "justicedao/ipfs_el_salvador_laws_ir",
+      "level": "other",
+      "record_count": 135720
+    },
+    {
+      "dataset_id": "justicedao/ipfs_elsalvador_laws_ir",
+      "level": "other",
+      "record_count": 333914
+    },
+    {
+      "dataset_id": "justicedao/ipfs_equatorialguinea_laws_ir",
+      "level": "other",
+      "record_count": 249234
+    },
+    {
+      "dataset_id": "justicedao/ipfs_eritrea_laws_ir",
+      "level": "other",
+      "record_count": 259871
+    },
+    {
+      "dataset_id": "justicedao/ipfs_estonia_laws_ir",
+      "level": "other",
+      "record_count": 1654929
+    },
+    {
+      "dataset_id": "justicedao/ipfs_estonia_municipal_laws",
+      "level": "municipal",
+      "record_count": 127915
+    },
+    {
+      "dataset_id": "justicedao/ipfs_estonia_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 2281720
+    },
+    {
+      "dataset_id": "justicedao/ipfs_eswatini_laws_ir",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "justicedao/ipfs_ethiopia_laws_ir",
+      "level": "other",
+      "record_count": 1889010
+    },
+    {
+      "dataset_id": "justicedao/ipfs_ethiopia_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 17989
+    },
+    {
+      "dataset_id": "justicedao/ipfs_eu_laws_ir",
+      "level": "other",
+      "record_count": 9393999
+    },
+    {
+      "dataset_id": "justicedao/ipfs_federal_register",
+      "level": "national",
+      "record_count": null
+    },
+    {
+      "dataset_id": "justicedao/ipfs_fiji_laws_ir",
+      "level": "other",
+      "record_count": 36082
+    },
+    {
+      "dataset_id": "justicedao/ipfs_finland_laws_ir",
+      "level": "other",
+      "record_count": 7320892
+    },
+    {
+      "dataset_id": "justicedao/ipfs_finland_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 140505
+    },
+    {
+      "dataset_id": "justicedao/ipfs_france_laws_ir",
+      "level": "other",
+      "record_count": 12051350
+    },
+    {
+      "dataset_id": "justicedao/ipfs_france_local_laws",
+      "level": "regional",
+      "record_count": 88554
+    },
+    {
+      "dataset_id": "justicedao/ipfs_france_local_laws",
+      "level": "municipal",
+      "record_count": 88554
+    },
+    {
+      "dataset_id": "justicedao/ipfs_france_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 2123388
+    },
+    {
+      "dataset_id": "justicedao/ipfs_french_polynesia_laws_ir",
+      "level": "other",
+      "record_count": 533216
+    },
+    {
+      "dataset_id": "justicedao/ipfs_fsm_laws_ir",
+      "level": "other",
+      "record_count": 66073
+    },
+    {
+      "dataset_id": "justicedao/ipfs_gabon_laws_ir",
+      "level": "other",
+      "record_count": 319294
+    },
+    {
+      "dataset_id": "justicedao/ipfs_gambia_laws_ir",
+      "level": "other",
+      "record_count": 399601
+    },
+    {
+      "dataset_id": "justicedao/ipfs_georgia_laws_ir",
+      "level": "other",
+      "record_count": 769705
+    },
+    {
+      "dataset_id": "justicedao/ipfs_germany_laws_ir",
+      "level": "other",
+      "record_count": 4419726
+    },
+    {
+      "dataset_id": "justicedao/ipfs_germany_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 2290407
+    },
+    {
+      "dataset_id": "justicedao/ipfs_ghana_laws_ir",
+      "level": "other",
+      "record_count": 432377
+    },
+    {
+      "dataset_id": "justicedao/ipfs_gibraltar_laws_ir",
+      "level": "other",
+      "record_count": 523618
+    },
+    {
+      "dataset_id": "justicedao/ipfs_greece_laws_ir",
+      "level": "other",
+      "record_count": 1840810
+    },
+    {
+      "dataset_id": "justicedao/ipfs_greece_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 377896
+    },
+    {
+      "dataset_id": "justicedao/ipfs_grenada_laws_ir",
+      "level": "other",
+      "record_count": 305469
+    },
+    {
+      "dataset_id": "justicedao/ipfs_guam_laws_ir",
+      "level": "other",
+      "record_count": 279873
+    },
+    {
+      "dataset_id": "justicedao/ipfs_guatemala_laws_ir",
+      "level": "other",
+      "record_count": 577856
+    },
+    {
+      "dataset_id": "justicedao/ipfs_guinea_laws_ir",
+      "level": "other",
+      "record_count": 641614
+    },
+    {
+      "dataset_id": "justicedao/ipfs_guineabissau_laws_ir",
+      "level": "other",
+      "record_count": 223894
+    },
+    {
+      "dataset_id": "justicedao/ipfs_guyana_laws_ir",
+      "level": "other",
+      "record_count": 61442
+    },
+    {
+      "dataset_id": "justicedao/ipfs_haiti_laws_ir",
+      "level": "other",
+      "record_count": 370575
+    },
+    {
+      "dataset_id": "justicedao/ipfs_honduras_laws_ir",
+      "level": "other",
+      "record_count": 205334
+    },
+    {
+      "dataset_id": "justicedao/ipfs_hongkong_laws_ir",
+      "level": "other",
+      "record_count": 1466737
+    },
+    {
+      "dataset_id": "justicedao/ipfs_hungary_laws_ir",
+      "level": "other",
+      "record_count": 310548
+    },
+    {
+      "dataset_id": "justicedao/ipfs_iceland_laws_ir",
+      "level": "other",
+      "record_count": 480975
+    },
+    {
+      "dataset_id": "justicedao/ipfs_india_laws_ir",
+      "level": "other",
+      "record_count": 596752
+    },
+    {
+      "dataset_id": "justicedao/ipfs_indonesia_east_java_laws",
+      "level": "regional",
+      "record_count": 5541
+    },
+    {
+      "dataset_id": "justicedao/ipfs_indonesia_laws_ir",
+      "level": "other",
+      "record_count": 1810562
+    },
+    {
+      "dataset_id": "justicedao/ipfs_indonesia_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 1904984
+    },
+    {
+      "dataset_id": "justicedao/ipfs_iran_laws_ir",
+      "level": "other",
+      "record_count": 1410599
+    },
+    {
+      "dataset_id": "justicedao/ipfs_iraq_laws_ir",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "justicedao/ipfs_ireland_laws_ir",
+      "level": "other",
+      "record_count": 821007
+    },
+    {
+      "dataset_id": "justicedao/ipfs_ireland_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 76459
+    },
+    {
+      "dataset_id": "justicedao/ipfs_israel_laws_ir",
+      "level": "other",
+      "record_count": 152627
+    },
+    {
+      "dataset_id": "justicedao/ipfs_italy_laws_ir",
+      "level": "other",
+      "record_count": 5578598
+    },
+    {
+      "dataset_id": "justicedao/ipfs_italy_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 751610
+    },
+    {
+      "dataset_id": "justicedao/ipfs_italy_municipal_statutes",
+      "level": "regional",
+      "record_count": 8284
+    },
+    {
+      "dataset_id": "justicedao/ipfs_italy_municipal_statutes",
+      "level": "municipal",
+      "record_count": 8284
+    },
+    {
+      "dataset_id": "justicedao/ipfs_italy_regional_laws",
+      "level": "regional",
+      "record_count": 13496
+    },
+    {
+      "dataset_id": "justicedao/ipfs_jamaica_laws_ir",
+      "level": "other",
+      "record_count": 866300
+    },
+    {
+      "dataset_id": "justicedao/ipfs_japan_laws_ir",
+      "level": "other",
+      "record_count": 2126255
+    },
+    {
+      "dataset_id": "justicedao/ipfs_japan_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 4901011
+    },
+    {
+      "dataset_id": "justicedao/ipfs_jordan_laws_ir",
+      "level": "other",
+      "record_count": 519962
+    },
+    {
+      "dataset_id": "justicedao/ipfs_jordan_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 15089
+    },
+    {
+      "dataset_id": "justicedao/ipfs_kazakhstan_laws_ir",
+      "level": "other",
+      "record_count": 426203
+    },
+    {
+      "dataset_id": "justicedao/ipfs_kenya_laws_ir",
+      "level": "other",
+      "record_count": 226231
+    },
+    {
+      "dataset_id": "justicedao/ipfs_kenya_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 321918
+    },
+    {
+      "dataset_id": "justicedao/ipfs_kiribati_laws_ir",
+      "level": "other",
+      "record_count": 85877
+    },
+    {
+      "dataset_id": "justicedao/ipfs_korea_laws_ir",
+      "level": "other",
+      "record_count": 2315843
+    },
+    {
+      "dataset_id": "justicedao/ipfs_korea_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 8426148
+    },
+    {
+      "dataset_id": "justicedao/ipfs_kosovo_laws_ir",
+      "level": "other",
+      "record_count": 90161
+    },
+    {
+      "dataset_id": "justicedao/ipfs_kuwait_laws_ir",
+      "level": "other",
+      "record_count": 54846
+    },
+    {
+      "dataset_id": "justicedao/ipfs_kyrgyzstan_laws_ir",
+      "level": "other",
+      "record_count": 222815
+    },
+    {
+      "dataset_id": "justicedao/ipfs_laos_laws_ir",
+      "level": "other",
+      "record_count": 1563901
+    },
+    {
+      "dataset_id": "justicedao/ipfs_latvia_laws_ir",
+      "level": "other",
+      "record_count": 14016103
+    },
+    {
+      "dataset_id": "justicedao/ipfs_latvia_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 2193999
+    },
+    {
+      "dataset_id": "justicedao/ipfs_lebanon_laws_ir",
+      "level": "other",
+      "record_count": 98526
+    },
+    {
+      "dataset_id": "justicedao/ipfs_lesotho_laws_ir",
+      "level": "other",
+      "record_count": 289070
+    },
+    {
+      "dataset_id": "justicedao/ipfs_liberia_laws_ir",
+      "level": "other",
+      "record_count": 205501
+    },
+    {
+      "dataset_id": "justicedao/ipfs_libya_laws_ir",
+      "level": "other",
+      "record_count": 129857
+    },
+    {
+      "dataset_id": "justicedao/ipfs_liechtenstein_laws_ir",
+      "level": "other",
+      "record_count": 3217301
+    },
+    {
+      "dataset_id": "justicedao/ipfs_lithuania_laws_ir",
+      "level": "other",
+      "record_count": 661480
+    },
+    {
+      "dataset_id": "justicedao/ipfs_luxembourg_laws_ir",
+      "level": "other",
+      "record_count": 964588
+    },
+    {
+      "dataset_id": "justicedao/ipfs_luxembourg_laws_rc2",
+      "level": "municipal",
+      "record_count": 24054
+    },
+    {
+      "dataset_id": "justicedao/ipfs_luxembourg_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 133094
+    },
+    {
+      "dataset_id": "justicedao/ipfs_madagascar_laws_ir",
+      "level": "other",
+      "record_count": 304347
+    },
+    {
+      "dataset_id": "justicedao/ipfs_malawi_laws_ir",
+      "level": "other",
+      "record_count": 3158090
+    },
+    {
+      "dataset_id": "justicedao/ipfs_malaysia_laws_ir",
+      "level": "other",
+      "record_count": 1807720
+    },
+    {
+      "dataset_id": "justicedao/ipfs_maldives_laws_ir",
+      "level": "other",
+      "record_count": 259463
+    },
+    {
+      "dataset_id": "justicedao/ipfs_mali_laws_ir",
+      "level": "other",
+      "record_count": 656158
+    },
+    {
+      "dataset_id": "justicedao/ipfs_malta_laws-ir",
+      "level": "other",
+      "record_count": 14757
+    },
+    {
+      "dataset_id": "justicedao/ipfs_malta_laws_ir",
+      "level": "other",
+      "record_count": 2991235
+    },
+    {
+      "dataset_id": "justicedao/ipfs_malta_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 29222
+    },
+    {
+      "dataset_id": "justicedao/ipfs_marshallislands_laws_ir",
+      "level": "other",
+      "record_count": 188928
+    },
+    {
+      "dataset_id": "justicedao/ipfs_mauritania_laws_ir",
+      "level": "other",
+      "record_count": 1238082
+    },
+    {
+      "dataset_id": "justicedao/ipfs_mauritius_laws_ir",
+      "level": "other",
+      "record_count": 92329
+    },
+    {
+      "dataset_id": "justicedao/ipfs_mauritius_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 21557
+    },
+    {
+      "dataset_id": "justicedao/ipfs_mexico_laws_ir",
+      "level": "other",
+      "record_count": 1052831
+    },
+    {
+      "dataset_id": "justicedao/ipfs_mexico_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 285415
+    },
+    {
+      "dataset_id": "justicedao/ipfs_moldova_laws_ir",
+      "level": "other",
+      "record_count": 254690
+    },
+    {
+      "dataset_id": "justicedao/ipfs_monaco_laws_ir",
+      "level": "other",
+      "record_count": 30171
+    },
+    {
+      "dataset_id": "justicedao/ipfs_mongolia_laws_ir",
+      "level": "other",
+      "record_count": 338717
+    },
+    {
+      "dataset_id": "justicedao/ipfs_montenegro_laws_ir",
+      "level": "other",
+      "record_count": 436563
+    },
+    {
+      "dataset_id": "justicedao/ipfs_montserrat_laws_ir",
+      "level": "other",
+      "record_count": 431691
+    },
+    {
+      "dataset_id": "justicedao/ipfs_morocco_laws_ir",
+      "level": "other",
+      "record_count": 244610
+    },
+    {
+      "dataset_id": "justicedao/ipfs_mozambique_laws_ir",
+      "level": "other",
+      "record_count": 228908
+    },
+    {
+      "dataset_id": "justicedao/ipfs_mozambique_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 12912
+    },
+    {
+      "dataset_id": "justicedao/ipfs_myanmar_laws_ir",
+      "level": "other",
+      "record_count": 187322
+    },
+    {
+      "dataset_id": "justicedao/ipfs_namibia_laws_ir",
+      "level": "other",
+      "record_count": 621116
+    },
+    {
+      "dataset_id": "justicedao/ipfs_namibia_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 811
+    },
+    {
+      "dataset_id": "justicedao/ipfs_nauru_laws_ir",
+      "level": "other",
+      "record_count": 254149
+    },
+    {
+      "dataset_id": "justicedao/ipfs_nepal_laws_ir",
+      "level": "other",
+      "record_count": 287623
+    },
+    {
+      "dataset_id": "justicedao/ipfs_nepal_provincial_laws_ir",
+      "level": "regional",
+      "record_count": 39919
+    },
+    {
+      "dataset_id": "justicedao/ipfs_netherlands_laws",
+      "level": "national",
+      "record_count": 189472
+    },
+    {
+      "dataset_id": "justicedao/ipfs_netherlands_laws_bm25_index",
+      "level": "other",
+      "record_count": 215257
+    },
+    {
+      "dataset_id": "justicedao/ipfs_netherlands_laws_ir",
+      "level": "other",
+      "record_count": 5232072
+    },
+    {
+      "dataset_id": "justicedao/ipfs_netherlands_laws_knowledge_graph",
+      "level": "other",
+      "record_count": 184473
+    },
+    {
+      "dataset_id": "justicedao/ipfs_netherlands_laws_vector_index",
+      "level": "other",
+      "record_count": 94736
+    },
+    {
+      "dataset_id": "justicedao/ipfs_netherlands_municipal_laws",
+      "level": "regional",
+      "record_count": 67657
+    },
+    {
+      "dataset_id": "justicedao/ipfs_netherlands_municipal_laws",
+      "level": "municipal",
+      "record_count": 67657
+    },
+    {
+      "dataset_id": "justicedao/ipfs_netherlands_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 1287029
+    },
+    {
+      "dataset_id": "justicedao/ipfs_netherlands_provincial_laws_ir",
+      "level": "municipal",
+      "record_count": 1287029
+    },
+    {
+      "dataset_id": "justicedao/ipfs_new_caledonia_laws_ir",
+      "level": "other",
+      "record_count": 564376
+    },
+    {
+      "dataset_id": "justicedao/ipfs_new_zealand_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 186969
+    },
+    {
+      "dataset_id": "justicedao/ipfs_newzealand_laws_ir",
+      "level": "other",
+      "record_count": 1713323
+    },
+    {
+      "dataset_id": "justicedao/ipfs_nicaragua_laws_ir",
+      "level": "other",
+      "record_count": 659818
+    },
+    {
+      "dataset_id": "justicedao/ipfs_niger_laws_ir",
+      "level": "other",
+      "record_count": 498814
+    },
+    {
+      "dataset_id": "justicedao/ipfs_nigeria_laws_ir",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "justicedao/ipfs_niue_laws_ir",
+      "level": "other",
+      "record_count": 148355
+    },
+    {
+      "dataset_id": "justicedao/ipfs_norfolk_island_laws_ir",
+      "level": "other",
+      "record_count": 150098
+    },
+    {
+      "dataset_id": "justicedao/ipfs_north_korea_laws_ir",
+      "level": "other",
+      "record_count": 62069
+    },
+    {
+      "dataset_id": "justicedao/ipfs_northkorea_laws_ir",
+      "level": "other",
+      "record_count": 82795
+    },
+    {
+      "dataset_id": "justicedao/ipfs_northmacedonia_laws_ir",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "justicedao/ipfs_norway_laws_ir",
+      "level": "other",
+      "record_count": 2365080
+    },
+    {
+      "dataset_id": "justicedao/ipfs_oman_laws_ir",
+      "level": "other",
+      "record_count": 204549
+    },
+    {
+      "dataset_id": "justicedao/ipfs_pakistan_laws_ir",
+      "level": "other",
+      "record_count": 916866
+    },
+    {
+      "dataset_id": "justicedao/ipfs_palau_laws_ir",
+      "level": "other",
+      "record_count": 126450
+    },
+    {
+      "dataset_id": "justicedao/ipfs_palestine_laws_ir",
+      "level": "other",
+      "record_count": 255657
+    },
+    {
+      "dataset_id": "justicedao/ipfs_palestine_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 14254
+    },
+    {
+      "dataset_id": "justicedao/ipfs_panama_laws_ir",
+      "level": "other",
+      "record_count": 381594
+    },
+    {
+      "dataset_id": "justicedao/ipfs_papua_new_guinea_laws_ir",
+      "level": "other",
+      "record_count": 859447
+    },
+    {
+      "dataset_id": "justicedao/ipfs_papuanewguinea_laws_ir",
+      "level": "other",
+      "record_count": 59421
+    },
+    {
+      "dataset_id": "justicedao/ipfs_paraguay_laws_ir",
+      "level": "other",
+      "record_count": 121473
+    },
+    {
+      "dataset_id": "justicedao/ipfs_peru_laws_ir",
+      "level": "other",
+      "record_count": 342435
+    },
+    {
+      "dataset_id": "justicedao/ipfs_peru_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 833327
+    },
+    {
+      "dataset_id": "justicedao/ipfs_philippines_laws_ir",
+      "level": "other",
+      "record_count": 1409637
+    },
+    {
+      "dataset_id": "justicedao/ipfs_pitcairn_laws_ir",
+      "level": "other",
+      "record_count": 52072
+    },
+    {
+      "dataset_id": "justicedao/ipfs_poland_laws_ir",
+      "level": "other",
+      "record_count": 8159508
+    },
+    {
+      "dataset_id": "justicedao/ipfs_portugal_laws_ir",
+      "level": "other",
+      "record_count": 2054987
+    },
+    {
+      "dataset_id": "justicedao/ipfs_portugal_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 5768007
+    },
+    {
+      "dataset_id": "justicedao/ipfs_puerto_rico_laws_ir",
+      "level": "other",
+      "record_count": 102310
+    },
+    {
+      "dataset_id": "justicedao/ipfs_qatar_laws_ir",
+      "level": "other",
+      "record_count": 463735
+    },
+    {
+      "dataset_id": "justicedao/ipfs_romania_laws_ir",
+      "level": "other",
+      "record_count": 8488581
+    },
+    {
+      "dataset_id": "justicedao/ipfs_russia_laws_ir",
+      "level": "other",
+      "record_count": 908034
+    },
+    {
+      "dataset_id": "justicedao/ipfs_rwanda_laws_ir",
+      "level": "other",
+      "record_count": 3751378
+    },
+    {
+      "dataset_id": "justicedao/ipfs_saint_kitts_nevis_laws_ir",
+      "level": "other",
+      "record_count": 490661
+    },
+    {
+      "dataset_id": "justicedao/ipfs_saint_lucia_laws_ir",
+      "level": "other",
+      "record_count": 143449
+    },
+    {
+      "dataset_id": "justicedao/ipfs_saint_vincent_grenadines_laws_ir",
+      "level": "other",
+      "record_count": 24950
+    },
+    {
+      "dataset_id": "justicedao/ipfs_samoa_laws_ir",
+      "level": "other",
+      "record_count": 411630
+    },
+    {
+      "dataset_id": "justicedao/ipfs_san_marino_laws_ir",
+      "level": "other",
+      "record_count": 130480
+    },
+    {
+      "dataset_id": "justicedao/ipfs_sanmarino_laws_ir",
+      "level": "other",
+      "record_count": 280799
+    },
+    {
+      "dataset_id": "justicedao/ipfs_saotome_laws_ir",
+      "level": "other",
+      "record_count": 321660
+    },
+    {
+      "dataset_id": "justicedao/ipfs_saudi_arabia_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 16198
+    },
+    {
+      "dataset_id": "justicedao/ipfs_saudiarabia_laws_ir",
+      "level": "other",
+      "record_count": 274448
+    },
+    {
+      "dataset_id": "justicedao/ipfs_senegal_laws_ir",
+      "level": "other",
+      "record_count": 348838
+    },
+    {
+      "dataset_id": "justicedao/ipfs_serbia_laws_ir",
+      "level": "other",
+      "record_count": 3032639
+    },
+    {
+      "dataset_id": "justicedao/ipfs_seychelles_laws_ir",
+      "level": "other",
+      "record_count": 182481
+    },
+    {
+      "dataset_id": "justicedao/ipfs_sierraleone_laws_ir",
+      "level": "other",
+      "record_count": 171286
+    },
+    {
+      "dataset_id": "justicedao/ipfs_singapore_laws_ir",
+      "level": "other",
+      "record_count": 132157
+    },
+    {
+      "dataset_id": "justicedao/ipfs_sint_maarten_laws_ir",
+      "level": "other",
+      "record_count": 210823
+    },
+    {
+      "dataset_id": "justicedao/ipfs_slovakia_laws_ir",
+      "level": "other",
+      "record_count": 3201075
+    },
+    {
+      "dataset_id": "justicedao/ipfs_slovakia_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 378218
+    },
+    {
+      "dataset_id": "justicedao/ipfs_slovenia_laws_ir",
+      "level": "other",
+      "record_count": 12898268
+    },
+    {
+      "dataset_id": "justicedao/ipfs_slovenia_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 13150992
+    },
+    {
+      "dataset_id": "justicedao/ipfs_solomonislands_laws_ir",
+      "level": "other",
+      "record_count": 137804
+    },
+    {
+      "dataset_id": "justicedao/ipfs_somalia_laws_ir",
+      "level": "other",
+      "record_count": 289219
+    },
+    {
+      "dataset_id": "justicedao/ipfs_south_africa_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 126323
+    },
+    {
+      "dataset_id": "justicedao/ipfs_south_africa_provincial_laws_ir",
+      "level": "regional",
+      "record_count": 16966
+    },
+    {
+      "dataset_id": "justicedao/ipfs_southafrica_laws_ir",
+      "level": "other",
+      "record_count": 378961
+    },
+    {
+      "dataset_id": "justicedao/ipfs_southsudan_laws_ir",
+      "level": "other",
+      "record_count": 255847
+    },
+    {
+      "dataset_id": "justicedao/ipfs_spain_catalonia_municipal_laws",
+      "level": "municipal",
+      "record_count": 1581
+    },
+    {
+      "dataset_id": "justicedao/ipfs_spain_laws_ir",
+      "level": "other",
+      "record_count": 9421348
+    },
+    {
+      "dataset_id": "justicedao/ipfs_spain_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 197487
+    },
+    {
+      "dataset_id": "justicedao/ipfs_srilanka_laws_ir",
+      "level": "other",
+      "record_count": 1534566
+    },
+    {
+      "dataset_id": "justicedao/ipfs_state_admin_rules",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "justicedao/ipfs_state_laws",
+      "level": "regional",
+      "record_count": null
+    },
+    {
+      "dataset_id": "justicedao/ipfs_state_laws_normalized_graphrag",
+      "level": "regional",
+      "record_count": 12436687
+    },
+    {
+      "dataset_id": "justicedao/ipfs_sudan_laws_ir",
+      "level": "other",
+      "record_count": 139483
+    },
+    {
+      "dataset_id": "justicedao/ipfs_suriname_laws_ir",
+      "level": "other",
+      "record_count": 84250
+    },
+    {
+      "dataset_id": "justicedao/ipfs_sweden_laws_ir",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "justicedao/ipfs_sweden_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 558758
+    },
+    {
+      "dataset_id": "justicedao/ipfs_switzerland_laws_ir",
+      "level": "other",
+      "record_count": 8355561
+    },
+    {
+      "dataset_id": "justicedao/ipfs_switzerland_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 300682
+    },
+    {
+      "dataset_id": "justicedao/ipfs_syria_laws_ir",
+      "level": "other",
+      "record_count": 156656
+    },
+    {
+      "dataset_id": "justicedao/ipfs_taiwan_laws_ir",
+      "level": "other",
+      "record_count": 3883643
+    },
+    {
+      "dataset_id": "justicedao/ipfs_taiwan_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 493629
+    },
+    {
+      "dataset_id": "justicedao/ipfs_tajikistan_laws_ir",
+      "level": "other",
+      "record_count": 102710
+    },
+    {
+      "dataset_id": "justicedao/ipfs_tanzania_laws_ir",
+      "level": "other",
+      "record_count": 421592
+    },
+    {
+      "dataset_id": "justicedao/ipfs_tanzania_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 76591
+    },
+    {
+      "dataset_id": "justicedao/ipfs_thailand_laws_ir",
+      "level": "other",
+      "record_count": 15402
+    },
+    {
+      "dataset_id": "justicedao/ipfs_timorleste_laws_ir",
+      "level": "other",
+      "record_count": 462697
+    },
+    {
+      "dataset_id": "justicedao/ipfs_togo_laws_ir",
+      "level": "other",
+      "record_count": 287353
+    },
+    {
+      "dataset_id": "justicedao/ipfs_tonga_laws_ir",
+      "level": "other",
+      "record_count": 242518
+    },
+    {
+      "dataset_id": "justicedao/ipfs_trinidad_and_tobago_laws_ir",
+      "level": "other",
+      "record_count": 247230
+    },
+    {
+      "dataset_id": "justicedao/ipfs_trinidad_laws_ir",
+      "level": "other",
+      "record_count": 297189
+    },
+    {
+      "dataset_id": "justicedao/ipfs_tunisia_laws_ir",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "justicedao/ipfs_tunisia_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 254871
+    },
+    {
+      "dataset_id": "justicedao/ipfs_turkey_laws_ir",
+      "level": "other",
+      "record_count": 715369
+    },
+    {
+      "dataset_id": "justicedao/ipfs_turkmenistan_laws_ir",
+      "level": "other",
+      "record_count": 261943
+    },
+    {
+      "dataset_id": "justicedao/ipfs_turks_caicos_laws_ir",
+      "level": "other",
+      "record_count": 377253
+    },
+    {
+      "dataset_id": "justicedao/ipfs_tuvalu_laws_ir",
+      "level": "other",
+      "record_count": 181258
+    },
+    {
+      "dataset_id": "justicedao/ipfs_uae_laws_ir",
+      "level": "other",
+      "record_count": 267216
+    },
+    {
+      "dataset_id": "justicedao/ipfs_uganda_laws_ir",
+      "level": "other",
+      "record_count": 269688
+    },
+    {
+      "dataset_id": "justicedao/ipfs_uganda_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 7788
+    },
+    {
+      "dataset_id": "justicedao/ipfs_uk_laws_ir",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "justicedao/ipfs_uk_local_acts_ir",
+      "level": "other",
+      "record_count": 100975
+    },
+    {
+      "dataset_id": "justicedao/ipfs_ukraine_laws_ir",
+      "level": "other",
+      "record_count": 716642
+    },
+    {
+      "dataset_id": "justicedao/ipfs_ukraine_laws_supplement",
+      "level": "national",
+      "record_count": 133451
+    },
+    {
+      "dataset_id": "justicedao/ipfs_uruguay_laws_ir",
+      "level": "other",
+      "record_count": 674573
+    },
+    {
+      "dataset_id": "justicedao/ipfs_us_local_laws",
+      "level": "municipal",
+      "record_count": null
+    },
+    {
+      "dataset_id": "justicedao/ipfs_uscode",
+      "level": "other",
+      "record_count": null
+    },
+    {
+      "dataset_id": "justicedao/ipfs_uzbekistan_laws_ir",
+      "level": "other",
+      "record_count": 258304
+    },
+    {
+      "dataset_id": "justicedao/ipfs_vanuatu_laws_ir",
+      "level": "other",
+      "record_count": 462241
+    },
+    {
+      "dataset_id": "justicedao/ipfs_vatican_laws_ir",
+      "level": "other",
+      "record_count": 81309
+    },
+    {
+      "dataset_id": "justicedao/ipfs_venezuela_laws_ir",
+      "level": "other",
+      "record_count": 189096
+    },
+    {
+      "dataset_id": "justicedao/ipfs_vietnam_laws_ir",
+      "level": "other",
+      "record_count": 814694
+    },
+    {
+      "dataset_id": "justicedao/ipfs_wallis_futuna_laws_ir",
+      "level": "other",
+      "record_count": 515470
+    },
+    {
+      "dataset_id": "justicedao/ipfs_yemen_laws_ir",
+      "level": "other",
+      "record_count": 282939
+    },
+    {
+      "dataset_id": "justicedao/ipfs_zambia_laws_ir",
+      "level": "other",
+      "record_count": 2119224
+    },
+    {
+      "dataset_id": "justicedao/ipfs_zimbabwe_laws_ir",
+      "level": "other",
+      "record_count": 366517
+    },
+    {
+      "dataset_id": "justicedao/ipfs_zimbabwe_municipal_laws_ir",
+      "level": "municipal",
+      "record_count": 3159
+    },
+    {
+      "dataset_id": "justicedao/netherlands-laws-nl-normalized",
+      "level": "national",
+      "record_count": 7926
+    },
+    {
+      "dataset_id": "justicedao/open-us-law-sparse-graphrag",
+      "level": "regional",
+      "record_count": null
+    },
+    {
+      "dataset_id": "justicedao/patent-legal-corpus",
+      "level": "national",
+      "record_count": null
+    },
+    {
+      "dataset_id": "justicedao/patent-legal-ir-graphrag",
+      "level": "other",
+      "record_count": 997485
+    },
+    {
+      "dataset_id": "justicedao/wetwijzer_netherlands_legal_corpus",
+      "level": "other",
+      "record_count": 945658
+    },
+    {
+      "dataset_id": "justicedao/world_national_law",
+      "level": "national",
+      "record_count": 21382356
+    },
+    {
+      "dataset_id": "justicedao/world_national_law",
+      "level": "regional",
+      "record_count": 21382356
+    },
+    {
+      "dataset_id": "justicedao/world_national_law_norm",
+      "level": "national",
+      "record_count": null
+    }
+  ]
+}
