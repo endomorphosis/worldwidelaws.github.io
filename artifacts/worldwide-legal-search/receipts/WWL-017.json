@@ -1,0 +1,89 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-017",
+  "title": "Dispose every eligible collection in the inventory snapshot",
+  "recorded_at": "2026-11-04T01:36:54Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-017-ec73b75f2fc0-attempt-1-1793755539",
+  "site_revision": "1b8014b4d02bce0a99a9cd98eb4427ed15e5fab9",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "data/worldwide/ingestion-ledger.json and docs/worldwide/coverage-audit.json are uncommitted working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status.",
+    "WWL-018 admitted no bounded source child in this worktree. docs/worldwide/source-expansion.json is absent, artifacts/worldwide-legal-search/sources has no phase manifest, and the admitted child set is empty. The join waited on that empty set.",
+    "No public collection has a verified ingest receipt. All 633 ledger rows use disposition blocked. Eligible rows use blocker kind source_child. Classifier-blocked rows keep the inventory access, zero-row, missing-payload, or missing-schema reason.",
+    "588 eligible datasets, 27 classifier-blocked datasets, and 27 excluded datasets cover all 642 pinned datasets. Excluded datasets are not eligible and are listed by id. They are not ledger rows.",
+    "national_count is 84085632 and local_count is 84767485. Both sums use sizes.num_rows for eligible rows only. A dataset with more than one level repeats that viewer total, which adds 23152699 repeated rows. Counted once per eligible dataset, the viewer denominator is 497443072. 23 eligible datasets have no viewer num_rows and stay null. Ingested national and local counts are 0.",
+    "Classifier-blocked rows keep record_count null even when a viewer size is present. viewer_rows on the ledger row still records that integer.",
+    "These counts are not legal completeness. The ledger does not claim that every law has been collected.",
+    "Rights status is copied from data/worldwide/rights.json. Unresolved rights stay visible on the row and are not converted into an ingest receipt. Organization membership was not used as a license.",
+    "The Netherlands browser sample under public/corpus/netherlands is not a verify manifest for the pinned Hugging Face revision, so justicedao/wetwijzer_netherlands_legal_corpus is not marked ingested.",
+    "The inventory-closure audit checks the ledger and coverage audit. It does not execute discover.ts, classify.ts, or a source download.",
+    "Anonymous public listings contain no gated, private, or disabled dataset. A non-public dataset was not invented."
+  ],
+  "join": {
+    "admission_task": "WWL-018",
+    "admitted_child_tasks": 0,
+    "verified_ingest_receipts": 0,
+    "inventory_revision": "0b6db3b679d8b9042c97ca5a48e3625892804ca14e2edf3badde368941665326",
+    "disposition_revision": "bd713600b9931ddc081059cb53162d5ee4be30f603134ab08697ff6386f1cd9a",
+    "rights_sha256": "7c6840d6b36aca5cc30f44b1fbb42c586efb907afe4b30c38aa6b6b80ba34d9c",
+    "retrieved_at": "2026-10-30T09:39:25.250Z",
+    "datasets": 642,
+    "eligible_datasets": 588,
+    "blocked_datasets": 27,
+    "excluded_datasets": 27,
+    "ledger_rows": 633,
+    "eligible_rows": 606,
+    "classifier_blocked_rows": 27,
+    "null_record_counts": 52,
+    "national_count": 84085632,
+    "regional_count": 37483392,
+    "local_count": 84767485,
+    "other_count": 314259262,
+    "ingested_national_count": 0,
+    "ingested_local_count": 0,
+    "viewer_rows_once": 497443072,
+    "repeated_viewer_rows": 23152699,
+    "uncounted_eligible_datasets": 23,
+    "blocker_kinds": {
+      "access": 13,
+      "source_child": 606,
+      "payload": 3,
+      "rows": 10,
+      "schema": 1
+    },
+    "legal_completeness": "not_claimed"
+  },
+  "outputs": [
+    {
+      "path": "data/worldwide/ingestion-ledger.json",
+      "bytes": 545512,
+      "sha256": "a27ab0e2664aacf1cf8b79a76894ed45d6123300adbe2756567b923743bc95d5"
+    },
+    {
+      "path": "docs/worldwide/coverage-audit.json",
+      "bytes": 81752,
+      "sha256": "e61f058dad1ded9fddc48c4d2b39fbeefb9bb37a69eeaa29de49b9fca4e6651b"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "node",
+      "scripts/worldwide/audit.mjs",
+      "inventory-closure"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_00786a0bd99e_934ef5d522ba",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node. HOME was a private directory whose name starts with ipfs-accelerate-validation-home-. One run used /tmp/ipfs-accelerate-validation-home-p2DBko. A confirming run captured stderr. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. NO_COLOR and FORCE_COLOR were unset. stderr was empty. stdout is the audit JSON.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "command": "inventory-closure"
+    },
+    "stdout_sha256": "5fecfdc09eb274a0d0b61b8472b323850801fc9f532f5857bbf229353d021e6d",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
