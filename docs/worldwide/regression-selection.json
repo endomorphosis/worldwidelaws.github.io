@@ -1,0 +1,47 @@
+{
+  "schema": "worldwide-legal-search.regression-selection@1",
+  "preserved": [
+    {
+      "path": "src/lib/netherlandsLogic.test.ts",
+      "reason": "Preserve Netherlands logic loading, indexing, lookup, temporal explanations, and GraphRAG evidence."
+    },
+    {
+      "path": "tests/worldwide/netherlands-compat.test.ts",
+      "reason": "Preserve the Netherlands adapter: source ids, sample labels, publisher deep links, and static rankings."
+    },
+    {
+      "path": "src/lib/logic/parity/parity.test.ts",
+      "reason": "Preserve reused Python logic parity for ML confidence, FOL, TDFOL rules, and proof summaries."
+    },
+    {
+      "path": "tests/worldwide/bm25-parity.test.ts",
+      "reason": "Preserve BM25 score, posting, budget, and worker parity with the Python reference."
+    },
+    {
+      "path": "tests/worldwide/tokenizer-parity.test.ts",
+      "reason": "Preserve tokenizer and citation parity, including native identifiers and pinned strategies."
+    },
+    {
+      "path": "tests/worldwide/graph-parity.test.ts",
+      "reason": "Preserve bounded graph expansion parity and the rule that a missing graph does not block the reader."
+    },
+    {
+      "path": "tests/worldwide/data-parity.test.ts",
+      "reason": "Preserve normalization, identity, article inheritance, and regional or municipal row parity."
+    },
+    {
+      "path": "tests/worldwide/schema.test.ts",
+      "reason": "Preserve corpus schema admission and quarantine of missing identity, dates, and citations."
+    }
+  ],
+  "preexisting_failures": [
+    {
+      "id": "local-typecheck-environment-absent",
+      "disposition": "retained",
+      "erased": false,
+      "blocking": true,
+      "paths": [],
+      "note": "This checkout has no node_modules, and GitHub Actions could not run. Typecheck, unit, browser, corpus, Netherlands compatibility, and logic parity stay required gates and fail the workflow when they fail. No preserved test file was deleted."
+    }
+  ]
+}

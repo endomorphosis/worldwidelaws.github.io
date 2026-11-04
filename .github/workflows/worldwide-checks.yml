@@ -1,0 +1,58 @@
+# Required worldwide gates. A failing step fails the workflow.
+name: worldwide-checks
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - agent/worldwide-legal-search-v1
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: worldwide-checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  required:
+    name: Required worldwide gates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: CI contract
+        run: node scripts/worldwide/audit.mjs ci-contract
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Typecheck
+        run: npx tsc --noEmit --pretty false --incremental false
+
+      - name: Build
+        run: npm run build
+
+      - name: Unit and integration tests
+        run: npm test -- --runInBand --watchAll=false --testPathPattern tests/worldwide
+
+      - name: Browser tests
+        run: npx playwright install --with-deps chromium && npm run test:playwright -- tests/worldwide/accessibility.spec.ts tests/worldwide/visual.spec.ts tests/worldwide/location.spec.ts tests/worldwide/transport.spec.ts
+
+      - name: Corpus integrity
+        run: npm run validate:netherlands-corpus
+
+      - name: Netherlands compatibility
+        run: npm test -- --runInBand --watchAll=false --runTestsByPath src/lib/netherlandsLogic.test.ts tests/worldwide/netherlands-compat.test.ts
+
+      - name: Reused logic parity
+        run: npm run validate:logic -- --runInBand --watchAll=false

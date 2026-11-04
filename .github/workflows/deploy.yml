@@ -39,7 +39,16 @@ jobs:
         run: npm ci --legacy-peer-deps
       - name: Type check
         run: npx tsc --noEmit
-        continue-on-error: true
+      - name: CI contract
+        run: node scripts/worldwide/audit.mjs ci-contract
+      - name: Unit and integration tests
+        run: npm test -- --runInBand --watchAll=false --testPathPattern tests/worldwide
+      - name: Netherlands compatibility
+        run: npm test -- --runInBand --watchAll=false --runTestsByPath src/lib/netherlandsLogic.test.ts tests/worldwide/netherlands-compat.test.ts
+      - name: Reused logic parity
+        run: npm run validate:logic -- --runInBand --watchAll=false
+      - name: Browser tests
+        run: npx playwright install --with-deps chromium && npm run test:playwright -- tests/worldwide/accessibility.spec.ts tests/worldwide/visual.spec.ts tests/worldwide/location.spec.ts tests/worldwide/transport.spec.ts
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
