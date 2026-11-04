@@ -1,0 +1,66 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-072",
+  "title": "Integrate cited optional answers and existing proof summaries",
+  "recorded_at": "2026-11-04T01:24:30Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-072-8b9aabaf236e-attempt-1-1793754268",
+  "site_revision": "81e580ddc28011001ff454bf5ffd52c7fd00ef84",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "src/components/worldwide/ResearchPanel.tsx and tests/worldwide/evidence.test.tsx are untracked working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "WorldwideLegalSearchApp.tsx is outside the declared outputs, so this change does not mount the panel in the shell. Search modules under src/lib/worldwide/search were not edited and do not import the panel.",
+    "The panel does not search. composeCitedResearch reads passages, proof summaries, and an optional supplied answer that the caller already has. It does not call a model, a backend, fetch, or a search function, even when those values are passed in.",
+    "A citation is the passage content id plus a pinned source revision. Floating names (head, main, master, latest, trunk, current, and the same set used by the reader) and missing revisions are not cited. The in-app link is /#/law/<record-id>?revision=<source-revision>&section=<content-id>.",
+    "Source text, translated text, and generated text are separate blocks. A translation keeps machine, official, or unknown and is not a new source revision. The generated answer does not copy the source body.",
+    "Existing proof summaries use the WetWijzer logic-proof-summaries fields. A summary joins only when ipfs_cid equals the passage content id. If the summary names a source revision, that revision must equal the retrieved revision. A summary with no revision is joined by content id, and the cited version stays the passage revision.",
+    "zkp_backend simulated is simulated proof output, including when zkp_verified is true. verifySimulatedCertificate is used only for its status. Its cryptographic flag is ignored and the panel always records cryptographic false. groth16 and every other backend stay unknown. Failed, partial, unknown, or empty formalization is incomplete. Simulated, unknown, and incomplete output cannot establish applicability or current law. A recorded source status such as current is metadata, not that proof.",
+    "Document text, translations, proof formulas, JSON-LD, and a supplied answer are untrusted. Instruction-shaped text, including zero-width breaks, is not followed and cannot change the revision, the citation, or applicability. The source block still shows the retrieved text. HTML in that text is rendered as text. javascript: and other non-http(s) source URLs are not linked.",
+    "A supplied answer is shown only when every citation matches a retrieved content id and pinned revision, the text contains those exact strings, the text does not name another revision, and the text does not assert applicability. Otherwise the panel uses the extracted note that cites the retrieved versions and does not merge them into one rule.",
+    "The extracted citation line keeps the English labels Retrieved version, Content, and Record so the revision and content id stay explicit. The preface and chrome follow en, nl, ar, or ja. An Arabic interface sets dir rtl. Law text direction follows the passage language.",
+    "The Jest reporter counted 14 passing tests. One is the existing setup test in src/__tests__/setup.ts. Thirteen exercise this panel.",
+    "node_modules was absent. A gitignored symlink at node_modules points at workspace_a95df2651cc5_a5618ca9f445/node_modules. package.json and package-lock.json were not edited. The symlink is not a task output.",
+    "node is v23.11.1 at /usr/bin/node. npm is 10.9.2 at /usr/bin/npm.",
+    "CI=1 was set so Jest would not enter watch mode. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-wwl072.J4qfVW. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. The process environment was otherwise empty.",
+    "The Jest reporter and the Node VM Modules warning were written to stderr, along with the ts-jest isolatedModules deprecation warning and the NO_COLOR warning caused by FORCE_COLOR. stderr was not empty. The process exit code was 0."
+  ],
+  "outputs": [
+    {
+      "path": "src/components/worldwide/ResearchPanel.tsx",
+      "bytes": 42146,
+      "sha256": "11b82ff8cb673041a643f81df7762941444cefa8f61e7508025d4b5015c949a9"
+    },
+    {
+      "path": "tests/worldwide/evidence.test.tsx",
+      "bytes": 24276,
+      "sha256": "78049c00b541b19e448412a9f5b197dee9a7613891d641e795a83120152b8359"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/evidence.test.tsx"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_0bd325a77217_a4613cd48365",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-wwl072.J4qfVW. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. CI=1 was set. The process environment was otherwise empty. npm wrote the script banner to stdout. Jest wrote the passing reporter and the Node VM Modules, ts-jest isolatedModules, and NO_COLOR warnings to stderr. The test did not call fetch or a model.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 14,
+      "failed": 0,
+      "setup_tests": 1,
+      "evidence_tests": 13
+    },
+    "stdout_sha256": "fcacadfa027eb9b15a98d2d06fd5df6171ee4e69bf921eaa72d83c66aed04b27",
+    "stderr_sha256": "982971ab2e020c356c24025dd7970fabfb6dc21c40a68b44aae6357321aa9f1f"
+  }
+}
