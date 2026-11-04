@@ -1,0 +1,68 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-073",
+  "title": "Implement explicit cross-place comparison",
+  "recorded_at": "2026-11-04T01:59:06Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-073-c2a6f828363d-attempt-1-1793756300",
+  "site_revision": "f6d680cbc7923a6d3f050d6020d5a955a22ec259",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "src/components/worldwide/ComparePlaces.tsx and tests/worldwide/compare.test.tsx are untracked working-tree files. site_revision is HEAD before those edits.",
+    "artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "WorldwideLegalSearchApp.tsx is outside the declared outputs, so this change does not mount the comparison in the shell. The shell root keeps data-compare closed. ComparePlaces renders its own .wwl root with data-compare open.",
+    "The component does not search. composePlaceComparison reads places, sources, coverage, and results the caller already has. It does not call a model, a backend, fetch, or a search function.",
+    "A place is compared only after a manual choice. Origin manual or manually selected counts. A suggestion, saved place, shared link, or device location stays out until the visitor chooses that candidate or confirms that place. Typing a name does not select it. A country code is not a place id.",
+    "One aligned date is the visitor's date when it is a real year, month, or day. Otherwise both recorded dates align at the coarser shared calendar label. Dates that do not share a label stay in their own columns. Dates and source revisions are not averaged. An invalid date does not change the aligned date.",
+    "Sources line up by source id. A source that exists in one place is absent in the other and is not copied across. Different pinned revisions stay different. A floating name such as latest is not a pinned revision and does not match another floating name.",
+    "Coverage lines up by level, including national, regional, and municipal. A missing municipal cell uses the catalog gap sentence. An unknown cell stays a different sentence. A gap is not filled from the other place. A counted zero is not a finding that no law exists. A coverage cell that names the other place is shown on that place.",
+    "Each result keeps the place id it names. A record whose place id and jurisdiction id disagree, a record with no place id, and a record for a place outside the comparison are held back and are not shown as either column's rule.",
+    "Contradictory local rules stay with their own places. Comparison does not merge them into one asserted answer and does not decide that a law applies. A supplied asserted answer or merged rule is refused and is not rendered. The same wording in both places remains two place-scoped rules.",
+    "Desktop and mobile columns use the existing stylesheet: .wwl-compare is one column below 64rem and two columns from 64rem. Jest jsdom does not apply that media query. The test checks the class, data-compare, and two column children.",
+    "Interface chrome is en, nl, ar, or ja. The municipal gap sentence comes from resultCopy. An Arabic interface sets dir rtl.",
+    "The Jest reporter counted 19 passing tests. One is the existing setup test in src/__tests__/setup.ts. Eighteen exercise this comparison.",
+    "node_modules was absent. npm ci --ignore-scripts --no-audit --no-fund installed the locked tree in this worktree. package.json and package-lock.json were not edited. node_modules is gitignored and is not a task output.",
+    "node is v23.11.1 at /usr/bin/node. npm is 10.9.2 at /usr/bin/npm.",
+    "CI=1 was set so Jest would not enter watch mode. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-wwl073.DHvpSr. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. The process environment was otherwise empty.",
+    "The screen was exercised in Jest with jsdom. A browser was not opened.",
+    "The Jest reporter and the Node VM Modules warning were written to stderr, along with the ts-jest isolatedModules deprecation warning. FORCE_COLOR was not set, so there was no NO_COLOR warning. stderr was not empty. The process exit code was 0."
+  ],
+  "outputs": [
+    {
+      "path": "src/components/worldwide/ComparePlaces.tsx",
+      "bytes": 77352,
+      "sha256": "1f7d6608e5b857b5c216541e656d80b996567f80b2ef39db095eed32dbe19c76"
+    },
+    {
+      "path": "tests/worldwide/compare.test.tsx",
+      "bytes": 32695,
+      "sha256": "287a2bd750e9102950e9d9879037a8645c6f4a7585fe408d34707411a620bbeb"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--runTestsByPath",
+      "tests/worldwide/compare.test.tsx"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_308d0310b080_218ee0e85049",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node and npm is /usr/bin/npm. HOME was /tmp/ipfs-accelerate-validation-home-wwl073.DHvpSr. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. CI=1 was set. The process environment was otherwise empty. npm wrote the script banner to stdout. Jest wrote the passing reporter and the Node VM Modules and ts-jest isolatedModules warnings to stderr. The test did not call fetch or a model.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "test_suites": 1,
+      "tests": 19,
+      "failed": 0,
+      "setup_tests": 1,
+      "compare_tests": 18
+    },
+    "stdout_sha256": "13e5f652440255415e6b53dd0eebcda6702ce7a5a574781d9304274736f13db8",
+    "stderr_sha256": "0b196ee0bfb98a8c7c8630412f9af1c69ae5c5ceaa49a7bea07c783b66845a2b"
+  }
+}
