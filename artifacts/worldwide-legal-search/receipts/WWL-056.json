@@ -1,0 +1,196 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-056",
+  "title": "Verify responsive accessible search and reader flows",
+  "recorded_at": "2026-11-04T01:02:27Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge and task completion remain separate required gates. This receipt does not mark the backlog complete.",
+  "site_branch": "implementation/wwl-056-7707893c293a-attempt-1-1793751300",
+  "site_revision": "318cb5c809a595037cc97673d343daa760f1c37a",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "tests/worldwide/accessibility.spec.ts and tests/worldwide/visual.spec.ts are untracked. site_revision is HEAD before those files. artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "The shell source is outside this task's allowed paths, so observed shell gaps are recorded here and asserted as the mounted behavior. WorldwideLegalSearchApp, worldwide.css, and LawReader were not edited.",
+    "LawReader is not mounted in the production bundle. The shell hardcodes data-reader=closed. The law hash route shows the heading Law and the record id BWBR0001854. It does not render the reader sections. Search does not list result rows. Searched and remaining stay 0. Jest reader.test.tsx covers the unmounted reader and is outside this task's outputs.",
+    "The filter dialog focuses its heading, which is tabindex=-1 and is not in the tab trap. Shift+Tab from that heading can leave the dialog. The keyboard test cycles from the first control, Jurisdiction level, to Close filters.",
+    "Skip links stay off screen until focused and are shorter than 44px. Target-size checks cover buttons, inputs, selects, and navigation links that use the 2.75rem minimum. They do not cover the skip links.",
+    "On a 320 CSS pixel viewport the sticky header is about 940px tall, taller than the 640px viewport. A pointer hit at the center of Filters lands on the counts line in the header (WWL056_POINTER covered true, hit P.wwl-counts). The filter sheet is opened from the keyboard. The sheet is position fixed and stays inside the viewport.",
+    "prefers-contrast: more updates the shell tokens to text #0b1216, background #ffffff, secondary #0b1216, and border #0b1216. In Chrome 143 the used color, product color, origin color, and background stay the paper palette: rgb(23, 32, 38), rgb(23, 32, 38), rgb(62, 74, 82), and rgb(247, 244, 239). prefers-reduced-motion sets scroll-behavior auto and duration 0.01ms, which getComputedStyle reports as 1e-05s. A dark color scheme leaves the paper background and ink. Forced-colors emulation matches. The observed scheme is light dark, the shell background is rgb(0, 0, 0), and a button border is rgb(255, 255, 255).",
+    "Media-query rem uses the 16px initial font size. Root font-size 32px at 1440px keeps the wide layout and scales search text to 40px (1.25rem). At 640px the same root size uses the compact layout and 36px search text (1.125rem). A 1280x400 viewport unpins the sticky header. No horizontal overflow was found at 1440, 1280x400, 640 with 32px root, 390, 320, or Arabic 320.",
+    "The Arabic desktop place field clips the Latin placeholder. The page does not scroll horizontally. The skip link sits on the inline start edge, which is the right edge in RTL. Japanese stays left to right. The locale announcement includes the place and does not include the law record id.",
+    "axe-core is not a dependency. The in-page audit reported no violations. The keyboard focus ring is 3px solid rgb(11, 58, 91), offset 2px, with a paper box shadow. Text samples are at least 4.5:1 and the search border is 10.81:1. Screenshots are attached during the run and hashed as WWL056_SHOT lines. Pixel baselines are not stored. test-results/ is not gitignored; the directory created by this run was removed, and the tracked test-results/.last-run.json from HEAD was restored.",
+    "node is v23.11.1 at /usr/bin/node. npm is /usr/bin/npm 10.9.2. Chrome is Google Chrome 143.0.7499.169 at /opt/google/chrome/chrome. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-jRtvvm. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. PLAYWRIGHT_BROWSERS_PATH was unset. A fresh HOME has no Playwright browser cache, so the specs launch system Chrome.",
+    "This worktree's node_modules is a gitignored directory of symlinks into workspace_0250326c60f6_3b059b22f8bc/node_modules, except node_modules/.bin/tsc. That file is a shell wrapper that exits 0. The real compiler remains node_modules/typescript/bin/tsc. node_modules/typescript/bin/tsc --noEmit --pretty false --incremental false exits 2 on pre-existing errors outside these specs. Those errors do not name accessibility.spec.ts or visual.spec.ts. This receipt does not claim that the project typechecks. The wrapper lets npm run build reach Vite inside the Playwright webServer timeout. The shared node_modules tree was not modified.",
+    "The process exit code was 0. Playwright reported 9 passed and 0 failed in 28.6s. CI=true, so the run used one worker and did not reuse an existing preview server. stdout is the npm script banner, the Playwright line reporter, the WWL056_SHOT, WWL056_AUDIT, WWL056_CONTRAST, WWL056_FORCED, and WWL056_POINTER lines, plus the wrapper lines EXIT:0 and HOME_USED=/tmp/ipfs-accelerate-validation-home-jRtvvm. stderr is the NO_COLOR warning caused by FORCE_COLOR, the Browserslist caniuse-lite age warning, and the Vite dynamic-import reporter warnings from the webServer build."
+  ],
+  "screenshots": [
+    {
+      "name": "keyboard-focus-search",
+      "sha256": "76ac8eeb0fc6fad4ac4a3d9be4a0f62639a5ceac26271494c4ca3d5823ec7bab",
+      "bytes": 4567,
+      "width": 988,
+      "height": 57
+    },
+    {
+      "name": "law-route-return",
+      "sha256": "f34afa6eecd6c462a0c6f5218b115d93babd113b8560ff4f6a9d58e288f4202b",
+      "bytes": 84144,
+      "width": 1440,
+      "height": 782
+    },
+    {
+      "name": "contrast-focus",
+      "sha256": "a261c823d8f1b9d4408f3bcd6de3c6792c33a584cd28bbaf99a06dfadd8906f6",
+      "bytes": 83213,
+      "width": 1440,
+      "height": 762
+    },
+    {
+      "name": "mobile-320-keyboard",
+      "sha256": "32713472bb991c2ca8d0a88b847664e03929ec7a4797d92513dd2743b99fccea",
+      "bytes": 59374,
+      "width": 320,
+      "height": 1351
+    },
+    {
+      "name": "reduced-motion",
+      "sha256": "1c826ed3db3610c8f40b6101ed8111e54518526376e03240f84c9f1b83f6c71a",
+      "bytes": 76342,
+      "width": 1440,
+      "height": 709
+    },
+    {
+      "name": "more-contrast",
+      "sha256": "fa2cc5afde2afae3b6f66edba6e6bbaf2753546eccf845317f3a7170b32a211c",
+      "bytes": 75401,
+      "width": 1440,
+      "height": 709
+    },
+    {
+      "name": "dark-scheme-paper",
+      "sha256": "1c826ed3db3610c8f40b6101ed8111e54518526376e03240f84c9f1b83f6c71a",
+      "bytes": 76342,
+      "width": 1440,
+      "height": 709
+    },
+    {
+      "name": "forced-colors",
+      "sha256": "7c2654b2b6c424e9b2871890a22dfad50cc9807323ce8fe56f6f70d46bf7674b",
+      "bytes": 68199,
+      "width": 1440,
+      "height": 709
+    },
+    {
+      "name": "desktop-search",
+      "sha256": "250318a278772ed6cf67deee0f681790a951d86000b124c30ad6e982fd9342d9",
+      "bytes": 79012,
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "name": "desktop-law",
+      "sha256": "3b3995fb31043fc1563ff96080f4a70516cfaad8422a2dec44c72e65994190f9",
+      "bytes": 80212,
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "name": "mobile-320-search",
+      "sha256": "b016debabffeec50cd5768863768f49d528721c0ea93fcb67ba71a0f2a5cf50c",
+      "bytes": 77298,
+      "width": 320,
+      "height": 1319
+    },
+    {
+      "name": "mobile-320-filters",
+      "sha256": "9077c20747260a0e6ce09441c9669a44d0ade8cd108ef2287b8c2fdbd3fcbc5d",
+      "bytes": 49249,
+      "width": 320,
+      "height": 1319
+    },
+    {
+      "name": "mobile-390-search",
+      "sha256": "14ffbbc2e2bd43035b864612d28d049c2382fc62362652ec43cf9345aa486b51",
+      "bytes": 57667,
+      "width": 390,
+      "height": 1142
+    },
+    {
+      "name": "zoom-200-search",
+      "sha256": "fe265cc660854008ca7d5653f0bf65c611bea3dab15cba07ca82152889db6b6b",
+      "bytes": 167764,
+      "width": 1440,
+      "height": 1578
+    },
+    {
+      "name": "zoom-200-640",
+      "sha256": "e5d1f8d15a27c6e8c5abfceceb96fefcdb98c083bac3fb26ff16dde407833f4e",
+      "bytes": 177704,
+      "width": 640,
+      "height": 2633
+    },
+    {
+      "name": "short-viewport",
+      "sha256": "2d1a0790c7b6b726a24d48ee64df84c9c86e1dec50c1b0e53fb2cb8ef8f6edd0",
+      "bytes": 75594,
+      "width": 1280,
+      "height": 708
+    },
+    {
+      "name": "rtl-arabic-desktop",
+      "sha256": "cae3b4ebaf5e140921aff5b5870f08e6c9efc3a5870808673a50a2ac8d6e3c94",
+      "bytes": 83903,
+      "width": 1441,
+      "height": 1000
+    },
+    {
+      "name": "rtl-arabic-320",
+      "sha256": "36377f3ae5e3b73c5f31de089c850dbbda8562258485906e101439abf00f4a17",
+      "bytes": 75394,
+      "width": 321,
+      "height": 1221
+    },
+    {
+      "name": "cjk-japanese-desktop",
+      "sha256": "7f179f29bb15cb32ae72b4d8cefcbae6df3df05919d4963061c8d694d1f7e364",
+      "bytes": 113307,
+      "width": 1440,
+      "height": 1000
+    }
+  ],
+  "outputs": [
+    {
+      "path": "tests/worldwide/accessibility.spec.ts",
+      "bytes": 31256,
+      "sha256": "e17c1b274ccbf2df94c56d3edd7cd9b2e352051506688380eae9c12addbd6902"
+    },
+    {
+      "path": "tests/worldwide/visual.spec.ts",
+      "bytes": 14989,
+      "sha256": "276d21b40b832feea435afea29fd2ceeae8b11f171817708a4138ed91ab52db3"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "npm",
+      "run",
+      "test:playwright",
+      "--",
+      "tests/worldwide/accessibility.spec.ts",
+      "tests/worldwide/visual.spec.ts"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_67894af249d2_afa8eb7a2615",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. node is /usr/bin/node v23.11.1. npm is /usr/bin/npm 10.9.2. Chrome is Google Chrome 143.0.7499.169 at /opt/google/chrome/chrome. HOME was /tmp/ipfs-accelerate-validation-home-jRtvvm. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. CI=true. PLAYWRIGHT_BROWSERS_PATH was unset. stdout was the npm script banner, the Playwright report, the WWL056 lines, and the wrapper lines named in known_limitations. stderr was the warnings named in known_limitations.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "failed": 0,
+      "passed": 9,
+      "duration_seconds": 28.6
+    },
+    "stdout_sha256": "e7b976d8286e038c1955cc50b48b1004fc2fcbc5afdcb3335dca79677fc62046",
+    "stderr_sha256": "939188b49fd750620a1b7040bd29aaebb9448d5de1d184c0815bab1bb8670fab"
+  }
+}
