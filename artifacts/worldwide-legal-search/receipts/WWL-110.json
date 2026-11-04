@@ -1,0 +1,73 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-110",
+  "title": "Document source refresh and operational maintenance",
+  "recorded_at": "2026-11-04T07:00:57Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge, and task completion remain separate gates. This receipt does not mark the backlog complete. The refresh pipeline pins inventory, dispositions, rights, catalog schema, coverage, ledger, and geography by SHA-256, audits rights, schema, and coverage, and publishes only outside the site. A failed audit leaves current.json unchanged. Site maintainers own that pipeline. The host supervisor owns process recovery. Credentials are refused before publish.",
+  "site_branch": "implementation/wwl-110-53ad3ea0bc36-attempt-1-1793774680",
+  "site_revision": "8064c02b8500290a13601a0e2bd6c452b2c2c191",
+  "site_tree": "1535fdf732075fe6aee3fea30a355964eba1f8e5",
+  "operational_revision": "8492ea8c0e98191423804a6841ebde0876ed8367",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "site_revision is HEAD before these edits. docs/worldwide/maintenance.md and scripts/worldwide/refresh.ts are untracked. artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "The refresh store must stay outside the site repository. A final publish to /tmp/wwl110-refresh-store-final exited 0 with action publish and snapshot fc3e968ab92d4703b52d111b58ff1eeed32dd36527300dd3299f87af8baede05. The same command run again exited 0 with action unchanged and the same snapshot id. That store was then removed. It is not site content.",
+    "node --experimental-strip-types scripts/worldwide/refresh.ts --self-test exited 0: 18 checks. Those checks cover a repeated publish, rights rejection, schema rejection, credential rejection, atomic rollback in both directions, refusal of an in-site store, and refusal to invent a rollback target. The credential-shaped fixture is assembled at runtime so the source text does not contain an assigned credential.",
+    "The pipeline does not fetch upstream datasets, does not rewrite scripts/worldwide/update.ts snapshots, and does not rebuild the browser catalog. It does not read config/worldwide_supervisor_host.json and does not start, stop, or restart the supervisor or watchdog.",
+    "A leftover .refresh.lock blocks the next publish until that file is removed. The pipeline does not steal a lock. A corrupt current pointer fails closed and is not replaced with an invented snapshot. The first successful publish has no previous.json until a later publish copies the old pointer.",
+    "scripts/worldwide/refresh.ts is outside the tsconfig include set. It was executed by Node type stripping, not by tsc. Node writes an ExperimentalWarning to stderr for --experimental-strip-types. The maintenance audit does not execute refresh.ts, and its stderr was empty.",
+    "The operational revision is framework commit 8492ea8c0e98191423804a6841ebde0876ed8367. That worktree had unrelated uncommitted supervisor edits at record time. This task did not modify them. The pin is the commit and not the dirty tree.",
+    "node is v23.11.1 at /usr/bin/node. PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. The audit HOME was /tmp/ipfs-accelerate-validation-home-wwl110audit. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state."
+  ],
+  "refresh": {
+    "schema": "worldwide-legal-search.refresh@1",
+    "check_snapshot_id": "fc3e968ab92d4703b52d111b58ff1eeed32dd36527300dd3299f87af8baede05",
+    "as_of": "2026-10-30T09:39:25.250Z",
+    "rights": {
+      "datasets": 642,
+      "resolved": 44,
+      "unresolved": 598
+    },
+    "coverage": {
+      "national_count": 84085632,
+      "local_count": 84767485,
+      "regional_count": 37483392,
+      "other_count": 314259262,
+      "entry_count": 633,
+      "legal_completeness": "not_claimed"
+    },
+    "self_test_checks": 18,
+    "credentials_enter_site": false
+  },
+  "outputs": [
+    {
+      "path": "docs/worldwide/maintenance.md",
+      "bytes": 9080,
+      "sha256": "81acb31335b635b393c30f9120c275fc2c7b08eebcadae7bd7344bb3b2a1d7d3"
+    },
+    {
+      "path": "scripts/worldwide/refresh.ts",
+      "bytes": 68069,
+      "sha256": "3cf24f10d7bf0871232350c3908898d2e8160016b6d0def9bb9143ece67a71e7"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "node",
+      "scripts/worldwide/audit.mjs",
+      "maintenance"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_31f73a50d429_04366084e33a",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-wwl110audit. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. node is /usr/bin/node v23.11.1. The process was started with env -i. stdout is the audit JSON. stderr was empty.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "command": "maintenance"
+    },
+    "stdout_sha256": "42c7c26cc74312d8331f2f5f27deb6e47c2fb11b51184ecd535a4acbbdaec09e",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
