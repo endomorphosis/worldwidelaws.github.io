@@ -1,0 +1,64 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-114",
+  "title": "Prepare final campaign evidence and continued coverage work",
+  "recorded_at": "2026-11-06T06:19:01Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge, and task completion remain separate gates. This receipt does not mark the backlog complete. docs/worldwide/campaign-closure.json keeps own_receipt pending and requires_own_receipt false. The campaign-closure audit does not open this file. After independent admission and merge, native root reconciliation verifies every receipt including WWL-114, publishes root completion, and drains owned workers. This task does not do that.",
+  "site_branch": "implementation/wwl-114-c8f718099c82-attempt-1-1793945205",
+  "site_revision": "8af5a8930fa4f6764e7c5b46d3fba9e89fc9276a",
+  "site_tree": "62c2a908b1aa2709170c33ec73a61df880cd5dd3",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt. completion_verified and root_completion_published stay false in the closure document. own_receipt stays pending. This file is ordinary task evidence, and the campaign-closure checker does not require it to exist.",
+    "site_revision is HEAD. docs/worldwide/campaign-closure.json and docs/worldwide/future-coverage.json are new untracked files. .gitignore lists artifacts/, and the 50 receipts already in this worktree are tracked. This new file is untracked and ignored, so it does not appear in git status. Its own sha256 is not stored inside this file.",
+    "Prior required task receipts were looked up for the 63 required ids other than WWL-114. 50 are in this site worktree. 12 are only in the framework checkout receipts directory: WWL-002, WWL-003, WWL-004, WWL-005, WWL-018, WWL-100, WWL-101, WWL-102, WWL-103, WWL-104, WWL-105, and WWL-106. A filename search under worldwide-legal-search-v1 found no WWL-084.json. Lookup is not native admission.",
+    "The WWL-017 site receipt sha256 is 0537e0e08d4733b1cffa1b83ca8d344aaa30105b480c8695303cc7879164deb1, validation exit 0. Its output hashes match the current ingestion ledger and coverage audit. A sealed inventory-closure re-audit wrote stdout sha256 5fecfdc09eb274a0d0b61b8472b323850801fc9f532f5857bbf229353d021e6d, the same digest stored on that receipt.",
+    "The WWL-113 site receipt sha256 is 5330822e9b800bdb8fe49242848155f45b8cdb62052cb3a458ad02e0954c1769, validation exit 0. public-smoke.json and rollback.md match that receipt. A sealed public-smoke re-audit wrote stdout sha256 ae5fda432f5d8a4fe02263ea6d1601312a4d516f66b0b9eaacf7d2bb599bc7b2. Deployment remains blocked with an external blocker. public_release_verified means the smoke checker accepted the evidence. WWL-113 recorded HTTP 404 for https://worldwidelaws.github.io/.",
+    "The WWL-106 receipt sha256 is 566cd29ab609685a2a0f26611d16e3107cc45428c16ecbcd415bd526ce54a074 in the framework checkout, and the same bytes are in worktree 601ef5e2031151e9. It is not in this site worktree. Its schema is worldwide-legal-search.task-receipt@1. completion_authority, execution_completed, self_certified_completion, and future_release_required are false. It records pytest result 61 passed on /home/barberb/lift_coding/external/ipfs_datasets/.venv/bin/python3 with pytest 9.1.1. This task did not re-run that suite. /usr/bin/python3.12 on the authoritative PATH reports No module named pytest. The observed adapter sha256 is 5f45b691d6fbcf363e1a599106170fd8c75694afe3c44523946332d2c3539b4b and the test file sha256 is 1ba64956c69424f0a395dd96df48575bd03d08453bca5d1e154c0dc6f9b322fa. The WWL-106 receipt does not store those output hashes.",
+    "artifacts/worldwide-legal-search/sources is absent, so no source-job manifest was audited. The ledger admitted_child_tasks list is empty and verified_ingest_receipts is 0. Ingested national and local counts are 0. Inventory revision 0b6db3b679d8b9042c97ca5a48e3625892804ca14e2edf3badde368941665326 is the SHA-256 of data/worldwide/source-inventory.json and matches the ledger, dispositions, rights, and coverage audit. The framework WWL-018 receipt sha256 is 43edd3278726fee2ce9d5c6347240e2cc78825460332018a4c075ebfcc2daf83 and its execution_completed flag is false. Its 12-unit bound is an adapter limit, not a production admission of the 588 eligible datasets. Those datasets are 606 eligible ledger rows because some datasets repeat across levels.",
+    "docs/worldwide/future-coverage.json exports 696 remaining rows and claims_global_legal_completeness is false. 633 ledger rows are not ingested, 27 excluded datasets stay outside the ledger, 23 gbOpen directories are ADM0 only, PRI has no ADM0 file, 11 boundaries are withheld, and one row stands for the 175 directories with no municipal label. Those 175 codes are not listed in the geography manifest and were not invented. Remaining states are unavailable 624, unknown 71, and missing 1. Viewer national_count 84085632 and local_count 84767485 are not ingest receipts. 595 ledger rows have unresolved rights.",
+    "Sealed re-audits in HOME /tmp/ipfs-accelerate-validation-home-wwl114src.2cvtkyp_ exited 0 with empty stderr for public-smoke, deployment, release-candidate, inventory-closure, source-inventory, source-dispositions, rights, and geography. Release-candidate stdout sha256 is 851b3ff7bc8c4b9d37630a325ef5b0ab1449b9b66f6f78ff2b4f5d44bad2b036. Source-inventory stdout sha256 is 6b0a6ebc47a252d4af8c8adf56104caf6e3ad435921c8c5f8c192840510c1797. Source-dispositions stdout sha256 is 545702879cf66f71c27287a99de73030692f1e6381eb2efe2b672430bec61ca9. Rights stdout sha256 is b722567ed9aa4429cd5b35405ca911e5c8a9b344623f3c61eb9b2df109be6fba. Geography stdout sha256 is b67902ae42b39b0908b825796a8840e7fe910162d06463395941c7d74f29cb5f. Deployment stdout sha256 is 8719dae2c64440ef080b41a6f96c9239fe744c1cb25d3b8f05fbc469d9d610cd.",
+    "node is v23.11.1 at /usr/bin/node. PATH for the campaign-closure audit was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. The audit HOME was /tmp/ipfs-accelerate-validation-home-wwl114.3Ssx2y. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. The process was started with env -i. stdout is the audit JSON. stderr was empty. One run was recorded."
+  ],
+  "closure": {
+    "own_receipt": "pending",
+    "requires_own_receipt": false,
+    "completion_verified": false,
+    "root_completion_published": false,
+    "public_release_verified": true,
+    "prior_tasks_checked": 63,
+    "includes_wwl114_in_prior_list": false,
+    "remaining_rows": 696,
+    "future_coverage_path": "docs/worldwide/future-coverage.json"
+  },
+  "outputs": [
+    {
+      "path": "docs/worldwide/campaign-closure.json",
+      "bytes": 24683,
+      "sha256": "77e69a91100da89efe4147e0116b33267af683eb2db6a291623f8c45374c51d1"
+    },
+    {
+      "path": "docs/worldwide/future-coverage.json",
+      "bytes": 456158,
+      "sha256": "c7d3beacc780175cdfb8708e40dfd9cd4f0ade5429ce020254358948be4210d7"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "node",
+      "scripts/worldwide/audit.mjs",
+      "campaign-closure"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_1e0cef14e078_c3cd8cb3dde9",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-wwl114.3Ssx2y. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. node is /usr/bin/node v23.11.1. The process was started with env -i. stdout is the audit JSON. stderr was empty.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "command": "campaign-closure"
+    },
+    "stdout_sha256": "5b83f667318b611f7803a683b1d1477eec63b6019b835c2bcf347d92cbc7a2c4",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -1,0 +1,680 @@
+{
+  "schema": "worldwide-legal-search.campaign-closure@1",
+  "task_id": "WWL-114",
+  "own_receipt": "pending",
+  "completion_verified": false,
+  "root_completion_published": false,
+  "requires_own_receipt": false,
+  "prior_task_receipts_checked": [
+    "WWL-000",
+    "WWL-001",
+    "WWL-002",
+    "WWL-003",
+    "WWL-004",
+    "WWL-005",
+    "WWL-006",
+    "WWL-010",
+    "WWL-011",
+    "WWL-012",
+    "WWL-013",
+    "WWL-014",
+    "WWL-015",
+    "WWL-016",
+    "WWL-017",
+    "WWL-018",
+    "WWL-020",
+    "WWL-021",
+    "WWL-022",
+    "WWL-023",
+    "WWL-024",
+    "WWL-025",
+    "WWL-030",
+    "WWL-031",
+    "WWL-032",
+    "WWL-033",
+    "WWL-034",
+    "WWL-040",
+    "WWL-041",
+    "WWL-042",
+    "WWL-043",
+    "WWL-044",
+    "WWL-045",
+    "WWL-046",
+    "WWL-047",
+    "WWL-050",
+    "WWL-051",
+    "WWL-052",
+    "WWL-053",
+    "WWL-054",
+    "WWL-055",
+    "WWL-056",
+    "WWL-070",
+    "WWL-071",
+    "WWL-072",
+    "WWL-073",
+    "WWL-080",
+    "WWL-081",
+    "WWL-082",
+    "WWL-083",
+    "WWL-084",
+    "WWL-085",
+    "WWL-100",
+    "WWL-101",
+    "WWL-102",
+    "WWL-103",
+    "WWL-104",
+    "WWL-105",
+    "WWL-106",
+    "WWL-110",
+    "WWL-111",
+    "WWL-112",
+    "WWL-113"
+  ],
+  "public_release_verified": true,
+  "future_coverage_path": "docs/worldwide/future-coverage.json",
+  "future_coverage_sha256": "c7d3beacc780175cdfb8708e40dfd9cd4f0ade5429ce020254358948be4210d7",
+  "future_coverage_bytes": 456158,
+  "recorded_at": "2026-11-06T06:16:35Z",
+  "site_branch": "implementation/wwl-114-c8f718099c82-attempt-1-1793945205",
+  "site_revision": "8af5a8930fa4f6764e7c5b46d3fba9e89fc9276a",
+  "site_tree": "62c2a908b1aa2709170c33ec73a61df880cd5dd3",
+  "meaning": "own_receipt stays pending until independent admission and merge. This document does not require artifacts/worldwide-legal-search/receipts/WWL-114.json to exist. The campaign-closure audit does not open that file. After independent admission and merge, native root reconciliation verifies every receipt including WWL-114, publishes root completion, and drains owned workers. This record does not perform those steps.",
+  "later_root_reconciliation": {
+    "performed_by_this_record": false,
+    "next_actor": "native root reconciliation",
+    "includes_task": "WWL-114",
+    "publishes_root_completion": false,
+    "drains_owned_workers": false
+  },
+  "dependency_checks": {
+    "WWL-017": {
+      "present": true,
+      "read_from": "site-worktree",
+      "receipt": {
+        "location": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_1e0cef14e078_c3cd8cb3dde9/artifacts/worldwide-legal-search/receipts/WWL-017.json",
+        "bytes": 5452,
+        "sha256": "0537e0e08d4733b1cffa1b83ca8d344aaa30105b480c8695303cc7879164deb1",
+        "schema": "worldwide-legal-search.task-evidence@1",
+        "task_id": "WWL-017",
+        "completion_claimed": false,
+        "completion_authority": null,
+        "execution_completed": null,
+        "self_certified_completion": null,
+        "future_release_required": null,
+        "validation_exit_code": 0,
+        "validation_result": {
+          "ok": true,
+          "command": "inventory-closure"
+        },
+        "validation_argv": [
+          "node",
+          "scripts/worldwide/audit.mjs",
+          "inventory-closure"
+        ]
+      },
+      "output_binding": [
+        {
+          "path": "data/worldwide/ingestion-ledger.json",
+          "present": true,
+          "bytes": 545512,
+          "sha256": "a27ab0e2664aacf1cf8b79a76894ed45d6123300adbe2756567b923743bc95d5",
+          "matches_receipt": true
+        },
+        {
+          "path": "docs/worldwide/coverage-audit.json",
+          "present": true,
+          "bytes": 81752,
+          "sha256": "e61f058dad1ded9fddc48c4d2b39fbeefb9bb37a69eeaa29de49b9fca4e6651b",
+          "matches_receipt": true
+        }
+      ]
+    },
+    "WWL-106": {
+      "present": true,
+      "read_from": "framework-checkout",
+      "receipt": {
+        "location": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework/artifacts/worldwide-legal-search/receipts/WWL-106.json",
+        "bytes": 2764,
+        "sha256": "566cd29ab609685a2a0f26611d16e3107cc45428c16ecbcd415bd526ce54a074",
+        "schema": "worldwide-legal-search.task-receipt@1",
+        "task_id": "WWL-106",
+        "completion_claimed": null,
+        "completion_authority": false,
+        "execution_completed": false,
+        "self_certified_completion": false,
+        "future_release_required": false,
+        "validation_exit_code": null,
+        "validation_result": "61 passed",
+        "validation_argv": [
+          "python3",
+          "-m",
+          "pytest",
+          "test/api/test_worldwide_legal_search_completion.py",
+          "-q"
+        ]
+      },
+      "output_binding": [],
+      "observed_outputs": {
+        "adapter": {
+          "location": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework/ipfs_accelerate_py/agent_supervisor/project_adapters/worldwide_legal_search_completion.py",
+          "bytes": 33980,
+          "sha256": "5f45b691d6fbcf363e1a599106170fd8c75694afe3c44523946332d2c3539b4b"
+        },
+        "tests": {
+          "location": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework/test/api/test_worldwide_legal_search_completion.py",
+          "bytes": 22668,
+          "sha256": "1ba64956c69424f0a395dd96df48575bd03d08453bca5d1e154c0dc6f9b322fa"
+        },
+        "pytest_on_sealed_interpreter": false,
+        "sealed_interpreter": "/usr/bin/python3.12",
+        "pytest_probe": "No module named pytest",
+        "rerun": false
+      }
+    },
+    "WWL-113": {
+      "present": true,
+      "read_from": "site-worktree",
+      "receipt": {
+        "location": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_1e0cef14e078_c3cd8cb3dde9/artifacts/worldwide-legal-search/receipts/WWL-113.json",
+        "bytes": 7252,
+        "sha256": "5330822e9b800bdb8fe49242848155f45b8cdb62052cb3a458ad02e0954c1769",
+        "schema": "worldwide-legal-search.task-evidence@1",
+        "task_id": "WWL-113",
+        "completion_claimed": false,
+        "completion_authority": null,
+        "execution_completed": null,
+        "self_certified_completion": null,
+        "future_release_required": null,
+        "validation_exit_code": 0,
+        "validation_result": {
+          "ok": true,
+          "command": "public-smoke"
+        },
+        "validation_argv": [
+          "node",
+          "scripts/worldwide/audit.mjs",
+          "public-smoke"
+        ]
+      },
+      "output_binding": [
+        {
+          "path": "docs/worldwide/public-smoke.json",
+          "present": true,
+          "bytes": 7790,
+          "sha256": "e9e4827d053efbeec48a1f3a6c0f80bf8c511d8b2445085b10d3b4cd954130cd",
+          "matches_receipt": true
+        },
+        {
+          "path": "docs/worldwide/rollback.md",
+          "present": true,
+          "bytes": 7028,
+          "sha256": "3d6e9cb4a6e17a682b35ade2499a35d3e5547688cba435f2fbea64232ba0ae33",
+          "matches_receipt": true
+        }
+      ]
+    }
+  },
+  "source_evidence": {
+    "inventory_revision": "0b6db3b679d8b9042c97ca5a48e3625892804ca14e2edf3badde368941665326",
+    "inventory_bytes": 982961,
+    "disposition_revision": "bd713600b9931ddc081059cb53162d5ee4be30f603134ab08697ff6386f1cd9a",
+    "rights_sha256": "7c6840d6b36aca5cc30f44b1fbb42c586efb907afe4b30c38aa6b6b80ba34d9c",
+    "ledger_sha256": "a27ab0e2664aacf1cf8b79a76894ed45d6123300adbe2756567b923743bc95d5",
+    "coverage_audit_sha256": "e61f058dad1ded9fddc48c4d2b39fbeefb9bb37a69eeaa29de49b9fca4e6651b",
+    "geography_sha256": "18fd87acb24f1d0f69ea20ad780aba0b6051b71bc5598c9be16c6822ff7377a0",
+    "geography_revision": "1289e40e366c7b320550be1ee0614a9472d572d4",
+    "source_manifests": 0,
+    "source_expansion_document_present": false,
+    "admitted_child_tasks": [],
+    "verified_ingest_receipts": 0,
+    "eligible_datasets": 588,
+    "ledger_rows": 633,
+    "ingested_rows": 0,
+    "wwl018_receipt": {
+      "location": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework/artifacts/worldwide-legal-search/receipts/WWL-018.json",
+      "bytes": 2946,
+      "sha256": "43edd3278726fee2ce9d5c6347240e2cc78825460332018a4c075ebfcc2daf83",
+      "schema": "worldwide-legal-search.task-receipt@1",
+      "task_id": "WWL-018",
+      "completion_claimed": null,
+      "completion_authority": false,
+      "execution_completed": false,
+      "self_certified_completion": false,
+      "future_release_required": null,
+      "validation_exit_code": null,
+      "validation_result": "7 passed",
+      "validation_argv": [
+        "python3",
+        "-m",
+        "pytest",
+        "test/api/test_worldwide_legal_search_source_expansion.py",
+        "-q"
+      ]
+    },
+    "note": "The framework WWL-018 receipt describes the expansion adapter. execution_completed and completion_authority are false. This site worktree has no source-expansion document and no phase manifest. The adapter limitation that names a 12-unit bound is not an admission of production children for the 606 eligible ledger rows. eligible_datasets is 588 pinned datasets. The 606 figure is eligible ledger rows, matching the source_child blocker count, because some datasets repeat across levels."
+  },
+  "public_release": {
+    "verified_by": "node scripts/worldwide/audit.mjs public-smoke",
+    "smoke_path": "docs/worldwide/public-smoke.json",
+    "smoke_sha256": "e9e4827d053efbeec48a1f3a6c0f80bf8c511d8b2445085b10d3b4cd954130cd",
+    "rollback_path": "docs/worldwide/rollback.md",
+    "rollback_sha256": "3d6e9cb4a6e17a682b35ade2499a35d3e5547688cba435f2fbea64232ba0ae33",
+    "deployment_path": "docs/worldwide/deployment.json",
+    "deployment_sha256": "459044826758aadfd45dadaf8aa95dbb1ce452f9bc090e26215ad5944e12560a",
+    "deployment_status": "blocked",
+    "deployment_blocker_kind": "external",
+    "configured_url": "https://worldwidelaws.github.io/",
+    "artifact_digest": "sha256:203619207298707affc0e342f2078560c9fc7c479413da4bab4ba807245488e9",
+    "prior_release_digest": "sha256:807c4c0fe6d7085530dfeb90dc6c9537ade3a3c439ef48e52d5432708f86cf65",
+    "rollback_tested": true,
+    "prior_release_preserved": true,
+    "note": "The public-smoke checker accepted the current evidence. The deployment record remains blocked by an external GitHub Actions billing lock, and the configured Pages host was HTTP 404 when WWL-113 recorded it. Verified evidence is not a published root completion."
+  },
+  "prior_receipt_observation": {
+    "required_prior_count": 63,
+    "site_worktree_present": [
+      "WWL-000",
+      "WWL-001",
+      "WWL-006",
+      "WWL-010",
+      "WWL-011",
+      "WWL-012",
+      "WWL-013",
+      "WWL-014",
+      "WWL-015",
+      "WWL-016",
+      "WWL-017",
+      "WWL-020",
+      "WWL-021",
+      "WWL-022",
+      "WWL-023",
+      "WWL-024",
+      "WWL-025",
+      "WWL-030",
+      "WWL-031",
+      "WWL-032",
+      "WWL-033",
+      "WWL-034",
+      "WWL-040",
+      "WWL-041",
+      "WWL-042",
+      "WWL-043",
+      "WWL-044",
+      "WWL-045",
+      "WWL-046",
+      "WWL-047",
+      "WWL-050",
+      "WWL-051",
+      "WWL-052",
+      "WWL-053",
+      "WWL-054",
+      "WWL-055",
+      "WWL-056",
+      "WWL-070",
+      "WWL-071",
+      "WWL-072",
+      "WWL-073",
+      "WWL-080",
+      "WWL-081",
+      "WWL-082",
+      "WWL-083",
+      "WWL-085",
+      "WWL-110",
+      "WWL-111",
+      "WWL-112",
+      "WWL-113"
+    ],
+    "framework_checkout_only": [
+      "WWL-002",
+      "WWL-003",
+      "WWL-004",
+      "WWL-005",
+      "WWL-018",
+      "WWL-100",
+      "WWL-101",
+      "WWL-102",
+      "WWL-103",
+      "WWL-104",
+      "WWL-105",
+      "WWL-106"
+    ],
+    "absent": [
+      "WWL-084"
+    ],
+    "framework_checkout": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework",
+    "framework_receipts": [
+      {
+        "location": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework/artifacts/worldwide-legal-search/receipts/WWL-002.json",
+        "bytes": 1281,
+        "sha256": "a2ac92c8883d609acf531a8b5de8cedd2c5fd0ad0203fdb384afa9b0a790dd7d",
+        "schema": "worldwide-legal-search.task-receipt@1",
+        "task_id": "WWL-002",
+        "completion_claimed": null,
+        "completion_authority": false,
+        "execution_completed": false,
+        "self_certified_completion": false,
+        "future_release_required": null
+      },
+      {
+        "location": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework/artifacts/worldwide-legal-search/receipts/WWL-003.json",
+        "bytes": 1737,
+        "sha256": "ffd2ea2de888ba52eedeb7195735874ce184d3063954c617145da120c8e2f7c4",
+        "schema": "worldwide-legal-search.task-receipt@1",
+        "task_id": "WWL-003",
+        "completion_claimed": null,
+        "completion_authority": false,
+        "execution_completed": false,
+        "self_certified_completion": false,
+        "future_release_required": null
+      },
+      {
+        "location": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework/artifacts/worldwide-legal-search/receipts/WWL-004.json",
+        "bytes": 2019,
+        "sha256": "3325e2770e1d4e96464b89f509a29702cedc5366ab295709dd50a1be736d4c0e",
+        "schema": "worldwide-legal-search.task-receipt@1",
+        "task_id": "WWL-004",
+        "completion_claimed": null,
+        "completion_authority": false,
+        "execution_completed": false,
+        "self_certified_completion": false,
+        "future_release_required": null
+      },
+      {
+        "location": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework/artifacts/worldwide-legal-search/receipts/WWL-005.json",
+        "bytes": 3118,
+        "sha256": "6eac574e67c1d4c7b0d27509bfd94c214a573a1ea50e50567a2983e48831aafe",
+        "schema": "worldwide-legal-search.task-receipt@1",
+        "task_id": "WWL-005",
+        "completion_claimed": null,
+        "completion_authority": false,
+        "execution_completed": false,
+        "self_certified_completion": false,
+        "future_release_required": null,
+        "validation_exit_code": null,
+        "validation_result": "6 passed",
+        "validation_argv": [
+          "python3",
+          "-m",
+          "pytest",
+          "test/api/test_worldwide_legal_search_control_canary.py",
+          "-q"
+        ]
+      },
+      {
+        "location": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework/artifacts/worldwide-legal-search/receipts/WWL-018.json",
+        "bytes": 2946,
+        "sha256": "43edd3278726fee2ce9d5c6347240e2cc78825460332018a4c075ebfcc2daf83",
+        "schema": "worldwide-legal-search.task-receipt@1",
+        "task_id": "WWL-018",
+        "completion_claimed": null,
+        "completion_authority": false,
+        "execution_completed": false,
+        "self_certified_completion": false,
+        "future_release_required": null,
+        "validation_exit_code": null,
+        "validation_result": "7 passed",
+        "validation_argv": [
+          "python3",
+          "-m",
+          "pytest",
+          "test/api/test_worldwide_legal_search_source_expansion.py",
+          "-q"
+        ]
+      },
+      {
+        "location": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework/artifacts/worldwide-legal-search/receipts/WWL-100.json",
+        "bytes": 2264,
+        "sha256": "3fc80631c5777f2db65b4d6b03b7f725d97a0772b1c0c18cc6a70b0cfa91f513",
+        "schema": "worldwide-legal-search.task-receipt@1",
+        "task_id": "WWL-100",
+        "completion_claimed": null,
+        "completion_authority": false,
+        "execution_completed": false,
+        "self_certified_completion": false,
+        "future_release_required": null
+      },
+      {
+        "location": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework/artifacts/worldwide-legal-search/receipts/WWL-101.json",
+        "bytes": 2905,
+        "sha256": "96dac0b82297ef8bcf18ea5471f688b3a40b9ee597abbbf783c07a254fad34f1",
+        "schema": "worldwide-legal-search.task-receipt@1",
+        "task_id": "WWL-101",
+        "completion_claimed": null,
+        "completion_authority": false,
+        "execution_completed": false,
+        "self_certified_completion": false,
+        "future_release_required": null,
+        "validation_exit_code": null,
+        "validation_result": "11 passed",
+        "validation_argv": [
+          "python3",
+          "-m",
+          "pytest",
+          "test/api/test_worldwide_legal_search_recovery.py",
+          "-q"
+        ]
+      },
+      {
+        "location": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework/artifacts/worldwide-legal-search/receipts/WWL-102.json",
+        "bytes": 2936,
+        "sha256": "b6c48685d38f93d6a5dc512a40752cd8a3e7dbc1bc60de0e764f983636a4aead",
+        "schema": "worldwide-legal-search.task-receipt@1",
+        "task_id": "WWL-102",
+        "completion_claimed": null,
+        "completion_authority": false,
+        "execution_completed": false,
+        "self_certified_completion": false,
+        "future_release_required": null,
+        "validation_exit_code": null,
+        "validation_result": "9 passed",
+        "validation_argv": [
+          "python3",
+          "-m",
+          "pytest",
+          "test/api/test_worldwide_legal_search_repair.py",
+          "-q"
+        ]
+      },
+      {
+        "location": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework/artifacts/worldwide-legal-search/receipts/WWL-103.json",
+        "bytes": 3690,
+        "sha256": "2f5e16c5ed37e692ed2cdb413c9d39030093d027dd4d816f03e7e2061ef2658b",
+        "schema": "worldwide-legal-search.task-receipt@1",
+        "task_id": "WWL-103",
+        "completion_claimed": null,
+        "completion_authority": false,
+        "execution_completed": false,
+        "self_certified_completion": false,
+        "future_release_required": null,
+        "validation_exit_code": null,
+        "validation_result": "16 passed",
+        "validation_argv": [
+          "python3",
+          "-m",
+          "pytest",
+          "test/api/test_worldwide_legal_search_faults.py",
+          "-q"
+        ]
+      },
+      {
+        "location": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework/artifacts/worldwide-legal-search/receipts/WWL-104.json",
+        "bytes": 2956,
+        "sha256": "26a651b2a435c6bb713715f6033e2cd345c0a38d01322f84b0a325e3f742ee7c",
+        "schema": "worldwide-legal-search.task-receipt@1",
+        "task_id": "WWL-104",
+        "completion_claimed": null,
+        "completion_authority": false,
+        "execution_completed": false,
+        "self_certified_completion": false,
+        "future_release_required": null,
+        "validation_exit_code": null,
+        "validation_result": "21 passed",
+        "validation_argv": [
+          "python3",
+          "-m",
+          "pytest",
+          "test/api/test_worldwide_legal_search_blockers.py",
+          "-q"
+        ]
+      },
+      {
+        "location": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework/artifacts/worldwide-legal-search/receipts/WWL-105.json",
+        "bytes": 3028,
+        "sha256": "fc17e5712a72c80a946031cda9c82321cb19367edca4001a3596b38c707bf27d",
+        "schema": "worldwide-legal-search.task-receipt@1",
+        "task_id": "WWL-105",
+        "completion_claimed": null,
+        "completion_authority": false,
+        "execution_completed": false,
+        "self_certified_completion": false,
+        "future_release_required": null,
+        "validation_exit_code": null,
+        "validation_result": "12 passed",
+        "validation_argv": [
+          "python3",
+          "-m",
+          "pytest",
+          "test/api/test_worldwide_legal_search_watchdog_restart.py",
+          "-q"
+        ]
+      },
+      {
+        "location": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/framework/artifacts/worldwide-legal-search/receipts/WWL-106.json",
+        "bytes": 2764,
+        "sha256": "566cd29ab609685a2a0f26611d16e3107cc45428c16ecbcd415bd526ce54a074",
+        "schema": "worldwide-legal-search.task-receipt@1",
+        "task_id": "WWL-106",
+        "completion_claimed": null,
+        "completion_authority": false,
+        "execution_completed": false,
+        "self_certified_completion": false,
+        "future_release_required": false,
+        "validation_exit_code": null,
+        "validation_result": "61 passed",
+        "validation_argv": [
+          "python3",
+          "-m",
+          "pytest",
+          "test/api/test_worldwide_legal_search_completion.py",
+          "-q"
+        ]
+      }
+    ],
+    "note": "Checked means the receipt file was looked up in this site worktree and, when absent there, in the framework checkout. Presence is not native admission and is not root completion. WWL-084 had no receipt file in either place. A filename search under the worldwide-legal-search-v1 tree found no WWL-084.json."
+  },
+  "audits": [
+    {
+      "mode": "public-smoke",
+      "argv": [
+        "node",
+        "scripts/worldwide/audit.mjs",
+        "public-smoke"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "ae5fda432f5d8a4fe02263ea6d1601312a4d516f66b0b9eaacf7d2bb599bc7b2",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 46,
+      "stderr_bytes": 0,
+      "ok": true
+    },
+    {
+      "mode": "deployment",
+      "argv": [
+        "node",
+        "scripts/worldwide/audit.mjs",
+        "deployment"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "8719dae2c64440ef080b41a6f96c9239fe744c1cb25d3b8f05fbc469d9d610cd",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 44,
+      "stderr_bytes": 0,
+      "ok": true
+    },
+    {
+      "mode": "release-candidate",
+      "argv": [
+        "node",
+        "scripts/worldwide/audit.mjs",
+        "release-candidate"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "851b3ff7bc8c4b9d37630a325ef5b0ab1449b9b66f6f78ff2b4f5d44bad2b036",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 51,
+      "stderr_bytes": 0,
+      "ok": true
+    },
+    {
+      "mode": "inventory-closure",
+      "argv": [
+        "node",
+        "scripts/worldwide/audit.mjs",
+        "inventory-closure"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "5fecfdc09eb274a0d0b61b8472b323850801fc9f532f5857bbf229353d021e6d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 51,
+      "stderr_bytes": 0,
+      "ok": true
+    },
+    {
+      "mode": "source-inventory",
+      "argv": [
+        "node",
+        "scripts/worldwide/audit.mjs",
+        "source-inventory"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "6b0a6ebc47a252d4af8c8adf56104caf6e3ad435921c8c5f8c192840510c1797",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 50,
+      "stderr_bytes": 0,
+      "ok": true
+    },
+    {
+      "mode": "source-dispositions",
+      "argv": [
+        "node",
+        "scripts/worldwide/audit.mjs",
+        "source-dispositions"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "545702879cf66f71c27287a99de73030692f1e6381eb2efe2b672430bec61ca9",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 53,
+      "stderr_bytes": 0,
+      "ok": true
+    },
+    {
+      "mode": "rights",
+      "argv": [
+        "node",
+        "scripts/worldwide/audit.mjs",
+        "rights"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "b722567ed9aa4429cd5b35405ca911e5c8a9b344623f3c61eb9b2df109be6fba",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 40,
+      "stderr_bytes": 0,
+      "ok": true
+    },
+    {
+      "mode": "geography",
+      "argv": [
+        "node",
+        "scripts/worldwide/audit.mjs",
+        "geography"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "b67902ae42b39b0908b825796a8840e7fe910162d06463395941c7d74f29cb5f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 43,
+      "stderr_bytes": 0,
+      "ok": true
+    }
+  ],
+  "audit_home": "/tmp/ipfs-accelerate-validation-home-wwl114src.2cvtkyp_"
+}
