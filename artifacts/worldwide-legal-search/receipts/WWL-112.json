@@ -1,0 +1,69 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-112",
+  "title": "Deploy through the repository GitHub Pages workflow",
+  "recorded_at": "2026-11-06T05:47:25Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge, and task completion remain separate gates. This receipt does not mark the backlog complete. The verified commit f127918f56202e0d996a9b65486f8ded4b965003 was fast-forwarded from 0793a9efefbee25e3ccaa08f5723556b33389350 onto main of endomorphosis/worldwidelaws.github.io. That push registered Deploy Vite App to Pages and created Actions run 42170095879. GitHub annotated both jobs with the account billing lock and did not assign a runner. Deploy to GitHub Pages was skipped. No Pages artifact digest and no public URL were produced, so the deployment record stays blocked with an external blocker.",
+  "site_branch": "implementation/wwl-112-a10e931048b2-attempt-1-1793943273",
+  "site_revision": "f127918f56202e0d996a9b65486f8ded4b965003",
+  "site_tree": "2a2331fb758a63e471ca38395555650005754498",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "site_revision is HEAD. docs/worldwide/deployment.json is a new untracked file. artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "origin main moved 0793a9efefbee25e3ccaa08f5723556b33389350..f127918f56202e0d996a9b65486f8ded4b965003. The push was a fast-forward of 107 commits. WetWijzer/WetWijzer.github.io main was not updated and remains 0793a9efefbee25e3ccaa08f5723556b33389350. https://wetwijzer.github.io/ still returned HTTP 200.",
+    "Before the push, the fork listed zero workflows and workflow_dispatch of deploy.yml returned HTTP 404. Pages was disabled (has_pages false, Pages API 404) and the repository had zero environments. After the push, workflow id 408983553 Deploy Vite App to Pages was active.",
+    "Run 42170095879 is https://github.com/endomorphosis/worldwidelaws.github.io/actions/runs/42170095879. Event push, actor endomorphosis, path .github/workflows/deploy.yml, head_sha f127918f56202e0d996a9b65486f8ded4b965003, run_started_at 2026-11-06T05:43:30Z, updated_at 2026-11-06T05:43:34Z, conclusion failure.",
+    "Required checks job 127735646395 and Build static release candidate job 127735646139 completed with conclusion failure, zero steps, and an empty runner name. Both annotations say: The job was not started because your account is locked due to a billing issue. Deploy to GitHub Pages job 127735665619 was skipped.",
+    "The run's artifact list total_count is 0. The repository deployment list length is 0. The Pages API still returns 404 and has_pages is false. https://endomorphosis.github.io/worldwidelaws.github.io/ and https://worldwidelaws.github.io/ returned HTTP 404. The worldwidelaws user and organization were not found. No artifact digest exists to record.",
+    "worldwide-checks run 42170096187 failed with the same billing annotation. That workflow is not the Pages deploy job.",
+    "WWL-111 recorded a local typecheck exit of 2 with 135 errors on commit 894d37bb8f284d7664fe26f9c387eba3105b272d. This Actions attempt never reached typecheck, npm ci, or the Pages upload. This receipt does not treat that earlier typecheck result as the Actions failure.",
+    "The operator gh account is endomorphosis and the token scopes observed were gist, read:org, repo, and workflow. The token value is not stored. The sealed audit environment does not receive that gh config. The deployment audit does not call gh.",
+    "A later rerun of run 42170095879 can publish only after GitHub unlocks the account. This task did not rerun the jobs, did not edit the workflow, and did not change branch protection. There were no branch rulesets on main.",
+    "node is v23.11.1 at /usr/bin/node. PATH for the audit was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. The audit HOME was /tmp/ipfs-accelerate-validation-home-wwl112.Km30VG. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state."
+  ],
+  "deployment": {
+    "schema": "worldwide-legal-search.deployment@1",
+    "status": "blocked",
+    "actions_run": "https://github.com/endomorphosis/worldwidelaws.github.io/actions/runs/42170095879",
+    "artifact_digest": null,
+    "url": null,
+    "blocker": {
+      "kind": "external",
+      "reason": "GitHub Actions account billing lock"
+    },
+    "run_id": "42170095879",
+    "head_sha": "f127918f56202e0d996a9b65486f8ded4b965003",
+    "required_job_id": "127735646395",
+    "build_job_id": "127735646139",
+    "deploy_job_id": "127735665619",
+    "deploy_conclusion": "skipped",
+    "artifact_count": 0,
+    "pages_enabled": false
+  },
+  "outputs": [
+    {
+      "path": "docs/worldwide/deployment.json",
+      "bytes": 942,
+      "sha256": "459044826758aadfd45dadaf8aa95dbb1ce452f9bc090e26215ad5944e12560a"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "node",
+      "scripts/worldwide/audit.mjs",
+      "deployment"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_d773626aecec_a48499567b0f",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-wwl112.Km30VG. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. node is /usr/bin/node v23.11.1. The process was started with env -i. stdout is the audit JSON. stderr was empty.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "command": "deployment"
+    },
+    "stdout_sha256": "8719dae2c64440ef080b41a6f96c9239fe744c1cb25d3b8f05fbc469d9d610cd",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
