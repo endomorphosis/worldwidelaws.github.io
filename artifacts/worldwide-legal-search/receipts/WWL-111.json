@@ -1,0 +1,72 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-111",
+  "title": "Build and verify the GitHub Pages release candidate",
+  "recorded_at": "2026-11-04T18:08:22Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge, and task completion remain separate gates. This receipt does not mark the backlog complete. A Vite production build of commit 894d37bb8f284d7664fe26f9c387eba3105b272d produced a static shell of 66138 gzip bytes. Hash routes are in that shell. The deploy workflow publishes dist/.nojekyll, rewrites dist/404.html so the current path becomes a hash route, and writes dist/preview-commit.txt as the exact commit. The deploy job needs the required job, so a failed check skips publication. The build environment sets the public dataset provider and turns OpenRouter off. No secret is passed into the build.",
+  "site_branch": "implementation/wwl-111-e1b5ccb65bb5-attempt-1-1793815017",
+  "site_revision": "894d37bb8f284d7664fe26f9c387eba3105b272d",
+  "site_tree": "0806699205fd6143e865e7d26865924079cc6dbd",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "site_revision is HEAD before these edits. docs/worldwide/release-candidate.json and .github/workflows/deploy.yml are the new tracked outputs. artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "The measured build used npx vite build with VITE_WETWIJZER_DATA_PROVIDER=huggingface and VITE_OPENROUTER_ENABLED=false. Vite 4.5.14 transformed 291 modules and finished in 11.78s. The output was /tmp/wwl-111-pages. The gitignored dist/ directory in the worktree was not replaced.",
+    "Shell gzip is zlib.gzipSync of assets/index-f2a146e0.js (20672) and assets/shell-vendor-b17b141a.js (45466), total 66138. The PLAN.md budget is 358400. CSS and the Plausible script tag are outside that graph. Plausible is not a search backend and is not a credential.",
+    "The seal script from .github/workflows/deploy.yml was executed against that build with PREVIEW_COMMIT set to the same HEAD. It exited 0 and printed shell_bytes 66138, nojekyll true, redirects_present true, and hash_routes true. dist/preview-commit.txt then contained only that commit. Nine current-route cases resolved to hash routes, including /search?q=parking, /law/BWBR0001854, and an existing #/law deep link.",
+    "public/404.html still sends unknown paths to /. Vite copies that file. The workflow overwrites dist/404.html after the build. public/.nojekyll is tracked and empty. The workflow writes dist/.nojekyll again and fails the build if that file is absent.",
+    "A scan of 27 text files in the Vite output found no private key, AKIA, hf_, sk-, or assigned credential pattern. The shell contains public https://datasets-server.huggingface.co and https://huggingface.co/api/datasets URLs and https://wetten.overheid.nl publisher links. OpenRouter is absent from the shell graph. The legacy research chunk is not modulepreloaded.",
+    "npx tsc --noEmit --pretty false --incremental false exited 2 with 135 errors. npm run build is tsc && vite build, so the workflow builds with npx vite build and keeps typecheck as its own step in the required job. deploy needs both required and build. On this commit the required job fails typecheck and deployment does not run. This task cannot edit the files that contain those type errors.",
+    "The unit, browser, corpus, and logic commands are blocking steps in the workflow. They were not re-executed in this pass. The listed validation command is the release-candidate audit.",
+    "The workflow pins Node 20. This measurement used /usr/bin/node v23.11.1. A later Actions run binds preview-commit.txt to github.sha for that run, which will differ once these outputs are committed.",
+    "Receipts for WWL-085 and WWL-110 are in this worktree. WWL-106.json is not. Receipts are gitignored. This file does not mark any dependency complete.",
+    "node is v23.11.1 at /usr/bin/node. PATH for the audit was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. The audit HOME was /tmp/ipfs-accelerate-validation-home-wwl111audit. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state."
+  ],
+  "release": {
+    "schema": "worldwide-legal-search.release-candidate@1",
+    "commit": "894d37bb8f284d7664fe26f9c387eba3105b272d",
+    "tree": "0806699205fd6143e865e7d26865924079cc6dbd",
+    "preview_commit": "894d37bb8f284d7664fe26f9c387eba3105b272d",
+    "shell_bytes": 66138,
+    "shell_budget_bytes": 358400,
+    "hash_routes": true,
+    "nojekyll": true,
+    "redirects_present": true,
+    "server_dependency": false,
+    "secrets_in_build": false,
+    "required_checks_block_deploy": true,
+    "seal_exit_code": 0,
+    "typecheck_exit_code": 2,
+    "typecheck_errors": 135
+  },
+  "outputs": [
+    {
+      "path": "docs/worldwide/release-candidate.json",
+      "bytes": 2888,
+      "sha256": "afa913f3bcde6a1c8d204c6e02a4301b25024ad2f3195ce8e51d944265367cf5"
+    },
+    {
+      "path": ".github/workflows/deploy.yml",
+      "bytes": 10798,
+      "sha256": "5daac90d97b43e31df9f9e6c50cf32dd4737f391c28a71c5f86195ecfc964200"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "node",
+      "scripts/worldwide/audit.mjs",
+      "release-candidate"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_1809503b50ff_50993a68c3aa",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-wwl111audit. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. node is /usr/bin/node v23.11.1. The process was started with env -i. stdout is the audit JSON. stderr was empty.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "command": "release-candidate"
+    },
+    "stdout_sha256": "851b3ff7bc8c4b9d37630a325ef5b0ab1449b9b66f6f78ff2b4f5d44bad2b036",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

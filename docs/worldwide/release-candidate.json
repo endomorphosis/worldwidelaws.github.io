@@ -1,0 +1,67 @@
+{
+  "schema": "worldwide-legal-search.release-candidate@1",
+  "commit": "894d37bb8f284d7664fe26f9c387eba3105b272d",
+  "tree": "0806699205fd6143e865e7d26865924079cc6dbd",
+  "preview_commit": "894d37bb8f284d7664fe26f9c387eba3105b272d",
+  "shell_bytes": 66138,
+  "hash_routes": true,
+  "nojekyll": true,
+  "redirects_present": true,
+  "server_dependency": false,
+  "secrets_in_build": false,
+  "required_checks_block_deploy": true,
+  "shell": {
+    "budget_bytes": 358400,
+    "measurement": "zlib.gzipSync byte length of the production module and modulepreload graph. CSS, the analytics tag, and dynamic imports are outside this graph. The account matches scripts/worldwide/benchmark.ts measureShellGzip.",
+    "files": [
+      {
+        "path": "assets/index-f2a146e0.js",
+        "raw_bytes": 64134,
+        "gzip_bytes": 20672,
+        "sha256": "c2e3166393bcd0efa6f1efec61290582840eab262d7e878528ec77c5f4c40922"
+      },
+      {
+        "path": "assets/shell-vendor-b17b141a.js",
+        "raw_bytes": 141865,
+        "gzip_bytes": 45466,
+        "sha256": "492c59b7ea42e21842d0252799b9bd6bb865ba0d9c35563ed66bf59e23eaea53"
+      }
+    ],
+    "hash_markers": ["#/search", "/#/law/", "hashchange"]
+  },
+  "static_output": {
+    "generator": "vite build",
+    "vite": "4.5.14",
+    "modules": 291,
+    "out_dir": "dist",
+    "env": {
+      "VITE_WETWIJZER_DATA_PROVIDER": "huggingface",
+      "VITE_OPENROUTER_ENABLED": "false"
+    },
+    "nojekyll": "dist/.nojekyll",
+    "preview_file": "dist/preview-commit.txt",
+    "redirect_file": "dist/404.html",
+    "entry": "index.html",
+    "entry_marker": "data-wwl-shell=\"worldwide\""
+  },
+  "redirects": [
+    {"from": "/", "to": "/#/search"},
+    {"from": "/search?q=parking", "to": "/#/search?q=parking"},
+    {"from": "/place/place:nl", "to": "/#/place/place:nl"},
+    {"from": "/law/BWBR0001854?revision=abc&section=1", "to": "/#/law/BWBR0001854?revision=abc&section=1"},
+    {"from": "/coverage/", "to": "/#/coverage"},
+    {"from": "/sources/justicedao/example", "to": "/#/sources/justicedao/example"},
+    {"from": "/compare?places=place:nl,place:be&q=tax", "to": "/#/compare?places=place:nl,place:be&q=tax"},
+    {"from": "/index.html#/law/BWBR0001854", "to": "/#/law/BWBR0001854"},
+    {"from": "/missing?q=1", "to": "/#/search"}
+  ],
+  "gates": {
+    "deploy_needs": ["required", "build"],
+    "typecheck": "npx tsc --noEmit --pretty false --incremental false",
+    "unit": "npm test -- --runInBand --watchAll=false --testPathPattern tests/worldwide",
+    "browser": "npx playwright install --with-deps chromium && npm run test:playwright -- tests/worldwide/accessibility.spec.ts tests/worldwide/visual.spec.ts tests/worldwide/location.spec.ts tests/worldwide/transport.spec.ts",
+    "corpus": "npm run validate:netherlands-corpus",
+    "logic": "npm run validate:logic -- --runInBand --watchAll=false",
+    "blocking": true
+  }
+}

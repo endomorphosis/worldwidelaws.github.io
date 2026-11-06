@@ -1,85 +1,287 @@
-# Simple workflow for deploying static content to GitHub Pages
+# Static GitHub Pages release candidate.
+# The required job is the blocking gate. deploy needs both required and build,
+# so a failed typecheck, test, browser run, corpus check, or logic parity run
+# skips publication. The build job publishes dist/.nojekyll, keeps the current
+# path as a hash route in dist/404.html, and writes dist/preview-commit.txt
+# as the exact commit being built. The site build has no secret and no server
+# environment variable.
 name: Deploy Vite App to Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: false
 
 jobs:
-  # Build job
-  build:
+  required:
+    name: Required checks
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           submodules: false
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-      - name: Install dependencies
-        run: npm ci --legacy-peer-deps
-      - name: Type check
-        run: npx tsc --noEmit
+          cache: npm
+
       - name: CI contract
         run: node scripts/worldwide/audit.mjs ci-contract
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Typecheck
+        run: npx tsc --noEmit --pretty false --incremental false
+
       - name: Unit and integration tests
         run: npm test -- --runInBand --watchAll=false --testPathPattern tests/worldwide
+
       - name: Netherlands compatibility
         run: npm test -- --runInBand --watchAll=false --runTestsByPath src/lib/netherlandsLogic.test.ts tests/worldwide/netherlands-compat.test.ts
+
       - name: Reused logic parity
         run: npm run validate:logic -- --runInBand --watchAll=false
+
       - name: Browser tests
         run: npx playwright install --with-deps chromium && npm run test:playwright -- tests/worldwide/accessibility.spec.ts tests/worldwide/visual.spec.ts tests/worldwide/location.spec.ts tests/worldwide/transport.spec.ts
+
+      - name: Corpus integrity
+        run: npm run validate:netherlands-corpus
+
+  build:
+    name: Build static release candidate
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Preserve required command
+        run: npm run build
+      - name: Build
+        run: npx vite build
+        env:
+          VITE_WETWIJZER_DATA_PROVIDER: huggingface
+          VITE_OPENROUTER_ENABLED: "false"
+
+      - name: Seal Pages output
+        env:
+          PREVIEW_COMMIT: ${{ github.sha }}
+        run: |
+          node --input-type=module <<'END'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          import zlib from 'node:zlib';
+
+          const dist = 'dist';
+          const budget = 350 * 1024;
+          const sha = process.env.PREVIEW_COMMIT || '';
+          if (!/^[0-9a-f]{40}$/.test(sha)) {
+            console.error('preview commit must be the 40-character commit');
+            process.exit(1);
+          }
+
+          function currentRouteTarget(pathname, search, hash) {
+            var routes = /^(search|place|law|coverage|sources|compare)(\/|$)/;
+            var pathValue = String(pathname || '/').replace(/\/+$/, '') || '/';
+            var trimmed = pathValue.replace(/^\/+/, '');
+            var fragment = String(hash || '');
+            var query = String(search || '');
+            if (fragment.indexOf('#/') === 0) return '/' + fragment;
+            if (routes.test(trimmed)) return '/#/' + trimmed + query;
+            return '/#/search';
+          }
+
+          const cases = [
+            ['/', '', '', '/#/search'],
+            ['/search', '?q=parking', '', '/#/search?q=parking'],
+            ['/place/place:nl', '', '', '/#/place/place:nl'],
+            ['/law/BWBR0001854', '?revision=abc&section=1', '', '/#/law/BWBR0001854?revision=abc&section=1'],
+            ['/coverage/', '', '', '/#/coverage'],
+            ['/sources/justicedao/example', '', '', '/#/sources/justicedao/example'],
+            ['/compare', '?places=place:nl,place:be&q=tax', '', '/#/compare?places=place:nl,place:be&q=tax'],
+            ['/index.html', '', '#/law/BWBR0001854', '/#/law/BWBR0001854'],
+            ['/missing', '?q=1', '', '/#/search'],
+          ];
+          for (const [pathname, search, hash, expected] of cases) {
+            const actual = currentRouteTarget(pathname, search, hash);
+            if (actual !== expected) {
+              console.error('current route redirect mismatch: ' + actual + ' expected ' + expected);
+              process.exit(1);
+            }
+          }
+
+          const page = [
+            '<!doctype html>',
+            '<html lang="en">',
+            '<head>',
+            '<meta charset="utf-8">',
+            '<title>Worldwide laws</title>',
+            '<meta name="wwl-redirect" content="current-route">',
+            '<script>',
+            currentRouteTarget.toString(),
+            'location.replace(currentRouteTarget(location.pathname, location.search, location.hash));',
+            '</script>',
+            '</head>',
+            '<body>',
+            '<p>Redirecting to the current route.</p>',
+            '</body>',
+            '</html>',
+            '',
+          ].join('\n');
+          fs.writeFileSync(path.join(dist, '404.html'), page);
+          const published = fs.readFileSync(path.join(dist, '404.html'), 'utf8');
+          if (!published.includes('currentRouteTarget') || !published.includes('/#/') || !published.includes('current-route')) {
+            console.error('404.html does not redirect the current route');
+            process.exit(1);
+          }
+
+          fs.writeFileSync(path.join(dist, '.nojekyll'), '');
+          if (!fs.existsSync(path.join(dist, '.nojekyll')) || !fs.statSync(path.join(dist, '.nojekyll')).isFile()) {
+            console.error('dist/.nojekyll was not published');
+            process.exit(1);
+          }
+
+          fs.writeFileSync(path.join(dist, 'preview-commit.txt'), sha + '\n');
+          const bound = fs.readFileSync(path.join(dist, 'preview-commit.txt'), 'utf8').trim();
+          if (bound !== sha) {
+            console.error('preview evidence does not bind the commit');
+            process.exit(1);
+          }
+
+          const htmlPath = path.join(dist, 'index.html');
+          const html = fs.readFileSync(htmlPath, 'utf8');
+          if (!html.includes('data-wwl-shell="worldwide"')) {
+            console.error('production index is not the worldwide shell');
+            process.exit(1);
+          }
+          if (/rel\s*=\s*["']modulepreload["'][^>]*(?:optional-tools|transformers|ort-wasm)/i.test(html)) {
+            console.error('optional tools are preloaded in the shell');
+            process.exit(1);
+          }
+
+          function staticJsImports(source) {
+            const masked = source.replace(/\bimport\s*\(\s*['"][^'"]+['"]\s*\)/g, '""');
+            const found = new Set();
+            const patterns = [/\bfrom\s*['"](\.[^'"]+\.js)['"]/g, /\bimport\s*['"](\.[^'"]+\.js)['"]/g];
+            for (const pattern of patterns) {
+              for (const match of masked.matchAll(pattern)) {
+                if (match[1]) found.add(match[1]);
+              }
+            }
+            return [...found];
+          }
+
+          const queue = [];
+          for (const match of html.matchAll(/<(?:script|link)\b[^>]*>/gi)) {
+            const tag = match[0];
+            const ref = /(?:src|href)\s*=\s*['"]([^'"]+)['"]/i.exec(tag);
+            if (!ref || !ref[1]) continue;
+            const module = /type\s*=\s*['"]module['"]/i.test(tag) || /rel\s*=\s*['"]modulepreload['"]/i.test(tag);
+            if (module && ref[1].includes('.js')) queue.push(ref[1]);
+          }
+          if (queue.length === 0) {
+            console.error('the production shell has no module script');
+            process.exit(1);
+          }
+          const seen = new Set();
+          while (queue.length > 0) {
+            const href = queue.pop();
+            const relative = href.replace(/^[A-Za-z]+:\/\/[^/]+/, '').replace(/^\//, '');
+            if (!relative.endsWith('.js') || relative.split('/').includes('..') || seen.has(relative)) continue;
+            seen.add(relative);
+            const full = path.resolve(dist, relative);
+            const root = path.resolve(dist);
+            if (full !== root && !full.startsWith(root + path.sep)) {
+              console.error('shell asset escapes the build directory');
+              process.exit(1);
+            }
+            const source = fs.readFileSync(full, 'utf8');
+            const directory = path.posix.dirname(relative);
+            for (const specifier of staticJsImports(source)) {
+              queue.push(path.posix.normalize(path.posix.join(directory, specifier)));
+            }
+          }
+          const files = [...seen].sort();
+          let bytes = 0;
+          const shellText = [];
+          for (const relative of files) {
+            const raw = fs.readFileSync(path.join(dist, relative));
+            bytes += zlib.gzipSync(raw).length;
+            shellText.push(raw.toString('utf8'));
+          }
+          if (!Number.isInteger(bytes) || bytes > budget) {
+            console.error('shell gzip is ' + bytes + ' and the budget is ' + budget);
+            process.exit(1);
+          }
+          const bundle = shellText.join('\n');
+          if (!bundle.includes('#/search') || !bundle.includes('hashchange')) {
+            console.error('shell does not contain hash deep links');
+            process.exit(1);
+          }
+          const markers = ['-----BEGIN ', 'AKIA', 'hf_', 'sk-'];
+          const scanned = html + '\n' + bundle;
+          for (const marker of markers) {
+            if (scanned.includes(marker)) {
+              console.error('shell contains credential material');
+              process.exit(1);
+            }
+          }
+
+          console.log(JSON.stringify({
+            ok: true,
+            preview_commit: sha,
+            shell_bytes: bytes,
+            shell_files: files,
+            nojekyll: true,
+            redirects_present: true,
+            hash_routes: true,
+          }));
+          END
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
           enablement: true
-      - name: Validate Netherlands sample corpus
-        run: npm run validate:netherlands-corpus
-      - name: Build
-        run: npm run build
-        env:
-          VITE_WETWIJZER_DATA_PROVIDER: ${{ vars.VITE_WETWIJZER_DATA_PROVIDER || 'huggingface' }}
-          VITE_OPENROUTER_ENABLED: ${{ vars.VITE_OPENROUTER_ENABLED || 'false' }}
-          VITE_OPENROUTER_BASE_URL: ${{ vars.VITE_OPENROUTER_BASE_URL || '' }}
-          VITE_LOCAL_GENERATION_FALLBACK_MS: ${{ vars.VITE_LOCAL_GENERATION_FALLBACK_MS || '5000' }}
-          VITE_LOCAL_GENERATION_TIMEOUT_MS: ${{ vars.VITE_LOCAL_GENERATION_TIMEOUT_MS || '12000' }}
-          VITE_LOCAL_PROBE_TIMEOUT_MS: ${{ vars.VITE_LOCAL_PROBE_TIMEOUT_MS || '10000' }}
-          VITE_LOCAL_PERF_BENCH_TIMEOUT_MS: ${{ vars.VITE_LOCAL_PERF_BENCH_TIMEOUT_MS || '8000' }}
-          VITE_OPENROUTER_DEFAULT_MODEL: liquid/lfm-2.5-1.2b-instruct:free
-          VITE_OPENROUTER_THINKING_MODEL: liquid/lfm-2.5-1.2b-thinking:free
-          VITE_CLIENT_LLM_MODEL: LiquidAI/LFM2.5-1.2B-Instruct-ONNX
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: ./dist
 
-  # Deployment job
   deploy:
+    name: Deploy to GitHub Pages
+    needs: [required, build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
