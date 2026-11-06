@@ -1,0 +1,68 @@
+{
+  "schema": "worldwide-legal-search.task-evidence@1",
+  "task_id": "WWL-113",
+  "title": "Verify the public release and rollback path",
+  "recorded_at": "2026-11-06T06:03:39Z",
+  "completion_claimed": false,
+  "native_merge_receipt": null,
+  "native_validation_receipt": null,
+  "note": "Native proposal validation, accepted merge, and task completion remain separate gates. This receipt does not mark the backlog complete. The configured Pages URL https://worldwidelaws.github.io/ returned HTTP 404. The preserved public site https://wetwijzer.github.io/ stayed HTTP 200 with the same index sha256 after a preview rollback. The sealed Vite candidate for commit 019562a750b35c6ad817e6acfc78f2f075d760a1 was exercised in Chrome for place search, source reading, manual override, deep links, no-backend mode, and coverage. Its tree digest differs from the prior public snapshot.",
+  "site_branch": "implementation/wwl-113-4a8843c05a6e-attempt-1-1793944133",
+  "site_revision": "019562a750b35c6ad817e6acfc78f2f075d760a1",
+  "site_tree": "6eef25a4c5b98700018a6780c33cfa2692c34f9f",
+  "known_limitations": [
+    "This receipt is not a native completion or merge receipt.",
+    "site_revision is HEAD. docs/worldwide/public-smoke.json and docs/worldwide/rollback.md are new untracked files. artifacts/ is gitignored, so this receipt is on disk and is not part of git status. Its own sha256 is not stored inside this file.",
+    "https://worldwidelaws.github.io/ and https://endomorphosis.github.io/worldwidelaws.github.io/ returned the GitHub Pages 404 document, 9115 bytes, sha256 70d613e3acfba24fd2876fcbacaf639e1e111ef4d54baf70761c47673f37d6a3. Chrome titled both the root and /#/search Site not found · GitHub Pages. The repository has_pages is false. Actions run 42170095879 uploaded no artifact and skipped Deploy to GitHub Pages. The UI scenarios therefore ran on the sealed preview of this commit, not on a published copy of that candidate.",
+    "The live prior release is https://wetwijzer.github.io/, Pages source branch main at the repository root, last Pages build updated 2026-06-27T23:24:56Z. Its index sha256 is 103e707efbbf2c3f48174551ec15000feffa724f1bfa7621079dcd2919e3527f, etag W/\"6a405bc7-65d\", last-modified Sat, 27 Jun 2026 23:24:55 GMT. That document loads /src/main.tsx as application/octet-stream. Chrome did not mount .wwl-shell there. This check did not push to WetWijzer/WetWijzer.github.io.",
+    "Real source text was read from https://wetwijzer.github.io/public/corpus/netherlands/current/generated/sections.json, HTTP 200, 4243 bytes, sha256 2a1a09dc5806bcd99ca280819f0954fb4d54061ee13bfef879e0e4884bc51e1a. The first record is BWBR0001854 Artikel 1, Wetboek van Strafrecht, source_url https://wetten.overheid.nl/BWBR0001854. The preview law route showed the same record id and did not fetch the statute body. searched stayed 0 and the shell said the collection was not searched.",
+    "place:nl in the preview URL was not selected. nl is a country code. The manual choice place:amsterdam then set data-state changed-manual-location and origin manually selected. The submitted query harbor bylaw set the hash to #/search?q=harbor+bylaw and left data-state first-visit.",
+    "No-backend observations are for the preview responses and Chrome: no COOP header, no COEP header, crossOriginIsolated false, SharedArrayBuffer absent. Hosts were the preview and plausible.io. Plausible is the analytics tag in index.html. It is not a search backend. Convex, OpenRouter, and country.is were not requested.",
+    "The candidate digest sha256:203619207298707affc0e342f2078560c9fc7c479413da4bab4ba807245488e9 is the manifest of 46 sealed files, including 404.html, .nojekyll, and preview-commit.txt. The prior digest sha256:807c4c0fe6d7085530dfeb90dc6c9537ade3a3c439ef48e52d5432708f86cf65 is the same manifest method over the five fetched public files, not a hash of every object on the WetWijzer host. Shell gzip is 66139 bytes. assets/shell-vendor-b17b141a.js matches the WWL-111 vendor sha256 492c59b7ea42e21842d0252799b9bd6bb865ba0d9c35563ed66bf59e23eaea53. assets/index-2f252348.js is sha256 c7d14970a47869bd30c577849cc7dc2c86b703b33f092c1e27b33a59912b2222.",
+    "Preview rollback renamed the served directory from the candidate to the prior snapshot and back. The prior preview body matched the live index sha256. The candidate file remained on disk. After the swap, Chrome reloaded title Worldwide laws with data-wwl-shell worldwide. A second fetch of the live index and the sections file matched the first fetch. The configured host was still HTTP 404.",
+    "The Vite build used a temporary symlink farm onto an existing node_modules from another worktree with the same package-lock sha256 prefix a751d2163916. The farm was removed after the build. The shared install was not modified. Output was /tmp/wwl-113-candidate. The gitignored dist/ directory in this worktree was not created.",
+    "node is v23.11.1 at /usr/bin/node. Chrome was /opt/google/chrome/chrome 143.0.7499.169. PATH for the audit was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. The audit HOME was /tmp/ipfs-accelerate-validation-home-wwl113.DPBa3k. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state."
+  ],
+  "release": {
+    "configured_url": "https://worldwidelaws.github.io/",
+    "configured_url_status": 404,
+    "prior_url": "https://wetwijzer.github.io/",
+    "prior_url_status": 200,
+    "artifact_digest": "sha256:203619207298707affc0e342f2078560c9fc7c479413da4bab4ba807245488e9",
+    "prior_release_digest": "sha256:807c4c0fe6d7085530dfeb90dc6c9537ade3a3c439ef48e52d5432708f86cf65",
+    "rollback_tested": true,
+    "prior_release_preserved": true,
+    "preview_commit": "019562a750b35c6ad817e6acfc78f2f075d760a1",
+    "shell_gzip_bytes": 66139,
+    "actions_run": "https://github.com/endomorphosis/worldwidelaws.github.io/actions/runs/42170095879",
+    "pages_artifact_count": 0
+  },
+  "outputs": [
+    {
+      "path": "docs/worldwide/public-smoke.json",
+      "bytes": 7790,
+      "sha256": "e9e4827d053efbeec48a1f3a6c0f80bf8c511d8b2445085b10d3b4cd954130cd"
+    },
+    {
+      "path": "docs/worldwide/rollback.md",
+      "bytes": 7028,
+      "sha256": "3d6e9cb4a6e17a682b35ade2499a35d3e5547688cba435f2fbea64232ba0ae33"
+    }
+  ],
+  "validation": {
+    "argv": [
+      "node",
+      "scripts/worldwide/audit.mjs",
+      "public-smoke"
+    ],
+    "cwd": "/home/barberb/.local/state/ipfs_accelerate_py/worldwide-legal-search-v1/campaign/worktrees/workspace_9bd358e29101_932604a50508",
+    "env_note": "PATH was exactly /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin. HOME was /tmp/ipfs-accelerate-validation-home-wwl113.DPBa3k. XDG paths were $HOME/.cache, $HOME/.config, $HOME/.local/share, and $HOME/.local/state. node is /usr/bin/node v23.11.1. The process was started with env -i. stdout is the audit JSON. stderr was empty. A second run in the same HOME produced the same stdout hash and an empty stderr.",
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "command": "public-smoke"
+    },
+    "stdout_sha256": "ae5fda432f5d8a4fe02263ea6d1601312a4d516f66b0b9eaacf7d2bb599bc7b2",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

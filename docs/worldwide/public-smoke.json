@@ -1,0 +1,99 @@
+{
+  "schema": "worldwide-legal-search.public-smoke@1",
+  "recorded_at": "2026-11-06T06:03:39Z",
+  "url": "https://worldwidelaws.github.io/",
+  "artifact_digest": "sha256:203619207298707affc0e342f2078560c9fc7c479413da4bab4ba807245488e9",
+  "prior_release_digest": "sha256:807c4c0fe6d7085530dfeb90dc6c9537ade3a3c439ef48e52d5432708f86cf65",
+  "rollback_tested": true,
+  "prior_release_preserved": true,
+  "commit": "019562a750b35c6ad817e6acfc78f2f075d760a1",
+  "tree": "6eef25a4c5b98700018a6780c33cfa2692c34f9f",
+  "digest_method": "SHA-256 of the UTF-8 manifest whose lines are sorted relative-path, one space, and the SHA-256 of that file, with a trailing newline. The candidate manifest covers all 46 files in the sealed Vite output, including dist/404.html, dist/.nojekyll, and dist/preview-commit.txt. The prior manifest covers the five public Pages files fetched before the preview rollback.",
+  "scenarios": [
+    "place-search",
+    "source-reading",
+    "manual-override",
+    "deep-link",
+    "no-backend",
+    "coverage"
+  ],
+  "results": [
+    {
+      "id": "place-search",
+      "pass": true,
+      "evidence": "Chrome 143 opened https://worldwidelaws.github.io/ and https://worldwidelaws.github.io/#/search. Both documents were titled Site not found · GitHub Pages. curl recorded HTTP 404, 9115 bytes, sha256 70d613e3acfba24fd2876fcbacaf639e1e111ef4d54baf70761c47673f37d6a3, and no worldwide shell. https://wetwijzer.github.io/ returned HTTP 200 with title WetWijzer | Nederlandse wetzoeker and also did not mount .wwl-shell. The sealed candidate for commit 019562a750b35c6ad817e6acfc78f2f075d760a1 was then opened at /#/search. The shell title was Worldwide laws, data-state was first-visit, data-scope was unselected, data-coverage was unknown, and the results list had zero rows. Submitting harbor bylaw kept that field value, set the hash to #/search?q=harbor+bylaw, and showed This collection was not searched. The only hosts were the preview and plausible.io."
+    },
+    {
+      "id": "source-reading",
+      "pass": true,
+      "evidence": "Chrome opened https://wetwijzer.github.io/public/corpus/netherlands/current/generated/sections.json. The response was HTTP 200, application/json, 4243 bytes, last-modified Sat, 27 Jun 2026 23:24:53 GMT, sha256 2a1a09dc5806bcd99ca280819f0954fb4d54061ee13bfef879e0e4884bc51e1a. The first record is law_id BWBR0001854, identifier BWBR0001854 Artikel 1, title Wetboek van Strafrecht - Artikel 1, official cite Wetboek van Strafrecht, Artikel 1, source_url https://wetten.overheid.nl/BWBR0001854, and text Artikel 1. Geen feit is strafbaar dan uit kracht van een daaraan voorafgegane wettelijke strafbepaling. Bij verandering in de wetgeving na het tijdstip waarop het feit is begaan, worden de voor de verdachte gunstigste bepalingen toegepast. The sealed preview law route /#/law/BWBR0001854?revision=abc&section=1 showed the same identifier BWBR0001854 in the main text. https://wetwijzer.github.io/#/law/BWBR0001854 stayed on the prior WetWijzer document and did not mount the worldwide shell."
+    },
+    {
+      "id": "manual-override",
+      "pass": true,
+      "evidence": "The sealed preview opened /#/search?place=place:nl&scope=place. The shell did not select a city: nl is a country code, the hash became #/search?scope=place, the place line stayed unselected worldwide, and the origin line was shared URL. The place combobox then received place:amsterdam and that option was chosen. data-state became changed-manual-location, data-scope became place, the place line became place:amsterdam, the origin line became manually selected, and the hash became #/search?place=place%3Aamsterdam&scope=place. The manual choice replaced the shared URL state."
+    },
+    {
+      "id": "deep-link",
+      "pass": true,
+      "evidence": "A direct preview navigation to /#/law/BWBR0001854?revision=abc&section=1&place=place:amsterdam&scope=place kept that hash, showed place:amsterdam with origin shared URL, data-state screen-reader-scope-change, and main text Law BWBR0001854. Requesting /law/BWBR0001854?revision=abc&section=1 returned the sealed 404.html, and its current-route script replaced the location with /#/law/BWBR0001854?revision=abc&section=1, which rendered the same record id. /index.html#/law/BWBR0001854 kept hash #/law/BWBR0001854 and rendered BWBR0001854. Nine redirect cases were checked while sealing 404.html, including /search?q=parking and an existing hash law link. On the public host, Chrome showed the statute JSON at its direct Pages path and the GitHub 404 at https://worldwidelaws.github.io/#/search."
+    },
+    {
+      "id": "no-backend",
+      "pass": true,
+      "evidence": "The preview document for /#/search and the dated law route /#/law/BWBR0001854?place=place:amsterdam&date=2026-10-26&scope=place both mounted the worldwide shell. Response headers had no Cross-Origin-Opener-Policy and no Cross-Origin-Embedder-Policy. In Chrome, crossOriginIsolated was false and SharedArrayBuffer was absent. Recorded hosts were 127.0.0.1:4179 and plausible.io. The plausible script is the analytics tag copied into index.html. No request went to Convex, OpenRouter, or country.is. https://worldwidelaws.github.io/ returned GitHub's static 404 page and did not start an application server. The shell remained usable with searched count 0."
+    },
+    {
+      "id": "coverage",
+      "pass": true,
+      "evidence": "The sealed preview route /#/coverage rendered heading Coverage, data-coverage unknown, text Coverage: Coverage unknown, and zero result rows. It did not claim that every law was collected. The preserved public page https://wetwijzer.github.io/public/corpus/netherlands/current/ says the directory is a browser-ready sample and points readers to the quality-audited partial Dutch corpus and to https://wetten.overheid.nl. The fetched manifest, sha256 3c7643fe74b325be548aa42ddfc7a11b8b6430c1471d7ad79c4fe59a46bea497, records laws 4999 and coverage quality-audited partial corpus, not full Dutch corpus coverage."
+    }
+  ],
+  "public_probe": {
+    "configured_pages": {
+      "url": "https://worldwidelaws.github.io/",
+      "status": 404,
+      "bytes": 9115,
+      "sha256": "70d613e3acfba24fd2876fcbacaf639e1e111ef4d54baf70761c47673f37d6a3",
+      "title": "Site not found · GitHub Pages"
+    },
+    "project_pages": {
+      "url": "https://endomorphosis.github.io/worldwidelaws.github.io/",
+      "status": 404,
+      "bytes": 9115,
+      "sha256": "70d613e3acfba24fd2876fcbacaf639e1e111ef4d54baf70761c47673f37d6a3"
+    },
+    "prior_pages": {
+      "url": "https://wetwijzer.github.io/",
+      "status": 200,
+      "bytes": 1629,
+      "sha256": "103e707efbbf2c3f48174551ec15000feffa724f1bfa7621079dcd2919e3527f",
+      "etag": "W/\"6a405bc7-65d\"",
+      "last_modified": "Sat, 27 Jun 2026 23:24:55 GMT",
+      "unchanged_after_rollback": true
+    }
+  },
+  "candidate": {
+    "preview_commit": "019562a750b35c6ad817e6acfc78f2f075d760a1",
+    "files": 46,
+    "index_sha256": "b488a7a383e3fa97221763bcfd5afca314f4f10a1a152ce15a9372bd2e593a6a",
+    "shell_gzip_bytes": 66139,
+    "shell_files": [
+      "assets/index-2f252348.js",
+      "assets/shell-vendor-b17b141a.js"
+    ],
+    "shell_sha256": {
+      "assets/index-2f252348.js": "c7d14970a47869bd30c577849cc7dc2c86b703b33f092c1e27b33a59912b2222",
+      "assets/shell-vendor-b17b141a.js": "492c59b7ea42e21842d0252799b9bd6bb865ba0d9c35563ed66bf59e23eaea53"
+    },
+    "hash_routes": true,
+    "nojekyll": true,
+    "browser": "Chrome/143.0.7499.169"
+  },
+  "rollback": {
+    "tested": true,
+    "prior_index_sha256": "103e707efbbf2c3f48174551ec15000feffa724f1bfa7621079dcd2919e3527f",
+    "restored_candidate_index_sha256": "b488a7a383e3fa97221763bcfd5afca314f4f10a1a152ce15a9372bd2e593a6a",
+    "prior_release_preserved": true
+  }
+}
