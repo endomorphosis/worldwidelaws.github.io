@@ -1,0 +1,11 @@
+{
+  "schema": "worldwide-legal-search.deployment@1",
+  "status": "blocked",
+  "actions_run": "https://github.com/endomorphosis/worldwidelaws.github.io/actions/runs/42170095879",
+  "artifact_digest": null,
+  "url": null,
+  "blocker": {
+    "kind": "external",
+    "reason": "The verified commit f127918f56202e0d996a9b65486f8ded4b965003 was fast-forwarded to main and GitHub created Actions run 42170095879 for Deploy Vite App to Pages. GitHub did not start the runners. Required checks job 127735646395 and Build static release candidate job 127735646139 each failed in about four seconds with the annotation that the job was not started because the account is locked due to a billing issue. Deploy to GitHub Pages job 127735665619 was skipped. The run has no Pages artifact, the repository still has no Pages site, and neither https://endomorphosis.github.io/worldwidelaws.github.io/ nor https://worldwidelaws.github.io/ is published."
+  }
+}
