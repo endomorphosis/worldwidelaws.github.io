@@ -10,9 +10,11 @@
  * id the court register states. `endomorphosis/world_courts` is `DS` in
  * `upload_world_courts.py` and `WORLD_COURTS_REPO` in `court_v1.py`. It is
  * a repo id, not the schema id. Opinion body names are `_OPINION_BODY_NAMES`
- * in `court_v1.py`: `text`, `opinion_text`, and `case_text`. Those names
- * are also the start of `CAPVectorSearchConfig.text_field_candidates`.
- * The statute schema id is `CORPUS_SCHEMA_VERSION` in `data/identity.ts`.
+ * in `court_v1.py`: `text`, `opinion_text`, and `case_text`. Those three
+ * names occur in `CAPVectorSearchConfig.text_field_candidates`, which is
+ * `text`, `content`, `document`, `opinion_text`, `case_text`, `summary`,
+ * `title`. The view refuses only those three opinion-body names. The
+ * statute schema id is `CORPUS_SCHEMA_VERSION` in `data/identity.ts`.
  * This module does not assign a second schema id.
  */
 
