@@ -891,4 +891,105 @@ describe('place-scoped search', () => {
     expect(timed.filtered.some((item) => item.reason === 'strict-status' && item.identity.includes('inst:undated'))).toBe(true);
     expect(timed.hits[0].explanation.formula).toBe('sum 1/(60+rank)');
   });
+
+  test('copies a source schema claim and leaves rank unchanged', () => {
+    const plan = planPlaceSearch(baseInput());
+    const statute = hit({
+      instrumentId: 'inst:statute',
+      textVersionId: 'tv:statute',
+      title: 'Housing statute',
+      instrumentKind: 'statute',
+      authorityIds: ['place:north-country'],
+      rank: 1,
+      score: 10,
+    });
+    const regulation = hit({
+      instrumentId: 'inst:rule',
+      textVersionId: 'tv:rule',
+      title: 'Noise rule',
+      instrumentKind: 'regulation',
+      authorityIds: ['place:north-country'],
+      rank: 2,
+      score: 500,
+    });
+    const listed = (hits: RankedHitInput[]) => [list({
+      indexId: 'idx:country:bm25',
+      sourceId: 'src:country',
+      sourceRevision: REV,
+      kind: 'bm25',
+      shardId: 'country-bm25-0',
+      hits,
+    })];
+    const plain = fuseCrossIndexResults(plan, listed([statute, regulation]));
+    const withClaim = fuseCrossIndexResults(plan, listed([
+      statute,
+      hit({
+        ...regulation,
+        interfaceId: 'legal-corpus.caselaw@1',
+        sourceSchemaId: 'unversioned',
+        row: { source_schema_id: 'unversioned', text: 'Held' },
+      }),
+    ]));
+    expect(plain.hits.map((item) => item.identity.instrumentId)).toEqual(['inst:statute', 'inst:rule']);
+    expect(withClaim.hits.map((item) => [item.identity.instrumentId, item.score, item.rank])).toEqual(
+      plain.hits.map((item) => [item.identity.instrumentId, item.score, item.rank]),
+    );
+    expect(plain.hits.every((item) => item.interfaceId === null && item.sourceSchemaId === null && item.instrumentRow === null)).toBe(true);
+    const marked = withClaim.hits.find((item) => item.identity.instrumentId === 'inst:rule');
+    expect(marked?.interfaceId).toBe('legal-corpus.caselaw@1');
+    expect(marked?.sourceSchemaId).toBe('unversioned');
+    expect(marked?.instrumentRow).toEqual({ source_schema_id: 'unversioned', text: 'Held' });
+    expect(withClaim.hits.find((item) => item.identity.instrumentId === 'inst:statute')?.interfaceId).toBeNull();
+
+    const token = fuseCrossIndexResults(plan, listed([hit({
+      ...regulation,
+      rank: 1,
+      interfaceId: 'regulation',
+      sourceSchemaId: 'cfr-annual-processor-v1',
+    })]));
+    expect(token.hits[0]?.interfaceId).toBe('regulation');
+    expect(token.hits[0]?.sourceSchemaId).toBe('cfr-annual-processor-v1');
+    expect(token.hits[0]?.instrumentKind).toBe('regulation');
+
+    const disagreed = fuseCrossIndexResults(plan, [
+      list({
+        indexId: 'idx:country:bm25',
+        sourceId: 'src:country',
+        sourceRevision: REV,
+        kind: 'bm25',
+        shardId: 'country-bm25-0',
+        hits: [hit({
+          instrumentId: 'inst:rule',
+          textVersionId: 'tv:rule',
+          instrumentKind: 'regulation',
+          authorityIds: ['place:north-country'],
+          rank: 1,
+          interfaceId: 'legal-corpus.caselaw@1',
+          sourceSchemaId: 'unversioned',
+          row: { source_schema_id: 'unversioned', text: 'Held' },
+        })],
+      }),
+      list({
+        indexId: 'idx:country:cite',
+        sourceId: 'src:country',
+        sourceRevision: REV,
+        kind: 'citation',
+        shardId: 'country-cite-0',
+        hits: [hit({
+          instrumentId: 'inst:rule',
+          textVersionId: 'tv:rule',
+          instrumentKind: 'regulation',
+          authorityIds: ['place:north-country'],
+          rank: 1,
+          interfaceId: 'legal-corpus.law@1',
+          sourceSchemaId: 'country-laws-ir-graphrag/v1',
+          row: { id: 'inst:rule', title: 'Noise rule', text: 'text' },
+        })],
+      }),
+    ]);
+    expect(disagreed.hits).toHaveLength(1);
+    expect(disagreed.hits[0]?.interfaceId).toBeNull();
+    expect(disagreed.hits[0]?.sourceSchemaId).toBeNull();
+    expect(disagreed.hits[0]?.instrumentRow).toBeNull();
+  });
 });

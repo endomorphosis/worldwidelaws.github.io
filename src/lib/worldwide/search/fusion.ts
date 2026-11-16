@@ -72,6 +72,17 @@ export interface RankedHitInput {
   title?: unknown;
   language?: unknown;
   instrumentKind?: unknown;
+  interfaceId?: unknown;
+  interface_id?: unknown;
+  kindVersion?: unknown;
+  kind_version?: unknown;
+  sourceSchemaId?: unknown;
+  source_schema_id?: unknown;
+  sourceSchemaVersion?: unknown;
+  source_schema_version?: unknown;
+  row?: unknown;
+  sourceRow?: unknown;
+  source_row?: unknown;
   topics?: unknown;
   status?: unknown;
   authorityIds?: unknown;
@@ -141,6 +152,9 @@ export interface FusedHit {
   title: string | null;
   language: string | null;
   instrumentKind: string | null;
+  interfaceId: string | null;
+  sourceSchemaId: string | null;
+  instrumentRow: Record<string, unknown> | null;
   status: string | null;
   authorityIds: string[];
   bands: string[];
@@ -221,6 +235,9 @@ interface Member {
   title: string | null;
   language: string | null;
   instrumentKind: string | null;
+  interfaceId: string;
+  sourceSchemaId: string;
+  claimRow: Record<string, unknown> | null;
   topics: string[];
   status: string | null;
   authorityIds: string[];
@@ -259,6 +276,9 @@ interface DraftRow {
   title: string | null;
   language: string | null;
   instrumentKind: string | null;
+  interfaceId: string | null;
+  sourceSchemaId: string | null;
+  claimRow: Record<string, unknown> | null;
   status: string | null;
   authorityIds: string[];
   bands: string[];
@@ -294,6 +314,56 @@ function unique(values: readonly string[]): string[] {
     out.push(value);
   }
   return out;
+}
+
+function claimText(value: unknown): string {
+  return typeof value === 'string' ? value.trim() : '';
+}
+
+function readInterfaceId(hit: RankedHitInput): string {
+  return claimText(hit.interfaceId)
+    || claimText(hit.interface_id)
+    || claimText(hit.kindVersion)
+    || claimText(hit.kind_version);
+}
+
+function readSourceSchemaId(hit: RankedHitInput): string {
+  return claimText(hit.sourceSchemaId)
+    || claimText(hit.source_schema_id)
+    || claimText(hit.sourceSchemaVersion)
+    || claimText(hit.source_schema_version);
+}
+
+function readClaimRow(hit: RankedHitInput): Record<string, unknown> | null {
+  const value = hit.row ?? hit.sourceRow ?? hit.source_row;
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
+  return value as Record<string, unknown>;
+}
+
+function stableJson(value: unknown): string {
+  if (Array.isArray(value)) return `[${value.map((item) => stableJson(item)).join(',')}]`;
+  if (!value || typeof value !== 'object') return JSON.stringify(value) ?? 'null';
+  const record = value as Record<string, unknown>;
+  return `{${Object.keys(record).sort().map((key) => `${JSON.stringify(key)}:${stableJson(record[key])}`).join(',')}}`;
+}
+
+function agreedClaim(members: readonly Member[]): {
+  interfaceId: string | null;
+  sourceSchemaId: string | null;
+  claimRow: Record<string, unknown> | null;
+} {
+  const interfaceIds = unique(members.map((member) => member.interfaceId));
+  const sourceSchemaIds = unique(members.map((member) => member.sourceSchemaId));
+  const rows = members.map((member) => member.claimRow).filter((row): row is Record<string, unknown> => row !== null);
+  const rowKeys = unique(rows.map((row) => stableJson(row)));
+  if (interfaceIds.length !== 1 || sourceSchemaIds.length !== 1 || rowKeys.length > 1) {
+    return { interfaceId: null, sourceSchemaId: null, claimRow: null };
+  }
+  return {
+    interfaceId: interfaceIds[0] ?? null,
+    sourceSchemaId: sourceSchemaIds[0] ?? null,
+    claimRow: rows[0] ?? null,
+  };
 }
 
 function stringList(value: unknown): string[] {
@@ -612,6 +682,7 @@ function fuseMembers(members: readonly Member[], plan: SearchPlan): DraftRow {
     title: meta.title,
     language: meta.language,
     instrumentKind: meta.instrumentKind,
+    ...agreedClaim(members),
     status: meta.status,
     authorityIds,
     bands,
@@ -768,6 +839,9 @@ export function fuseCrossIndexResults(
         title: clean(hit?.title),
         language: clean(hit?.language),
         instrumentKind: clean(hit?.instrumentKind)?.toLowerCase() ?? null,
+        interfaceId: hit ? readInterfaceId(hit) : '',
+        sourceSchemaId: hit ? readSourceSchemaId(hit) : '',
+        claimRow: hit ? readClaimRow(hit) : null,
         topics: stringList(hit?.topics).map((topic) => topic.toLowerCase()),
         status: clean(hit?.status)?.toLowerCase() ?? null,
         authorityIds: stringList(hit?.authorityIds),
@@ -952,6 +1026,9 @@ export function fuseCrossIndexResults(
     title: draft.title,
     language: draft.language,
     instrumentKind: draft.instrumentKind,
+    interfaceId: draft.interfaceId,
+    sourceSchemaId: draft.sourceSchemaId,
+    instrumentRow: draft.claimRow,
     status: draft.status,
     authorityIds: draft.authorityIds,
     bands: draft.bands,

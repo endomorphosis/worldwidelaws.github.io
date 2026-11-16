@@ -112,6 +112,9 @@ export interface ResultRow {
   translationTitle: string | null;
   translationText: string | null;
   instrumentId: string | null;
+  interfaceId?: string | null;
+  sourceSchemaId?: string | null;
+  instrumentRow?: Record<string, unknown> | null;
 }
 
 export interface ProductionPage {
@@ -416,6 +419,9 @@ function rowsFromFusion(plan: SearchPlan, fusion: FusionResult, lists: readonly 
       translationTitle: extra?.translationTitle ?? null,
       translationText: extra?.translationText ?? null,
       instrumentId: identity.instrumentId,
+      interfaceId: hit.interfaceId,
+      sourceSchemaId: hit.sourceSchemaId,
+      instrumentRow: hit.instrumentRow,
     };
   });
 }
@@ -448,6 +454,9 @@ function rowsFromWorldwide(page: WorldwidePage, catalogRevision: string | null):
       translationTitle: null,
       translationText: null,
       instrumentId: hit.documentId,
+      interfaceId: null,
+      sourceSchemaId: null,
+      instrumentRow: null,
     };
   });
 }
@@ -663,11 +672,20 @@ export function ResultItem({
   );
 }
 
+function claimFor(row: ResultRow): InstrumentClaim | undefined {
+  const interfaceId = row.interfaceId ?? '';
+  const sourceSchemaId = row.sourceSchemaId ?? '';
+  if (!interfaceId || !sourceSchemaId) return undefined;
+  const claim: InstrumentClaim = { interfaceId, sourceSchemaId };
+  if (row.instrumentRow) claim.row = row.instrumentRow;
+  return claim;
+}
+
 function ResultList({ rows, grouped, query, copy }: { rows: ResultRow[]; grouped: boolean; query: string; copy: ResultCopy }) {
   if (!grouped) {
     return (
       <ol aria-label={copy.results}>
-        {rows.map((row) => <ResultItem key={row.key} row={row} query={query} copy={copy} />)}
+        {rows.map((row) => <ResultItem key={row.key} row={row} query={query} copy={copy} instrument={claimFor(row)} />)}
       </ol>
     );
   }
@@ -682,7 +700,7 @@ function ResultList({ rows, grouped, query, copy }: { rows: ResultRow[]; grouped
           <section key={band}>
             <h3>{label}</h3>
             <ol aria-label={label}>
-              {items.map((row) => <ResultItem key={row.key} row={row} query={query} copy={copy} />)}
+              {items.map((row) => <ResultItem key={row.key} row={row} query={query} copy={copy} instrument={claimFor(row)} />)}
             </ol>
           </section>
         );

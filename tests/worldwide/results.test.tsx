@@ -564,6 +564,113 @@ describe('instrument view marker', () => {
     expect(item?.getAttribute('data-instrument-view')).not.toBe('worldwide-legal-search.law-source@1');
     expect(item?.textContent).toContain('Fixture title');
   });
+
+  test('production rows stay unmarked unless the hit already names an accepted pair', async () => {
+    const decision = law({
+      instrumentId: 'inst:decision',
+      textVersionId: 'tv:decision',
+      title: 'Council decision',
+      officialCitation: 'Decision 4',
+      issuerName: 'North Country',
+      issuerIds: ['place:north-country'],
+      authorityIds: ['place:north-country'],
+      bands: ['national'],
+      instrumentKind: 'decision',
+      rank: 4,
+    });
+    const caselaw = law({
+      instrumentId: 'inst:case',
+      textVersionId: 'tv:case',
+      title: 'Fixture case',
+      officialCitation: 'ECLI fixture',
+      issuerName: 'North Country',
+      issuerIds: ['place:north-country'],
+      authorityIds: ['place:north-country'],
+      bands: ['national'],
+      instrumentKind: 'decision',
+      interfaceId: 'legal-corpus.caselaw@1',
+      sourceSchemaId: 'unversioned',
+      row: {
+        source_schema_id: 'unversioned',
+        ecli: 'ECLI:FR:CCASS:2020:FIXTURE',
+        text: 'The fixture decision body.',
+      },
+      rank: 2,
+    });
+    const crossed = law({
+      instrumentId: 'inst:crossed',
+      textVersionId: 'tv:crossed',
+      title: 'Crossed schema',
+      officialCitation: 'Cross 5',
+      issuerName: 'North Country',
+      issuerIds: ['place:north-country'],
+      authorityIds: ['place:north-country'],
+      bands: ['national'],
+      interfaceId: 'legal-corpus.caselaw@1',
+      sourceSchemaId: 'country-laws-ir-graphrag/v1',
+      row: { source_schema_id: 'country-laws-ir-graphrag/v1', text: 'Held' },
+      rank: 3,
+    });
+    const filterToken = law({
+      instrumentId: 'inst:token',
+      textVersionId: 'tv:token',
+      title: 'Filter token',
+      officialCitation: 'Token 6',
+      issuerName: 'North Country',
+      issuerIds: ['place:north-country'],
+      authorityIds: ['place:north-country'],
+      bands: ['national'],
+      instrumentKind: 'regulation',
+      interfaceId: 'regulation',
+      sourceSchemaId: 'cfr-annual-processor-v1',
+      rank: 5,
+    });
+    const indexes = harborLists({
+      country: [HOUSING, decision, caselaw, crossed, filterToken],
+      province: [REGIONAL],
+      town: [LOCAL],
+    });
+    const claimed = await executeProductionRetrieval({
+      corpus: corpus({ indexes }),
+      placeId: PLACE,
+      asOf: AS_OF,
+      query: 'Housing statute',
+    });
+    const plainIndexes = harborLists({
+      country: [HOUSING, decision, caselaw, crossed, filterToken].map((item) => {
+        const copy = { ...item };
+        delete copy.interfaceId;
+        delete copy.sourceSchemaId;
+        delete copy.row;
+        return copy;
+      }),
+      province: [REGIONAL],
+      town: [LOCAL],
+    });
+    const plain = await executeProductionRetrieval({
+      corpus: corpus({ indexes: plainIndexes }),
+      placeId: PLACE,
+      asOf: AS_OF,
+      query: 'Housing statute',
+    });
+    expect(plain.rows.map((row) => row.instrumentId)).toEqual(claimed.rows.map((row) => row.instrumentId));
+
+    mount({ corpus: corpus({ indexes }), query: 'Housing statute' });
+    const unmarked = [
+      'Housing statute',
+      'Council decision',
+      'Regional noise regulation',
+      'Harbor ordinance',
+      'Crossed schema',
+      'Filter token',
+    ];
+    for (const name of unmarked) {
+      const link = await screen.findByRole('link', { name });
+      expect(link.closest('.wwl-result')).not.toHaveAttribute('data-instrument-view');
+    }
+    const marked = await screen.findByRole('link', { name: 'Fixture case' });
+    expect(marked.closest('.wwl-result')).toHaveAttribute('data-instrument-view', 'worldwide-legal-search.caselaw-view@1');
+  });
 });
 
 describe('search results', () => {
