@@ -13,8 +13,10 @@ import { buildGlobalRouting, type GlobalCollectionInput } from '../../scripts/wo
 import {
   highlightExact,
   executeProductionRetrieval,
+  ResultItem,
   SearchResults,
   type ProductionCorpus,
+  type ResultRow,
   type SearchResultsProps,
 } from '../../src/components/worldwide/SearchResults';
 import {
@@ -505,6 +507,65 @@ describe('production retrieval', () => {
   });
 });
 
+function plainRow(): ResultRow {
+  return {
+    key: 'row-1',
+    href: null,
+    title: 'Fixture title',
+    citation: 'Fixture citation',
+    issuer: 'Fixture issuer',
+    bands: ['national'],
+    primaryBand: 'national',
+    status: 'current',
+    date: '2020',
+    sourceId: 'source-1',
+    sourceRevision: 'a'.repeat(40),
+    savedRevision: null,
+    catalogRevision: null,
+    stale: false,
+    inclusion: ['named place'],
+    snippet: null,
+    translationKind: null,
+    translationTitle: null,
+    translationText: null,
+    instrumentId: null,
+  };
+}
+
+describe('instrument view marker', () => {
+  test('a row without an interface id keeps the results markup', () => {
+    const { container } = render(<ResultItem row={plainRow()} query="" copy={resultCopy('en')} />);
+    const item = container.querySelector('.wwl-result');
+    expect(item).toHaveAttribute('data-band', 'national');
+    expect(item).not.toHaveAttribute('data-instrument-view');
+    expect(item?.textContent).toContain('Fixture title');
+    expect(item?.textContent).toContain('Fixture citation');
+  });
+
+  test('an accepted caselaw row names the caselaw view', () => {
+    const { container } = render(
+      <ResultItem
+        row={plainRow()}
+        query=""
+        copy={resultCopy('en')}
+        instrument={{
+          interfaceId: 'legal-corpus.caselaw@1',
+          sourceSchemaId: 'unversioned',
+          row: {
+            source_schema_id: 'unversioned',
+            ecli: 'ECLI:FR:CCASS:2020:FIXTURE',
+            text: 'The fixture decision body.',
+          },
+        }}
+      />,
+    );
+    const item = container.querySelector('.wwl-result');
+    expect(item).toHaveAttribute('data-instrument-view', 'worldwide-legal-search.caselaw-view@1');
+    expect(item?.getAttribute('data-instrument-view')).not.toBe('worldwide-legal-search.law-source@1');
+    expect(item?.textContent).toContain('Fixture title');
+  });
+});
+
 describe('search results', () => {
   test('shows national, regional, and local authority with the original record', async () => {
     mount();
@@ -532,6 +593,7 @@ describe('search results', () => {
     if (!(item instanceof HTMLElement)) throw new Error('missing housing result');
     expect(item).toHaveAttribute('data-band', 'national');
     expect(item).toHaveAttribute('data-translation', 'shown');
+    expect(item).not.toHaveAttribute('data-instrument-view');
     expect(housing).toHaveAttribute('href', expect.stringContaining('/#/law/inst%3Ahousing'));
     expect(housing.getAttribute('href')).toContain(`revision=${REV}`);
     expect(housing.getAttribute('href')).toContain('section=section%3Ahousing');

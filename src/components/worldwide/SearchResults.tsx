@@ -17,6 +17,11 @@ import {
 } from 'react';
 import { buildLawDeepLink } from '../../lib/worldwide/contracts';
 import {
+  instrumentViewId,
+  selectInstrumentView,
+  type InstrumentClaim,
+} from '../../lib/worldwide/views/select';
+import {
   joinAuthorityStack,
   type AuthorityStack,
   type LawScopeInput,
@@ -593,16 +598,28 @@ function statusFor(state: ResultStateId, copy: ResultCopy, page: ProductionPage 
   return { status: copy.applicability, next: copy.next_ready };
 }
 
-function ResultItem({ row, query, copy }: { row: ResultRow; query: string; copy: ResultCopy }) {
+export function ResultItem({
+  row,
+  query,
+  copy,
+  instrument,
+}: {
+  row: ResultRow;
+  query: string;
+  copy: ResultCopy;
+  instrument?: InstrumentClaim;
+}) {
   const title = shown(row.title, copy);
   const inclusion = row.inclusion.length > 0 ? row.inclusion : [''];
   const translationLabel = row.translationKind === 'official' ? copy.official_translation : copy.machine_translation;
+  const viewId = instrument ? instrumentViewId(selectInstrumentView(instrument)) : null;
   return (
     <li
       className="wwl-result"
       data-band={row.primaryBand}
       data-translation={row.translationKind ? 'shown' : 'hidden'}
       data-stale={row.stale ? 'true' : 'false'}
+      data-instrument-view={viewId ?? undefined}
     >
       <p className="wwl-original" data-field="original-title">
         <span className="wwl-badge">{copy.original_title}</span>
