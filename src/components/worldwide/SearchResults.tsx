@@ -47,6 +47,7 @@ import {
   type StrictFilters,
   type TemporalPlanInput,
 } from '../../lib/worldwide/search/planner';
+import { worldwideJurisdictionIds } from '../../lib/worldwide/search/caller-independent';
 import { JurisdictionStack, type StackCoverageCell } from './JurisdictionStack';
 import {
   SearchFilters,
@@ -86,6 +87,8 @@ export interface ProductionRetrievalInput {
   query: string;
   scope?: 'place' | 'worldwide';
   filters?: Partial<DisplayFilters> | null;
+  placeOrigin?: string | null;
+  placeChannel?: string | null;
   signal?: AbortSignal;
   worldwideCursor?: string | null;
   loadIndexes?: (plan: SearchPlan, signal: AbortSignal) => Promise<readonly IndexHitList[]>;
@@ -504,7 +507,7 @@ export async function executeProductionRetrieval(input: ProductionRetrievalInput
         && recognizedPlaces.length > 0
         && recognizedPlaces.every((id) => localIds.has(id));
       const cityKept = filters.level === 'municipal' || filters.level === 'local' || cityOnly;
-      const jurisdictions = cityKept ? [] : (filterInput.placeIds ?? []);
+      const jurisdictions = cityKept ? [] : worldwideJurisdictionIds(input.placeOrigin, input.placeChannel, filterInput.placeIds ?? []);
       const worldwideFilters: { languages?: string[]; collectionIds?: string[]; jurisdictions?: string[] } = {};
       if (languages.length > 0) worldwideFilters.languages = languages;
       if (collectionIds.length > 0) worldwideFilters.collectionIds = collectionIds;
