@@ -6,7 +6,8 @@
  * as-of date, a collection count, and a record denominator. Legal
  * completeness stays not_claimed. A count is never read as complete.
  * Integrity is the SHA-256 of the canonical cell, including member revisions.
- * Repository slugs are not jurisdiction ids.
+ * Repository slugs are not jurisdiction ids. interface_id and source_schema_id
+ * are copied only when the inventory row already has both non-empty strings.
  */
 
 import { canonicalJson, sha256HexUtf8 } from './identity.ts';
@@ -68,6 +69,8 @@ export interface CatalogSource {
   license_sha256: string | null;
   citation_sha256: string | null;
   rollup_sha256: string | null;
+  interface_id?: string;
+  source_schema_id?: string;
 }
 
 export interface CoverageCell {
@@ -136,6 +139,7 @@ interface InventoryDataset {
   gated: boolean;
   private: boolean;
   disabled: boolean;
+  claim: { interface_id: string; source_schema_id: string } | null;
 }
 
 interface DispositionRow {
@@ -611,17 +615,24 @@ function catalogDigest(catalog: BrowserCatalog): string {
     legal_completeness: catalog.legal_completeness,
     record_denominator: catalog.record_denominator,
     schema: catalog.schema,
-    sources: catalog.sources.map((source) => ({
-      capabilities: source.capabilities,
-      card_sha256: source.card_sha256,
-      citation_sha256: source.citation_sha256,
-      dataset_id: source.dataset_id,
-      decision: source.decision,
-      levels: source.levels,
-      license_sha256: source.license_sha256,
-      resolved_revision: source.resolved_revision,
-      rollup_sha256: source.rollup_sha256,
-    })),
+    sources: catalog.sources.map((source) => {
+      const pinned: Record<string, unknown> = {
+        capabilities: source.capabilities,
+        card_sha256: source.card_sha256,
+        citation_sha256: source.citation_sha256,
+        dataset_id: source.dataset_id,
+        decision: source.decision,
+        levels: source.levels,
+        license_sha256: source.license_sha256,
+        resolved_revision: source.resolved_revision,
+        rollup_sha256: source.rollup_sha256,
+      };
+      if (source.interface_id !== undefined && source.source_schema_id !== undefined) {
+        pinned.interface_id = source.interface_id;
+        pinned.source_schema_id = source.source_schema_id;
+      }
+      return pinned;
+    }),
   }));
 }
 
@@ -691,7 +702,7 @@ function lawSource(dataset: InventoryDataset, group: DispositionRow[], rights: R
   const rightsStatus: RightsStatus = rights.status === 'resolved' && rights.inferred_from_organization === false && typeof rights.rights === 'string' && rights.rights.trim().length > 0
     ? 'resolved'
     : 'unresolved';
-  return {
+  const source: CatalogSource = {
     dataset_id: dataset.dataset_id,
     resolved_revision: revision,
     jurisdiction_id: LAW_JURISDICTION_ID,
@@ -710,6 +721,11 @@ function lawSource(dataset: InventoryDataset, group: DispositionRow[], rights: R
     citation_sha256: null,
     rollup_sha256: null,
   };
+  if (dataset.claim) {
+    source.interface_id = dataset.claim.interface_id;
+    source.source_schema_id = dataset.claim.source_schema_id;
+  }
+  return source;
 }
 
 function boundarySource(geography: GeographyPin): CatalogSource {
@@ -851,7 +867,21 @@ function parseInventoryDataset(value: unknown): InventoryDataset {
     gated: record.gated === true,
     private: record.private === true,
     disabled: record.disabled === true,
+    claim: readClaim(datasetId, record),
   };
+}
+
+/** Both claim strings, or neither. One field, a blank, or a non-string drops the pair. */
+function readClaim(datasetId: string, record: Record<string, unknown>): { interface_id: string; source_schema_id: string } | null {
+  const interfaceId = claimText(record.interface_id);
+  const sourceSchemaId = claimText(record.source_schema_id);
+  if (!interfaceId || !sourceSchemaId) return null;
+  if (sourceSchemaId === 'country-laws-ir-graphrag/v1' || sourceSchemaId === datasetId) return null;
+  return { interface_id: interfaceId, source_schema_id: sourceSchemaId };
+}
+
+function claimText(value: unknown): string {
+  return typeof value === 'string' ? value.trim() : '';
 }
 
 function parseDispositions(value: unknown): { inventoryRevision: string; rows: DispositionRow[] } {

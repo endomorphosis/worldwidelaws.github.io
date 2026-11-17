@@ -45,12 +45,20 @@ import {
 } from '../../src/components/worldwide/CoveragePage';
 import { PLACE_PAGE_SCHEMA, PlacePage } from '../../src/components/worldwide/PlacePage';
 import { SOURCE_PAGE_SCHEMA, SourcePage } from '../../src/components/worldwide/SourcePage';
+import { lookupHubDatasetBinding } from '../../src/lib/worldwide/data/hub-bindings';
 
 const LAW = 'endomorphosis/ipfs_fixture_laws';
 const REGIONAL = 'endomorphosis/ipfs_fixture_regional';
 const MUNICIPAL = 'endomorphosis/ipfs_fixture_municipal';
 const EXCLUDED = 'endomorphosis/legal_scrapers';
 const BOUNDARY = 'wmgeolab/geoBoundaries';
+const NATIONAL = 'endomorphosis/world_national_law';
+const WETWIJZER = 'justicedao/wetwijzer_netherlands_legal_corpus';
+const COURTS = 'endomorphosis/world_courts';
+const CASELAW = 'endomorphosis/world_caselaw';
+const CAP = 'justicedao/Caselaw_Access_Project_embeddings';
+const MUNICIPAL_LAW = 'endomorphosis/world_municipal_law';
+const CLAIMED = 'endomorphosis/ipfs_fixture_claim';
 const COPY = resultCopy('en');
 
 function dataset(id: string, revision: string, card: string, complete: boolean, rows: number | null): Record<string, unknown> {
@@ -151,6 +159,126 @@ function publishFixture(municipalBoundary: 'partial' | 'unknown'): BrowserCatalo
     rightsText: JSON.stringify(rights),
     geographyText: JSON.stringify(geography),
   });
+}
+
+function publishBindingCatalog(): BrowserCatalog {
+  const specs: Array<{ id: string; revision: string; card: string; family: string; claim?: Record<string, string> }> = [
+    { id: LAW, revision: 'a'.repeat(40), card: 'b'.repeat(64), family: 'national' },
+    { id: NATIONAL, revision: '7'.repeat(40), card: '8'.repeat(64), family: 'national' },
+    { id: WETWIJZER, revision: '9'.repeat(40), card: '0'.repeat(64), family: 'national' },
+    {
+      id: COURTS,
+      revision: 'c'.repeat(40),
+      card: 'd'.repeat(64),
+      family: 'national',
+      claim: { interface_id: 'legal-corpus.caselaw@1', source_schema_id: 'unversioned' },
+    },
+    { id: CASELAW, revision: 'e'.repeat(40), card: 'f'.repeat(64), family: 'national' },
+    { id: CAP, revision: '1'.repeat(40), card: '2'.repeat(64), family: 'national' },
+    { id: MUNICIPAL_LAW, revision: '3'.repeat(40), card: '4'.repeat(64), family: 'municipal' },
+    {
+      id: CLAIMED,
+      revision: '5'.repeat(40),
+      card: '6'.repeat(64),
+      family: 'national',
+      claim: { interface_id: 'legal-corpus.court@1', source_schema_id: 'unversioned' },
+    },
+  ];
+  const inventory = {
+    schema: 'worldwide-legal-search.source-inventory@1',
+    retrieved_at: '2026-10-30T09:39:25.250Z',
+    organizations: [{
+      datasets: specs.map((spec) => ({
+        ...dataset(spec.id, spec.revision, spec.card, true, 4),
+        ...(spec.claim ?? {}),
+      })),
+    }],
+  };
+  const inventoryText = JSON.stringify(inventory);
+  const inventoryHash = sha256HexUtf8(inventoryText);
+  const dispositions = {
+    schema: 'worldwide-legal-search.source-dispositions@1',
+    inventory_revision: inventoryHash,
+    dispositions: specs.map((spec) => row(
+      spec.id,
+      spec.family,
+      'include',
+      'Included as national law text. The repository id was not used.',
+      ['laws'],
+      spec.revision,
+    )),
+    unassigned: [],
+  };
+  const dispositionText = JSON.stringify(dispositions);
+  const dispositionHash = sha256HexUtf8(dispositionText);
+  const rights = {
+    schema: 'worldwide-legal-search.rights@1',
+    inventory_revision: inventoryHash,
+    disposition_revision: dispositionHash,
+    records: specs.map((spec) => ({
+      dataset_id: spec.id,
+      artifact_revision: spec.revision,
+      card_sha256: spec.card,
+      status: 'resolved',
+      inferred_from_organization: false,
+      rights: 'CC0-1.0',
+    })),
+  };
+  const geography = {
+    dataset_id: BOUNDARY,
+    revision: '9'.repeat(40),
+    municipality_detail: 'unavailable',
+    complete_world: false,
+    hierarchical: true,
+    source: {
+      acquired_on: '2026-10-30',
+      committed_at: '2023-09-13T20:20:48Z',
+      license_file_sha256: 'a'.repeat(64),
+      citation_file_sha256: 'b'.repeat(64),
+    },
+    census: {
+      metadata_files: 4,
+      country_directories: 3,
+      by_level: { ADM0: 2, ADM1: 1, ADM2: 1, ADM3: 0, ADM4: 0, ADM5: 0 },
+      municipal_files: 0,
+      open_municipal_files: 0,
+      missing_adm0: ['PRI'],
+      metadata_rollup_sha256: 'c'.repeat(64),
+    },
+  };
+  return publishCatalog({
+    inventoryText,
+    dispositionText,
+    rightsText: JSON.stringify(rights),
+    geographyText: JSON.stringify(geography),
+  });
+}
+
+function sourcePage(): HTMLElement {
+  const node = document.querySelector('[data-page="source"]');
+  if (!node) throw new Error('missing source page');
+  return node as HTMLElement;
+}
+
+function expectSourceUnmarked(node: HTMLElement = sourcePage()): void {
+  expect(node).toHaveAttribute('data-schema', SOURCE_PAGE_SCHEMA);
+  expect(node).toHaveAttribute('data-schema', 'worldwide-legal-search.source-page@1');
+  expect(node).not.toHaveAttribute('data-interface-id');
+  expect(node).not.toHaveAttribute('data-source-schema');
+  expect(node).not.toHaveAttribute('data-instrument-view');
+}
+
+function expectSourceBound(datasetId: string): void {
+  const hit = lookupHubDatasetBinding(datasetId);
+  if (!hit) throw new Error('missing binding ' + datasetId);
+  const node = sourcePage();
+  expect(node).toHaveAttribute('data-schema', SOURCE_PAGE_SCHEMA);
+  expect(node).toHaveAttribute('data-interface-id', hit.interfaceId);
+  expect(node).toHaveAttribute('data-source-schema', hit.sourceSchemaId);
+  expect(node).not.toHaveAttribute('data-instrument-view');
+  expect(hit.interfaceId).not.toBe(datasetId);
+  expect(hit.sourceSchemaId).not.toBe(datasetId);
+  expect(hit.sourceSchemaId).not.toBe('country-laws-ir-graphrag/v1');
 }
 
 function catalogCell(jurisdiction: string, level: string, capability: string): HTMLElement {
@@ -382,6 +510,7 @@ describe('source page', () => {
   test('shows law lineage and keeps boundary lineage on its own digests', () => {
     const { rerender } = render(<SourcePage catalog={catalog} sourceId={LAW} />);
     expect(document.querySelector('[data-page="source"]')).toHaveAttribute('data-schema', SOURCE_PAGE_SCHEMA);
+    expectSourceUnmarked();
     const roles = [...document.querySelectorAll('[data-field="lineage"] [data-lineage]')].map((node) => node.getAttribute('data-lineage'));
     expect(roles).toEqual(['inventory', 'disposition', 'revision', 'decision', 'rights', 'card']);
     expect(document.querySelector('[data-lineage="revision"]')).toHaveTextContent('a'.repeat(40));
@@ -395,6 +524,7 @@ describe('source page', () => {
     expect(document.querySelector('[data-field="freshness"]')).toHaveTextContent('2026-10-30T09:39:25.250Z');
 
     rerender(<SourcePage catalog={catalog} sourceId={BOUNDARY} placeId="place:amsterdam" />);
+    expectSourceUnmarked();
     const boundaryRoles = [...document.querySelectorAll('[data-field="lineage"] [data-lineage]')].map((node) => node.getAttribute('data-lineage'));
     expect(boundaryRoles).toEqual(['inventory', 'disposition', 'revision', 'decision', 'rights', 'card', 'geography', 'license', 'citation', 'rollup']);
     expect(document.querySelector('[data-lineage="geography"]')).toHaveTextContent('9'.repeat(40));
@@ -407,6 +537,7 @@ describe('source page', () => {
 
   test('an unknown source and an excluded source do not become absence of law', () => {
     const { rerender } = render(<SourcePage catalog={catalog} sourceId="endomorphosis/not_in_catalog" query="" hits={[]} />);
+    expectSourceUnmarked();
     const missing = document.querySelector('[data-field="source-missing"]') as HTMLElement;
     expect(missing).toHaveAttribute('data-coverage', 'unknown');
     expect(missing).toHaveTextContent('This source is not in the catalog.');
@@ -415,11 +546,85 @@ describe('source page', () => {
     expect(document.querySelector('[data-field="search-statement"]')).toHaveTextContent(COPY.empty_query);
     expect(document.body.textContent).not.toContain('No matches in the collections');
     expect(document.querySelector('[data-lineage="revision"]')).toHaveTextContent('unknown');
+    rerender(<SourcePage catalog={catalog} sourceId={COURTS} />);
+    expect(document.querySelector('[data-field="source-missing"]')).toBeTruthy();
+    expectSourceUnmarked();
     rerender(<SourcePage catalog={catalog} sourceId={EXCLUDED} query="code" />);
+    expectSourceUnmarked();
     expect(screen.getByText(/This source is excluded/)).toBeInTheDocument();
     expect(document.querySelector('[data-decision="exclude"]')).toBeTruthy();
     expect(document.querySelector('[data-field="search-statement"]')).toHaveTextContent(COPY.unsearched);
     expect(document.querySelector('[data-field="coverage-matrix"]')?.querySelector('[data-coverage]')).toBeNull();
+    assertNoLawClaim();
+  });
+
+  test('marks a lookup hit and leaves a fixture source and national law unmarked', () => {
+    const pageSource = readFileSync('src/components/worldwide/SourcePage.tsx', 'utf8');
+    expect(SOURCE_PAGE_SCHEMA).toBe('worldwide-legal-search.source-page@1');
+    expect(pageSource).toContain(SOURCE_PAGE_SCHEMA);
+    expect(pageSource).toContain('lookupHubDatasetBinding');
+    expect(pageSource).not.toContain('selectInstrumentView');
+    expect(pageSource).not.toContain('data-instrument-view');
+    expect(pageSource).not.toMatch(/\bfetch\s*\(/);
+
+    const catalog = publishBindingCatalog();
+    const courtsSource = catalog.sources.find((item) => item.dataset_id === COURTS);
+    const claimed = catalog.sources.find((item) => item.dataset_id === CLAIMED);
+    const national = catalog.sources.find((item) => item.dataset_id === NATIONAL);
+    expect(courtsSource?.interface_id).toBe('legal-corpus.caselaw@1');
+    expect(courtsSource?.source_schema_id).toBe('unversioned');
+    expect(claimed?.interface_id).toBe('legal-corpus.court@1');
+    expect(claimed?.source_schema_id).toBe('unversioned');
+    expect(national && Object.prototype.hasOwnProperty.call(national, 'interface_id')).toBe(false);
+    expect(national && Object.prototype.hasOwnProperty.call(national, 'source_schema_id')).toBe(false);
+
+    const { rerender } = render(<SourcePage catalog={catalog} sourceId={LAW} />);
+    expect(screen.getByRole('heading', { name: LAW })).toBeInTheDocument();
+    expectSourceUnmarked();
+
+    rerender(<SourcePage catalog={catalog} sourceId={NATIONAL} />);
+    expect(screen.getByRole('heading', { name: NATIONAL })).toBeInTheDocument();
+    expectSourceUnmarked();
+    expect(document.body.textContent).not.toContain('country-laws-ir-graphrag/v1');
+
+    rerender(<SourcePage catalog={catalog} sourceId={WETWIJZER} />);
+    expect(screen.getByRole('heading', { name: WETWIJZER })).toBeInTheDocument();
+    expectSourceUnmarked();
+
+    rerender(<SourcePage catalog={catalog} sourceId={CLAIMED} />);
+    expect(screen.getByRole('heading', { name: CLAIMED })).toBeInTheDocument();
+    expectSourceUnmarked();
+
+    rerender(<SourcePage catalog={catalog} sourceId={BOUNDARY} />);
+    expect(screen.getByRole('heading', { name: BOUNDARY })).toBeInTheDocument();
+    expectSourceUnmarked();
+
+    rerender(<SourcePage catalog={catalog} sourceId={COURTS} />);
+    expect(screen.getByRole('heading', { name: COURTS })).toBeInTheDocument();
+    expectSourceBound(COURTS);
+    expect(sourcePage()).toHaveAttribute('data-interface-id', 'legal-corpus.court@1');
+    expect(sourcePage()).toHaveAttribute('data-source-schema', 'unversioned');
+    expect(sourcePage().getAttribute('data-interface-id')).not.toBe(courtsSource?.interface_id);
+
+    rerender(<SourcePage catalog={catalog} sourceId={CASELAW} />);
+    expect(screen.getByRole('heading', { name: CASELAW })).toBeInTheDocument();
+    expectSourceBound(CASELAW);
+    expect(sourcePage()).toHaveAttribute('data-interface-id', 'legal-corpus.caselaw@1');
+    expect(sourcePage()).toHaveAttribute('data-source-schema', 'unversioned');
+
+    rerender(<SourcePage catalog={catalog} sourceId={CAP} />);
+    expect(screen.getByRole('heading', { name: CAP })).toBeInTheDocument();
+    expectSourceBound(CAP);
+    expect(sourcePage()).toHaveAttribute('data-interface-id', 'legal-corpus.caselaw@1');
+    expect(sourcePage()).toHaveAttribute('data-source-schema', 'unversioned');
+
+    rerender(<SourcePage catalog={catalog} sourceId={MUNICIPAL_LAW} />);
+    expect(screen.getByRole('heading', { name: MUNICIPAL_LAW })).toBeInTheDocument();
+    expectSourceBound(MUNICIPAL_LAW);
+    expect(sourcePage()).toHaveAttribute('data-interface-id', 'legal-corpus.municipal-instrument@1');
+    expect(sourcePage()).toHaveAttribute('data-source-schema', 'world_municipal/schema.py');
+
+    expect(fetchHost.fetch).not.toHaveBeenCalled();
     assertNoLawClaim();
   });
 });

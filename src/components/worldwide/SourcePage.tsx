@@ -6,6 +6,11 @@
  * geography revision and the license, citation, and rollup digests.
  * Organization membership is not a license. An empty search is not a result
  * about the law, and a missing source stays unknown.
+ *
+ * data-schema stays worldwide-legal-search.source-page@1. data-interface-id
+ * and data-source-schema are set only when lookupHubDatasetBinding accepts
+ * the catalog source dataset id. A catalog claim is not that pair. This page
+ * does not select an instrument view.
  */
 
 import { useId, useMemo } from 'react';
@@ -15,6 +20,7 @@ import {
   type CatalogSource,
   type Level,
 } from '../../lib/worldwide/data/catalog';
+import { lookupHubDatasetBinding } from '../../lib/worldwide/data/hub-bindings';
 import { bandLabel, resultCopy, type ResultLocale } from './SearchFilters';
 import {
   COVERAGE_PAGE_SCHEMA,
@@ -75,6 +81,7 @@ export function SourcePage({ catalog, sourceId, query, hits, locale, placeId }: 
   const { draft, setDraft, setSubmitted, search } = usePageSearch(query, hits, copy);
   const problem = useMemo(() => catalogProblem(catalog), [catalog]);
   const source = catalog && !problem ? findSource(catalog, sourceId) : null;
+  const binding = source ? lookupHubDatasetBinding(source.dataset_id) : null;
   const cells = catalog && !problem && source ? cellsForSource(catalog, source) : [];
   const municipal = dominantMunicipal(cells.filter((cell) => cell.level === 'municipal').map((cell) => cell.coverage_state));
   const steps = catalog && !problem ? sourceLineage(catalog, source) : [];
@@ -91,6 +98,8 @@ export function SourcePage({ catalog, sourceId, query, hits, locale, placeId }: 
       data-state={pageState(search, source ? municipal : 'unknown', !problem)}
       data-search={search.kind}
       data-schema={SOURCE_PAGE_SCHEMA}
+      data-interface-id={binding?.interfaceId}
+      data-source-schema={binding?.sourceSchemaId}
       data-coverage-schema={COVERAGE_PAGE_SCHEMA}
       data-source={sourceId}
       data-decision={source?.decision ?? 'unknown'}
