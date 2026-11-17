@@ -435,6 +435,118 @@ describe('compact postings emission', () => {
     expect(index.pages.full_corpus_bundled).toBe(false);
   });
 
+  test('copies interface_id and source_schema_id only when the source already has both', () => {
+    const index = prepareIndex({
+      asOf: AS_OF,
+      documents: [
+        {
+          entry_cid: 'entry-both',
+          title: 'Both claims',
+          body: 'alpha rules',
+          record_type: 'law',
+          instrumentKind: 'statute',
+          country_ir_schema: 'country-laws-ir-graphrag/v1',
+          interface_id: '  legal-corpus.caselaw@1  ',
+          source_schema_id: 'unversioned',
+        },
+        {
+          entry_cid: 'entry-neither',
+          title: 'Neither claim',
+          body: 'beta rules',
+          record_type: 'article',
+          instrumentKind: 'decision',
+        },
+        {
+          entry_cid: 'entry-interface',
+          title: 'Interface only',
+          body: 'gamma rules',
+          record_type: 'law',
+          instrumentKind: 'regulation',
+          interface_id: 'legal-corpus.regulation@1',
+        },
+        {
+          entry_cid: 'entry-schema',
+          title: 'Schema only',
+          body: 'delta rules',
+          record_type: 'other',
+          instrumentKind: 'ordinance',
+          source_schema_id: 'live-cfr-source-processor-v1',
+        },
+        {
+          entry_cid: 'entry-blank',
+          title: 'Blank pair',
+          body: 'epsilon rules',
+          interface_id: '   ',
+          source_schema_id: '',
+        },
+      ],
+    });
+    const summaries = index.offline.document_summaries;
+    const schema = loadIndexSchema() as {
+      $defs: { summary: { additionalProperties: boolean; required: string[]; properties: Record<string, unknown> } };
+      properties: { compatibility: { required: string[]; properties: Record<string, unknown> } };
+    };
+
+    expect(summaries.map((row) => row.identity)).toEqual([
+      'entry-both', 'entry-neither', 'entry-interface', 'entry-schema', 'entry-blank',
+    ]);
+    expect(summaries[0]).toMatchObject({
+      record_type: 'law',
+      interface_id: 'legal-corpus.caselaw@1',
+      source_schema_id: 'unversioned',
+    });
+    expect(summaries[0]).not.toHaveProperty('country_ir_schema');
+    expect(summaries[0]).not.toHaveProperty('instrumentKind');
+    for (const row of summaries.slice(1)) {
+      expect(row).not.toHaveProperty('interface_id');
+      expect(row).not.toHaveProperty('source_schema_id');
+      expect(row).not.toHaveProperty('country_ir_schema');
+      expect(row).not.toHaveProperty('instrumentKind');
+    }
+    expect(index.offline.summary_shards.flatMap((shard) => shard.records)).toEqual(summaries);
+    expect(index.compatibility.country_ir_schema).toBe('');
+    expect(schema.properties.compatibility.required).toContain('country_ir_schema');
+    expect(schema.properties.compatibility.properties).toHaveProperty('country_ir_schema');
+    expect(schema.$defs.summary.additionalProperties).toBe(false);
+    expect(schema.$defs.summary.properties).toHaveProperty('interface_id');
+    expect(schema.$defs.summary.properties).toHaveProperty('source_schema_id');
+    expect(schema.$defs.summary.properties).not.toHaveProperty('country_ir_schema');
+    expect(schema.$defs.summary.required).toEqual([
+      'document_index',
+      'identity',
+      'identity_kind',
+      'source_id',
+      'record_id',
+      'title',
+      'title_truncated',
+      'record_type',
+      'language',
+      'jurisdiction_id',
+      'jurisdiction_label',
+      'instrument_id',
+      'law_id',
+      'article_number',
+      'identifier',
+      'official_identifier',
+      'title_tokens',
+      'body_tokens',
+      'document_length',
+      'text_sha256',
+      'official_citation_invented',
+    ]);
+    expect(schemaProblems(schema, index)).toEqual([]);
+    expect(JSON.stringify(summaries)).not.toContain('country-laws-ir-graphrag/v1');
+    expect(JSON.stringify(summaries)).not.toContain('statute');
+    expect(JSON.stringify(summaries)).not.toContain('instrumentKind');
+
+    const bare = compactPair();
+    expect(bare.offline.document_summaries.every((row) => !('interface_id' in row) && !('source_schema_id' in row))).toBe(true);
+    expect(schemaProblems(schema, bare)).toEqual([]);
+    delete summaries[0]?.interface_id;
+    delete summaries[0]?.source_schema_id;
+    expect(schemaProblems(schema, index)).toEqual([]);
+  });
+
   test('rejects a pages routing manifest that would carry the corpus or an unknown summary field', () => {
     const index = compactPair();
     const schema = loadIndexSchema();

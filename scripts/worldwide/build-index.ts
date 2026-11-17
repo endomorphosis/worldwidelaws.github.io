@@ -11,7 +11,9 @@
  * follow country_laws_ir/bm25.py: k1 1.2, b 0.75, title weight 5, body weight
  * 1, natural-log idf, and the pinned fts5-unicode61 tokenizer. Document
  * summaries keep identity, a short title, lengths, and a text checksum. They
- * do not keep the body. A missed term does not fall back to every shard.
+ * do not keep the body. interface_id and source_schema_id are copied only when
+ * the source row already has both non-empty strings. A missed term does not
+ * fall back to every shard.
  *
  * This script does not read parquet, does not invent an official citation,
  * and does not write a corpus into the site tree.
@@ -135,6 +137,8 @@ export interface IndexSourceDocument {
   identifier?: unknown;
   official_identifier?: unknown;
   source_revision?: unknown;
+  interface_id?: unknown;
+  source_schema_id?: unknown;
   [extra: string]: unknown;
 }
 
@@ -253,6 +257,8 @@ export interface DocumentSummary {
   document_length: number;
   text_sha256: string;
   official_citation_invented: false;
+  interface_id?: string;
+  source_schema_id?: string;
 }
 
 export interface PayloadShard<T> {
@@ -402,6 +408,13 @@ function copyId(value: unknown, max: number): string {
   if (typeof value !== 'string') return '';
   const cleaned = cleanText(value, max + 1);
   return cleaned.length > max ? '' : cleaned;
+}
+
+function sourceClaimPair(doc: IndexSourceDocument): { interface_id: string; source_schema_id: string } | null {
+  const interfaceId = copyId(doc.interface_id, 256);
+  const sourceSchemaId = copyId(doc.source_schema_id, 256);
+  if (!interfaceId || !sourceSchemaId) return null;
+  return { interface_id: interfaceId, source_schema_id: sourceSchemaId };
 }
 
 function isSafeRelative(value: string, allowCorpus: boolean): boolean {
@@ -788,6 +801,7 @@ function admitDocuments(documents: readonly IndexSourceDocument[], jurisdictionI
         document_length: titleTokens.length * BM25.titleWeight + bodyTokens.length * BM25.bodyWeight,
         text_sha256: sha256HexUtf8(`${tokenTitle}\n${tokenBody}`),
         official_citation_invented: false,
+        ...sourceClaimPair(doc),
       },
     });
   });

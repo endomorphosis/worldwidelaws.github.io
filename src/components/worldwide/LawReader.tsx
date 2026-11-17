@@ -11,6 +11,9 @@
  * The browser timezone is not a source timezone. Unknown dates stay unknown.
  * Rights come from the pinned record. Organization membership is not a license,
  * and an unresolved grant does not become a download.
+ *
+ * data-schema stays the reader schema. data-instrument-view is set only when
+ * selectInstrumentView accepts a claim the record already names.
  */
 
 import { useEffect, useMemo, useRef, useState, type MouseEvent, type ReactNode } from 'react';
@@ -28,6 +31,11 @@ import {
   labelNetherlandsSampleSection,
 } from '../../lib/worldwide/adapters/netherlands';
 import { intervalStatus, type ValidityInterval } from '../../lib/worldwide/jurisdiction/schema';
+import {
+  instrumentViewId,
+  selectInstrumentView,
+  type InstrumentClaim,
+} from '../../lib/worldwide/views/select';
 import { resultCopy, type ResultCopy, type ResultLocale } from './SearchFilters';
 import '../../styles/worldwide.css';
 
@@ -1116,6 +1124,7 @@ export interface LawReaderProps {
   viewport?: 'mobile' | 'desktop';
   corpus?: ReaderCorpus | null;
   loadCorpus?: () => Promise<ReaderCorpus>;
+  instrument?: InstrumentClaim | null;
   onReturn?: (nav: ReaderReturn) => void;
   onOpenSection?: (target: { recordId: string; sectionId: string; sourceRevision: string }) => void;
 }
@@ -1136,6 +1145,7 @@ export function LawReader({
   viewport,
   corpus: corpusProp = null,
   loadCorpus = fetchBundledReaderCorpus,
+  instrument = null,
   onReturn,
   onOpenSection,
 }: LawReaderProps) {
@@ -1297,6 +1307,7 @@ export function LawReader({
           : state === 'stale-cache'
             ? copy.next_stale
             : copy.next_ready;
+  const instrumentView = instrument ? instrumentViewId(selectInstrumentView(instrument)) : null;
 
   return (
     <div
@@ -1307,6 +1318,7 @@ export function LawReader({
       data-state={state}
       data-viewport={mobile ? 'mobile' : 'desktop'}
       data-schema={READER_SCHEMA}
+      data-instrument-view={instrumentView ?? undefined}
       data-revision={section?.sourceRevision ?? ''}
       data-status-kind={view.kind === 'section' ? view.reading.kind : view.kind}
     >

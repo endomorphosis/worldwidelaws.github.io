@@ -9,11 +9,20 @@
  * A proof summary joins only that same content id. Simulated, unknown,
  * and incomplete proof output cannot establish applicability or current
  * law. No model, account, or server is called.
+ *
+ * A passage exposes data-instrument-view only when it already names an
+ * interface id and source schema that selectInstrumentView accepts. A
+ * filter token is not an interface id. Applicability stays not-asserted.
  */
 
 import { useId, useState } from 'react';
 import { buildLawDeepLink } from '../../lib/worldwide/contracts';
 import { verifySimulatedCertificate, type SimulatedVerificationResult } from '../../lib/logic/zkp/simulatedVerifier';
+import {
+  instrumentViewId,
+  selectInstrumentView,
+  type InstrumentClaim,
+} from '../../lib/worldwide/views/select';
 import { resultCopy, type ResultCopy, type ResultLocale } from './SearchFilters';
 import '../../styles/worldwide.css';
 
@@ -258,6 +267,18 @@ export interface ResearchPassageInput {
   jsonld?: unknown;
   status_note?: unknown;
   statusNote?: unknown;
+  interfaceId?: unknown;
+  interface_id?: unknown;
+  kindVersion?: unknown;
+  kind_version?: unknown;
+  sourceSchemaId?: unknown;
+  source_schema_id?: unknown;
+  sourceSchemaVersion?: unknown;
+  source_schema_version?: unknown;
+  schema?: unknown;
+  row?: unknown;
+  sourceRow?: unknown;
+  source_row?: unknown;
 }
 
 export interface ProofSummaryInput {
@@ -364,6 +385,7 @@ export interface ResearchPassageView {
   injection: boolean;
   translation: ResearchTranslationView | null;
   proof: ResearchProofView;
+  instrumentView: string | null;
 }
 
 export interface ResearchAnswerView {
@@ -415,6 +437,7 @@ interface HeldPassage {
   recordedStatus: string;
   translation: ResearchTranslationView | null;
   injection: boolean;
+  instrumentView: string | null;
 }
 
 interface HeldProof {
@@ -533,6 +556,30 @@ function translationKind(value: unknown): TranslationKind {
   return value === 'machine' || value === 'official' ? value : 'unknown';
 }
 
+const PASSAGE_CLAIM_KEYS = [
+  'interfaceId',
+  'interface_id',
+  'kindVersion',
+  'kind_version',
+  'sourceSchemaId',
+  'source_schema_id',
+  'sourceSchemaVersion',
+  'source_schema_version',
+  'schema',
+  'row',
+  'sourceRow',
+  'source_row',
+] as const satisfies readonly (keyof InstrumentClaim)[];
+
+/** View id for a claim the passage already carries. Missing ids and filter tokens stay unmarked. */
+function passageInstrumentView(record: Record<string, unknown>): string | null {
+  const claim: InstrumentClaim = {};
+  for (const key of PASSAGE_CLAIM_KEYS) {
+    if (key in record) claim[key] = record[key];
+  }
+  return instrumentViewId(selectInstrumentView(claim));
+}
+
 function holdPassage(value: unknown): HeldPassage | null {
   const record = asRecord(value);
   if (!record) return null;
@@ -577,6 +624,7 @@ function holdPassage(value: unknown): HeldPassage | null {
     recordedStatus: recordedStatus(firstString(record, ['status', 'law_status'])),
     translation,
     injection,
+    instrumentView: passageInstrumentView(record),
   };
 }
 
@@ -792,6 +840,7 @@ export function composeCitedResearch(input?: ResearchInput | null): ResearchView
       injection: passage.injection,
       translation: passage.translation,
       proof: viewProof,
+      instrumentView: passage.instrumentView,
     };
   });
   const answerPassages = supplied.status === 'accepted'
@@ -938,6 +987,7 @@ export function ResearchPanel(props: ResearchPanelProps) {
             data-citable={passage.citable ? 'true' : 'false'}
             data-version={passage.version}
             data-cited={passage.citedInAnswer ? 'true' : 'false'}
+            data-instrument-view={passage.instrumentView ?? undefined}
           >
             <article data-material="source" data-untrusted="true" lang={passage.language ?? undefined} dir={passage.direction ?? undefined}>
               <h3>{copy.source}</h3>

@@ -12,6 +12,7 @@ import userEvent from '@testing-library/user-event';
 import {
   BUNDLED_NETHERLANDS_RIGHTS,
   LawReader,
+  READER_SCHEMA,
   assembleReaderCorpus,
   fetchBundledReaderCorpus,
   isFloatingRevision,
@@ -549,5 +550,86 @@ describe('access and recovery', () => {
     expect(field('stale')).toHaveTextContent(TEXT_REVISION);
     expect(field('stale')).toHaveTextContent('f'.repeat(40));
     expect(document.querySelector('.wwl')).toHaveAttribute('data-state', 'stale-cache');
+  });
+});
+
+describe('instrument view marker', () => {
+  function readerRoot(): HTMLElement {
+    const root = document.querySelector('.wwl');
+    if (!(root instanceof HTMLElement)) throw new Error('missing reader');
+    return root;
+  }
+
+  test('a reader with no instrument claim keeps the reader schema and the section title', () => {
+    open();
+    const root = readerRoot();
+    expect(READER_SCHEMA).toBe('worldwide-legal-search.law-reader@1');
+    expect(root).toHaveAttribute('data-schema', READER_SCHEMA);
+    expect(root.getAttribute('data-schema')).not.toBe('worldwide-legal-search.law-source@1');
+    expect(root).not.toHaveAttribute('data-instrument-view');
+    expect(field('original-title')).toHaveTextContent(criminal.title);
+    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('Wetboek van Strafrecht');
+    expect(fetchHost.fetch).not.toHaveBeenCalled();
+  });
+
+  test('an accepted caselaw claim names the caselaw view and keeps the reader schema', () => {
+    open({
+      instrument: {
+        interfaceId: 'legal-corpus.caselaw@1',
+        sourceSchemaId: 'unversioned',
+        row: {
+          source_schema_id: 'unversioned',
+          ecli: 'ECLI:FR:CCASS:2020:FIXTURE',
+          text: 'The fixture decision body.',
+        },
+      },
+    });
+    const root = readerRoot();
+    expect(root).toHaveAttribute('data-schema', 'worldwide-legal-search.law-reader@1');
+    expect(root.getAttribute('data-schema')).not.toBe('worldwide-legal-search.law-source@1');
+    expect(root).toHaveAttribute('data-instrument-view', 'worldwide-legal-search.caselaw-view@1');
+    expect(root.getAttribute('data-instrument-view')).not.toBe('worldwide-legal-search.law-source@1');
+    expect(field('original-title')).toHaveTextContent(criminal.title);
+    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('Wetboek van Strafrecht');
+    expect(fetchHost.fetch).not.toHaveBeenCalled();
+  });
+
+  test('a decision filter token leaves the instrument view unset', () => {
+    open({
+      instrument: {
+        interfaceId: 'decision',
+        sourceSchemaId: 'unversioned',
+        row: {
+          source_schema_id: 'unversioned',
+          ecli: 'ECLI:FR:CCASS:2020:FIXTURE',
+          text: 'The fixture decision body.',
+        },
+      },
+    });
+    const root = readerRoot();
+    expect(root).toHaveAttribute('data-schema', READER_SCHEMA);
+    expect(root).not.toHaveAttribute('data-instrument-view');
+    expect(field('original-title')).toHaveTextContent(criminal.title);
+    expect(fetchHost.fetch).not.toHaveBeenCalled();
+  });
+
+  test('a regulation filter token leaves the instrument view unset', () => {
+    open({
+      instrument: {
+        interfaceId: 'regulation',
+        sourceSchemaId: 'cfr-annual-processor-v1',
+        row: {
+          schema_version: 'cfr-annual-processor-v1',
+          citation: '37 CFR 1.1',
+          text_excerpt: 'excerpt',
+        },
+      },
+    });
+    const root = readerRoot();
+    expect(root).toHaveAttribute('data-schema', READER_SCHEMA);
+    expect(root.getAttribute('data-schema')).not.toBe('worldwide-legal-search.law-source@1');
+    expect(root).not.toHaveAttribute('data-instrument-view');
+    expect(field('original-title')).toHaveTextContent(criminal.title);
+    expect(fetchHost.fetch).not.toHaveBeenCalled();
   });
 });

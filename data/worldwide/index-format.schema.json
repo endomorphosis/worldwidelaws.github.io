@@ -101,7 +101,7 @@
     "summary": {
       "type": "object",
       "additionalProperties": false,
-      "description": "Document summary. Body text is not a property. text_sha256 checksums the tokenized title and body.",
+      "description": "Document summary. Body text is not a property. text_sha256 checksums the tokenized title and body. interface_id and source_schema_id are optional and are stored together only when the source document already has both non-empty strings.",
       "required": [
         "document_index",
         "identity",
@@ -146,7 +146,9 @@
         "body_tokens": { "type": "integer", "minimum": 0 },
         "document_length": { "type": "integer", "minimum": 0 },
         "text_sha256": { "$ref": "#/$defs/sha256" },
-        "official_citation_invented": { "const": false }
+        "official_citation_invented": { "const": false },
+        "interface_id": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "source_schema_id": { "type": "string", "minLength": 1, "maxLength": 256 }
       }
     },
     "postingShard": {

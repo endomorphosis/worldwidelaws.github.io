@@ -506,3 +506,152 @@ describe('search stays independent', () => {
     expect(within(screen.getByRole('region', { name: 'Research' })).queryByRole('heading', { name: 'Generated answer' })).not.toBeInTheDocument();
   });
 });
+
+describe('instrument view marker', () => {
+  function passageItems(): HTMLElement[] {
+    return [...document.querySelectorAll('section.wwl > ol > li')] as HTMLElement[];
+  }
+
+  test('a passage with no interface id keeps the research markup', () => {
+    render(<ResearchPanel passages={bundledPassages()} proofs={proofs} />);
+    const panel = screen.getByRole('region', { name: 'Research' });
+    expect(panel).toHaveAttribute('data-schema', RESEARCH_SCHEMA);
+    expect(panel).toHaveAttribute('data-schema', 'worldwide-legal-search.research-panel@1');
+    expect(panel).toHaveAttribute('data-applicability', RESEARCH_APPLICABILITY);
+    expect(panel).toHaveAttribute('data-applicability', 'not-asserted');
+    expect(panel).not.toHaveAttribute('data-instrument-view');
+    const items = passageItems();
+    expect(items.length).toBe(sections.length);
+    for (const item of items) {
+      expect(item).not.toHaveAttribute('data-instrument-view');
+      expect([...item.attributes].map((attribute) => attribute.name).sort()).toEqual([
+        'data-cid',
+        'data-citable',
+        'data-cited',
+        'data-revision',
+        'data-version',
+      ]);
+    }
+    expect(field('source-text').textContent).toBe(criminal.text);
+    expect(fetchHost.fetch).not.toHaveBeenCalled();
+  });
+
+  test('an accepted caselaw passage names the caselaw view on that passage', () => {
+    const row = {
+      source_schema_id: 'unversioned',
+      ecli: 'ECLI:NL:HR:2020:FIXTURE',
+      text: 'The fixture decision body.',
+    };
+    const view = composeCitedResearch({
+      passages: [
+        passage(criminal, TEXT_REVISION),
+        passage(civil, TEXT_REVISION, {
+          interfaceId: 'legal-corpus.caselaw@1',
+          sourceSchemaId: 'unversioned',
+          row,
+        }),
+      ],
+      proofs,
+    });
+    expect(view.schema).toBe(RESEARCH_SCHEMA);
+    expect(view.applicability).toBe('not-asserted');
+    expect(view.establishesApplicability).toBe(false);
+    expect(view.passages[0]?.instrumentView).toBeNull();
+    expect(view.passages[1]?.instrumentView).toBe('worldwide-legal-search.caselaw-view@1');
+    expect(view.answer?.text).not.toContain('caselaw-view');
+    expect(view.answer?.text).not.toContain('law-source@1');
+    expect(view.answer?.text).not.toContain('The fixture decision body.');
+
+    render(
+      <ResearchPanel
+        passages={[
+          passage(criminal, TEXT_REVISION),
+          passage(civil, TEXT_REVISION, {
+            interfaceId: 'legal-corpus.caselaw@1',
+            sourceSchemaId: 'unversioned',
+            row,
+          }),
+        ]}
+        proofs={proofs}
+      />,
+    );
+    const panel = screen.getByRole('region', { name: 'Research' });
+    expect(panel).toHaveAttribute('data-schema', 'worldwide-legal-search.research-panel@1');
+    expect(panel.getAttribute('data-schema')).not.toBe('worldwide-legal-search.law-source@1');
+    expect(panel.getAttribute('data-schema')).not.toBe('worldwide-legal-search.caselaw-view@1');
+    expect(panel).toHaveAttribute('data-applicability', 'not-asserted');
+    expect(panel).not.toHaveAttribute('data-instrument-view');
+    const items = passageItems();
+    expect(items[0]).not.toHaveAttribute('data-instrument-view');
+    expect(items[1]).toHaveAttribute('data-instrument-view', 'worldwide-legal-search.caselaw-view@1');
+    expect(items[1]?.getAttribute('data-instrument-view')).not.toBe('worldwide-legal-search.law-source@1');
+    expect(field('source-text', items[1])).toBeTruthy();
+    expect(field('source-text', items[1]).textContent).toBe(civil.text);
+    expect(field('source-text', items[1]).textContent).not.toContain('The fixture decision body.');
+    expect(fetchHost.fetch).not.toHaveBeenCalled();
+  });
+
+  test('a filter token does not select a view', () => {
+    const otherRevision = 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee';
+    const kindOnly = passage(sections[2], TEXT_REVISION) as ResearchPassageInput & {
+      instrumentKind?: string;
+      record_type?: string;
+    };
+    kindOnly.instrumentKind = 'decision';
+    kindOnly.record_type = 'caselaw';
+    const view = composeCitedResearch({
+      passages: [
+        passage(criminal, TEXT_REVISION, {
+          interfaceId: 'decision',
+          sourceSchemaId: 'unversioned',
+          row: { source_schema_id: 'unversioned', text: 'Filter token decision.' },
+        }),
+        passage(civil, otherRevision, {
+          interfaceId: 'regulation',
+          sourceSchemaId: 'cfr-annual-processor-v1',
+          row: { source_schema_id: 'cfr-annual-processor-v1', text: 'Filter token regulation.' },
+        }),
+        passage(sections[2], otherRevision, {
+          interfaceId: 'legal-corpus.caselaw@1',
+          sourceSchemaId: 'unversioned',
+        }),
+        passage(sections[2], 'ffffffffffffffffffffffffffffffffffffffff', {
+          interfaceId: 'legal-corpus.caselaw@1',
+          sourceSchemaId: 'country-laws-ir-graphrag/v1',
+          row: { source_schema_id: 'country-laws-ir-graphrag/v1', text: 'Crossed pair.' },
+        }),
+        kindOnly,
+      ],
+      proofs,
+    });
+    expect(view.schema).toBe(RESEARCH_SCHEMA);
+    expect(view.applicability).toBe('not-asserted');
+    expect(view.passages.every((item) => item.instrumentView === null)).toBe(true);
+    render(
+      <ResearchPanel
+        passages={[
+          passage(criminal, TEXT_REVISION, {
+            interfaceId: 'decision',
+            sourceSchemaId: 'unversioned',
+            row: { text: 'Filter token decision.' },
+          }),
+          passage(civil, otherRevision, {
+            interfaceId: 'regulation',
+            sourceSchemaId: 'cfr-annual-processor-v1',
+            row: { text: 'Filter token regulation.' },
+          }),
+          kindOnly,
+        ]}
+        proofs={proofs}
+      />,
+    );
+    const panel = screen.getByRole('region', { name: 'Research' });
+    expect(panel).toHaveAttribute('data-schema', RESEARCH_SCHEMA);
+    expect(panel).toHaveAttribute('data-applicability', 'not-asserted');
+    expect(panel).not.toHaveAttribute('data-instrument-view');
+    for (const item of passageItems()) {
+      expect(item).not.toHaveAttribute('data-instrument-view');
+    }
+    expect(fetchHost.fetch).not.toHaveBeenCalled();
+  });
+});
