@@ -234,7 +234,7 @@ export function toProductionFilters(
   if (statuses.length > 0) input.statuses = statuses;
 
   if (filters.level === 'national') input.bands = ['national'];
-  else if (filters.level === 'regional') input.bands = ['regional'];
+  else if (filters.level === 'regional' || filters.level === 'province' || filters.level === 'state') input.bands = ['regional'];
   else if (filters.level === 'other') input.bands = ['special', 'supranational', 'unclassified'];
 
   const requested = tokens(filters.place);
@@ -243,7 +243,14 @@ export function toProductionFilters(
   if (recognized.length > 0 && stack) {
     const local = new Set(stack.byBand.local ?? []);
     const cityOnly = recognized.every((id) => local.has(id));
-    if (cityOnly || filters.level === 'municipal' || filters.level === 'local') {
+    if (
+      cityOnly
+      || filters.level === 'municipal'
+      || filters.level === 'local'
+      || filters.level === 'municipality'
+      || filters.level === 'city'
+      || filters.level === 'neighborhood'
+    ) {
       input.placeIds = [
         ...(stack.byBand.national ?? []),
         ...(stack.byBand.regional ?? []),

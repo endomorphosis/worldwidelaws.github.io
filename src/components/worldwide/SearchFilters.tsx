@@ -42,7 +42,7 @@ export const RESULT_STATE_IDS = [
 export type ResultStateId = (typeof RESULT_STATE_IDS)[number];
 
 export interface DisplayFilters {
-  level: '' | 'national' | 'regional' | 'municipal' | 'local' | 'other';
+  level: '' | 'national' | 'regional' | 'province' | 'state' | 'municipal' | 'local' | 'municipality' | 'city' | 'neighborhood' | 'other';
   place: string;
   topic: string;
   instrument: string;
@@ -427,7 +427,7 @@ export function resultCopy(locale: ResultLocale | null | undefined): ResultCopy 
 
 export function normalizeDisplayFilters(input?: Partial<DisplayFilters> | null): DisplayFilters {
   const level = input?.level ?? '';
-  const allowed = new Set(['', 'national', 'regional', 'municipal', 'local', 'other']);
+  const allowed = new Set(['', 'national', 'regional', 'province', 'state', 'municipal', 'local', 'municipality', 'city', 'neighborhood', 'other']);
   return {
     level: allowed.has(level) ? level : '',
     place: typeof input?.place === 'string' ? input.place : '',
@@ -558,13 +558,19 @@ export function SearchFilters({
           <label>
             {copy.level}
             <select
+              data-schema="worldwide-legal-search.level-filter@1"
               value={filters.level === 'local' ? 'municipal' : filters.level}
               onChange={(event) => patch({ level: event.target.value as DisplayFilters['level'] })}
             >
               <option value="">{copy.any}</option>
               <option value="national">{copy.level_national}</option>
               <option value="regional">{copy.level_regional}</option>
+              <option value="province">Province</option>
+              <option value="state">State</option>
               <option value="municipal">{copy.level_municipal}</option>
+              <option value="municipality">Municipality</option>
+              <option value="city">City</option>
+              <option value="neighborhood">Neighborhood</option>
               <option value="other">{copy.level_other}</option>
             </select>
           </label>

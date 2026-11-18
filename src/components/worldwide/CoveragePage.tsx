@@ -30,6 +30,8 @@ import {
   type ResultCopy,
   type ResultLocale,
 } from './SearchFilters';
+import { gapsFromCoverageCells } from '../../lib/worldwide/coverage/gaps';
+import { GapList } from './GapList';
 import '../../styles/worldwide.css';
 
 export const COVERAGE_PAGE_SCHEMA = 'worldwide-legal-search.coverage-page@1';
@@ -56,6 +58,7 @@ const ALLOWED_NEGATIONS = [
   NO_MATCHES_NOT_A_FINDING,
   COUNTED_ZERO,
   NOT_A_FINDING,
+  'That is a coverage gap, not a finding that no law exists.',
   'An empty search is not a result about the law.',
 ].sort((left, right) => right.length - left.length);
 
@@ -777,6 +780,7 @@ export function CoveragePage({ catalog, placeId, query, hits, locale }: Coverage
     );
   }
   const stablePlace = place && place.ok ? place.placeId : null;
+  const gaps = gapsFromCoverageCells(catalog.cells, LEVELS);
   return (
     <article
       className="wwl"
@@ -802,6 +806,7 @@ export function CoveragePage({ catalog, placeId, query, hits, locale }: Coverage
       {place && !place.ok ? <p data-field="place-issue">{place.message}</p> : null}
       <CatalogTotals catalog={catalog} copy={copy} />
       <MunicipalSummary catalog={catalog} />
+      <GapList gaps={gaps} />
       <CoverageMatrix catalog={catalog} copy={copy} anchor />
       <SourceIndex catalog={catalog} placeId={stablePlace} />
       <p className="wwl-applicability" data-applicability="not-asserted">{copy.applicability}</p>
